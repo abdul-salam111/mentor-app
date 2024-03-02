@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/utils/grapheme_splitter.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 
@@ -38,7 +36,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
-                   height: 20,
+                    height: 20,
                     width: 20,
                     meetings,
                     color: controller.selectedIndex.value == 1
@@ -49,7 +47,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
-                 height: 20,
+                    height: 20,
                     width: 20,
                     chats,
                     color: controller.selectedIndex.value == 2
@@ -60,6 +58,8 @@ class NavigationBarView extends GetView<NavigationBarController> {
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
+                    height: 20,
+                    width: 20,
                     notifications,
                     color: controller.selectedIndex.value == 3
                         ? darkBrownColor
@@ -69,6 +69,8 @@ class NavigationBarView extends GetView<NavigationBarController> {
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
+                    height: 20,
+                    width: 20,
                     profile,
                     color: controller.selectedIndex.value == 4
                         ? darkBrownColor

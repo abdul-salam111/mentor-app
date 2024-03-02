@@ -10,10 +10,14 @@ import '../modules/congratulations/bindings/congratulations_binding.dart';
 import '../modules/congratulations/views/congratulations_view.dart';
 import '../modules/education/bindings/education_binding.dart';
 import '../modules/education/views/education_view.dart';
+import '../modules/findMentors/bindings/find_mentors_binding.dart';
+import '../modules/findMentors/views/find_mentors_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/meetings/bindings/meetings_binding.dart';
 import '../modules/meetings/views/meetings_view.dart';
+import '../modules/mentorProfile/bindings/mentor_profile_binding.dart';
+import '../modules/mentorProfile/views/mentor_profile_view.dart';
 import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
 import '../modules/navigationBar/views/navigation_bar_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
@@ -99,6 +103,16 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.FIND_MENTORS,
+      page: () => const FindMentorsView(),
+      binding: FindMentorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_PROFILE,
+      page: () => const MentorProfileView(),
+      binding: MentorProfileBinding(),
     ),
   ];
 }

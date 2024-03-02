@@ -56,6 +56,10 @@ const verified="assets/icons/verified.png";
 const verticalmenu="assets/icons/verticalmenu.png";
 const downarrow="assets/icons/downarrow.png";
 const profilepicture="assets/icons/profilepic.png";
+const mentor="assets/icons/mentor.png";
+const mentor2="assets/icons/mentor2.png";
+const experience="assets/icons/experience.png";
+
 
 
 

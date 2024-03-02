@@ -16,6 +16,8 @@ abstract class Routes {
   static const CHATS = _Paths.CHATS;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const PROFILE = _Paths.PROFILE;
+  static const FIND_MENTORS = _Paths.FIND_MENTORS;
+  static const MENTOR_PROFILE = _Paths.MENTOR_PROFILE;
 }
 
 abstract class _Paths {
@@ -33,4 +35,6 @@ abstract class _Paths {
   static const CHATS = '/chats';
   static const NOTIFICATIONS = '/notifications';
   static const PROFILE = '/profile';
+  static const FIND_MENTORS = '/find-mentors';
+  static const MENTOR_PROFILE = '/mentor-profile';
 }

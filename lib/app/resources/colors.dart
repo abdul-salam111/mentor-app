@@ -11,4 +11,6 @@ const halfwhitecolor=Color.fromARGB(255, 243, 242, 242);
 const darkGreyColor=Color.fromARGB(255, 187, 186, 186);
 const redColor=Color.fromARGB(255, 171, 32, 23);
 const textfieldgrey=Color.fromARGB(255, 135, 135, 135);
+const greencolor=Color(0xff3DD598);
+const ratingcolor=Color(0xffFFC542);
 

@@ -5,14 +5,14 @@ import 'package:mentor_app/app/resources/colors.dart';
 
 Widget customSearchTextField() {
   return TextField(
-    style:manoropeFontFamily(
-            fontSize: 14.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
+    style: manoropeFontFamily(
+        fontSize: 14.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
     decoration: InputDecoration(
-      focusedBorder:const OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
-            borderSide: BorderSide(color: textfieldgrey,width: 2)), 
+            borderSide: BorderSide(color: textfieldgrey, width: 2)),
         enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -26,7 +26,7 @@ Widget customSearchTextField() {
         contentPadding: const EdgeInsets.only(left: 10),
         hintText: "Search for mentors",
         hintStyle: manoropeFontFamily(
-            fontSize: 14.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
+            fontSize: 12.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
         suffixIcon: const Icon(
           Icons.search,
           color: textfieldgrey,
