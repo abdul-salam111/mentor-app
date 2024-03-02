@@ -12,6 +12,10 @@ abstract class Routes {
   static const AVAILBILITY = _Paths.AVAILBILITY;
   static const CONGRATULATIONS = _Paths.CONGRATULATIONS;
   static const NAVIGATION_BAR = _Paths.NAVIGATION_BAR;
+  static const MEETINGS = _Paths.MEETINGS;
+  static const CHATS = _Paths.CHATS;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
@@ -25,4 +29,8 @@ abstract class _Paths {
   static const AVAILBILITY = '/availbility';
   static const CONGRATULATIONS = '/congratulations';
   static const NAVIGATION_BAR = '/navigation-bar';
+  static const MEETINGS = '/meetings';
+  static const CHATS = '/chats';
+  static const NOTIFICATIONS = '/notifications';
+  static const PROFILE = '/profile';
 }

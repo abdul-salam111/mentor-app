@@ -7,6 +7,7 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../commonWidgets/elevatedButton.dart';
@@ -16,7 +17,7 @@ class CongratulationsView extends GetView<CongratulationsController> {
   const CongratulationsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -66,7 +67,9 @@ class CongratulationsView extends GetView<CongratulationsController> {
                     100.heightBox,
                     CustomButton(
                         buttonName: "Continue",
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(Routes.NAVIGATION_BAR);
+                        },
                         textcolor: whitecolor,
                         loading: false,
                         backgroundColor: darkBrownColor,
