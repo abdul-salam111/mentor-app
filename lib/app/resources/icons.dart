@@ -22,7 +22,7 @@ const localBank="assets/icons/localbank.png";
 const logo="assets/icons/logo.png";
 const logout="assets/icons/logout.png";
 const meetings="assets/icons/meetings.png";
-const mentorshipStyle="assets/icons/mentoshipstyle.png";
+const mentorshipStyle="assets/icons/mentorshipstyle.png";
 const menu="assets/icons/menu.png";
 const mic="assets/icons/mic.png";
 const notifications="assets/icons/notifications.png";
@@ -46,7 +46,7 @@ const signin="assets/icons/signin.png";
 const signup="assets/icons/signup.png";
 const simplelogo="assets/icons/simplelogo.png";
 const simplemail="assets/icons/simplemail.png";
-const skills="assets/icons/skiils.png";
+const skills="assets/icons/skills.png";
 const subjects="assets/icons/subjects.png";
 const subscription="assets/icons/subscription.png";
 const timer="assets/icons/timer.png";
@@ -55,6 +55,7 @@ const twitter="assets/icons/twitter.png";
 const verified="assets/icons/verified.png";
 const verticalmenu="assets/icons/verticalmenu.png";
 const downarrow="assets/icons/downarrow.png";
+const profilepicture="assets/icons/profilepic.png";
 
 
 

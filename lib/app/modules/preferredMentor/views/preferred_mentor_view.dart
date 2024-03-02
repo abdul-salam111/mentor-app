@@ -48,7 +48,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 padding: pad12,
                 child: Row(
                   children: [
-                    Image.asset(gender),
+                    Image.asset(gender,height: 13,width: 13,),
                     10.widthBox,
                     Text(
                       "Gender",
@@ -135,7 +135,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(mentorshipStyle),
+                  Image.asset(mentorshipStyle,height: 15,width: 15,),
                   10.widthBox,
                   Text(
                     "Mentorship Style",
@@ -268,7 +268,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(industry),
+                  Image.asset(industry,height: 20,width: 20,),
                   10.widthBox,
                   Text(
                     "Industry",

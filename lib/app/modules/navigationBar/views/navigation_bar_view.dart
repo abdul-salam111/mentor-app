@@ -25,14 +25,21 @@ class NavigationBarView extends GetView<NavigationBarController> {
           ),
           unselectedLabelStyle: const TextStyle(color: darkgreyColor),
           items: <BottomNavigationBarItem>[
-             BottomNavigationBarItem(
-              icon: Obx(()=> Image.asset(home,height: 20,width: 20,color:controller.selectedIndex.value == 0
+            BottomNavigationBarItem(
+              icon: Obx(() => Image.asset(
+                    home,
+                    height: 20,
+                    width: 20,
+                    color: controller.selectedIndex.value == 0
                         ? darkBrownColor
-                        : darkgreyColor ,)),
+                        : darkgreyColor,
+                  )),
               label: "Home",
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
+                   height: 20,
+                    width: 20,
                     meetings,
                     color: controller.selectedIndex.value == 1
                         ? darkBrownColor
@@ -42,6 +49,8 @@ class NavigationBarView extends GetView<NavigationBarController> {
             ),
             BottomNavigationBarItem(
               icon: Obx(() => Image.asset(
+                 height: 20,
+                    width: 20,
                     chats,
                     color: controller.selectedIndex.value == 2
                         ? darkBrownColor
@@ -59,7 +68,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
               label: 'notifications',
             ),
             BottomNavigationBarItem(
-              icon:Obx(() => Image.asset(
+              icon: Obx(() => Image.asset(
                     profile,
                     color: controller.selectedIndex.value == 4
                         ? darkBrownColor

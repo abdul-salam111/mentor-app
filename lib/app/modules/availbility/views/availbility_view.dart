@@ -67,7 +67,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                 padding: pad12,
                 child: Row(
                   children: [
-                    Image.asset(daysoftheweek),
+                    Image.asset(daysoftheweek,width: 15,height: 15,),
                     10.widthBox,
                     Text(
                       "Days of the week available",
@@ -134,7 +134,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(timezone),
+                  Image.asset(mentorshipStyle,height: 15,width: 15,),
                   10.widthBox,
                   Text(
                     "Time Zone",
@@ -264,7 +264,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(timezone),
+                   Image.asset(mentorshipStyle,height: 15,width: 15,),
                   10.widthBox,
                   Text(
                     "Duration of mentor session",
@@ -395,7 +395,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(prefferdcommunication),
+                  Image.asset(daysoftheweek,width: 15,height: 15,),
                   10.widthBox,
                   Text(
                     "Preferred communication channel",

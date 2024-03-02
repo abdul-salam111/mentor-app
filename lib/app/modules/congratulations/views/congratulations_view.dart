@@ -39,8 +39,17 @@ class CongratulationsView extends GetView<CongratulationsController> {
                     )),
               ),
               20.heightBox,
-              const Spacer(),
-              Image.asset(congratulationimage),
+              height > 772
+                  ? Image.asset(
+                      congratulationimage,
+                      width: 210.w,
+                      height: 210.h,
+                    )
+                  : Image.asset(
+                      congratulationimage,
+                      width: 170.w,
+                      height: 170.h,
+                    ),
               20.heightBox,
               Padding(
                 padding: pad18,
@@ -96,12 +105,16 @@ class CongratulationsView extends GetView<CongratulationsController> {
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(
                     introScreenRoundedIcon,
+                    height: 50,
+                    width: 50,
                   ))
               : Positioned(
                   top: 0.46.sh,
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(
                     introScreenRoundedIcon,
+                    height: 50,
+                    width: 50,
                   )),
         ],
       ),

@@ -54,7 +54,7 @@ class SkillsView extends GetView<SkillsController> {
                         skill,
                         style: const TextStyle(fontSize: 14),
                       ),
-                      leading: Image.asset(skills),
+                      leading: Image.asset(skills,height: 25,width: 25,),
                       trailing: isSelected == true
                           ? SizedBox(
                               height: 10.h,

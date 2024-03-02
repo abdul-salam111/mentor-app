@@ -48,7 +48,7 @@ class EducationView extends GetView<EducationController> {
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(subjects),
+                  Image.asset(subjects,height: 20,width: 20,),
                   10.widthBox,
                   Text(
                     "Subjects",
@@ -181,7 +181,7 @@ class EducationView extends GetView<EducationController> {
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(professionalcertifications),
+                  Image.asset(professionalcertifications,width: 20,height: 20,),
                   10.widthBox,
                   Text(
                     "Professional Certifications",

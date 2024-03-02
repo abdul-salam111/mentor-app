@@ -107,12 +107,16 @@ class OnboardingPage extends StatelessWidget {
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(
                     introScreenRoundedIcon,
+                    height: 50,
+                    width: 50,
                   ))
               : Positioned(
                   top: 0.46.sh,
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(
                     introScreenRoundedIcon,
+                      height: 50,
+                    width: 50,
                   )),
         ],
       ),

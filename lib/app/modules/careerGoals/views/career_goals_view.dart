@@ -67,7 +67,7 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
                         skill,
                         style: const TextStyle(fontSize: 14),
                       ),
-                      leading: Image.asset(school),
+                      leading: Image.asset(school,height: 25,width: 25,),
                       trailing: isSelected == true
                           ? SizedBox(
                               height: 10.h,
