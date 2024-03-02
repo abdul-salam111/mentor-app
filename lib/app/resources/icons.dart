@@ -22,7 +22,7 @@ const localBank="assets/icons/localbank.png";
 const logo="assets/icons/logo.png";
 const logout="assets/icons/logout.png";
 const meetings="assets/icons/meetings.png";
-const mentorshipStyle="assets/icons/mentorshipstyle.png";
+const mentorshipStyle="assets/icons/mentoshipstyle.png";
 const menu="assets/icons/menu.png";
 const mic="assets/icons/mic.png";
 const notifications="assets/icons/notifications.png";
@@ -30,7 +30,7 @@ const or="assets/icons/or.png";
 const password="assets/icons/password.png";
 const paypalpay="assets/icons/paypalpay.png";
 const person="assets/icons/person.png";
-const prefferdcommunication="assets/icons/prefferdcommunication.png";
+const prefferdcommunication="assets/icons/preferredcommunication.png";
 const privacy="assets/icons/privacy.png";
 const professionalcertifications="assets/icons/professionalcertifications.png";
 const profile="assets/icons/profile.png";
@@ -46,7 +46,7 @@ const signin="assets/icons/signin.png";
 const signup="assets/icons/signup.png";
 const simplelogo="assets/icons/simplelogo.png";
 const simplemail="assets/icons/simplemail.png";
-const skills="assets/icons/skills.png";
+const skills="assets/icons/skiils.png";
 const subjects="assets/icons/subjects.png";
 const subscription="assets/icons/subscription.png";
 const timer="assets/icons/timer.png";
@@ -54,6 +54,7 @@ const timezone="assets/icons/timezone.png";
 const twitter="assets/icons/twitter.png";
 const verified="assets/icons/verified.png";
 const verticalmenu="assets/icons/verticalmenu.png";
+const downarrow="assets/icons/downarrow.png";
 
 
 

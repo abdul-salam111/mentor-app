@@ -20,7 +20,7 @@ void main()async {
           builder:EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: "Mentor App",
-          initialRoute: Routes.HOME,
+          initialRoute: Routes.EDUCATION,
           getPages: AppPages.routes,
         );
       },
