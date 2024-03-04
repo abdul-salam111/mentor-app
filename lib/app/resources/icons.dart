@@ -25,7 +25,6 @@ const meetings="assets/icons/meetings.png";
 const mentorshipStyle="assets/icons/mentorshipstyle.png";
 const menu="assets/icons/menu.png";
 const mic="assets/icons/mic.png";
-const notifications="assets/icons/notifications.png";
 const or="assets/icons/or.png";
 const password="assets/icons/password.png";
 const paypalpay="assets/icons/paypalpay.png";
@@ -39,7 +38,7 @@ const replies="assets/icons/replies.png";
 const school="assets/icons/school.png";
 const search="assets/icons/search.png";
 const sendbutton="assets/icons/sendbutton.png";
-const settings="assets/icons/settings.png";
+const settings="assets/icons/settingsicon.png";
 const settingsaccout="assets/icons/settingsaccout.png";
 const settingnotifications="assets/icons/settingnotifications.png";
 const signin="assets/icons/signin.png";
@@ -59,6 +58,17 @@ const profilepicture="assets/icons/profilepic.png";
 const mentor="assets/icons/mentor.png";
 const mentor2="assets/icons/mentor2.png";
 const experience="assets/icons/experience.png";
+const filters="assets/icons/filter.png";
+const girl="assets/icons/girl.png";
+const horizontalIcon="assets/icons/horizontal.png";
+const profilepic="assets/icons/profilepicture.png";
+const profileicon="assets/icons/profileicon.png";
+const paymenticonProfile="assets/icons/paymenticonprofile.png";
+const notifications="assets/icons/notifications.png";
+const privacypolicy="assets/icons/privacypolicy.png";
+const deleteicon="assets/icons/deleteicon.png";
+const logouticon="assets/icons/logouticon.png";
+const inMeeting="assets/icons/Meeting.png";
 
 
 

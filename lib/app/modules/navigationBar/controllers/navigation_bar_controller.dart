@@ -12,7 +12,7 @@ class NavigationBarController extends GetxController {
     const MeetingsView(),
     const ChatsView(),
     const NotificationsView(),
-    const ProfileView()
+     ProfileView()
   ];
     RxInt selectedIndex = 0.obs;
 }

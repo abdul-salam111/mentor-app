@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageServices.to.init();
-  runApp(
+  runApp( 
     ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -20,7 +20,7 @@ void main()async {
           builder:EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: "Mentor App",
-          initialRoute: Routes.NAVIGATION_BAR,
+          initialRoute: Routes.SCHEDULE_SESSION,
           getPages: AppPages.routes,
         );
       },

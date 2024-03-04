@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/PostQuestions/bindings/post_questions_binding.dart';
+import '../modules/PostQuestions/views/post_questions_view.dart';
+import '../modules/QuestionAndAnswerForum/bindings/question_and_answer_forum_binding.dart';
+import '../modules/QuestionAndAnswerForum/views/question_and_answer_forum_view.dart';
 import '../modules/availbility/bindings/availbility_binding.dart';
 import '../modules/availbility/views/availbility_view.dart';
 import '../modules/careerGoals/bindings/career_goals_binding.dart';
@@ -14,6 +18,10 @@ import '../modules/findMentors/bindings/find_mentors_binding.dart';
 import '../modules/findMentors/views/find_mentors_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/inmeetingScreen/bindings/inmeeting_screen_binding.dart';
+import '../modules/inmeetingScreen/views/inmeeting_screen_view.dart';
+import '../modules/jobDetails/bindings/job_details_binding.dart';
+import '../modules/jobDetails/views/job_details_view.dart';
 import '../modules/meetings/bindings/meetings_binding.dart';
 import '../modules/meetings/views/meetings_view.dart';
 import '../modules/mentorProfile/bindings/mentor_profile_binding.dart';
@@ -24,10 +32,14 @@ import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
 import '../modules/onBoarding/bindings/on_boarding_binding.dart';
 import '../modules/onBoarding/views/on_boarding_view.dart';
+import '../modules/postedJobs/bindings/posted_jobs_binding.dart';
+import '../modules/postedJobs/views/posted_jobs_view.dart';
 import '../modules/preferredMentor/bindings/preferred_mentor_binding.dart';
 import '../modules/preferredMentor/views/preferred_mentor_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/scheduleSession/bindings/schedule_session_binding.dart';
+import '../modules/scheduleSession/views/schedule_session_view.dart';
 import '../modules/skills/bindings/skills_binding.dart';
 import '../modules/skills/views/skills_view.dart';
 
@@ -101,7 +113,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -113,6 +125,36 @@ class AppPages {
       name: _Paths.MENTOR_PROFILE,
       page: () => const MentorProfileView(),
       binding: MentorProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.POST_QUESTIONS,
+      page: () => const PostQuestionsView(),
+      binding: PostQuestionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUESTION_AND_ANSWER_FORUM,
+      page: () => const QuestionAndAnswerForumView(),
+      binding: QuestionAndAnswerForumBinding(),
+    ),
+    GetPage(
+      name: _Paths.POSTED_JOBS,
+      page: () => const PostedJobsView(),
+      binding: PostedJobsBinding(),
+    ),
+    GetPage(
+      name: _Paths.JOB_DETAILS,
+      page: () => const JobDetailsView(),
+      binding: JobDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.INMEETING_SCREEN,
+      page: () => const InmeetingScreenView(),
+      binding: InmeetingScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCHEDULE_SESSION,
+      page: () => const ScheduleSessionView(),
+      binding: ScheduleSessionBinding(),
     ),
   ];
 }

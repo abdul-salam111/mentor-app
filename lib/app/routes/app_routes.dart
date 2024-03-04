@@ -18,6 +18,12 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const FIND_MENTORS = _Paths.FIND_MENTORS;
   static const MENTOR_PROFILE = _Paths.MENTOR_PROFILE;
+  static const POST_QUESTIONS = _Paths.POST_QUESTIONS;
+  static const QUESTION_AND_ANSWER_FORUM = _Paths.QUESTION_AND_ANSWER_FORUM;
+  static const POSTED_JOBS = _Paths.POSTED_JOBS;
+  static const JOB_DETAILS = _Paths.JOB_DETAILS;
+  static const INMEETING_SCREEN = _Paths.INMEETING_SCREEN;
+  static const SCHEDULE_SESSION = _Paths.SCHEDULE_SESSION;
 }
 
 abstract class _Paths {
@@ -37,4 +43,10 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const FIND_MENTORS = '/find-mentors';
   static const MENTOR_PROFILE = '/mentor-profile';
+  static const POST_QUESTIONS = '/post-questions';
+  static const QUESTION_AND_ANSWER_FORUM = '/question-and-answer-forum';
+  static const POSTED_JOBS = '/posted-jobs';
+  static const JOB_DETAILS = '/job-details';
+  static const INMEETING_SCREEN = '/inmeeting-screen';
+  static const SCHEDULE_SESSION = '/schedule-session';
 }

@@ -3,28 +3,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 
-Widget customSearchTextField() {
+Widget customSearchTextField({String hinttext="Search for mentors"}) {
   return TextField(
     style: manoropeFontFamily(
         fontSize: 14.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
     decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
+        focusedBorder:  OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
-            borderSide: BorderSide(color: textfieldgrey, width: 2)),
-        enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
+            borderSide: BorderSide(color: greyColor.withOpacity(0.5), width: 2)),
+        enabledBorder:  OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
-            borderSide: BorderSide(color: greyColor)),
-        border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
+            borderSide: BorderSide(color:greyColor.withOpacity(0.5))),
+        border:  OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
-            borderSide: BorderSide(color: greyColor)),
+            borderSide: BorderSide(color: greyColor.withOpacity(0.5))),
         contentPadding: const EdgeInsets.only(left: 10),
-        hintText: "Search for mentors",
+        hintText: hinttext,
         hintStyle: manoropeFontFamily(
             fontSize: 12.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
         suffixIcon: const Icon(

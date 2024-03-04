@@ -13,12 +13,17 @@ import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/home_controller.dart';
+import 'profile_drawer.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
+       endDrawer: ProfileDrawer(),
       body: SafeArea(
         child: Padding(
           padding: pad20,
@@ -46,8 +51,13 @@ class HomeView extends GetView<HomeController> {
                       )
                     ],
                   ),
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(profilepicture),
+                  GestureDetector(
+                    onTap: (){
+                       _scaffoldKey.currentState?.openEndDrawer();
+                    },
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage(profilepicture),
+                    ),
                   )
                 ],
               ),
@@ -206,7 +216,10 @@ class HomeView extends GetView<HomeController> {
                       .outerShadow
                       .clip(Clip.antiAlias)
                       .rounded
-                      .make(),
+                      .make()
+                      .onTap(() {
+                    Get.toNamed(Routes.POST_QUESTIONS);
+                  }),
                   Container(
                           padding: const EdgeInsets.symmetric(horizontal: 13),
                           // decoration: BoxDecoration(
@@ -245,7 +258,9 @@ class HomeView extends GetView<HomeController> {
                       .outerShadow
                       .clip(Clip.antiAlias)
                       .rounded
-                      .make(),
+                      .make().onTap(() {
+                         Get.toNamed(Routes.POSTED_JOBS);
+                      }),
                 ],
               ),
               20.heightBox,
