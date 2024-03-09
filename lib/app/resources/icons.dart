@@ -69,6 +69,12 @@ const privacypolicy="assets/icons/privacypolicy.png";
 const deleteicon="assets/icons/deleteicon.png";
 const logouticon="assets/icons/logouticon.png";
 const inMeeting="assets/icons/Meeting.png";
+const sendmessage="assets/icons/sendmessage.png";
+const nameicon="assets/icons/nameicon.png";
+const emailicon="assets/icons/emailicon.png";
+const passwordicon="assets/icons/passwordicon.png";
+const appguide="assets/icons/appguide.png";
+
 
 
 

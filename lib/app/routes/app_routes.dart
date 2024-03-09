@@ -24,6 +24,15 @@ abstract class Routes {
   static const JOB_DETAILS = _Paths.JOB_DETAILS;
   static const INMEETING_SCREEN = _Paths.INMEETING_SCREEN;
   static const SCHEDULE_SESSION = _Paths.SCHEDULE_SESSION;
+  static const MESSAGES = _Paths.MESSAGES;
+  static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
+  static const GET_STARTED = _Paths.GET_STARTED;
+  static const SIGNUP = _Paths.SIGNUP;
+  static const SIGNIN = _Paths.SIGNIN;
+  static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
+  static const APP_GUIDE = _Paths.APP_GUIDE;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+
 }
 
 abstract class _Paths {
@@ -49,4 +58,13 @@ abstract class _Paths {
   static const JOB_DETAILS = '/job-details';
   static const INMEETING_SCREEN = '/inmeeting-screen';
   static const SCHEDULE_SESSION = '/schedule-session';
+  static const MESSAGES = '/messages';
+  static const SPLASHSCREEN = '/splashscreen';
+  static const GET_STARTED = '/get-started';
+  static const SIGNUP = '/signup';
+  static const SIGNIN = '/signin';
+  static const PRIVACY_POLICY = '/privacy-policy';
+  static const APP_GUIDE = '/app-guide';
+  static const CHANGE_PASSWORD = '/change-password';
+  static const MENTOR_INTRO_SCREEN = '/mentor-intro-screen';
 }

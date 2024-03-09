@@ -1,47 +1,64 @@
 import 'package:get/get.dart';
 
-import '../modules/PostQuestions/bindings/post_questions_binding.dart';
-import '../modules/PostQuestions/views/post_questions_view.dart';
-import '../modules/QuestionAndAnswerForum/bindings/question_and_answer_forum_binding.dart';
-import '../modules/QuestionAndAnswerForum/views/question_and_answer_forum_view.dart';
-import '../modules/availbility/bindings/availbility_binding.dart';
-import '../modules/availbility/views/availbility_view.dart';
-import '../modules/careerGoals/bindings/career_goals_binding.dart';
-import '../modules/careerGoals/views/career_goals_view.dart';
-import '../modules/chats/bindings/chats_binding.dart';
-import '../modules/chats/views/chats_view.dart';
-import '../modules/congratulations/bindings/congratulations_binding.dart';
-import '../modules/congratulations/views/congratulations_view.dart';
-import '../modules/education/bindings/education_binding.dart';
-import '../modules/education/views/education_view.dart';
-import '../modules/findMentors/bindings/find_mentors_binding.dart';
-import '../modules/findMentors/views/find_mentors_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
-import '../modules/inmeetingScreen/bindings/inmeeting_screen_binding.dart';
-import '../modules/inmeetingScreen/views/inmeeting_screen_view.dart';
-import '../modules/jobDetails/bindings/job_details_binding.dart';
-import '../modules/jobDetails/views/job_details_view.dart';
-import '../modules/meetings/bindings/meetings_binding.dart';
-import '../modules/meetings/views/meetings_view.dart';
-import '../modules/mentorProfile/bindings/mentor_profile_binding.dart';
-import '../modules/mentorProfile/views/mentor_profile_view.dart';
-import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
-import '../modules/navigationBar/views/navigation_bar_view.dart';
-import '../modules/notifications/bindings/notifications_binding.dart';
-import '../modules/notifications/views/notifications_view.dart';
-import '../modules/onBoarding/bindings/on_boarding_binding.dart';
-import '../modules/onBoarding/views/on_boarding_view.dart';
-import '../modules/postedJobs/bindings/posted_jobs_binding.dart';
-import '../modules/postedJobs/views/posted_jobs_view.dart';
-import '../modules/preferredMentor/bindings/preferred_mentor_binding.dart';
-import '../modules/preferredMentor/views/preferred_mentor_view.dart';
-import '../modules/profile/bindings/profile_binding.dart';
-import '../modules/profile/views/profile_view.dart';
-import '../modules/scheduleSession/bindings/schedule_session_binding.dart';
-import '../modules/scheduleSession/views/schedule_session_view.dart';
-import '../modules/skills/bindings/skills_binding.dart';
-import '../modules/skills/views/skills_view.dart';
+import '../modules/Mentee/PostQuestions/bindings/post_questions_binding.dart';
+import '../modules/Mentee/PostQuestions/views/post_questions_view.dart';
+import '../modules/Mentee/QuestionAndAnswerForum/bindings/question_and_answer_forum_binding.dart';
+import '../modules/Mentee/QuestionAndAnswerForum/views/question_and_answer_forum_view.dart';
+import '../modules/Mentee/appGuide/bindings/app_guide_binding.dart';
+import '../modules/Mentee/appGuide/views/app_guide_view.dart';
+import '../modules/Mentee/availbility/bindings/availbility_binding.dart';
+import '../modules/Mentee/availbility/views/availbility_view.dart';
+import '../modules/Mentee/careerGoals/bindings/career_goals_binding.dart';
+import '../modules/Mentee/careerGoals/views/career_goals_view.dart';
+import '../modules/Mentee/changePassword/bindings/change_password_binding.dart';
+import '../modules/Mentee/changePassword/views/change_password_view.dart';
+import '../modules/Mentee/chats/bindings/chats_binding.dart';
+import '../modules/Mentee/chats/views/chats_view.dart';
+import '../modules/Mentee/congratulations/bindings/congratulations_binding.dart';
+import '../modules/Mentee/congratulations/views/congratulations_view.dart';
+import '../modules/Mentee/education/bindings/education_binding.dart';
+import '../modules/Mentee/education/views/education_view.dart';
+import '../modules/Mentee/findMentors/bindings/find_mentors_binding.dart';
+import '../modules/Mentee/findMentors/views/find_mentors_view.dart';
+import '../modules/Mentee/getStarted/bindings/get_started_binding.dart';
+import '../modules/Mentee/getStarted/views/get_started_view.dart';
+import '../modules/Mentee/home/bindings/home_binding.dart';
+import '../modules/Mentee/home/views/home_view.dart';
+import '../modules/Mentee/inmeetingScreen/bindings/inmeeting_screen_binding.dart';
+import '../modules/Mentee/inmeetingScreen/views/inmeeting_screen_view.dart';
+import '../modules/Mentee/jobDetails/bindings/job_details_binding.dart';
+import '../modules/Mentee/jobDetails/views/job_details_view.dart';
+import '../modules/Mentee/meetings/bindings/meetings_binding.dart';
+import '../modules/Mentee/meetings/views/meetings_view.dart';
+import '../modules/Mentee/mentorProfile/bindings/mentor_profile_binding.dart';
+import '../modules/Mentee/mentorProfile/views/mentor_profile_view.dart';
+import '../modules/Mentee/messages/bindings/messages_binding.dart';
+import '../modules/Mentee/messages/views/messages_view.dart';
+import '../modules/Mentee/navigationBar/bindings/navigation_bar_binding.dart';
+import '../modules/Mentee/navigationBar/views/navigation_bar_view.dart';
+import '../modules/Mentee/notifications/bindings/notifications_binding.dart';
+import '../modules/Mentee/notifications/views/notifications_view.dart';
+import '../modules/Mentee/onBoarding/bindings/on_boarding_binding.dart';
+import '../modules/Mentee/onBoarding/views/on_boarding_view.dart';
+import '../modules/Mentee/postedJobs/bindings/posted_jobs_binding.dart';
+import '../modules/Mentee/postedJobs/views/posted_jobs_view.dart';
+import '../modules/Mentee/preferredMentor/bindings/preferred_mentor_binding.dart';
+
+import '../modules/Mentee/preferredMentor/views/preferred_mentor_view.dart';
+import '../modules/Mentee/privacyPolicy/bindings/privacy_policy_binding.dart';
+import '../modules/Mentee/privacyPolicy/views/privacy_policy_view.dart';
+import '../modules/Mentee/profile/bindings/profile_binding.dart';
+import '../modules/Mentee/profile/views/profile_view.dart';
+import '../modules/Mentee/scheduleSession/bindings/schedule_session_binding.dart';
+import '../modules/Mentee/scheduleSession/views/schedule_session_view.dart';
+import '../modules/Mentee/skills/bindings/skills_binding.dart';
+import '../modules/Mentee/skills/views/skills_view.dart';
+import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
+import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
+import '../modules/signin/bindings/signin_binding.dart';
+import '../modules/signin/views/signin_view.dart';
+import '../modules/signup/bindings/signup_binding.dart';
+import '../modules/signup/views/signup_view.dart';
 
 part 'app_routes.dart';
 
@@ -80,6 +97,7 @@ class AppPages {
       name: _Paths.PREFERRED_MENTOR,
       page: () => const PreferredMentorView(),
       binding: PreferredMentorBinding(),
+    
     ),
     GetPage(
       name: _Paths.AVAILBILITY,
@@ -155,6 +173,46 @@ class AppPages {
       name: _Paths.SCHEDULE_SESSION,
       page: () => const ScheduleSessionView(),
       binding: ScheduleSessionBinding(),
+    ),
+    GetPage(
+      name: _Paths.MESSAGES,
+      page: () => const MessagesView(),
+      binding: MessagesBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASHSCREEN,
+      page: () => const SplashscreenView(),
+      binding: SplashscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.GET_STARTED,
+      page: () => const GetStartedView(),
+      binding: GetStartedBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGNUP,
+      page: () => const SignupView(),
+      binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGNIN,
+      page: () => const SigninView(),
+      binding: SigninBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRIVACY_POLICY,
+      page: () => const PrivacyPolicyView(),
+      binding: PrivacyPolicyBinding(),
+    ),
+    GetPage(
+      name: _Paths.APP_GUIDE,
+      page: () => const AppGuideView(),
+      binding: AppGuideBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASSWORD,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
     ),
   ];
 }
