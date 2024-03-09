@@ -43,7 +43,6 @@ import '../modules/Mentee/onBoarding/views/on_boarding_view.dart';
 import '../modules/Mentee/postedJobs/bindings/posted_jobs_binding.dart';
 import '../modules/Mentee/postedJobs/views/posted_jobs_view.dart';
 import '../modules/Mentee/preferredMentor/bindings/preferred_mentor_binding.dart';
-
 import '../modules/Mentee/preferredMentor/views/preferred_mentor_view.dart';
 import '../modules/Mentee/privacyPolicy/bindings/privacy_policy_binding.dart';
 import '../modules/Mentee/privacyPolicy/views/privacy_policy_view.dart';
@@ -55,6 +54,8 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
+import '../modules/MentorIntroScreen/modules/Mentor/bindings/mentor_intro_screen_lib_modules_mentor_binding.dart';
+import '../modules/MentorIntroScreen/modules/Mentor/views/mentor_intro_screen_lib_modules_mentor_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -97,7 +98,6 @@ class AppPages {
       name: _Paths.PREFERRED_MENTOR,
       page: () => const PreferredMentorView(),
       binding: PreferredMentorBinding(),
-    
     ),
     GetPage(
       name: _Paths.AVAILBILITY,
@@ -213,6 +213,11 @@ class AppPages {
       name: _Paths.CHANGE_PASSWORD,
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_INTRO_SCREEN_LIB_MODULES_MENTOR,
+      page: () => const MentorIntroScreenLibModulesMentorView(),
+      binding: MentorIntroScreenLibModulesMentorBinding(),
     ),
   ];
 }
