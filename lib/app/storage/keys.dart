@@ -9,4 +9,7 @@ const deviceId="deviceId";
 const userAddress="userAddress";
 
 const userPhone="userPhone";
+const getmenteeinfo="getmenteeinfo";
+const loginMenteeInfo="loginMenteeInfo";
+const usertoken="usertoken";
 
