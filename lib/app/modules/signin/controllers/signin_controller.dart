@@ -1,7 +1,39 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:mentor_app/app/models/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/signInModel.dart';
+import 'package:mentor_app/app/repositories/authRepo.dart';
+import 'package:mentor_app/app/resources/icons.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
+
+import '../../../Utils/Utils.dart';
 
 class SigninController extends GetxController {
-  final nameController=TextEditingController().obs;
- final passwordController=TextEditingController().obs;
+  final nameController = TextEditingController().obs;
+  final passwordController = TextEditingController().obs;
+
+  AuthRepository authRepository = AuthRepository();
+
+  Future<void> loginMentee() async {
+    EasyLoading.show(status: "Signing In");
+
+    SigninModel signinModel = SigninModel(
+        password: passwordController.value.text,
+        usernameOrEmail: nameController.value.text);
+
+    await authRepository.signInMentee(jsonEncode(signinModel)).then((value) {
+      StorageServices.to.setString(key: usertoken, value: value['accessToken']);
+      EasyLoading.dismiss();
+
+      Get.toNamed(Routes.NAVIGATION_BAR);
+    }).onError((error, stackTrace) {
+      EasyLoading.dismiss();
+      Utils.snakbar(title: "Failed to Search", body: error.toString());
+    });
+  }
 }

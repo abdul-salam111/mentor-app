@@ -5,6 +5,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 // import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
+import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 import 'app/routes/app_pages.dart';
@@ -29,7 +30,9 @@ void main() async {
           builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: "Mentor App",
-          initialRoute: Routes.AVAILBILITY,
+          initialRoute: StorageServices.to.getString(usertoken).isNotEmpty
+              ? Routes.NAVIGATION_BAR
+              : Routes.SIGNIN,
           getPages: AppPages.routes,
         );
       },

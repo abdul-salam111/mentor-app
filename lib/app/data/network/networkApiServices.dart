@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/data/app_exceptions.dart';
 import 'package:mentor_app/app/data/network/baseApiServices.dart';
@@ -24,9 +23,10 @@ class NetworkApiService extends BaseApiServices {
   Future getPostResponse(String url, dynamic data) async {
     dynamic responsejson;
     try {
-      http.Response response = await http
-          .post(Uri.parse(url), body: data)
-          .timeout(const Duration(seconds: 10));
+      http.Response response =
+          await http.post(Uri.parse(url), body: data, headers: {
+        "Content-Type": "application/json",
+      }).timeout(const Duration(seconds: 10));
       responsejson = returnResponse(response);
     } on SocketException {
       throw FetchDataExceptions("No Internet Connection");
@@ -40,6 +40,9 @@ class NetworkApiService extends BaseApiServices {
       case 200:
         dynamic jsonresponse = jsonDecode(response.body);
         return jsonresponse;
+      case 415:
+      dynamic jsonresponse=jsonDecode(response.body);
+      return jsonresponse;
       case 400:
         throw BadRequestExceptions(response.body.toString());
       case 404:

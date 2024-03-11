@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
@@ -34,7 +35,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
         ),
         body: Padding(
             padding: pad18,
-            child: ListView(  children: [
+            child: ListView(children: [
               10.heightBox,
               Center(
                 child: Text(
@@ -48,7 +49,11 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 padding: pad12,
                 child: Row(
                   children: [
-                    Image.asset(gender,height: 13,width: 13,),
+                    Image.asset(
+                      gender,
+                      height: 13,
+                      width: 13,
+                    ),
                     10.widthBox,
                     Text(
                       "Gender",
@@ -135,7 +140,11 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(mentorshipStyle,height: 15,width: 15,),
+                  Image.asset(
+                    mentorshipStyle,
+                    height: 15,
+                    width: 15,
+                  ),
                   10.widthBox,
                   Text(
                     "Mentorship Style",
@@ -147,7 +156,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 ],
               ),
               20.heightBox,
-                Column(
+              Column(
                 crossAxisAlignment: crosstart,
                 children: [
                   Padding(
@@ -155,8 +164,8 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                     child: Row(
                       mainAxisAlignment: mainbetween,
                       children: [
-                        Obx(()=>
-                           Text(
+                        Obx(
+                          () => Text(
                             controller.selectedMentorshipstyle.value,
                             style: manoropeFontFamily(
                                 fontSize: 10.sp,
@@ -190,8 +199,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           return SizedBox(
                             height: 200.h,
                             child: ListView.builder(
-                              itemCount:
-                                  controller.mentorshipstyles.length,
+                              itemCount: controller.mentorshipstyles.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 final skill =
@@ -208,7 +216,6 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                             fontWeight: FontWeight.w400,
                                             color: blackcolor),
                                       ),
-                                 
                                     ),
                                     Container(
                                       color: greyColor,
@@ -216,9 +223,9 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                     ),
                                   ],
                                 ).onTap(() {
-                                  controller.selectedMentorshipstyle.value=
-                                  controller.mentorshipstyles[index];
-                                  controller.ismentorshipOpen.value=false;
+                                  controller.selectedMentorshipstyle.value =
+                                      controller.mentorshipstyles[index];
+                                  controller.ismentorshipOpen.value = false;
                                 });
                               },
                             ),
@@ -237,7 +244,11 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(industry,height: 20,width: 20,),
+                  Image.asset(
+                    industry,
+                    height: 20,
+                    width: 20,
+                  ),
                   10.widthBox,
                   Text(
                     "Industry",
@@ -249,7 +260,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 ],
               ),
               20.heightBox,
-                Column(
+              Column(
                 crossAxisAlignment: crosstart,
                 children: [
                   Padding(
@@ -257,8 +268,8 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                     child: Row(
                       mainAxisAlignment: mainbetween,
                       children: [
-                        Obx(()=>
-                           Text(
+                        Obx(
+                          () => Text(
                             controller.selectedIndustries.value,
                             style: manoropeFontFamily(
                                 fontSize: 10.sp,
@@ -292,12 +303,10 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           return SizedBox(
                             height: 200.h,
                             child: ListView.builder(
-                              itemCount:
-                                  controller.industries.length,
+                              itemCount: controller.industries.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                final skill =
-                                    controller.industries[index];
+                                final skill = controller.industries[index];
                                 // final isSelected =
                                 //     controller.selectedSkills.contains(skill);
                                 return Column(
@@ -310,7 +319,6 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                             fontWeight: FontWeight.w400,
                                             color: blackcolor),
                                       ),
-                                      
                                     ),
                                     Container(
                                       color: greyColor,
@@ -318,8 +326,9 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                     ),
                                   ],
                                 ).onTap(() {
-                                  controller.isIndusryOpen.value=false;
-                                  controller.selectedIndustries.value=controller.industries[index];
+                                  controller.isIndusryOpen.value = false;
+                                  controller.selectedIndustries.value =
+                                      controller.industries[index];
                                 });
                               },
                             ),
@@ -344,24 +353,57 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                     color: blackcolor),
               ),
               10.heightBox,
-               TextField(
+              TextField(
                 maxLines: null, // Allow multiple lines of text
                 minLines: 5,
+                controller: controller.aboutMe.value,
                 decoration: InputDecoration(
-                  hintText: 'Write...', // Your hint text
-                  hintStyle: manoropeFontFamily(fontSize: 12, fontWeight: FontWeight.w400, color: blackcolor),
-                  contentPadding: const EdgeInsets.only(
-                      top: 12.0, left: 12.0), // Padding from top and left
-                border: InputBorder.none
-                ),
+                    hintText: 'Write...', // Your hint text
+                    hintStyle: manoropeFontFamily(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: blackcolor),
+                    contentPadding: const EdgeInsets.only(
+                        top: 12.0, left: 12.0), // Padding from top and left
+                    border: InputBorder.none),
               ).box.white.roundedSM.outerShadow.make(),
-             100.heightBox,
+              100.heightBox,
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: CustomButton(
                     buttonName: "Continue",
                     onPressed: () {
-                      Get.toNamed(Routes.AVAILBILITY);
+                      if (controller.selectedGender.isNotEmpty &&
+                          controller.selectedGender.value != '' &&
+                          controller.selectedMentorshipstyle.value !=
+                              "Select" &&
+                          controller.selectedIndustries.value != "Select" &&
+                          controller.aboutMe.value.text.isNotEmpty) {
+                        Get.toNamed(Routes.AVAILBILITY);
+                      } else if (controller.selectedGender.isEmpty ||
+                          controller.selectedGender.value == '') {
+                        Utils.snakbar(
+                            title: "Select Gender",
+                            body: "Please select any gendre.");
+                      }
+                      else if (controller.selectedMentorshipstyle.value ==
+                              "Select") {
+                        Utils.snakbar(
+                            title: "Select Mentorship Style",
+                            body: "Please select any mentorship style.");
+                      }
+                       else if (controller.selectedIndustries.value ==
+                              "Select") {
+                        Utils.snakbar(
+                            title: "Select Industry",
+                            body: "Please select any Industry.");
+                      }
+                       else if (controller.aboutMe.value.text.isEmpty 
+                              ) {
+                        Utils.snakbar(
+                            title: "About me",
+                            body: "Please write something about yourself.");
+                      }
                     },
                     textcolor: whitecolor,
                     loading: false,

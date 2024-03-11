@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
@@ -17,6 +18,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         backgroundColor: whitecolor,
         appBar: AppBar(
           backgroundColor: whitecolor,
@@ -168,9 +170,37 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     .color(const Color(0xffEFEFEF))
                     .make(),
               ),
-
               30.heightBox,
-              Align(alignment: Alignment.centerRight,child: CustomButton(buttonName: "Save", onPressed: (){}, textcolor: whitecolor, loading: false, backgroundColor: darkBrownColor, rounded: false, height: 35.h, textSize: 12.sp, width: 120.w))
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: CustomButton(
+                      buttonName: "Save",
+                      onPressed: () {
+                        if (controller.newPasswordController.value.text !=
+                            controller.confirmPasswordController.value.text) {
+                          Utils.snakbar(
+                              title: "Password not same!",
+                              body: "Passwords not matching.");
+                        } else if (controller
+                                .newPasswordController.value.text.isEmpty ||
+                            controller
+                                .oldPasswordController.value.text.isEmpty ||
+                            controller
+                                .confirmPasswordController.value.text.isEmpty) {
+                          Utils.snakbar(
+                              title: "Feilds required!",
+                              body: "Please fill all fields.");
+                        } else {
+                          controller.changePassword();
+                        }
+                      },
+                      textcolor: whitecolor,
+                      loading: false,
+                      backgroundColor: darkBrownColor,
+                      rounded: false,
+                      height: 35.h,
+                      textSize: 12.sp,
+                      width: 120.w))
             ],
           ),
         ));

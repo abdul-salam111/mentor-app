@@ -56,12 +56,12 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
             Expanded(
               child: GetBuilder<CareerGoalsController>(builder: (contextsss) {
                 return ListView.builder(
-                  itemCount: controller.computerScienceSkills.length,
+                  itemCount: controller.goalsList.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final skill = controller.computerScienceSkills[index];
+                    final skill = controller.goalsList[index];
                     final isSelected =
-                        controller.selectedSkills.contains(skill);
+                        controller.selectedGoalsList.contains(skill);
                     return ListTile(
                       title: Text(
                         skill,
@@ -84,9 +84,9 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
                         .rounded
                         .make()
                         .onTap(() {
-                      if (controller.selectedSkills.length > 4) {
+                      if (controller.selectedGoalsList.length > 4) {
                         if (isSelected) {
-                          controller.selectedSkills.remove(skill);
+                          controller.selectedGoalsList.remove(skill);
                           contextsss.update();
                         } else {
                           Utils.snakbar(
@@ -95,10 +95,10 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
                         }
                       } else {
                         if (isSelected) {
-                          controller.selectedSkills.remove(skill);
+                          controller.selectedGoalsList.remove(skill);
                           contextsss.update();
                         } else {
-                          controller.selectedSkills.add(skill);
+                          controller.selectedGoalsList.add(skill);
                           contextsss.update();
                         }
                       }
@@ -112,7 +112,12 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
               child: CustomButton(
                   buttonName: "Continue",
                   onPressed: () {
-                    Get.toNamed(Routes.SKILLS);
+                  if(controller.selectedGoalsList.isNotEmpty){
+                      Get.toNamed(Routes.SKILLS);
+                  }
+                  else{
+                    Utils.snakbar(title: "Select Goals", body: "Please select at least 1 goal.");
+                  }
                   },
                   textcolor: whitecolor,
                   loading: false,

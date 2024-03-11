@@ -8,6 +8,7 @@ import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../Utils/Utils.dart';
 import '../../../../commonWidgets/elevatedButton.dart';
 
 class SkillsView extends GetView<SkillsController> {
@@ -15,7 +16,6 @@ class SkillsView extends GetView<SkillsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -39,7 +39,7 @@ class SkillsView extends GetView<SkillsController> {
                     fontSize: 20.sp, fontWeight: FontWeight.w500),
               ),
             ),
-           10.heightBox,
+            10.heightBox,
             Expanded(
               child: GetBuilder<SkillsController>(builder: (contextsss) {
                 return ListView.builder(
@@ -54,7 +54,11 @@ class SkillsView extends GetView<SkillsController> {
                         skill,
                         style: const TextStyle(fontSize: 14),
                       ),
-                      leading: Image.asset(skills,height: 25,width: 25,),
+                      leading: Image.asset(
+                        skills,
+                        height: 25,
+                        width: 25,
+                      ),
                       trailing: isSelected == true
                           ? SizedBox(
                               height: 10.h,
@@ -83,12 +87,18 @@ class SkillsView extends GetView<SkillsController> {
                 );
               }),
             ),
-             Padding(
-              padding: const EdgeInsets.only(left: 8,right: 8),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: CustomButton(
                   buttonName: "Continue",
                   onPressed: () {
-                    Get.toNamed(Routes.EDUCATION);
+                    if (controller.selectedSkills.isNotEmpty) {
+                      Get.toNamed(Routes.EDUCATION);
+                    } else {
+                      Utils.snakbar(
+                          title: "Select Skills",
+                          body: "Please select at least 1 skill.");
+                    }
                   },
                   textcolor: whitecolor,
                   loading: false,
@@ -97,7 +107,6 @@ class SkillsView extends GetView<SkillsController> {
                   height: 50,
                   textSize: 16,
                   width: double.infinity),
-              
             ),
             20.heightBox,
           ],

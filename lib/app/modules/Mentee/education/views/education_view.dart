@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
@@ -47,7 +48,11 @@ class EducationView extends GetView<EducationController> {
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(subjects,height: 20,width: 20,),
+                  Image.asset(
+                    subjects,
+                    height: 20,
+                    width: 20,
+                  ),
                   10.widthBox,
                   Text(
                     "Subjects",
@@ -59,9 +64,9 @@ class EducationView extends GetView<EducationController> {
                 ],
               ),
               20.heightBox,
-                Padding(
-                  padding:const EdgeInsets.only(left: 5,right: 5),
-                  child: Column(
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: Column(
                   crossAxisAlignment: crosstart,
                   children: [
                     Padding(
@@ -69,8 +74,8 @@ class EducationView extends GetView<EducationController> {
                       child: Row(
                         mainAxisAlignment: mainbetween,
                         children: [
-                          Obx(()=>
-                             Text(
+                          Obx(
+                            () => Text(
                               controller.selectedSubject.value,
                               style: manoropeFontFamily(
                                   fontSize: 10.sp,
@@ -81,8 +86,7 @@ class EducationView extends GetView<EducationController> {
                           const Icon(Icons.expand_more),
                         ],
                       ).box.make().onTap(() {
-                        controller.isOpen.value =
-                            !controller.isOpen.value;
+                        controller.isOpen.value = !controller.isOpen.value;
                       }),
                     ),
                     Obx(
@@ -104,12 +108,10 @@ class EducationView extends GetView<EducationController> {
                             return SizedBox(
                               height: 200.h,
                               child: ListView.builder(
-                                itemCount:
-                                    controller.subjects.length,
+                                itemCount: controller.subjects.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  final skill =
-                                      controller.subjects[index];
+                                  final skill = controller.subjects[index];
                                   // final isSelected =
                                   //     controller.selectedSkills.contains(skill);
                                   return Column(
@@ -167,8 +169,9 @@ class EducationView extends GetView<EducationController> {
                                       ),
                                     ],
                                   ).onTap(() {
-                                    controller.selectedSubject.value=controller.subjects[index];
-                                    controller.isOpen.value=false;
+                                    controller.selectedSubject.value =
+                                        controller.subjects[index];
+                                    controller.isOpen.value = false;
                                   });
                                 },
                               ),
@@ -176,7 +179,7 @@ class EducationView extends GetView<EducationController> {
                           })
                         : const SizedBox.shrink())
                   ],
-                                )
+                )
                     .box
                     .white
                     .padding(defaultpad)
@@ -184,11 +187,15 @@ class EducationView extends GetView<EducationController> {
                     .outerShadow
                     .roundedSM
                     .make(),
-                ),
+              ),
               30.heightBox,
               Row(
                 children: [
-                  Image.asset(professionalcertifications,width: 20,height: 20,),
+                  Image.asset(
+                    professionalcertifications,
+                    width: 20,
+                    height: 20,
+                  ),
                   10.widthBox,
                   Text(
                     "Professional Certifications",
@@ -200,9 +207,9 @@ class EducationView extends GetView<EducationController> {
                 ],
               ),
               20.heightBox,
-                Padding(
-                padding:const EdgeInsets.only(left: 5,right: 5),
-                  child: Column(
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: Column(
                   crossAxisAlignment: crosstart,
                   children: [
                     Padding(
@@ -210,9 +217,9 @@ class EducationView extends GetView<EducationController> {
                       child: Row(
                         mainAxisAlignment: mainbetween,
                         children: [
-                          Obx(()=>
-                             Text(
-                            controller.selectedCertification.value,
+                          Obx(
+                            () => Text(
+                              controller.selectedCertification.value,
                               style: manoropeFontFamily(
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
@@ -245,8 +252,7 @@ class EducationView extends GetView<EducationController> {
                             return SizedBox(
                               height: 200.h,
                               child: ListView.builder(
-                                itemCount:
-                                    controller.certifications.length,
+                                itemCount: controller.certifications.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   final skill =
@@ -308,8 +314,9 @@ class EducationView extends GetView<EducationController> {
                                       ),
                                     ],
                                   ).onTap(() {
-                                    controller.selectedCertification.value=controller.certifications[index];
-                                    controller.isCertificateOpen.value=false;
+                                    controller.selectedCertification.value =
+                                        controller.certifications[index];
+                                    controller.isCertificateOpen.value = false;
                                   });
                                 },
                               ),
@@ -317,7 +324,7 @@ class EducationView extends GetView<EducationController> {
                           })
                         : const SizedBox.shrink())
                   ],
-                                )
+                )
                     .box
                     .white
                     .padding(defaultpad)
@@ -325,14 +332,33 @@ class EducationView extends GetView<EducationController> {
                     .outerShadow
                     .roundedSM
                     .make(),
-                ),
-          (MediaQuery.sizeOf(context).height/2).heightBox,
+              ),
+              (MediaQuery.sizeOf(context).height / 2).heightBox,
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: CustomButton(
                     buttonName: "Continue",
                     onPressed: () {
-                      Get.toNamed(Routes.PREFERRED_MENTOR);
+                      if (controller.selectedCertification.isNotEmpty &&
+                          controller.selectedCertification.value != "Select" &&
+                          controller.selectedSubject.isNotEmpty &&
+                          controller.selectedSubject.value != "Select") {
+                        Get.toNamed(Routes.PREFERRED_MENTOR);
+                      } else if (controller.selectedSubject.isNotEmpty &&
+                          controller.selectedSubject.value == "Select") {
+                        Utils.snakbar(
+                            title: "Select subject",
+                            body: "Please select any of subjects");
+                      } else if (controller.selectedCertification.isNotEmpty &&
+                          controller.selectedCertification.value == "Select") {
+                        Utils.snakbar(
+                            title: "Select certification",
+                            body: "Please select any of certifications");
+                      } else {
+                        Utils.snakbar(
+                            title: "Select each",
+                            body: "Please select at least 1 of each.");
+                      }
                     },
                     textcolor: whitecolor,
                     loading: false,

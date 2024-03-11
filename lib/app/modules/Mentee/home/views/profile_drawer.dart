@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/modules/Mentee/home/controllers/home_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -12,6 +13,7 @@ import 'package:velocity_x/velocity_x.dart';
 class ProfileDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final homeController=Get.put(HomeController());
     return Drawer(
       width: MediaQuery.sizeOf(context).width / 1.2,
       shape: const RoundedRectangleBorder(),
@@ -234,7 +236,10 @@ class ProfileDrawer extends StatelessWidget {
                       color: blackcolor),
                 ),
               ],
-            ),
+            ).onTap(() {
+             
+              homeController.logoutUser();
+            }),
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
               child: Divider(

@@ -54,8 +54,8 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
-import '../modules/MentorIntroScreen/modules/Mentor/bindings/mentor_intro_screen_lib_modules_mentor_binding.dart';
-import '../modules/MentorIntroScreen/modules/Mentor/views/mentor_intro_screen_lib_modules_mentor_view.dart';
+import '../modules/Mentor/MentorIntroScreen/bindings/mentor_intro_screen_binding.dart';
+import '../modules/Mentor/MentorIntroScreen/views/mentor_intro_screen_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -214,10 +214,17 @@ class AppPages {
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
     ),
+
+    //mentor screens
     GetPage(
-      name: _Paths.MENTOR_INTRO_SCREEN_LIB_MODULES_MENTOR,
-      page: () => const MentorIntroScreenLibModulesMentorView(),
-      binding: MentorIntroScreenLibModulesMentorBinding(),
+      name: _Paths.MENTORINTROSCREEN,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_INTRO_SCREEN,
+      page: () => const MentorIntroScreenView(),
+      binding: MentorIntroScreenBinding(),
     ),
   ];
 }

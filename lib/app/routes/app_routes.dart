@@ -35,8 +35,7 @@ abstract class Routes {
   static const APP_GUIDE = _Paths.APP_GUIDE;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
   static const MENTORINTROSCREEN = _Paths.MENTORINTROSCREEN;
-  static const MENTOR_INTRO_SCREEN_LIB_MODULES_MENTOR =
-      _Paths.MENTOR_INTRO_SCREEN + _Paths.MENTOR;
+  static const MENTOR_INTRO_SCREEN = _Paths.MENTOR_INTRO_SCREEN;
 }
 
 abstract class _Paths {
@@ -71,5 +70,5 @@ abstract class _Paths {
   static const APP_GUIDE = '/app-guide';
   static const CHANGE_PASSWORD = '/change-password';
   static const MENTORINTROSCREEN = '/mentorintroscreen';
-  static const MENTOR_INTRO_SCREEN_LIB_MODULES_MENTOR = '/mentor';
+  static const MENTOR_INTRO_SCREEN = '/mentor-intro-screen';
 }

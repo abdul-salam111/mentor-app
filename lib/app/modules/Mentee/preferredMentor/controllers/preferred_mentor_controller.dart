@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class PreferredMentorController extends GetxController {
@@ -48,4 +49,5 @@ class PreferredMentorController extends GetxController {
   void setSelectedGoal(String goal) {
     selectedGoal.value = goal;
   }
+final aboutMe=TextEditingController().obs;
 }

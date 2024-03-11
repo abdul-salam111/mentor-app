@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:get_cli/common/utils/json_serialize/json_ast/utils/grapheme_splitter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/modules/Mentee/availbility/controllers/availbility_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
@@ -36,24 +40,26 @@ class AvailbilityView extends GetView<AvailbilityController> {
             padding: pad18,
             child: ListView(children: [
               10.heightBox,
-              Container(
-                height: 70.h,
-                width: 70,
-                color: greyColor,
-                child: Center(
-                  child: Column(mainAxisAlignment: maincenter, children: [
-                    const Icon(Icons.upload_file),
-                    5.heightBox,
-                    Text(
-                      "Upload",
-                      style: manoropeFontFamily(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: blackcolor),
-                    )
-                  ]),
-                ),
-              ).box.roundedFull.clip(Clip.antiAlias).make(),
+              Obx(
+               ()=> Container(
+                  height: 70.h,
+                  width: 70,
+                  color: greyColor,
+                  child: Center(
+                    child: controller.imageFile.value==null?  Column(mainAxisAlignment: maincenter, children: [
+                      const Icon(Icons.upload_file),
+                      5.heightBox,
+                      Text(
+                        "Upload",
+                        style: manoropeFontFamily(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: blackcolor),
+                      )
+                    ]):Image(image: FileImage(File(controller.imageFile.value!.path))),
+                  ),
+                ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {controller.pickImage();}),
+              ),
               10.heightBox,
               Center(
                 child: Text(
@@ -67,7 +73,11 @@ class AvailbilityView extends GetView<AvailbilityController> {
                 padding: pad12,
                 child: Row(
                   children: [
-                    Image.asset(daysoftheweek,width: 15,height: 15,),
+                    Image.asset(
+                      daysoftheweek,
+                      width: 15,
+                      height: 15,
+                    ),
                     10.widthBox,
                     Text(
                       "Days of the week available",
@@ -134,7 +144,11 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(mentorshipStyle,height: 15,width: 15,),
+                  Image.asset(
+                    mentorshipStyle,
+                    height: 15,
+                    width: 15,
+                  ),
                   10.widthBox,
                   Text(
                     "Time Zone",
@@ -154,8 +168,8 @@ class AvailbilityView extends GetView<AvailbilityController> {
                     child: Row(
                       mainAxisAlignment: mainbetween,
                       children: [
-                        Obx(()=>
-                           Text(
+                        Obx(
+                          () => Text(
                             controller.selectedTimeZone.value,
                             style: manoropeFontFamily(
                                 fontSize: 10.sp,
@@ -192,7 +206,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 final skill = controller.timezones[index];
-                               
+
                                 return Column(
                                   children: [
                                     ListTile(
@@ -203,7 +217,6 @@ class AvailbilityView extends GetView<AvailbilityController> {
                                             fontWeight: FontWeight.w400,
                                             color: blackcolor),
                                       ),
-                                      
                                     ),
                                     Container(
                                       color: greyColor,
@@ -211,8 +224,9 @@ class AvailbilityView extends GetView<AvailbilityController> {
                                     ),
                                   ],
                                 ).onTap(() {
-                                  controller.selectedTimeZone.value=controller.timezones[index];
-                                  controller.isOpen.value=false;
+                                  controller.selectedTimeZone.value =
+                                      controller.timezones[index];
+                                  controller.isOpen.value = false;
                                 });
                               },
                             ),
@@ -231,7 +245,11 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                   Image.asset(mentorshipStyle,height: 15,width: 15,),
+                  Image.asset(
+                    mentorshipStyle,
+                    height: 15,
+                    width: 15,
+                  ),
                   10.widthBox,
                   Text(
                     "Duration of mentor session",
@@ -251,9 +269,9 @@ class AvailbilityView extends GetView<AvailbilityController> {
                     child: Row(
                       mainAxisAlignment: mainbetween,
                       children: [
-                        Obx(()=>
-                           Text(
-                           controller.selectedDuration.value,
+                        Obx(
+                          () => Text(
+                            controller.selectedDuration.value,
                             style: manoropeFontFamily(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w400,
@@ -347,8 +365,9 @@ class AvailbilityView extends GetView<AvailbilityController> {
                                     ),
                                   ],
                                 ).onTap(() {
-                                  controller.selectedDuration.value=controller.durations[index];
-                                  controller.isDurationOpen.value=false;
+                                  controller.selectedDuration.value =
+                                      controller.durations[index];
+                                  controller.isDurationOpen.value = false;
                                 });
                               },
                             ),
@@ -367,7 +386,11 @@ class AvailbilityView extends GetView<AvailbilityController> {
               20.heightBox,
               Row(
                 children: [
-                  Image.asset(daysoftheweek,width: 15,height: 15,),
+                  Image.asset(
+                    daysoftheweek,
+                    width: 15,
+                    height: 15,
+                  ),
                   10.widthBox,
                   Text(
                     "Preferred communication channel",
@@ -431,14 +454,38 @@ class AvailbilityView extends GetView<AvailbilityController> {
                   ),
                 ),
               ),
-             
               50.heightBox,
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: CustomButton(
                     buttonName: "Save Profile",
                     onPressed: () {
-                      Get.toNamed(Routes.CONGRATULATIONS);
+                      if (controller.availabilityList.isNotEmpty &&
+                          controller.selectedTimeZone.value != "Select" &&
+                          controller.selectedDuration.value != "Select" &&
+                          controller.selectedChannles.isNotEmpty&&controller.imageFile.value!=null) {
+                        
+                        controller.createMentee();
+                      } else if (controller.availabilityList.isEmpty) {
+                        Utils.snakbar(
+                            title: "Select Availability",
+                            body: "Please select Availability");
+                      } else if (controller.selectedTimeZone.value ==
+                          "Select") {
+                        Utils.snakbar(
+                            title: "Select timezone",
+                            body: "Please select any of timezone.");
+                      } else if (controller.selectedDuration.value ==
+                          "Select") {
+                        Utils.snakbar(
+                            title: "Select Duration",
+                            body: "Please select any of duration.");
+                      } else if (controller.selectedChannles.isEmpty) {
+                        Utils.snakbar(
+                            title: "Select communication",
+                            body:
+                                "Please select any of Communication channel.");
+                      }
                     },
                     textcolor: whitecolor,
                     loading: false,

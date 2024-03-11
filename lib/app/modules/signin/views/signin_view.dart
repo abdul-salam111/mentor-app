@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
@@ -12,7 +15,7 @@ import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:http/http.dart' as http;
 
 class SigninView extends GetView<SigninController> {
   const SigninView({Key? key}) : super(key: key);
@@ -24,7 +27,6 @@ class SigninView extends GetView<SigninController> {
         padding: const EdgeInsets.fromLTRB(40, 30, 40, 30),
         child: ListView(
           children: [
-            
             Center(
               child: Image.asset(
                 logo2,
@@ -49,17 +51,63 @@ class SigninView extends GetView<SigninController> {
                 hinttext: "Name",
                 textEditingController: controller.nameController.value),
             20.heightBox,
-           
             commonTextField(
                 obscureText: true,
                 icon: passwordicon,
                 hinttext: "Password",
                 textEditingController: controller.passwordController.value),
-           
             40.heightBox,
             CustomButton(
-                buttonName: "Sign up",
-                onPressed: () {},
+                buttonName: "Sign in",
+                onPressed: () async {
+                  if (controller.nameController.value.text.isNotEmpty &&
+                      controller.passwordController.value.text.isNotEmpty) {
+                    controller.loginMentee();
+                  } else {
+                    Utils.snakbar(
+                        title: "Failed",
+                        body: "Please fill the required fields");
+                  }
+                  // // Define the URL for the API endpoint
+                  // var url = Uri.parse(
+                  //     'https://guided-by-culture-production.up.railway.app/api/auth/login');
+
+                  // // Define the request body
+                  // var body = jsonEncode({
+                  //   "password": controller.passwordController.value.text,
+                  //   "usernameOrEmail": controller.nameController.value.text,
+                  // });
+
+                  // // Make the POST request
+                  // var response = await http.post(
+                  //   url,
+                  //   headers: <String, String>{
+                  //     'Content-Type':
+                  //         'application/json', // Set content type to application/json
+                  //   },
+                  //   body: body, // Pass the request body
+                  // );
+
+                  // // Check the status code of the response
+                  // if (response.statusCode == 200) {
+                  //   // Request was successful, handle the response data
+                  //   print('Response: ${response.body}');
+                  //   // Parse the response JSON
+                  //   var responseData = jsonDecode(response.body);
+                  //   // Handle the response data
+                  //   // For example:
+                  //   var accessToken = responseData['accessToken'];
+                  //   var tokenType = responseData['tokenType'];
+                  //   // Proceed with further actions, such as storing the access token
+                  // } else {
+                  //   // Request failed, handle the error
+                  //   print('Request failed with status: ${response.statusCode}');
+                  //   // Print error response body if available
+                  //   if (response.body != null && response.body.isNotEmpty) {
+                  //     print('Error response: ${response.body}');
+                  //   }
+                  // }
+                },
                 textcolor: whitecolor,
                 loading: false,
                 backgroundColor: darkBrownColor,
@@ -67,11 +115,9 @@ class SigninView extends GetView<SigninController> {
                 height: 40.h,
                 textSize: 14.sp,
                 width: double.infinity),
-
-          
-             40.heightBox,
+            40.heightBox,
             Image.asset(or),
-             20.heightBox,
+            20.heightBox,
             Row(
               mainAxisAlignment: mainaround,
               children: [
@@ -94,7 +140,7 @@ class SigninView extends GetView<SigninController> {
             ),
             40.heightBox,
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(Routes.SIGNUP);
               },
               child: Row(
@@ -107,13 +153,18 @@ class SigninView extends GetView<SigninController> {
                         fontWeight: FontWeight.w300,
                         color: blackcolor),
                   ),
-                   Text('Signup',style: GoogleFonts.poppins(fontSize: 10.sp,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xff1D2F8E),decoration: TextDecoration.underline,),)
+                  Text(
+                    'Signup',
+                    style: GoogleFonts.poppins(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff1D2F8E),
+                      decoration: TextDecoration.underline,
+                    ),
+                  )
                 ],
               ),
             ),
-           
           ],
         ),
       ),
