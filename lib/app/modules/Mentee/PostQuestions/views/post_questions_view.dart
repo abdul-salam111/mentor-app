@@ -234,7 +234,7 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                   CustomButton(
                       buttonName: "Purchase An Additional Question",
                       onPressed: () async {
-                        await controller.makePayment();
+                        await controller.makePayment(amount: '5');
                       },
                       textcolor: blackcolor,
                       loading: false,

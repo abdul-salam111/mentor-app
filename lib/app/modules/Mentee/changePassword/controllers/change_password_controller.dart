@@ -19,7 +19,7 @@ class ChangePasswordController extends GetxController {
     EasyLoading.show(status: "Changing password");
     authRepository
         .changeMenteePassword(
-            email: getMenteeModelFromJson(
+            email: getMenteeInfoFromJson(
                     StorageServices.to.getString(getmenteeinfo))
                 .email!,
             newpassword: confirmPasswordController.value.text.trim().toString(),

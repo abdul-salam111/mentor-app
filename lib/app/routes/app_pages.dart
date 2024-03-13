@@ -56,6 +56,12 @@ import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
 import '../modules/Mentor/MentorIntroScreen/bindings/mentor_intro_screen_binding.dart';
 import '../modules/Mentor/MentorIntroScreen/views/mentor_intro_screen_view.dart';
+import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
+import '../modules/createNewPassword/views/create_new_password_view.dart';
+import '../modules/forgetPassword/bindings/forget_password_binding.dart';
+import '../modules/forgetPassword/views/forget_password_view.dart';
+import '../modules/otp/bindings/otp_binding.dart';
+import '../modules/otp/views/otp_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -225,6 +231,21 @@ class AppPages {
       name: _Paths.MENTOR_INTRO_SCREEN,
       page: () => const MentorIntroScreenView(),
       binding: MentorIntroScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGET_PASSWORD,
+      page: () => const ForgetPasswordView(),
+      binding: ForgetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_NEW_PASSWORD,
+      page: () => const CreateNewPasswordView(),
+      binding: CreateNewPasswordBinding(),
     ),
   ];
 }

@@ -26,9 +26,14 @@ class SigninController extends GetxController {
         password: passwordController.value.text,
         usernameOrEmail: nameController.value.text);
 
-    await authRepository.signInMentee(jsonEncode(signinModel)).then((value) {
-      StorageServices.to.setString(key: usertoken, value: value['accessToken']);
+    await authRepository
+        .signInMentee(jsonEncode(signinModel))
+        .then((value) async {
+      await StorageServices.to
+          .setString(key: usertoken, value: value['accessToken']);
       EasyLoading.dismiss();
+     var menteedata= await authRepository.getMenteeData(email: nameController.value.text.toString());
+    StorageServices.to.setString(key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
 
       Get.toNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {

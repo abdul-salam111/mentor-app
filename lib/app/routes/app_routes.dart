@@ -36,6 +36,9 @@ abstract class Routes {
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
   static const MENTORINTROSCREEN = _Paths.MENTORINTROSCREEN;
   static const MENTOR_INTRO_SCREEN = _Paths.MENTOR_INTRO_SCREEN;
+  static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
+  static const OTP = _Paths.OTP;
+  static const CREATE_NEW_PASSWORD = _Paths.CREATE_NEW_PASSWORD;
 }
 
 abstract class _Paths {
@@ -71,4 +74,7 @@ abstract class _Paths {
   static const CHANGE_PASSWORD = '/change-password';
   static const MENTORINTROSCREEN = '/mentorintroscreen';
   static const MENTOR_INTRO_SCREEN = '/mentor-intro-screen';
+  static const FORGET_PASSWORD = '/forget-password';
+  static const OTP = '/otp';
+  static const CREATE_NEW_PASSWORD = '/create-new-password';
 }

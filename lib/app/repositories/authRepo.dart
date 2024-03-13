@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/data/network/baseApiServices.dart';
 import 'package:mentor_app/app/data/network/networkApiServices.dart';
 import 'package:http/http.dart' as http;
+import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/resources/apiKeys.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -65,6 +69,92 @@ class AuthRepository {
       }
     } catch (e) {
       Utils.snakbar(title: "Faild", body: "Failed to change the password");
+    }
+  }
+
+  Future<void> deleteMenteeAccount({
+    required dynamic data,
+  }) async {
+    var url = Uri.parse(
+        'https://guided-by-culture-production.up.railway.app/api/mentee/deactivateAccount');
+
+    // Make the POST request
+    try {
+      var response = await http.delete(url,
+          headers: <String, String>{
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+          },
+          body: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+        StorageServices.to.remove(usertoken);
+        StorageServices.to.remove(getmenteeinfo);
+        Utils.snakbar(
+            title: "Account deleted!", body: "Your account has been deleted!");
+        Get.offAllNamed(Routes.SIGNIN);
+      } else {
+        Utils.snakbar(title: "Failed", body: "Failed to delete account");
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Failed", body: "Failed to delete account");
+    }
+  }
+
+  Future<GetMenteeInfo> getMenteeData({
+    required String email,
+  }) async {
+    var url = Uri.parse(
+        'https://guided-by-culture-production.up.railway.app/api/mentee/get-by-email?email=$email');
+
+    // Make the POST request
+    try {
+      var response = await http.get(
+        url,
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+    
+        return GetMenteeInfo.fromJson(data);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Failed", body: e.toString());
+      throw Exception();
+    }
+  }
+  Future<GetMenteeInfo> forgetPassword({
+    required String email,
+  }) async {
+    var url = Uri.parse(
+        'https://guided-by-culture-production.up.railway.app/api/mentee/get-by-email?email=$email');
+
+    // Make the POST request
+    try {
+      var response = await http.get(
+        url,
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+    
+        return GetMenteeInfo.fromJson(data);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Failed", body: e.toString());
+      throw Exception();
     }
   }
 }

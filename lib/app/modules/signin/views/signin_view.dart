@@ -56,6 +56,9 @@ class SigninView extends GetView<SigninController> {
                 icon: passwordicon,
                 hinttext: "Password",
                 textEditingController: controller.passwordController.value),
+            Align(alignment: Alignment.centerRight,child: TextButton(onPressed: (){
+              Get.toNamed(Routes.FORGET_PASSWORD);
+            }, child: const Text("Forget Password",style: TextStyle(color: darkBrownColor),))),
             40.heightBox,
             CustomButton(
                 buttonName: "Sign in",
@@ -68,45 +71,7 @@ class SigninView extends GetView<SigninController> {
                         title: "Failed",
                         body: "Please fill the required fields");
                   }
-                  // // Define the URL for the API endpoint
-                  // var url = Uri.parse(
-                  //     'https://guided-by-culture-production.up.railway.app/api/auth/login');
-
-                  // // Define the request body
-                  // var body = jsonEncode({
-                  //   "password": controller.passwordController.value.text,
-                  //   "usernameOrEmail": controller.nameController.value.text,
-                  // });
-
-                  // // Make the POST request
-                  // var response = await http.post(
-                  //   url,
-                  //   headers: <String, String>{
-                  //     'Content-Type':
-                  //         'application/json', // Set content type to application/json
-                  //   },
-                  //   body: body, // Pass the request body
-                  // );
-
-                  // // Check the status code of the response
-                  // if (response.statusCode == 200) {
-                  //   // Request was successful, handle the response data
-                  //   print('Response: ${response.body}');
-                  //   // Parse the response JSON
-                  //   var responseData = jsonDecode(response.body);
-                  //   // Handle the response data
-                  //   // For example:
-                  //   var accessToken = responseData['accessToken'];
-                  //   var tokenType = responseData['tokenType'];
-                  //   // Proceed with further actions, such as storing the access token
-                  // } else {
-                  //   // Request failed, handle the error
-                  //   print('Request failed with status: ${response.statusCode}');
-                  //   // Print error response body if available
-                  //   if (response.body != null && response.body.isNotEmpty) {
-                  //     print('Error response: ${response.body}');
-                  //   }
-                  // }
+                
                 },
                 textcolor: whitecolor,
                 loading: false,
@@ -115,9 +80,9 @@ class SigninView extends GetView<SigninController> {
                 height: 40.h,
                 textSize: 14.sp,
                 width: double.infinity),
-            40.heightBox,
-            Image.asset(or),
             20.heightBox,
+            Image.asset(or),
+            10.heightBox,
             Row(
               mainAxisAlignment: mainaround,
               children: [
@@ -138,7 +103,7 @@ class SigninView extends GetView<SigninController> {
                 )
               ],
             ),
-            40.heightBox,
+            20.heightBox,
             GestureDetector(
               onTap: () {
                 Get.toNamed(Routes.SIGNUP);
