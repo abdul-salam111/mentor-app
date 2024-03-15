@@ -79,7 +79,7 @@ class PostedJobsView extends GetView<PostedJobsController> {
                                             fontWeight: FontWeight.w400,
                                             color: blackcolor),
                                       ),
-                                      150.widthBox,
+                                      130.widthBox,
                                       Image.asset(
                                         horizontalIcon,
                                         width: 20,
@@ -97,7 +97,7 @@ class PostedJobsView extends GetView<PostedJobsController> {
                                   ),
                                   5.heightBox,
                                   SizedBox(
-                                    width: 230.w,
+                                    width: 240.w,
                                     child: Text(
                                       "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. ",
                                       style: manoropeFontFamily(

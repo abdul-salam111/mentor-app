@@ -6,8 +6,9 @@ import 'package:mentor_app/app/resources/colors.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
-Widget commonTextField({required String icon, required String hinttext,required TextEditingController textEditingController,  bool obscureText=false}) {
+Widget commonTextField({required String icon, required String hinttext,required TextEditingController textEditingController,  bool obscureText=false, TextInputType textInputType=TextInputType.text}) {
   return TextField(
+    keyboardType: textInputType,
     obscureText:obscureText ,
     controller: textEditingController,
     cursorHeight: 15.h,

@@ -119,7 +119,7 @@ class QuestionAndAnswerForumView
                   5.widthBox,
                   SizedBox(
                     height: 20.h,
-                    width: 220.w,
+                    width: 210.w,
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -199,7 +199,7 @@ class QuestionAndAnswerForumView
                                       color: blackcolor),
                                 ),
                                 SizedBox(
-                                  width: 250.w,
+                                  width: 240.w,
                                   child: Text(
                                     "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. In tortor et aliquam aliquet morbi urna dui. Placerat ac dictum scelerisque bibendum. Enim id nulla risus quisque.? ",
                                     style: manoropeFontFamily(

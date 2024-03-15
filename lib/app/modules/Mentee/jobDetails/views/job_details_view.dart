@@ -72,7 +72,7 @@ class JobDetailsView extends GetView<JobDetailsController> {
                                   fontWeight: FontWeight.w400,
                                   color: blackcolor),
                             ),
-                            150.widthBox,
+                            140.widthBox,
                             Image.asset(
                               horizontalIcon,
                               width: 20,
@@ -110,7 +110,7 @@ class JobDetailsView extends GetView<JobDetailsController> {
                         ),
                         2.heightBox,
                         SizedBox(
-                          width: 250.w,
+                          width: 245.w,
                           child: Text(
                             "Feugiat suspendisse rhoncus enim orci. Lectus nisl tortor accumsan ornare odio ridiculus. Sed non blandit amet diam. A id vel pellentesque turpis ipsum laoreet ut netus. Sit aliquet mauris sed neque risus integer in.Cras justo in vehicula porttitor. Etiam laoreet vehicula aenean gravida. Vivamus quis semper sit orci ipsum auctor feugiat lorem ultrices. Etiam in et lacus massa tortor. Ridiculus non aenean amet tempus. Lorem et cras gravida nibh. Ac eget gravida tempor tincidunt. Pharetra magna venenatis felis aliquet ac. Blandit volutpat purus sed blandit dui vitae arcu mattis. ",
                             style: manoropeFontFamily(
@@ -167,7 +167,7 @@ class JobDetailsView extends GetView<JobDetailsController> {
                                loading: false,
                                backgroundColor:  const Color(0xff109804),
                                rounded: false,
-                               height: 25.h,
+                               height: 30.h,
                                textSize: 11.sp,
                                width: 200.w),
                            ],

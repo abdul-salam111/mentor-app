@@ -5,11 +5,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/repositories/questionsRepo.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../repositories/paymentRepo.dart';
 import '../controllers/post_questions_controller.dart';
 
 class PostQuestionsView extends GetView<PostQuestionsController> {
@@ -72,12 +76,14 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                     child: Row(
                       mainAxisAlignment: mainbetween,
                       children: [
-                        Text(
-                          "Industry",
-                          style: manoropeFontFamily(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff616161)),
+                        Obx(
+                          () => Text(
+                            controller.selectedIndustries.value,
+                            style: manoropeFontFamily(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff616161)),
+                          ),
                         ),
                         const Icon(Icons.expand_more),
                       ],
@@ -109,11 +115,16 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 final skill = controller.industries[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
+
                                 return Column(
                                   children: [
                                     ListTile(
+                                      onTap: () {
+                                        controller.selectedIndustries.value =
+                                            controller.industries[index];
+                                        controller.isIndusryOpen.value =
+                                            !controller.isIndusryOpen.value;
+                                      },
                                       title: Text(
                                         skill,
                                         style: manoropeFontFamily(
@@ -121,44 +132,6 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                                             fontWeight: FontWeight.w400,
                                             color: blackcolor),
                                       ),
-                                      //   trailing: isSelected == true
-                                      //       ? SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .color(darkBrownColor)
-                                      //           .rounded
-                                      //           .make()
-                                      //       : SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .border(color: darkBrownColor)
-                                      //           .rounded
-                                      //           .make(),
-                                      // ).box.make().onTap(() {
-                                      //   if (controller.selectedSkills.length > 4) {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       Utils.snakbar(
-                                      //           title: 'Maximum 5 goals',
-                                      //           body:
-                                      //               'You cannot select more than 5 goals.');
-                                      //     }
-                                      //   } else {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       controller.selectedSkills.add(skill);
-                                      //       contextsss.update();
-                                      //     }
-                                      //   }
-                                      // }),
                                     ),
                                     Container(
                                       color: greyColor,
@@ -184,6 +157,7 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
               TextField(
                 maxLines: null, // Allow multiple lines of text
                 minLines: 7,
+                controller: controller.questionController.value,
                 decoration: InputDecoration(
                     hintText: 'Write your question here...', // Your hint text
                     hintStyle: manoropeFontFamily(
@@ -199,10 +173,16 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                     buttonName: "Post",
-                    onPressed: () {},
-                    textcolor: whitecolor,
+                    onPressed: () {
+                      controller.postQuestions();
+                    },
+                    textcolor: controller.getQuestionNumbers() != 0
+                        ? whitecolor
+                        : blackcolor,
                     loading: false,
-                    backgroundColor: darkBrownColor,
+                    backgroundColor: controller.getQuestionNumbers() != 0
+                        ? darkBrownColor
+                        : greyColor,
                     rounded: false,
                     height: 45,
                     textSize: 14,
@@ -211,41 +191,43 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
               Obx(() => controller.isIndusryOpen.value
                   ? 20.heightBox
                   : (MediaQuery.sizeOf(context).height / 9).heightBox),
-              Column(
-                children: [
-                  10.heightBox,
-                  Text(
-                    "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. In tortor et aliquam aliquet morbi urna dui. Placerat ac dictum scelerisque bibendum. Enim id nulla risus quisque.? ",
-                    style: manoropeFontFamily(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xff656466)),
-                    textAlign: TextAlign.center,
-                  ),
-                  5.heightBox,
-                  Text(
-                    '\$5',
-                    style: manoropeFontFamily(
-                        fontSize: 26.sp,
-                        fontWeight: FontWeight.bold,
-                        color: darkBrownColor),
-                  ),
-                  10.heightBox,
-                  CustomButton(
-                      buttonName: "Purchase An Additional Question",
-                      onPressed: () async {
-                        await controller.makePayment(amount: '5');
-                      },
-                      textcolor: blackcolor,
-                      loading: false,
-                      backgroundColor: const Color(0xffCCD7C5),
-                      rounded: false,
-                      height: 45,
-                      textSize: 10.sp,
-                      width: double.infinity),
-                  20.heightBox,
-                ],
-              ).box.padding(pad14).white.roundedSM.outerShadow.make(),
+              controller.getQuestionNumbers() == 0
+                  ? Column(
+                      children: [
+                        10.heightBox,
+                        Text(
+                          "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. In tortor et aliquam aliquet morbi urna dui. Placerat ac dictum scelerisque bibendum. Enim id nulla risus quisque.? ",
+                          style: manoropeFontFamily(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff656466)),
+                          textAlign: TextAlign.center,
+                        ),
+                        5.heightBox,
+                        Text(
+                          '\$5',
+                          style: manoropeFontFamily(
+                              fontSize: 26.sp,
+                              fontWeight: FontWeight.bold,
+                              color: darkBrownColor),
+                        ),
+                        10.heightBox,
+                        CustomButton(
+                            buttonName: "Purchase An Additional Question",
+                            onPressed: () async {
+                              await controller.makePayment(amount: '5');
+                            },
+                            textcolor: blackcolor,
+                            loading: false,
+                            backgroundColor: const Color(0xffCCD7C5),
+                            rounded: false,
+                            height: 45,
+                            textSize: 10.sp,
+                            width: double.infinity),
+                        20.heightBox,
+                      ],
+                    ).box.padding(pad14).white.roundedSM.outerShadow.make()
+                  : SizedBox.shrink(),
               10.heightBox,
             ],
           ),

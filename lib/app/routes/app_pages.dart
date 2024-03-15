@@ -221,12 +221,7 @@ class AppPages {
       binding: ChangePasswordBinding(),
     ),
 
-    //mentor screens
-    GetPage(
-      name: _Paths.MENTORINTROSCREEN,
-      page: () => const ChangePasswordView(),
-      binding: ChangePasswordBinding(),
-    ),
+   
     GetPage(
       name: _Paths.MENTOR_INTRO_SCREEN,
       page: () => const MentorIntroScreenView(),

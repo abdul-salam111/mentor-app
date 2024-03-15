@@ -47,8 +47,8 @@ class SigninView extends GetView<SigninController> {
             ),
             40.heightBox,
             commonTextField(
-                icon: nameicon,
-                hinttext: "Name",
+                icon: emailicon,
+                hinttext: "Email",
                 textEditingController: controller.nameController.value),
             20.heightBox,
             commonTextField(
@@ -90,7 +90,9 @@ class SigninView extends GetView<SigninController> {
                   googlelogin,
                   width: 70,
                   height: 70,
-                ),
+                ).onTap(() {
+                  controller.handleSignIn();
+                }),
                 Image.asset(
                   applelogin,
                   width: 70,

@@ -1,23 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 
 class MentorIntroScreenController extends GetxController {
-  //TODO: Implement MentorIntroScreenController
+    var pageController = PageController();
+  var currentIndex = 0.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void onPageChanged(int index) {
+    currentIndex.value = index;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void goToNextPage() {
+    if (currentIndex.value < 2) {
+      currentIndex.value++;
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
+    } else {
+      Get.toNamed(Routes.CAREER_GOALS);
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final emailcontroller=TextEditingController().obs;
 }

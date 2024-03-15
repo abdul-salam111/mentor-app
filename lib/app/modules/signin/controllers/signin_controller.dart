@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/signInModel.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
@@ -32,8 +34,10 @@ class SigninController extends GetxController {
       await StorageServices.to
           .setString(key: usertoken, value: value['accessToken']);
       EasyLoading.dismiss();
-     var menteedata= await authRepository.getMenteeData(email: nameController.value.text.toString());
-    StorageServices.to.setString(key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
+      var menteedata = await authRepository.getMenteeData(
+          email: nameController.value.text.toString());
+      StorageServices.to.setString(
+          key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
 
       Get.toNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {
@@ -41,4 +45,27 @@ class SigninController extends GetxController {
       Utils.snakbar(title: "Failed to Search", body: error.toString());
     });
   }
+
+  List<String> scopes = <String>[
+    'email',
+  ];
+
+  GoogleSignIn googleSignIn = GoogleSignIn();
+  Future<void> handleSignIn() async {
+    try {
+      await googleSignIn.signIn().then((value) {
+        if (value != null) {
+          StorageServices.to
+              .setBool(key: isUserLoggedinWithGoogle, value: true);
+
+          Get.offAndToNamed(Routes.ON_BOARDING);
+        } else {
+          print('Sign-in process did not complete successfully.');
+        }
+      });
+    } catch (error) {
+      print('Error occurred during sign-in: $error');
+    }
+  }
+  
 }

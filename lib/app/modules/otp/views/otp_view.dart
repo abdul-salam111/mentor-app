@@ -44,6 +44,7 @@ class OtpView extends GetView<OtpController> {
               ),
               40.heightBox,
               commonTextField(
+              textInputType: TextInputType.phone,
                   icon: emailicon,
                   hinttext: "Otp",
                   textEditingController: controller.otpController.value),
