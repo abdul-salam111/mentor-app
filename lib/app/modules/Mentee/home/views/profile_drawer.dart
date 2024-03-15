@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/home/controllers/home_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
+import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 
 class ProfileDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final homeController=Get.put(HomeController());
+    final homeController = Get.put(HomeController());
     return Drawer(
       width: MediaQuery.sizeOf(context).width / 1.2,
       shape: const RoundedRectangleBorder(),
@@ -87,14 +93,12 @@ class ProfileDrawer extends StatelessWidget {
                 height: 0,
               ),
             ),
-            
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
               child: Divider(
                 height: 0,
               ),
             ),
-            
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
               child: Divider(
@@ -123,6 +127,7 @@ class ProfileDrawer extends StatelessWidget {
               ],
             ).onTap(() {
               Get.toNamed(Routes.CHANGE_PASSWORD);
+             
             }),
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
@@ -160,25 +165,139 @@ class ProfileDrawer extends StatelessWidget {
               ),
             ),
             10.heightBox,
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Image.asset(
-                    deleteicon,
-                    height: 18.h,
-                    width: 18.w,
+            GestureDetector(
+              onTap: () {
+                Get.bottomSheet(
+                  Container(
+                    padding: pad20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: defaultpad,
+                        child: Column(
+                          crossAxisAlignment: crosstart,
+                          children: [
+                            Text(
+                              'Enter Password',
+                              style: manoropeFontFamily(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: textfieldgrey),
+                            ),
+                            10.heightBox,
+                            Obx(
+                              () => TextField(
+                                style: manoropeFontFamily(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xff656466)),
+                                obscureText:
+                                    homeController.passwordObsecure.value,
+                                controller:
+                                    homeController.passwordController.value,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          homeController
+                                                  .passwordObsecure.value =
+                                              !homeController
+                                                  .passwordObsecure.value;
+                                        },
+                                        child: Icon(
+                                          homeController.passwordObsecure.value
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: const Color(0xff656466),
+                                        )),
+                                    hintText: "***********",
+                                    contentPadding: const EdgeInsets.only(
+                                        left: 20, top: 12),
+                                    hintStyle: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff656466))),
+                              )
+                                  .box
+                                  .roundedLg
+                                  .clip(Clip.antiAlias)
+                                  .color(const Color(0xffEFEFEF))
+                                  .make(),
+                            ),
+                            30.heightBox,
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: CustomButton(
+                                  buttonName: "Deactivate",
+                                  onPressed: () {
+                                    if (homeController.passwordController.value
+                                        .text.isNotEmpty) {
+                                      Get.dialog(
+                                        AlertDialog(
+                                          title: const Text('Confirmation'),
+                                          content: const Text(
+                                              'Are you sure you want to delete your account?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: const Text('Close'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                homeController.deleteMentee();
+                                              },
+                                              child: const Text('Yes'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      Utils.snakbar(
+                                          title: "Enter Password",
+                                          body:
+                                              "Please enter password to delete your account.");
+                                    }
+                                  },
+                                  textcolor: whitecolor,
+                                  loading: false,
+                                  backgroundColor: darkBrownColor,
+                                  rounded: true,
+                                  height: 40.h,
+                                  textSize: 15.sp,
+                                  width: 100.w),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                10.widthBox,
-                Text(
-                  "Deactivate Account",
-                  style: manoropeFontFamily(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: blackcolor),
-                ),
-              ],
+                );
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Image.asset(
+                      deleteicon,
+                      height: 18.h,
+                      width: 18.w,
+                    ),
+                  ),
+                  10.widthBox,
+                  Text(
+                    "Deactivate Account",
+                    style: manoropeFontFamily(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w500,
+                        color: blackcolor),
+                  ),
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
@@ -186,7 +305,7 @@ class ProfileDrawer extends StatelessWidget {
                 height: 0,
               ),
             ),
-             10.heightBox,
+            10.heightBox,
             Row(
               children: [
                 Padding(
@@ -216,7 +335,6 @@ class ProfileDrawer extends StatelessWidget {
               ),
             ),
             40.heightBox,
-          
             Row(
               children: [
                 Padding(
@@ -237,7 +355,6 @@ class ProfileDrawer extends StatelessWidget {
                 ),
               ],
             ).onTap(() {
-             
               homeController.logoutUser();
             }),
             const Padding(

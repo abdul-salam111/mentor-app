@@ -1,13 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mentor_app/app/Utils/Utils.dart';
+import 'package:mentor_app/app/repositories/paymentRepo.dart';
+import 'package:mentor_app/app/repositories/questionsRepo.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 
 class PostQuestionsController extends GetxController {
+  final questionController = TextEditingController().obs;
   var isIndusryOpen = false.obs;
-  RxList<String> selectedIndustries = <String>[].obs;
+  var selectedIndustries = "Select".obs;
   List<String> industries = [
     'Information Technology (IT)',
     'Healthcare',
@@ -31,80 +38,127 @@ class PostQuestionsController extends GetxController {
     'Environmental',
     // Add more industries as needed
   ];
-  Map<String, dynamic>? paymentIntentData;
-  Future<void> makePayment() async {
+
+  Future<void> makePayment({required String amount}) async {
     try {
-      paymentIntentData =
-          await createPaymentIntent('20', 'USD'); //json.decode(response.body);
-      // print('Response body==>${response.body.toString()}');
+      paymentIntentData = await createPaymentIntent(amount, 'USD');
       await Stripe.instance
           .initPaymentSheet(
               paymentSheetParameters: SetupPaymentSheetParameters(
+                  billingDetails: const BillingDetails(
+                      name: 'YOUR NAME',
+                      email: 'YOUREMAIL@gmail.com',
+                      phone: 'YOUR NUMBER',
+                      address: Address(
+                          city: 'YOUR CITY',
+                          country: 'YOUR COUNTRY',
+                          line1: 'YOUR ADDRESS 1',
+                          line2: 'YOUR ADDRESS 2',
+                          postalCode: 'YOUR PINCODE',
+                          state: 'YOUR STATE')),
                   setupIntentClientSecret:
                       'sk_test_51OVD6sGSU7ONSj30NHaJHRpACM9duaTsg6X6fcMOqqThvOCRjxE0WtJFLKWYYMW3my3O5Vwn79D1XqgVXeAZjcTV00kW6PlzvI',
                   paymentIntentClientSecret:
                       paymentIntentData!['client_secret'],
-                  //applePay: PaymentSheetApplePay.,
-                  //googlePay: true,
-                  //testEnv: true,
+                  // applePay: const PaymentSheetApplePay(merchantCountryCode: ''),
+                  // googlePay: const PaymentSheetGooglePay(merchantCountryCode: ''),
+                  allowsDelayedPaymentMethods: true,
                   customFlow: true,
                   style: ThemeMode.dark,
                   // merchantCountryCode: 'US',
-                  merchantDisplayName: 'Mahammad Hassan'))
+                  merchantDisplayName: 'Sameer'))
           .then((value) {});
 
       ///now finally display payment sheeet
-      displayPaymentSheet();
+      displayPaymentSheet(amount: amount);
     } catch (e, s) {
       print('Payment exception:$e$s');
     }
   }
 
-  displayPaymentSheet() async {
+  PaymentRepository paymentRepository = PaymentRepository();
+  displayPaymentSheet({required amount}) async {
     try {
-      await Stripe.instance
-          .presentPaymentSheet(
-              //       parameters: PresentPaymentSheetParameters(
-              // clientSecret: paymentIntentData!['client_secret'],
-              // confirmPayment: true,
-              // )
-              )
-          .then((newValue) {
+      await Stripe.instance.presentPaymentSheet().then((newValue) async {
+        await Stripe.instance.confirmPaymentSheetPayment();
+        PaymentRepository paymentRepository = PaymentRepository();
+        paymentRepository.createPayment(amount: double.parse(amount));
+        StorageServices.to.setString(key: remainingQuestions, value: '5');
         paymentIntentData = null;
+
+        Utils.snakbar(
+            title: "Payment Done",
+            body: "Payment has been done, successfully!");
       }).onError((error, stackTrace) {});
-    } on StripeException catch (e) {
-      print(e);
-    } catch (e) {
-      print(e);
+    } on Exception catch (e) {
+      if (e is StripeException) {
+        Utils.snakbar(
+            title: "failed",
+            body: 'Error from Stripe: ${e.error.localizedMessage}');
+      } else {
+        Utils.snakbar(title: "failed", body: 'Unforeseen error: ${e}');
+      }
     }
   }
 
+  Map<String, dynamic>? paymentIntentData;
   //  Future<Map<String, dynamic>>
   createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
-        'amount': calculateAmount('20'),
+        'amount': calculateAmount(amount),
         'currency': currency,
-        // 'payment_method_types[]': 'card',
+        'payment_method_types[]': 'card',
       };
-      print(body);
+
       var response = await http.post(
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization': 'Bearer ' +
-                'sk_test_51OVD6sGSU7ONSj30NHaJHRpACM9duaTsg6X6fcMOqqThvOCRjxE0WtJFLKWYYMW3my3O5Vwn79D1XqgVXeAZjcTV00kW6PlzvI',
+            'Authorization':
+                'Bearer sk_test_51OVD6sGSU7ONSj30NHaJHRpACM9duaTsg6X6fcMOqqThvOCRjxE0WtJFLKWYYMW3my3O5Vwn79D1XqgVXeAZjcTV00kW6PlzvI',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
-      print('Create Intent reponse ===> ${response.body.toString()}');
+
       return jsonDecode(response.body);
     } catch (err) {
-      print('err charging user: ${err.toString()}');
+      Utils.snakbar(
+          title: "Failed", body: 'err charging user: ${err.toString()}');
     }
   }
 
   calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 100;
-    return a.toString();
+    final price = (int.parse(amount)) * 100;
+    return price.toString();
+  }
+
+  int getQuestionNumbers() {
+    int questions = (StorageServices.to.getString(remainingQuestions) == ''
+        ? 0
+        : int.parse(StorageServices.to.getString(remainingQuestions)));
+    return questions;
+  }
+
+  QuestionsRepository questionsRepository = QuestionsRepository();
+  Future<void> postQuestions() async {
+    if (getQuestionNumbers() != 0 &&
+        questionController.value.text.isNotEmpty &&
+        selectedIndustries.value != "Select") {
+    
+   
+      questionsRepository.postQuestion(
+          question: questionController.value.text.toString(),
+          industry: selectedIndustries.value.toString());
+      questionController.value.clear();
+      selectedIndustries.value="Select";
+      EasyLoading.dismiss();
+      Utils.snakbar(title: "Uploaded", body: "Your question is uploaded!");
+    } else if (questionController.value.text.isEmpty) {
+      Utils.snakbar(title: "error", body: "Please enter question");
+    } else if (selectedIndustries.value == "Select") {
+      Utils.snakbar(title: "error", body: "Please select any of the industry");
+    } else {
+      Utils.snakbar(title: "Error", body: "You have to pay first");
+    }
   }
 }

@@ -139,13 +139,11 @@ class AvailbilityController extends GetxController {
         request.fields[key] = value;
       });
       var response = await request.send();
-      var responseBody = await response.stream.bytesToString();
+      
 
       if (response.statusCode == 200) {
         EasyLoading.dismiss();
-        StorageServices.to.setString(
-            key: getmenteeinfo,
-            value: getMenteeModelToJson(getMenteeModelFromJson(responseBody)));
+       
         Get.offAndToNamed(Routes.CONGRATULATIONS);
         Utils.snakbar(
             title: "Account Created!",

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
+import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -22,16 +23,13 @@ void main() async {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        // print(MediaQuery.sizeOf(context).height);
-        // print(MediaQuery.sizeOf(context).width);
+ 
         return GetMaterialApp(
           theme: ThemeData(useMaterial3: true),
           builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: "Mentor App",
-          initialRoute: StorageServices.to.getString(usertoken).isNotEmpty
-              ? Routes.NAVIGATION_BAR
-              : Routes.SIGNIN,
+          initialRoute: Routes.SPLASHSCREEN,
           getPages: AppPages.routes,
         );
       },
