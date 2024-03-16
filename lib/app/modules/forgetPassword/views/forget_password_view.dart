@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
+import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
@@ -53,7 +55,12 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                 child: CustomButton(
                   buttonName: "Send OTP",
                   onPressed: () {
-                    Get.toNamed(Routes.OTP);
+                    if (controller.emailcontroller.value.text.isNotEmpty) {
+                      controller.sendOtp();
+                    } else {
+                      Utils.snakbar(
+                          title: "Email", body: "Enter email please.");
+                    }
                   },
                   backgroundColor: darkBrownColor,
                   textSize: 15.sp,

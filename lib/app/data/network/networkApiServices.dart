@@ -36,7 +36,9 @@ class NetworkApiService extends BaseApiServices {
   }
 
   dynamic returnResponse(http.Response response) {
+
     switch (response.statusCode) {
+      
       case 200:
         dynamic jsonresponse = jsonDecode(response.body);
         return jsonresponse;
@@ -44,9 +46,9 @@ class NetworkApiService extends BaseApiServices {
       dynamic jsonresponse=jsonDecode(response.body);
       return jsonresponse;
       case 400:
-        throw BadRequestExceptions(response.body.toString());
+        throw BadRequestExceptions("Wrong credentials");
       case 404:
-        throw UnAuthorizeExceptions();
+        throw UnAuthorizeExceptions("User is not authorized");
       default:
         throw FetchDataExceptions(
             "Error occurred while communicating server with status code ${response.statusCode}");

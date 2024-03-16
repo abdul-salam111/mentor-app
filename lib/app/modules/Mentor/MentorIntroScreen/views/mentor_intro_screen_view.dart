@@ -14,10 +14,13 @@ import '../../../../resources/alignments.dart';
 import '../../../../resources/paddings.dart';
 import '../controllers/mentor_intro_screen_controller.dart';
 
-class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
+class MentorIntroScreenView extends StatelessWidget {
   const MentorIntroScreenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(
+      MentorIntroScreenController(),
+    );
     final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: whitecolor,
@@ -33,13 +36,13 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
               "1/3"),
           OnboardingPage(
               "Connects mission",
-              "Lorem ipsum dolor sit amet consectetur. Nunc eu aliquam eget ac integer lectus dignissim. In nibh quis accumsan purus nisl. Netus sed pretium at arcu vivamus curabitur.",
+              "Lorem ipsum dolor sit amet consectetur. Nunc eu aliquam eget   amet consectetur. Nunc eu aliquam eget ac integer lectus dignissim. In nibh quis accumsan purus nisl. Netus sed pretium at arcu vivamus curabitur.",
               introimage2,
               "Get Started",
               "2/3"),
           GestureDetector(
             onTap: () {
-              MentorIntroScreenController controller = Get.find();
+             
               controller.goToNextPage();
             },
             child: Stack(
@@ -55,7 +58,7 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
                         height: 120.h,
                         width: 200.w,
                       ),
-                      SizedBox(height: 30.h),
+                      SizedBox(height: 60.h),
                       Padding(
                         padding: pad18,
                         child: Column(
@@ -66,9 +69,9 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
                               style: GoogleFonts.manrope(
                                   fontSize: 22.sp, fontWeight: FontWeight.w600),
                             ),
-                            30.heightBox,
+                            20.heightBox,
                             Text(
-                              "Your ultimate destination for finding furniture that perfectly fits your style and space. Get ready to embark on a journey of seamless shopping and inspiration.",
+                              "Your ultimate destination for  finding furniture that perfectly fits your style and space. Get ready to embark on a journey of seamless shopping and inspiration.",
                               style: GoogleFonts.manrope(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14.sp,
@@ -83,7 +86,7 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400),
                             ),
-                            20.heightBox,
+                            10.heightBox,
                             Container(
                               child: Row(
                                 mainAxisAlignment: maincenter,
@@ -229,7 +232,7 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
                         height: 120.h,
                         width: 200.w,
                       ),
-                      SizedBox(height: 30.h),
+         SizedBox(height: 100.h),
                       Padding(
                         padding: pad18,
                         child: Column(
@@ -305,7 +308,7 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
               ],
             ),
           ),
-           GestureDetector(
+          GestureDetector(
             onTap: () {
               MentorIntroScreenController controller = Get.find();
               controller.goToNextPage();
@@ -344,7 +347,6 @@ class MentorIntroScreenView extends GetView<MentorIntroScreenController> {
                                   color: darkGreyColor),
                               textAlign: TextAlign.center,
                             ),
-                           
                             50.heightBox,
                             CustomButton(
                                 buttonName: "Complete Profile",

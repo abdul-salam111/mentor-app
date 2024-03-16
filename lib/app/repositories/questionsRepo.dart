@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/getPostQuestionModel.dart';
+import 'package:mentor_app/app/models/getallQuestions.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -39,10 +41,15 @@ class QuestionsRepository {
       // Check response status
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-  print(data);
+
         StorageServices.to.setString(
             key: remainingQuestions,
             value: data['remainingQuestions'].toString());
+        await fetchQuestionCount();
+        Utils.snakbar(
+            title: "Question Uploaded",
+            body:
+                "Remaining questions are ${(StorageServices.to.getString(remainingQuestions))}");
         EasyLoading.dismiss();
         return GetPostQuestionModel.fromJson(data);
       } else {
@@ -54,6 +61,50 @@ class QuestionsRepository {
       print("Error: $e");
 
       EasyLoading.dismiss();
+      throw Exception();
+    }
+  }
+
+  Future<void> fetchQuestionCount() async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              'https://guided-by-culture-production.up.railway.app/api/mentee/get-question-count/${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email}'),
+          headers: {
+            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+          });
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        await StorageServices.to.setString(
+            key: remainingQuestions, value: (data['questionCount']).toString());
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Error", body: e.toString());
+    }
+  }
+
+  //fetch questions
+  Future<GetQuestionModel> fetchAllQuestion({required String industry}) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              'https://guided-by-culture-production.up.railway.app/api/mentee/questions/industry/$industry'),
+          headers: {
+            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+          });
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return GetQuestionModel.fromJson(data);
+      } else {
+        print(response.body);
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Error", body: e.toString());
       throw Exception();
     }
   }

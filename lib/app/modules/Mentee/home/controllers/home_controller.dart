@@ -12,9 +12,7 @@ class HomeController extends GetxController {
   Future<void> logoutUser() async {
     EasyLoading.show(status: "Logging out");
     authRepository.logoutUser().then((value) {
-      EasyLoading.dismiss();
-      StorageServices.to.remove(usertoken);
-      Get.offAllNamed(Routes.SIGNIN);
+     
     });
   }
 
@@ -29,8 +27,6 @@ class HomeController extends GetxController {
               .email
     }).then((value) {
       EasyLoading.dismiss();
-      StorageServices.to.remove(usertoken);
-      
     });
   }
 }

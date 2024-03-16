@@ -31,7 +31,7 @@ class SigninView extends GetView<SigninController> {
               child: Image.asset(
                 logo2,
                 width: 180.w,
-                height: 150.h,
+                height: 140.h,
                 fit: BoxFit.cover,
               ),
             ),
@@ -56,9 +56,16 @@ class SigninView extends GetView<SigninController> {
                 icon: passwordicon,
                 hinttext: "Password",
                 textEditingController: controller.passwordController.value),
-            Align(alignment: Alignment.centerRight,child: TextButton(onPressed: (){
-              Get.toNamed(Routes.FORGET_PASSWORD);
-            }, child: const Text("Forget Password",style: TextStyle(color: darkBrownColor),))),
+            Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.FORGET_PASSWORD);
+                    },
+                    child: const Text(
+                      "Forget Password",
+                      style: TextStyle(color: darkBrownColor),
+                    ))),
             40.heightBox,
             CustomButton(
                 buttonName: "Sign in",
@@ -71,7 +78,6 @@ class SigninView extends GetView<SigninController> {
                         title: "Failed",
                         body: "Please fill the required fields");
                   }
-                
                 },
                 textcolor: whitecolor,
                 loading: false,
@@ -116,14 +122,14 @@ class SigninView extends GetView<SigninController> {
                   Text(
                     "Don't have an account? ",
                     style: poppins(
-                        fontSize: 10.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                         color: blackcolor),
                   ),
                   Text(
                     'Signup',
                     style: GoogleFonts.poppins(
-                      fontSize: 10.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
                       color: const Color(0xff1D2F8E),
                       decoration: TextDecoration.underline,

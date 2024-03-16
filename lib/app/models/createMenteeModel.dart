@@ -18,7 +18,7 @@ class CreateMenteeModel {
   final String? mentorshipStyle;
   final String? industry;
   final String? about;
-
+  final String?fullName;
   final String? timeZone;
   final String? sessionDuration;
   final dynamic availableDays;
@@ -34,7 +34,7 @@ class CreateMenteeModel {
     this.mentorshipStyle,
     this.industry,
     this.about,
- 
+  this.fullName,
     this.timeZone,
     this.sessionDuration,
     this.availableDays,
@@ -59,6 +59,7 @@ class CreateMenteeModel {
         communicationChannels: json["communicationChannels"],
         goals: json["goals"],
         skills: json["skills"],
+        fullName:json['fullName'],
         password: json['password'],
       );
 
@@ -69,7 +70,7 @@ class CreateMenteeModel {
         "mentorshipStyle": mentorshipStyle,
         "industry": industry,
         "about": about,
-      
+      "fullName":fullName,
         "timeZone": timeZone,
         "sessionDuration": sessionDuration,
         "availableDays": availableDays,

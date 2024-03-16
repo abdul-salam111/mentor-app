@@ -58,6 +58,7 @@ import '../modules/Mentor/MentorIntroScreen/bindings/mentor_intro_screen_binding
 import '../modules/Mentor/MentorIntroScreen/views/mentor_intro_screen_view.dart';
 import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
 import '../modules/createNewPassword/views/create_new_password_view.dart';
+
 import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -220,8 +221,6 @@ class AppPages {
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
     ),
-
-   
     GetPage(
       name: _Paths.MENTOR_INTRO_SCREEN,
       page: () => const MentorIntroScreenView(),
@@ -242,5 +241,6 @@ class AppPages {
       page: () => const CreateNewPasswordView(),
       binding: CreateNewPasswordBinding(),
     ),
+  
   ];
 }
