@@ -24,7 +24,9 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+     final controller = Get.put(
+      MentorIntroScreenController(),
+    );
     final height = MediaQuery.of(context).size.height;
 
     return GestureDetector(
@@ -76,7 +78,7 @@ class OnboardingPage extends StatelessWidget {
                       CustomButton(
                           buttonName: buttonName,
                           onPressed: () {
-                            MentorIntroScreenController controller = Get.find();
+                         
                             controller.goToNextPage();
                           },
                           textcolor: whitecolor,

@@ -109,36 +109,36 @@ class PostedJobsView extends GetView<PostedJobsController> {
                                   ),
                                   20.heightBox,
                                   Row(
-                                      mainAxisAlignment: mainbetween,
-                                      children: [
-                                        Text(
-                                          '11:20am',
-                                          style: manoropeFontFamily(
-                                              fontSize: 11.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xff656466)),
-                                        ),
-                                       (MediaQuery.sizeOf(context).width/3.5).widthBox,
-                                        CustomButton(
-                                            buttonName: "View",
-                                            onPressed: () {
-                                               Get.toNamed(Routes.JOB_DETAILS);
-                                            },
-                                            textcolor: whitecolor,
-                                            loading: false,
-                                            backgroundColor: const Color(0xff109804),
-                                            rounded: true,
-                                            height: 20.h,
-                                            textSize: 10.sp,
-                                            width: 80.w)
-                                      ],
-                                    ),
-                                  
+                                    mainAxisAlignment: mainbetween,
+                                    children: [
+                                      Text(
+                                        '11:20am',
+                                        style: manoropeFontFamily(
+                                            fontSize: 11.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0xff656466)),
+                                      ),
+                                      (MediaQuery.sizeOf(context).width / 3.5)
+                                          .widthBox,
+                                      CustomButton(
+                                          buttonName: "View",
+                                          onPressed: () {
+                                            Get.toNamed(Routes.JOB_DETAILS);
+                                          },
+                                          textcolor: whitecolor,
+                                          loading: false,
+                                          backgroundColor:
+                                              const Color(0xff109804),
+                                          rounded: true,
+                                          height: 20.h,
+                                          textSize: 10.sp,
+                                          width: 80.w)
+                                    ],
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                         
                         ],
                       )
                           .box

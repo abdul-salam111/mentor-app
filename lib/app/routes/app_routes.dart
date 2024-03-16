@@ -34,11 +34,12 @@ abstract class Routes {
   static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
   static const APP_GUIDE = _Paths.APP_GUIDE;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
-  static const MENTORINTROSCREEN = _Paths.MENTORINTROSCREEN;
+
   static const MENTOR_INTRO_SCREEN = _Paths.MENTOR_INTRO_SCREEN;
   static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
   static const OTP = _Paths.OTP;
   static const CREATE_NEW_PASSWORD = _Paths.CREATE_NEW_PASSWORD;
+  static const DUMMY = _Paths.DUMMY;
 }
 
 abstract class _Paths {
@@ -72,9 +73,10 @@ abstract class _Paths {
   static const PRIVACY_POLICY = '/privacy-policy';
   static const APP_GUIDE = '/app-guide';
   static const CHANGE_PASSWORD = '/change-password';
-  static const MENTORINTROSCREEN = '/mentorintroscreen';
+
   static const MENTOR_INTRO_SCREEN = '/mentor-intro-screen';
   static const FORGET_PASSWORD = '/forget-password';
   static const OTP = '/otp';
   static const CREATE_NEW_PASSWORD = '/create-new-password';
+  static const DUMMY = '/dummy';
 }

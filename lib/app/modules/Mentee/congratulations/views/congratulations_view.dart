@@ -18,6 +18,7 @@ class CongratulationsView extends GetView<CongratulationsController> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+  
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -110,7 +111,15 @@ class CongratulationsView extends GetView<CongratulationsController> {
                     height: 50,
                     width: 50,
                   ))
-              : Positioned(
+              :       height <= 772? Positioned(
+                  top: 0.36.sh,
+                  left: MediaQuery.sizeOf(context).width / 2.35,
+                  child: Image.asset(
+                    introScreenRoundedIcon,
+                    height: 50,
+                    width: 50,
+                  )):
+               Positioned(
                   top: 0.46.sh,
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(

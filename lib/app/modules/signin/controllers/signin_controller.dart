@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/signInModel.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
+import 'package:mentor_app/app/repositories/questionsRepo.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -20,7 +21,7 @@ class SigninController extends GetxController {
   final passwordController = TextEditingController().obs;
 
   AuthRepository authRepository = AuthRepository();
-
+  QuestionsRepository questionsRepository = QuestionsRepository();
   Future<void> loginMentee() async {
     EasyLoading.show(status: "Signing In");
 
@@ -38,7 +39,7 @@ class SigninController extends GetxController {
           email: nameController.value.text.toString());
       StorageServices.to.setString(
           key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
-
+      questionsRepository.fetchQuestionCount();
       Get.toNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {
       EasyLoading.dismiss();
@@ -67,5 +68,4 @@ class SigninController extends GetxController {
       print('Error occurred during sign-in: $error');
     }
   }
-  
 }

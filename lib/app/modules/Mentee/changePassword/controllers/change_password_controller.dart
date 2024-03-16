@@ -27,8 +27,7 @@ class ChangePasswordController extends GetxController {
         .then((value) {
       EasyLoading.dismiss();
 
-      Utils.snakbar(
-          title: "Password Changed!", body: "Password Changed Successfully!");
+    
     });
   }
 }

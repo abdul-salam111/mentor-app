@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
-import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 import 'app/routes/app_pages.dart';
@@ -23,7 +21,6 @@ void main() async {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
- 
         return GetMaterialApp(
           theme: ThemeData(useMaterial3: true),
           builder: EasyLoading.init(),

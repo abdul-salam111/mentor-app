@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/storage.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../commonWidgets/elevatedButton.dart';
-import '../../../resources/icons.dart';
 import '../../../resources/images.dart';
 import '../controllers/otp_controller.dart';
 
@@ -43,28 +42,19 @@ class OtpView extends GetView<OtpController> {
                 ),
               ),
               40.heightBox,
-              commonTextField(
-              textInputType: TextInputType.phone,
-                  icon: emailicon,
-                  hinttext: "Otp",
-                  textEditingController: controller.otpController.value),
-              20.heightBox,
-              Align(
-                alignment: Alignment.centerRight,
-                child: CustomButton(
-                  buttonName: "Verify",
-                  onPressed: () {
-                    Get.toNamed(Routes.CREATE_NEW_PASSWORD);
-                  },
-                  backgroundColor: darkBrownColor,
-                  textSize: 15.sp,
-                  textcolor: whitecolor,
-                  width: 130.w,
-                  height: 35.h,
-                  loading: false,
-                  rounded: false,
-                ),
-              )
+              OTPTextField(
+                length: 5,
+                width: MediaQuery.of(context).size.width,
+                fieldWidth: 50,
+                style: const TextStyle(fontSize: 17),
+                textFieldAlignment: MainAxisAlignment.spaceAround,
+                fieldStyle: FieldStyle.box,
+                onCompleted: (pin) {
+                  StorageServices.to.setString(key: "otp", value: pin);
+                  controller.sendOtp(otp: pin);
+               
+                },
+              ),
             ],
           ),
         ),

@@ -83,7 +83,8 @@ class PostQuestionsController extends GetxController {
         await Stripe.instance.confirmPaymentSheetPayment();
         PaymentRepository paymentRepository = PaymentRepository();
         paymentRepository.createPayment(amount: double.parse(amount));
-        StorageServices.to.setString(key: remainingQuestions, value: '5');
+          questionsRepository.fetchQuestionCount();
+     
         paymentIntentData = null;
 
         Utils.snakbar(
@@ -148,11 +149,13 @@ class PostQuestionsController extends GetxController {
    
       questionsRepository.postQuestion(
           question: questionController.value.text.toString(),
-          industry: selectedIndustries.value.toString());
+          industry: selectedIndustries.value.toString()).then((value){
+            update();
+          });
       questionController.value.clear();
       selectedIndustries.value="Select";
       EasyLoading.dismiss();
-      Utils.snakbar(title: "Uploaded", body: "Your question is uploaded!");
+ 
     } else if (questionController.value.text.isEmpty) {
       Utils.snakbar(title: "error", body: "Please enter question");
     } else if (selectedIndustries.value == "Select") {

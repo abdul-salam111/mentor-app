@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/data/network/baseApiServices.dart';
@@ -17,6 +19,7 @@ class AuthRepository {
     try {
       dynamic response =
           await networkApiService.getPostResponse(loginMentee, data);
+
       return response;
     } catch (e) {
       rethrow;
@@ -37,7 +40,10 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
-        Utils.snakbar(title: "Loggedout", body: "You have been loggedout!");
+        Utils.snakbar(title: "Logged Out", body: "You have been loggedout!");
+        EasyLoading.dismiss();
+        StorageServices.to.remove(usertoken);
+        Get.offAllNamed(Routes.SIGNIN);
       } else {
         Utils.snakbar(title: "Faild", body: "Failed");
       }
@@ -64,11 +70,22 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         Get.back();
+        Utils.snakbar(
+            title: "Password changed",
+            body: "Your password is successfully changed");
       } else {
-        Utils.snakbar(title: "Faild", body: "Failed to change the password");
+        if (response.body ==
+            "java.lang.IllegalArgumentException: Incorrect old password") {
+          Utils.snakbar(
+              title: "Incorrecr Password", body: "Old password is incorrect");
+        }
       }
     } catch (e) {
-      Utils.snakbar(title: "Faild", body: "Failed to change the password");
+      print(e);
+      if (e == "java.lang.IllegalArgumentException: Incorrect old password") {
+        Utils.snakbar(
+            title: "Incorrecr Password", body: "Old password is incorrect");
+      }
     }
   }
 
@@ -88,15 +105,26 @@ class AuthRepository {
           body: jsonEncode(data));
 
       if (response.statusCode == 200) {
-        StorageServices.to.remove(usertoken);
-        StorageServices.to.remove(getmenteeinfo);
-        Utils.snakbar(
-            title: "Account deleted!", body: "Your account has been deleted!");
-        Get.offAllNamed(Routes.SIGNIN);
+        var data = jsonDecode(response.body);
+
+        if (data['messageStatus'] !=
+            "java.lang.IllegalArgumentException: Incorrect password") {
+          print("ok>>>>>>>>>>>>>>>>>>>>>>>.");
+          StorageServices.to.remove(usertoken);
+          StorageServices.to.remove(getmenteeinfo);
+          Utils.snakbar(
+              title: "Account deleted!",
+              body: "Your account has been deleted!");
+          Get.offAllNamed(Routes.SIGNIN);
+        } else {
+          Utils.snakbar(title: "error", body: "Password is incorrect!");
+        }
       } else {
+        print(response.body);
         Utils.snakbar(title: "Failed", body: "Failed to delete account");
       }
     } catch (e) {
+      print(data);
       Utils.snakbar(title: "Failed", body: "Failed to delete account");
     }
   }
@@ -119,7 +147,7 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-    
+
         return GetMenteeInfo.fromJson(data);
       } else {
         throw Exception();
@@ -129,30 +157,115 @@ class AuthRepository {
       throw Exception();
     }
   }
-  Future<GetMenteeInfo> forgetPassword({
+
+  Future<void> forgetPassword({
     required String email,
   }) async {
     var url = Uri.parse(
-        'https://guided-by-culture-production.up.railway.app/api/mentee/get-by-email?email=$email');
+        'https://guided-by-culture-production.up.railway.app/api/forgot-password/$email');
 
     // Make the POST request
     try {
-      var response = await http.get(
+      EasyLoading.show(status: "sending otp");
+      var response = await http.post(
         url,
-        headers: <String, String>{
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
-        },
       );
 
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-    
-        return GetMenteeInfo.fromJson(data);
+        EasyLoading.dismiss();
+        Utils.snakbar(title: "Email sent", body: "An Otp is sent to email!");
+        Get.toNamed(Routes.OTP);
       } else {
+        EasyLoading.dismiss();
+
         throw Exception();
       }
     } catch (e) {
+      EasyLoading.dismiss();
+
+      Utils.snakbar(title: "Failed", body: e.toString());
+      throw Exception();
+    }
+  }
+
+//verify otp
+  Future<void> verifyOtp({
+    required String otp,
+  }) async {
+    var url = Uri.parse(
+        'https://guided-by-culture-production.up.railway.app/api/match-otp');
+    Map<String, dynamic> payload = {
+      "email":
+          getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+              .email,
+      "id":
+          getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id,
+      "otp": otp,
+    };
+    print(payload);
+
+    // Make the POST request
+    try {
+      EasyLoading.show(status: "sending otp");
+      var response = await http.post(url, body: jsonEncode(payload), headers: {
+        "Content-Type": "application/json",
+      });
+
+      if (response.statusCode == 200) {
+        EasyLoading.dismiss();
+
+        Get.toNamed(Routes.CREATE_NEW_PASSWORD);
+      } else {
+        EasyLoading.dismiss();
+
+        throw Exception();
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+
+      Utils.snakbar(title: "Failed", body: e.toString());
+      throw Exception();
+    }
+  }
+
+  //Create New password
+  Future<void> createNewPassword({
+    required String password,
+  }) async {
+    var url = Uri.parse(
+        'https://guided-by-culture-production.up.railway.app/api/new-password?password=$password');
+    Map<String, dynamic> payload = {
+      "email":
+          getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+              .email,
+      "id":
+          getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id,
+      "otp": StorageServices.to.getString("otp"),
+    };
+
+    // Make the POST request
+    try {
+      EasyLoading.show(status: "sending otp");
+      var response = await http.put(url, body: jsonEncode(payload), headers: {
+        "Content-Type": "application/json",
+      });
+
+      if (response.statusCode == 200) {
+        EasyLoading.dismiss();
+        Utils.snakbar(
+            title: "Password Changed",
+            body: "Your password has been changed successfully!");
+
+        Get.toNamed(Routes.SIGNIN);
+      } else {
+        EasyLoading.dismiss();
+        print(response.body);
+        throw Exception();
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      print(e);
+
       Utils.snakbar(title: "Failed", body: e.toString());
       throw Exception();
     }

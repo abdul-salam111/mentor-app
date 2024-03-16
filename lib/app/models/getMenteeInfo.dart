@@ -13,6 +13,7 @@ class GetMenteeInfo {
     final String? email;
     final String? education;
     final String? gender;
+    final String?fullName;
     final String? mentorshipStyle;
     final String? industry;
     final String? about;
@@ -39,6 +40,7 @@ class GetMenteeInfo {
         this.availableDays,
         this.communicationChannels,
         this.goals,
+        this.fullName,
         this.skills,
         this.messageStatus,
     });
@@ -53,6 +55,7 @@ class GetMenteeInfo {
         about: json["about"],
         profilePicUrl: json["profilePicUrl"],
         timeZone: json["timeZone"],
+        fullName: json['fullName'],
         sessionDuration: json["sessionDuration"],
         availableDays: json["availableDays"] == null ? [] : List<AvailableDay>.from(json["availableDays"]!.map((x) => AvailableDay.fromJson(x))),
         communicationChannels: json["communicationChannels"] == null ? [] : List<CommunicationChannel>.from(json["communicationChannels"]!.map((x) => CommunicationChannel.fromJson(x))),
@@ -71,6 +74,7 @@ class GetMenteeInfo {
         "about": about,
         "profilePicUrl": profilePicUrl,
         "timeZone": timeZone,
+        "fullName":fullName,
         "sessionDuration": sessionDuration,
         "availableDays": availableDays == null ? [] : List<dynamic>.from(availableDays!.map((x) => x.toJson())),
         "communicationChannels": communicationChannels == null ? [] : List<dynamic>.from(communicationChannels!.map((x) => x.toJson())),

@@ -109,6 +109,7 @@ class AvailbilityController extends GetxController {
       String availbility = '"${availabilityList.join(',')}"';
 
       CreateMenteeModel createMenteeModel = CreateMenteeModel(
+        fullName:signUpController.nameController.value.text.toString() ,
         goals: selectedGoals,
         skills: selectedSkills,
         education: educationController.selectedSubject.value,

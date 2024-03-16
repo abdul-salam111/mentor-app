@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
@@ -72,39 +73,6 @@ class SignupView extends GetView<SignupController> {
                   () => Row(
                     children: [
                       Checkbox(
-                        side: const BorderSide(color: greyColor),
-                        checkColor: blackcolor,
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
-                            // Set the fill color of the checkbox when it is selected (checked)
-                            return halfwhitecolor; // Change the color to your preferred color
-                          }
-                          // Set the fill color of the checkbox when it is not selected (unchecked)
-                          return Colors
-                              .transparent; // Change the color to your preferred color
-                        }),
-                        value: controller.selectUserType.value == 'Mentor',
-                        onChanged: (bool? value) {
-                          if (value != null && value) {
-                            controller.setSelectUserType('Mentor');
-                          }
-                        },
-                      ),
-                      Text(
-                        "Mentor",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                80.widthBox,
-                Obx(
-                  () => Row(
-                    children: [
-                      Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
                         fillColor: MaterialStateProperty.resolveWith<Color>(
@@ -133,6 +101,39 @@ class SignupView extends GetView<SignupController> {
                     ],
                   ),
                 ),
+                80.widthBox,
+                Obx(
+                  () => Row(
+                    children: [
+                      Checkbox(
+                        side: const BorderSide(color: greyColor),
+                        checkColor: blackcolor,
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.selected)) {
+                            // Set the fill color of the checkbox when it is selected (checked)
+                            return halfwhitecolor; // Change the color to your preferred color
+                          }
+                          // Set the fill color of the checkbox when it is not selected (unchecked)
+                          return Colors
+                              .transparent; // Change the color to your preferred color
+                        }),
+                        value: controller.selectUserType.value == 'Mentor',
+                        onChanged: (bool? value) {
+                          if (value != null && value) {
+                            controller.setSelectUserType('Mentor');
+                          }
+                        },
+                      ),
+                      Text(
+                        "Mentor",
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
             30.heightBox,
@@ -142,9 +143,22 @@ class SignupView extends GetView<SignupController> {
                   if (controller.accepttermsandConditions.value == true &&
                       controller.selectUserType.value != '' &&
                       controller.selectUserType.value.isNotEmpty) {
-                    if (controller.selectUserType.value == 'Mentor') {
+                    if (controller.selectUserType.value == 'Mentee') {
                       Get.toNamed(Routes.ON_BOARDING);
+                    } else {
+                      Get.toNamed(Routes.MENTOR_INTRO_SCREEN);
                     }
+                  } else if (controller.emailController.value.text.isEmpty ||
+                      controller.nameController.value.text.isEmpty ||
+                      controller.passwordController.value.text.isEmpty) {
+                    Utils.snakbar(
+                        title: "Fields Required",
+                        body: "Please fill all fields");
+                  } else if (controller.accepttermsandConditions.value !=
+                      true) {
+                    Utils.snakbar(
+                        title: "Accpet terms and conditions",
+                        body: "Please accept terms and conditions!");
                   }
                 },
                 textcolor: whitecolor,
@@ -235,14 +249,14 @@ class SignupView extends GetView<SignupController> {
                   Text(
                     "Already have an account? ",
                     style: poppins(
-                        fontSize: 10.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                         color: blackcolor),
                   ),
                   Text(
                     'Sign in',
                     style: GoogleFonts.poppins(
-                      fontSize: 10.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
                       color: const Color(0xff1D2F8E),
                       decoration: TextDecoration.underline,
