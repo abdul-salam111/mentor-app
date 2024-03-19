@@ -25,11 +25,11 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       key: _scaffoldKey,
        endDrawer: ProfileDrawer(),
       body: SafeArea(
-        child: Padding(
-          padding: pad20,
-          child: ListView(
-            children: [
-              Row(
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
                   Row(
@@ -61,10 +61,16 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   )
                 ],
               ),
-              10.heightBox,
-              customSearchTextField(),
-              10.heightBox,
-              Row(
+            ),
+            10.heightBox,
+            Padding(
+                padding: const EdgeInsets.only(left: 15,right: 15),
+              child: customSearchTextField(),
+            ),
+            10.heightBox,
+            Padding(
+               padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Row(
                 children: [
                   SizedBox(
                     width: 90.w,
@@ -136,12 +142,15 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   ).box.border(color: greyColor).rounded.make(),
                 ],
               ),
-              20.heightBox,
-              Row(
+            ),
+            20.heightBox,
+            Padding(
+               padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
                   Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -179,7 +188,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       .rounded
                       .make(),
                   Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           // decoration: BoxDecoration(
                           //   gradient: LinearGradient(
                           //     begin: Alignment.topCenter,
@@ -221,7 +230,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                     Get.toNamed(Routes.QUESTION_AND_ANSWER_FORUM);
                   }),
                   Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           // decoration: BoxDecoration(
                           //   gradient: LinearGradient(
                           //     begin: Alignment.topCenter,
@@ -263,41 +272,49 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       }),
                 ],
               ),
-              20.heightBox,
-              Text(
+            ),
+            20.heightBox,
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Text(
                 'Upcoming Meetings',
                 style: manoropeFontFamily(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: darkBrownColor),
               ),
-              10.heightBox,
-              ListTile(
-                leading: CircleAvatar(
-                  radius: 30.r,
-                  backgroundImage: const AssetImage(mentor),
-                ),
-                title: Text(
-                  "Health chat with Lidia",
-                  style: manoropeFontFamily(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: blackcolor),
-                ),
-                subtitle: Text(
-                  "Today at 9:00 PM - 30 min",
-                  style: manoropeFontFamily(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: textfieldgrey),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: textfieldgrey,
-                  size: 15.sp,
-                ),
-              ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
-              10.heightBox,
+            ),
+            10.heightBox,
+            Padding(
+             padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 30.r,
+                      backgroundImage: const AssetImage(mentor),
+                    ),
+                    title: Text(
+                      "Health chat with Lidia",
+                      style: manoropeFontFamily(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: blackcolor),
+                    ),
+                    subtitle: Text(
+                      "Today at 9:00 PM - 30 min",
+                      style: manoropeFontFamily(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: textfieldgrey),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: textfieldgrey,
+                      size: 15.sp,
+                    ),
+                  ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
+                   10.heightBox,
               ListTile(
                 leading: CircleAvatar(
                   radius: 30.r,
@@ -323,8 +340,14 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   size: 15.sp,
                 ),
               ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
-              20.heightBox,
-              Row(
+                ],
+              ),
+            ),
+           
+            20.heightBox,
+            Padding(
+             padding: const EdgeInsets.only(left: 15,right: 15),
+              child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
                   Text(
@@ -348,7 +371,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   ),
                 ],
               ),
-              GridView.builder(
+            ),
+            Padding(
+               padding: const EdgeInsets.only(left: 15,right: 15),
+              child: GridView.builder(
                   physics: neverscroll,
                   shrinkWrap: true,
                   itemCount: 12,
@@ -367,6 +393,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                             CircleAvatar(
                               backgroundImage: AssetImage(mentor),
                             ),
+                          
                             Icon(
                               Icons.favorite,
                               color: greencolor,
@@ -414,15 +441,15 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       ],
                     )
                         .box
-                        .height(100.h)
-                        .padding(pad18)
+                        .height(110.h)
+                        .padding(EdgeInsets.symmetric(horizontal: 20,vertical: 10))
                         .white
                         .outerShadow
                         .roundedSM
                         .make().onTap(() {Get.toNamed(Routes.MENTOR_PROFILE);});
-                  })
-            ],
-          ),
+                  }),
+            )
+          ],
         ),
       ),
     );

@@ -8,6 +8,7 @@ import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../../../resources/colors.dart';
 import '../controllers/messages_controller.dart';
@@ -42,24 +43,57 @@ class MessagesView extends GetView<MessagesController> {
         ]),
         centerTitle: true,
         actions: [
-          Image.asset(
-            videocalling,
-            height: 25,
-            width: 25,
+          ZegoSendCallInvitationButton(
+            buttonSize: const Size(50, 20),
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
+            isVideoCall: true,
+            iconSize: Size(
+              20.h,
+              20.w,
+            ),
+            icon: ButtonIcon(
+              icon: Image.asset(
+                videocalling,
+              ),
+            ),
+            verticalLayout: false,
+            invitees: [
+              ZegoUIKitUser(
+                id: 'abdulsalam.0302@gmail.com',
+                name: 'Hasssan',
+              ),
+            ],
           ),
-          20.widthBox,
-          Image.asset(
-            audiocalling,
-            height: 25,
-            width: 25,
+          ZegoSendCallInvitationButton(
+           
+            buttonSize: const Size(50, 20),
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
+            isVideoCall: false,
+            iconSize: Size(
+              20.h,
+              20.w,
+            ),
+            icon: ButtonIcon(
+              icon: Image.asset(
+                audiocalling,
+              ),
+            ),
+            verticalLayout: false,
+            invitees: [
+              ZegoUIKitUser(
+                id: 'abdulsalam.0302@gmail.com',
+                name: 'Hasssan',
+              ),
+            ],
           ),
-          20.widthBox,
           Image.asset(
             verticalmenu,
-            height: 20,
+            height: 15,
             width: 20,
           ),
-          7.widthBox,
+          10.widthBox,
         ],
       ),
       body: Column(
@@ -138,14 +172,16 @@ class MessagesView extends GetView<MessagesController> {
               },
             ),
           ),
-          Obx(()=> controller.ismobileNumber.value?
-             Text(
-              '@ WARNING dont share phone number or personal informations',
-              style: manoropeFontFamily(
-                  fontSize: 7.sp,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xffFF0000)),
-            ):const SizedBox.shrink(),
+          Obx(
+            () => controller.ismobileNumber.value
+                ? Text(
+                    '@ WARNING dont share phone number or personal informations',
+                    style: manoropeFontFamily(
+                        fontSize: 7.sp,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xffFF0000)),
+                  )
+                : const SizedBox.shrink(),
           ),
           5.heightBox,
           Padding(

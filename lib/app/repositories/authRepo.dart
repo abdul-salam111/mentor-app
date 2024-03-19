@@ -12,6 +12,7 @@ import 'package:mentor_app/app/resources/apiKeys.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AuthRepository {
   BaseApiServices networkApiService = NetworkApiService();
@@ -22,6 +23,7 @@ class AuthRepository {
 
       return response;
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -42,6 +44,7 @@ class AuthRepository {
       if (response.statusCode == 200) {
         Utils.snakbar(title: "Logged Out", body: "You have been loggedout!");
         EasyLoading.dismiss();
+        ZegoUIKitPrebuiltCallInvitationService().uninit();
         StorageServices.to.remove(usertoken);
         Get.offAllNamed(Routes.SIGNIN);
       } else {

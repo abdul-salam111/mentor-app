@@ -143,11 +143,9 @@ class SignupView extends GetView<SignupController> {
                   if (controller.accepttermsandConditions.value == true &&
                       controller.selectUserType.value != '' &&
                       controller.selectUserType.value.isNotEmpty) {
-                    if (controller.selectUserType.value == 'Mentee') {
+                
                       Get.toNamed(Routes.ON_BOARDING);
-                    } else {
-                      Get.toNamed(Routes.MENTOR_INTRO_SCREEN);
-                    }
+                     
                   } else if (controller.emailController.value.text.isEmpty ||
                       controller.nameController.value.text.isEmpty ||
                       controller.passwordController.value.text.isEmpty) {

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/modules/Mentee/skills/controllers/skills_controller.dart';
+import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
@@ -13,8 +14,10 @@ import '../../../../commonWidgets/elevatedButton.dart';
 
 class SkillsView extends GetView<SkillsController> {
   const SkillsView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final signupcontroller = Get.put(SignupController());
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -92,9 +95,15 @@ class SkillsView extends GetView<SkillsController> {
               child: CustomButton(
                   buttonName: "Continue",
                   onPressed: () {
-                    if (controller.selectedSkills.isNotEmpty) {
+                    if (controller.selectedSkills.isNotEmpty &&
+                        signupcontroller.selectUserType.value == 'Mentee') {
                       Get.toNamed(Routes.EDUCATION);
-                    } else {
+                    } 
+                    else if(controller.selectedSkills.isNotEmpty &&
+                        signupcontroller.selectUserType.value == 'Mentor'){
+                          Get.toNamed(Routes.MENTOR_EDUCATION_BACKGROUND);
+                        }
+                    else {
                       Utils.snakbar(
                           title: "Select Skills",
                           body: "Please select at least 1 skill.");

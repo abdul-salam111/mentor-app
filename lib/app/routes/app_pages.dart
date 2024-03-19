@@ -54,11 +54,12 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
-import '../modules/Mentor/MentorIntroScreen/bindings/mentor_intro_screen_binding.dart';
-import '../modules/Mentor/MentorIntroScreen/views/mentor_intro_screen_view.dart';
+import '../modules/MentorAvailability/bindings/mentor_availability_binding.dart';
+import '../modules/MentorAvailability/views/mentor_availability_view.dart';
+import '../modules/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
+import '../modules/MentorEducationBackground/views/mentor_education_background_view.dart';
 import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
 import '../modules/createNewPassword/views/create_new_password_view.dart';
-
 import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -222,11 +223,6 @@ class AppPages {
       binding: ChangePasswordBinding(),
     ),
     GetPage(
-      name: _Paths.MENTOR_INTRO_SCREEN,
-      page: () => const MentorIntroScreenView(),
-      binding: MentorIntroScreenBinding(),
-    ),
-    GetPage(
       name: _Paths.FORGET_PASSWORD,
       page: () => const ForgetPasswordView(),
       binding: ForgetPasswordBinding(),
@@ -241,6 +237,15 @@ class AppPages {
       page: () => const CreateNewPasswordView(),
       binding: CreateNewPasswordBinding(),
     ),
-  
+    GetPage(
+      name: _Paths.MENTOR_EDUCATION_BACKGROUND,
+      page: () => const MentorEducationBackgroundView(),
+      binding: MentorEducationBackgroundBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_AVAILABILITY,
+      page: () => const MentorAvailabilityView(),
+      binding: MentorAvailabilityBinding(),
+    ),
   ];
 }

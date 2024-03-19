@@ -75,7 +75,7 @@ class ProfileView extends GetView<ProfileController> {
               ),
               GridView.builder(
                 physics: neverscroll,
-                itemCount: 6,
+                itemCount: controller.selectedSkills.length,
                 shrinkWrap: true,
                   gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                     
@@ -91,16 +91,19 @@ class ProfileView extends GetView<ProfileController> {
                          fit: BoxFit.cover,
                         ),
                         5.widthBox,
-                        Text(
-                          "Skills Name",
-                          style: GoogleFonts.lato(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.normal,
-                            color: const Color(0xff656466),
+                        SizedBox(
+                          width: 100.w,
+                          child: Text(
+                          controller.selectedSkills[index]!,
+                            style: GoogleFonts.lato(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.normal,
+                              color: const Color(0xff656466),
+                            ),
                           ),
                         )
                       ],
-                    ).box.padding(pad14).rounded.white.make();
+                    ).box.rounded.padding(const EdgeInsets.only(left: 5)).white.make();
                   }).box.color(const Color(0xffEFEFEF)).rounded.clip(Clip.antiAlias).margin( const EdgeInsets.only(left: 20,right: 20)).padding(pad16).make(),
            
               Padding(

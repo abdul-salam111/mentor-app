@@ -97,7 +97,7 @@ class SigninView extends GetView<SigninController> {
                   width: 70,
                   height: 70,
                 ).onTap(() {
-                  controller.handleSignIn();
+                  // controller.handleSignIn();
                 }),
                 Image.asset(
                   applelogin,
