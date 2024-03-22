@@ -57,7 +57,7 @@ class MessagesView extends GetView<MessagesController> {
                 videocalling,
               ),
             ),
-            verticalLayout: false,
+          
             invitees: [
               ZegoUIKitUser(
                 id: 'abdulsalam.0302@gmail.com',
@@ -80,7 +80,7 @@ class MessagesView extends GetView<MessagesController> {
                 audiocalling,
               ),
             ),
-            verticalLayout: false,
+          
             invitees: [
               ZegoUIKitUser(
                 id: 'abdulsalam.0302@gmail.com',

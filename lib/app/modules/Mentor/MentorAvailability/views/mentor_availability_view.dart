@@ -11,7 +11,7 @@ import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../resources/alignments.dart';
+import '../../../../resources/alignments.dart';
 import '../controllers/mentor_availability_controller.dart';
 
 class MentorAvailabilityView extends GetView<MentorAvailabilityController> {

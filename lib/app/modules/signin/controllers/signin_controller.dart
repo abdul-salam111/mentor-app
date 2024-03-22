@@ -43,7 +43,7 @@ class SigninController extends GetxController {
       StorageServices.to.setString(
           key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
       questionsRepository.fetchQuestionCount();
-      Get.toNamed(Routes.NAVIGATION_BAR);
+      Get.offAllNamed(Routes.NAVIGATION_BAR);
       ZegoUIKitPrebuiltCallInvitationService().init(
         appID: 2109043297 /*input your AppID*/,
         appSign:

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class MentorAvailabilityController extends GetxController {
-    List<String> daysOfWeek = [
+  List<String> daysOfWeek = [
     'Monday',
     'Tuesday',
     'Wednesday',
@@ -10,8 +10,8 @@ class MentorAvailabilityController extends GetxController {
     'Saturday',
     'Sunday',
   ];
-    RxList<String> availabilityList = <String>[].obs;
-    final List<String> timezones = [
+  RxList<String> availabilityList = <String>[].obs;
+  final List<String> timezones = [
     'UTC',
     'America/New_York',
     'America/Los_Angeles',
@@ -34,8 +34,8 @@ class MentorAvailabilityController extends GetxController {
     'Europe/Moscow',
   ];
   var selectedTimeZone = "Select".obs;
-    var isOpen = false.obs;
-     List<String> durations = [
+  var isOpen = false.obs;
+  List<String> durations = [
     '1 hour',
     '1 hour 30 minutes',
     '2 hours',
@@ -50,16 +50,16 @@ class MentorAvailabilityController extends GetxController {
   ];
 
   var selectedDuration = 'Select'.obs;
-    var isDurationOpen = false.obs;
-    List<String> communitcationChannels = [
+  var isDurationOpen = false.obs;
+  List<String> communitcationChannels = [
     'App messaging',
     'Video Call',
     'Phone Call'
   ];
   List<String> selectedChannles = <String>[].obs;
 
-   var isStatusOpen = false.obs;
-     List<String> availablityStatus = [
+  var isStatusOpen = false.obs;
+  List<String> availablityStatus = [
     'Accepting new mentees',
     'currently at full capacity',
     'On Hiatus',

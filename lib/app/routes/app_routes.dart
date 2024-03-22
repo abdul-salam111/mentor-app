@@ -40,6 +40,9 @@ abstract class Routes {
   static const DUMMY = _Paths.DUMMY;
   static const MENTOR_EDUCATION_BACKGROUND = _Paths.MENTOR_EDUCATION_BACKGROUND;
   static const MENTOR_AVAILABILITY = _Paths.MENTOR_AVAILABILITY;
+  static const CONNECTIONS = _Paths.CONNECTIONS;
+  static const SCHEDULE_MEETINGS = _Paths.SCHEDULE_MEETINGS;
+  static const FINDING_BEST_MATCH = _Paths.FINDING_BEST_MATCH;
 }
 
 abstract class _Paths {
@@ -79,4 +82,7 @@ abstract class _Paths {
   static const DUMMY = '/dummy';
   static const MENTOR_EDUCATION_BACKGROUND = '/mentor-education-background';
   static const MENTOR_AVAILABILITY = '/mentor-availability';
+  static const CONNECTIONS = '/connections';
+  static const SCHEDULE_MEETINGS = '/schedule-meetings';
+  static const FINDING_BEST_MATCH = '/finding-best-match';
 }

@@ -20,8 +20,10 @@ class PostedJobsView extends GetView<PostedJobsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: whitecolor,
         appBar: AppBar(
+          surfaceTintColor: whitecolor,
             backgroundColor: whitecolor,
             leading: IconButton(
                 onPressed: () {

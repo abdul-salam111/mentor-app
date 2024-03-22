@@ -54,16 +54,22 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
-import '../modules/MentorAvailability/bindings/mentor_availability_binding.dart';
-import '../modules/MentorAvailability/views/mentor_availability_view.dart';
-import '../modules/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
-import '../modules/MentorEducationBackground/views/mentor_education_background_view.dart';
+import '../modules/Mentor/MentorAvailability/bindings/mentor_availability_binding.dart';
+import '../modules/Mentor/MentorAvailability/views/mentor_availability_view.dart';
+import '../modules/Mentor/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
+import '../modules/Mentor/MentorEducationBackground/views/mentor_education_background_view.dart';
+import '../modules/connections/bindings/connections_binding.dart';
+import '../modules/connections/views/connections_view.dart';
 import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
 import '../modules/createNewPassword/views/create_new_password_view.dart';
+import '../modules/findingBestMatch/bindings/finding_best_match_binding.dart';
+import '../modules/findingBestMatch/views/finding_best_match_view.dart';
 import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/Mentor/scheduleMeetings/bindings/schedule_meetings_binding.dart';
+import '../modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -246,6 +252,21 @@ class AppPages {
       name: _Paths.MENTOR_AVAILABILITY,
       page: () => const MentorAvailabilityView(),
       binding: MentorAvailabilityBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONNECTIONS,
+      page: () => const ConnectionsView(),
+      binding: ConnectionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCHEDULE_MEETINGS,
+      page: () => ScheduleMeetingsView(),
+      binding: ScheduleMeetingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FINDING_BEST_MATCH,
+      page: () => const FindingBestMatchView(),
+      binding: FindingBestMatchBinding(),
     ),
   ];
 }
