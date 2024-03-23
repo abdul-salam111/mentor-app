@@ -43,6 +43,7 @@ abstract class Routes {
   static const CONNECTIONS = _Paths.CONNECTIONS;
   static const SCHEDULE_MEETINGS = _Paths.SCHEDULE_MEETINGS;
   static const FINDING_BEST_MATCH = _Paths.FINDING_BEST_MATCH;
+  static const MENTOR_MATCHED = _Paths.MENTOR_MATCHED;
 }
 
 abstract class _Paths {
@@ -85,4 +86,5 @@ abstract class _Paths {
   static const CONNECTIONS = '/connections';
   static const SCHEDULE_MEETINGS = '/schedule-meetings';
   static const FINDING_BEST_MATCH = '/finding-best-match';
+  static const MENTOR_MATCHED = '/mentor-matched';
 }

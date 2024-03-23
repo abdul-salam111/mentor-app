@@ -3,7 +3,6 @@
 //     final createMenteeModel = createMenteeModelFromJson(jsonString);
 
 import 'dart:convert';
-import 'dart:io';
 
 CreateMenteeModel createMenteeModelFromJson(String str) =>
     CreateMenteeModel.fromJson(json.decode(str));

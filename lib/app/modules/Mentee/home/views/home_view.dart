@@ -27,6 +27,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       body: SafeArea(
         child: ListView(
           children: [
+            10.heightBox,
             Padding(
               padding: const EdgeInsets.only(left: 15,right: 15),
               child: Row(

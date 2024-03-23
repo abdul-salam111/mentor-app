@@ -4,15 +4,12 @@ import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/home/controllers/home_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
-import 'package:mentor_app/app/storage/keys.dart';
-import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 
@@ -61,7 +58,9 @@ class ProfileDrawer extends StatelessWidget {
             20.heightBox,
             CustomButton(
                 buttonName: "Edit Profile",
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PROFILE);
+                },
                 textcolor: whitecolor,
                 loading: false,
                 backgroundColor: darkBrownColor,

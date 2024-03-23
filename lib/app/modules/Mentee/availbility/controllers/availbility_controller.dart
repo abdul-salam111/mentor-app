@@ -2,7 +2,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mentor_app/app/models/createMenteeModel.dart';
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/careerGoals/controllers/career_goals_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/education/controllers/education_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/preferredMentor/controllers/preferred_mentor_controller.dart';
@@ -11,8 +10,6 @@ import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart
 import 'package:mentor_app/app/resources/apiKeys.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:http/http.dart' as http;
-import 'package:mentor_app/app/storage/keys.dart';
-import 'package:mentor_app/app/storage/storage.dart';
 
 import '../../../../Utils/Utils.dart';
 
@@ -109,7 +106,7 @@ class AvailbilityController extends GetxController {
       String availbility = '"${availabilityList.join(',')}"';
 
       CreateMenteeModel createMenteeModel = CreateMenteeModel(
-        fullName:signUpController.nameController.value.text.toString() ,
+        fullName: signUpController.nameController.value.text.toString(),
         goals: selectedGoals,
         skills: selectedSkills,
         education: educationController.selectedSubject.value,
@@ -140,27 +137,43 @@ class AvailbilityController extends GetxController {
         request.fields[key] = value;
       });
       var response = await request.send();
-      
-
       if (response.statusCode == 200) {
         EasyLoading.dismiss();
-       
+        clearTextfields();
+        
+
         Get.offAndToNamed(Routes.CONGRATULATIONS);
         Utils.snakbar(
             title: "Account Created!",
             body: "Your account is created Successfull!");
       } else {
-      //  var data=getMenteeModelFromJson(StorageServices.to.getString(getmenteeinfo));
-      
-      
         EasyLoading.dismiss();
-        Utils.snakbar(
-            title: "Failed!", body: "Failed to create Account!");
+        Utils.snakbar(title: "Failed!", body: "Failed to create Account!");
       }
     } catch (e) {
       // Handle any errors that occur during the process
-      Utils.snakbar(title: "Failed", body: "Failed to create Account becuase! $e");
+      Utils.snakbar(
+          title: "Failed", body: "Failed to create Account becuase! $e");
       EasyLoading.dismiss(); // Dismiss loading indicator if it's still shown
     }
+  }
+
+  clearTextfields() {
+    signUpController.nameController.value.clear();
+    signUpController.emailController.value.clear();
+    signUpController.passwordController.value.clear();
+    careerGoalsController.selectedGoalsList.clear();
+    skillsController.selectedSkills.clear();
+    educationController.selectedCertification.value = "Select";
+    educationController.selectedSubject.value = "Select";
+    preferredMentorController.aboutMe.value.clear();
+    preferredMentorController.selectedGender.value = "";
+    preferredMentorController.selectedIndustries.value = "Select";
+    preferredMentorController.selectedMentorshipstyle.value = "Select";
+    imageFile.value = null;
+    selectedChannles.clear();
+    selectedDuration.value = "Select";
+    selectedTimeZone.value = "Select";
+    availabilityList.clear();
   }
 }

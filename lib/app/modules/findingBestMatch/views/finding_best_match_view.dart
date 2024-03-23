@@ -16,8 +16,21 @@ class FindingBestMatchView extends GetView<FindingBestMatchController> {
     return Scaffold(
         body: Column(
       children: [
+        40.heightBox,
+         Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Cancel",
+                  style: manoropeFontFamily(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: blackcolor),
+                ),
+              )),
         const LoginAssets(),
-        const Spacer(),
+     
         Text(
           "Finding Best Match for you",
           style: manoropeFontFamily(
@@ -32,7 +45,7 @@ class FindingBestMatchView extends GetView<FindingBestMatchController> {
               fontWeight: FontWeight.w500,
               color: darkBrownColor),
         ),
-        200.heightBox
+        100.heightBox
       ],
     ));
   }

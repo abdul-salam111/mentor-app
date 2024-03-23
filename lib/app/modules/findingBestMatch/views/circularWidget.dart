@@ -120,7 +120,7 @@ class _LoginAssetsState extends State<LoginAssets>
             child: Stack(
               children: [
                 Positioned(
-                  top: 80,
+                  top: 90,
                   right: 20,
                   left: 0,
                   child: RotationTransition(
@@ -141,8 +141,8 @@ class _LoginAssetsState extends State<LoginAssets>
                   ),
                 ),
                 Positioned(
-                  top: 140,
-                  right: 0,
+                  bottom: 290,
+                  right: 20,
                   
                   child: RotationTransition(
                     turns: _animation,
@@ -184,7 +184,7 @@ class _LoginAssetsState extends State<LoginAssets>
                   ),
                 ),
                 Positioned(
-                  top: 270.h,
+                  top: 230.h,
                   right: 0,
                   left: 290,
                   child: RotationTransition(
@@ -205,7 +205,7 @@ class _LoginAssetsState extends State<LoginAssets>
                   ),
                 ),
                 Positioned(
-                  top: 140,
+                  top: 180,
                   right: 290,
                   left: 0,
                   child: RotationTransition(

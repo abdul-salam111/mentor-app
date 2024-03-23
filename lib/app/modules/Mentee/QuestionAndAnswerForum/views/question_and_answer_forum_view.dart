@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';

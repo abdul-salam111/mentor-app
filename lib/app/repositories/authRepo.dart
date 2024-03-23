@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';

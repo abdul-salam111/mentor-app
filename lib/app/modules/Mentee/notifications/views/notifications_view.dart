@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
 

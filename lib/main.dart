@@ -31,7 +31,7 @@ void main() async {
           builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: "Mentor App",
-          initialRoute: Routes.FINDING_BEST_MATCH,
+          initialRoute: Routes.SPLASHSCREEN,
           getPages: AppPages.routes,
           navigatorKey: navigatorKey,
         );

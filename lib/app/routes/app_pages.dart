@@ -58,6 +58,10 @@ import '../modules/Mentor/MentorAvailability/bindings/mentor_availability_bindin
 import '../modules/Mentor/MentorAvailability/views/mentor_availability_view.dart';
 import '../modules/Mentor/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
 import '../modules/Mentor/MentorEducationBackground/views/mentor_education_background_view.dart';
+import '../modules/Mentor/scheduleMeetings/bindings/schedule_meetings_binding.dart';
+import '../modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
+import '../modules/MentorMatched/bindings/mentor_matched_binding.dart';
+import '../modules/MentorMatched/views/mentor_matched_view.dart';
 import '../modules/connections/bindings/connections_binding.dart';
 import '../modules/connections/views/connections_view.dart';
 import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
@@ -68,8 +72,6 @@ import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
-import '../modules/Mentor/scheduleMeetings/bindings/schedule_meetings_binding.dart';
-import '../modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -267,6 +269,11 @@ class AppPages {
       name: _Paths.FINDING_BEST_MATCH,
       page: () => const FindingBestMatchView(),
       binding: FindingBestMatchBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_MATCHED,
+      page: () => const MentorMatchedView(),
+      binding: MentorMatchedBinding(),
     ),
   ];
 }

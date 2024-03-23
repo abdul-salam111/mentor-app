@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/storage/keys.dart';

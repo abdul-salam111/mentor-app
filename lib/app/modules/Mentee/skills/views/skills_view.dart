@@ -20,6 +20,7 @@ class SkillsView extends GetView<SkillsController> {
     final signupcontroller = Get.put(SignupController());
     return Scaffold(
         appBar: AppBar(
+          surfaceTintColor: whitecolor,
           leading: IconButton(
               onPressed: () {
                 Get.back();

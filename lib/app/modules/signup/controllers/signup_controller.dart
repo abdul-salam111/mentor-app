@@ -11,4 +11,5 @@ class SignupController extends GetxController {
     selectUserType.value = gender;
   }
   var accepttermsandConditions=false.obs;
+  
 }

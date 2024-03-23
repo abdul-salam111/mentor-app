@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,6 @@ import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart' as http;
 
 class SigninView extends GetView<SigninController> {
   const SigninView({Key? key}) : super(key: key);

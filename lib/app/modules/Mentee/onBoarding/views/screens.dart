@@ -17,9 +17,10 @@ class OnboardingPage extends StatelessWidget {
   final String buttonName;
   final String? image;
   final String? pageno;
+  final int heightpageno;
 
   OnboardingPage(
-      this.title, this.description, this.image, this.buttonName, this.pageno);
+      this.title, this.description, this.image, this.buttonName, this.pageno,this.heightpageno);
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,7 @@ class OnboardingPage extends StatelessWidget {
                         title,
                         style: GoogleFonts.manrope(
                             fontSize: 22.sp, fontWeight: FontWeight.w600),
+                               textAlign: TextAlign.center,
                       ),
                       30.heightBox,
                       Text(
@@ -64,7 +66,7 @@ class OnboardingPage extends StatelessWidget {
                             color: darkGreyColor),
                         textAlign: TextAlign.center,
                       ),
-                      20.heightBox,
+                  (heightpageno).heightBox,
                       Text(
                         pageno!,
                         style: GoogleFonts.manrope(
@@ -111,7 +113,7 @@ class OnboardingPage extends StatelessWidget {
                     width: 50,
                   ))
               : Positioned(
-                  top: 0.46.sh,
+                  top: 0.43.sh,
                   left: MediaQuery.sizeOf(context).width / 2.35,
                   child: Image.asset(
                     introScreenRoundedIcon,

@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
-import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../commonWidgets/commonTextfield.dart';

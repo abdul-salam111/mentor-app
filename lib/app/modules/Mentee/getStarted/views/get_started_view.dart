@@ -23,9 +23,9 @@ class GetStartedView extends GetView<GetStartedController> {
             padding: pad16,
             child: Column(
               children: [
-                (MediaQuery.sizeOf(context).height / 5.5).heightBox,
+                (MediaQuery.sizeOf(context).height / 7).heightBox,
                 Text(
-                  "Lorem ipsum dolor sit amet consectetur.",
+                  "Welcome to the Guided By Culture Community!",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.dmSans(
                       fontSize: 22.sp,
@@ -34,17 +34,16 @@ class GetStartedView extends GetView<GetStartedController> {
                 ),
                 30.heightBox,
                 SizedBox(
-                  width: (MediaQuery.sizeOf(context).width / 1.5),
+                  width: (MediaQuery.sizeOf(context).width / 1.2),
                   child: Text(
-                    "Lorem ipsum dolor sit amet consectetur. At sit et ac etiam magna quis tristique.",
+                    "Join our diverse and inclusive community dedicated to empowering individuals like you. Whether you're a mentor ready to share wisdom or a mentee seeking guidance, you've found your place here. Connect. Cultivate. Elevate. Welcome aboard.",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.dmSans(
-                        fontSize: 12.sp,
+                        fontSize: 14.sp,
                         color: whitecolor,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                20.heightBox,
                 Image.asset(
                   introimage3,
                   height: 250.h,

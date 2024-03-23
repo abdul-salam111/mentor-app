@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -9,7 +8,6 @@ import 'package:mentor_app/app/models/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/signInModel.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';

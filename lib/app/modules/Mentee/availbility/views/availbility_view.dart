@@ -11,7 +11,6 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/modules/Mentee/availbility/controllers/availbility_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../commonWidgets/manoropeFontFamily.dart';
@@ -41,24 +40,30 @@ class AvailbilityView extends GetView<AvailbilityController> {
             child: ListView(children: [
               10.heightBox,
               Obx(
-               ()=> Container(
+                () => Container(
                   height: 70.h,
                   width: 70,
                   color: greyColor,
                   child: Center(
-                    child: controller.imageFile.value==null?  Column(mainAxisAlignment: maincenter, children: [
-                      const Icon(Icons.upload_file),
-                      5.heightBox,
-                      Text(
-                        "Upload",
-                        style: manoropeFontFamily(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            color: blackcolor),
-                      )
-                    ]):Image(image: FileImage(File(controller.imageFile.value!.path))),
+                    child: controller.imageFile.value == null
+                        ? Column(mainAxisAlignment: maincenter, children: [
+                            const Icon(Icons.upload_file),
+                            5.heightBox,
+                            Text(
+                              "Upload",
+                              style: manoropeFontFamily(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w400,
+                                  color: blackcolor),
+                            )
+                          ])
+                        : Image(
+                            image: FileImage(
+                                File(controller.imageFile.value!.path))),
                   ),
-                ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {controller.pickImage();}),
+                ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {
+                  controller.pickImage();
+                }),
               ),
               10.heightBox,
               Center(
@@ -463,8 +468,8 @@ class AvailbilityView extends GetView<AvailbilityController> {
                       if (controller.availabilityList.isNotEmpty &&
                           controller.selectedTimeZone.value != "Select" &&
                           controller.selectedDuration.value != "Select" &&
-                          controller.selectedChannles.isNotEmpty&&controller.imageFile.value!=null) {
-                        
+                          controller.selectedChannles.isNotEmpty &&
+                          controller.imageFile.value != null) {
                         controller.createMentee();
                       } else if (controller.availabilityList.isEmpty) {
                         Utils.snakbar(
@@ -480,6 +485,10 @@ class AvailbilityView extends GetView<AvailbilityController> {
                         Utils.snakbar(
                             title: "Select Duration",
                             body: "Please select any of duration.");
+                      } else if (controller.imageFile.value == null) {
+                        Utils.snakbar(
+                            title: "Select Image!",
+                            body: "Please select profile image");
                       } else if (controller.selectedChannles.isEmpty) {
                         Utils.snakbar(
                             title: "Select communication",
