@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/Utils/Utils.dart';
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
-import 'package:mentor_app/app/models/getPostQuestionModel.dart';
-import 'package:mentor_app/app/models/getallQuestions.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/questions/getPostQuestionModel.dart';
+import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -92,6 +92,32 @@ class QuestionsRepository {
       final response = await http.get(
           Uri.parse(
               'https://guided-by-culture-production.up.railway.app/api/mentee/questions/industry/$industry'),
+          headers: {
+            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+          });
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return GetQuestionModel.fromJson(data);
+      } else {
+        print(response.body);
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Error", body: e.toString());
+      throw Exception();
+    }
+  }
+
+  //post question replies
+  Future<GetQuestionModel> submitAnswersToQuestions(
+      {required String answer,
+      required String menteeQuestionId,
+      required String mentorQuestionId}) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              'https://guided-by-culture-production.up.railway.app/api/mentee/questions/industry'),
           headers: {
             "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
           });

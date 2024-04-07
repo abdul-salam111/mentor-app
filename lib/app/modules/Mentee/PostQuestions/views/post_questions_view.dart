@@ -20,6 +20,7 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
+        backgroundColor: whitecolor,
           leading: IconButton(
               onPressed: () {
                 Get.back();

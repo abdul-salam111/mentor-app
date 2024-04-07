@@ -1,7 +1,7 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mentor_app/app/models/createMenteeModel.dart';
+import 'package:mentor_app/app/models/authModels/createMenteeModel.dart';
 import 'package:mentor_app/app/modules/Mentee/careerGoals/controllers/career_goals_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/education/controllers/education_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/preferredMentor/controllers/preferred_mentor_controller.dart';
@@ -97,66 +97,90 @@ class AvailbilityController extends GetxController {
   }
 
   Future<void> createMentee() async {
-    try {
-      EasyLoading.show(status: "Creating Profile...");
-      String selectedGoals =
-          '"${careerGoalsController.selectedGoalsList.join(',')}"';
-      String selectedSkills = '"${skillsController.selectedSkills.join(',')}"';
-      String selectedChannels = '"${selectedChannles.join(',')}"';
-      String availbility = '"${availabilityList.join(',')}"';
+  try {
+    EasyLoading.show(status: "Creating Profile...");
 
-      CreateMenteeModel createMenteeModel = CreateMenteeModel(
-        fullName: signUpController.nameController.value.text.toString(),
-        goals: selectedGoals,
-        skills: selectedSkills,
-        education: educationController.selectedSubject.value,
-        industry: preferredMentorController.selectedIndustries.value,
-        mentorshipStyle:
-            preferredMentorController.selectedMentorshipstyle.value,
-        email: signUpController.emailController.value.text,
-        gender: preferredMentorController.selectedGender.value,
-        sessionDuration: selectedDuration.value,
-        about: preferredMentorController.aboutMe.value.text,
-        communicationChannels: selectedChannels,
-        password: signUpController.passwordController.value.text,
-        availableDays: availbility,
-        timeZone: selectedTimeZone.value,
-      );
-      isLoading = true.obs;
-      var request = http.MultipartRequest('POST', Uri.parse(createMenteeUrl));
-      var profilePicStream = http.ByteStream(imageFile.value!.openRead());
-      var profilePicLength = await imageFile.value!.length();
-      var profilePicMultipartFile = http.MultipartFile(
-        'profilePicUrl',
-        profilePicStream,
-        profilePicLength,
-        filename: imageFile.value!.path.split('/').last,
-      );
-      request.files.add(profilePicMultipartFile);
-      createMenteeModel.toJson().forEach((key, value) {
-        request.fields[key] = value;
-      });
-      var response = await request.send();
-      if (response.statusCode == 200) {
-        EasyLoading.dismiss();
-        clearTextfields();
-        
+    // Gather data from controllers and other sources
+    String fullName = signUpController.nameController.value.text.toString();
+    List<String> goals = careerGoalsController.selectedGoalsList;
+    List<String> skills = skillsController.selectedSkills;
+    String education = educationController.selectedSubject.value;
+    String industry = preferredMentorController.selectedIndustries.value;
+    String mentorshipStyle = preferredMentorController.selectedMentorshipstyle.value;
+    String email = signUpController.emailController.value.text;
+    String gender = preferredMentorController.selectedGender.value;
+    String sessionDuration = selectedDuration.value;
+    String about = preferredMentorController.aboutMe.value.text.toString();
+    List<String> communicationChannels = selectedChannles;
+    String password = signUpController.passwordController.value.text;
+    List<String> availableDays = availabilityList;
+    String timeZone = selectedTimeZone.value;
 
-        Get.offAndToNamed(Routes.CONGRATULATIONS);
-        Utils.snakbar(
-            title: "Account Created!",
-            body: "Your account is created Successfull!");
-      } else {
-        EasyLoading.dismiss();
-        Utils.snakbar(title: "Failed!", body: "Failed to create Account!");
-      }
-    } catch (e) {
-      // Handle any errors that occur during the process
+    // Create the model
+    CreateMenteeRequestModel createMenteeModel = CreateMenteeRequestModel(
+      fullName: fullName,
+      goals: goals,
+      skills: skills,
+      education: education,
+      industry: industry,
+      mentorshipStyle: mentorshipStyle,
+      email: email,
+      gender: gender,
+      sessionDuration: sessionDuration,
+      about: about,
+      communicationChannels: communicationChannels,
+      password: password,
+      availableDays: availableDays,
+      timeZone: timeZone,
+    );
+
+    // Create a multipart request
+    var request = http.MultipartRequest('POST', Uri.parse(createMenteeUrl));
+
+    // Add profile picture file to the request
+    var profilePicStream = http.ByteStream(imageFile.value!.openRead());
+    var profilePicLength = await imageFile.value!.length();
+    var profilePicMultipartFile = http.MultipartFile(
+      'profilePicUrl',
+      profilePicStream,
+      profilePicLength,
+      filename: imageFile.value!.path.split('/').last,
+    );
+    request.files.add(profilePicMultipartFile);
+
+    // Add form fields from the model
+    createMenteeModel.toJson().forEach((key, value) {
+      request.fields[key] = value.toString();
+    });
+
+    // Send the request and await response
+    var response = await request.send();
+
+    // Check response status code
+    if (response.statusCode == 200) {
+      EasyLoading.dismiss();
+      clearTextfields();
+      Get.offAndToNamed(Routes.CONGRATULATIONS);
       Utils.snakbar(
-          title: "Failed", body: "Failed to create Account becuase! $e");
-      EasyLoading.dismiss(); // Dismiss loading indicator if it's still shown
+        title: "Account Created!",
+        body: "Your account is created successfully!",
+      );
+    } else {
+      EasyLoading.dismiss();
+      Utils.snakbar(
+        title: "Failed!",
+        body: "Failed to create Account!",
+      );
     }
+  } catch (e) {
+    print(e);
+    Utils.snakbar(
+      title: "Failed",
+      body: "Failed to create Account because! $e",
+    );
+    EasyLoading.dismiss();
   }
+}
 
   clearTextfields() {
     signUpController.nameController.value.clear();

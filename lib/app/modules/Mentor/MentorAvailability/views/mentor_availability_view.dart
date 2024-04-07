@@ -105,7 +105,100 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                 ),
               ),
             ),
+             Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      gender,
+                      height: 13,
+                      width: 13,
+                    ),
+                    10.widthBox,
+                    Text(
+                      "Gender",
+                      style: manoropeFontFamily(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: blackcolor),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w),
+                child: Row(
+                  children: [
+                    Obx(
+                      () => Row(
+                        children: [
+                          Checkbox(
+                            side: const BorderSide(color: greyColor),
+                            checkColor: blackcolor,
+                            fillColor: MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.selected)) {
+                                // Set the fill color of the checkbox when it is selected (checked)
+                                return halfwhitecolor; // Change the color to your preferred color
+                              }
+                              // Set the fill color of the checkbox when it is not selected (unchecked)
+                              return Colors
+                                  .transparent; // Change the color to your preferred color
+                            }),
+                            value: controller.selectedGender.value == 'male',
+                            onChanged: (bool? value) {
+                              if (value != null && value) {
+                                controller.setSelectedGender('male');
+                              }
+                            },
+                          ),
+                          Text(
+                            "Male",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    30.widthBox,
+                    Obx(
+                      () => Row(
+                        children: [
+                          Checkbox(
+                            checkColor: blackcolor,
+                            side: const BorderSide(color: greyColor),
+                            fillColor: MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.selected)) {
+                                // Set the fill color of the checkbox when it is selected (checked)
+                                return halfwhitecolor; // Change the color to your preferred color
+                              }
+                              // Set the fill color of the checkbox when it is not selected (unchecked)
+                              return Colors
+                                  .transparent; // Change the color to your preferred color
+                            }),
+                            value: controller.selectedGender.value == 'female',
+                            onChanged: (bool? value) {
+                              if (value != null && value) {
+                                controller.setSelectedGender('female');
+                              }
+                            },
+                          ),
+                          Text(
+                            "Female",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             10.heightBox,
+
             Padding(
               padding: EdgeInsets.only(left: 20,right: 20),
               child: Column(
@@ -587,7 +680,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: CustomButton(buttonName: "Save Profile", onPressed: (){
-                  Get.toNamed(Routes.CONGRATULATIONS);
+              controller.signupMentor();
                 }, textcolor: whitecolor, loading: false, backgroundColor: darkBrownColor, rounded: true, height: 40.h, textSize: 20.sp, width: double.infinity),
               ),
           50.heightBox, 

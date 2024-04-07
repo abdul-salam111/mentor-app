@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
-import 'package:mentor_app/app/models/getallQuestions.dart';
+import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
@@ -28,19 +29,9 @@ class QuestionAndAnswerForumView extends StatefulWidget {
 
 class _QuestionAndAnswerForumViewState
     extends State<QuestionAndAnswerForumView> {
-      @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      
-    });
-  }
-
   final controller = Get.put(QuestionAndAnswerForumController());
   @override
   Widget build(BuildContext context) {
-   
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
         backgroundColor: whitecolor,
@@ -101,11 +92,9 @@ class _QuestionAndAnswerForumViewState
                   CustomButton(
                       buttonName: "Create",
                       onPressed: () {
-                        Get.toNamed(Routes.POST_QUESTIONS)!.then((value){
-                          setState(() {
-                            
-                          });
-                        } );
+                        Get.toNamed(Routes.POST_QUESTIONS)!.then((value) {
+                          setState(() {});
+                        });
                       },
                       textcolor: whitecolor,
                       loading: false,
@@ -151,7 +140,7 @@ class _QuestionAndAnswerForumViewState
                       onTap: () {
                         controller.selectedIndustries.value = '';
                         controller.fetchAllQuestions();
-                          setState(() {});
+                        setState(() {});
                       },
                       child: Obx(
                         () => controller.selectedIndustries.value == ''
@@ -212,31 +201,19 @@ class _QuestionAndAnswerForumViewState
                 future: controller.fetchAllQuestions(),
                 builder: (context, AsyncSnapshot<GetQuestionModel> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: SpinKitCircle(
-                        color: darkBrownColor,
-                        size: 50,
-                      ),
-                    );
+                    return ShimmerList();
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return const Center(
-                      child: SpinKitCircle(
-                        color: darkBrownColor,
-                        size: 50,
-                      ),
-                    );
+                    return ShimmerList();
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),
                     );
-                  }
-                  else if (snapshot.data!.menteeQuestion!.isEmpty) {
+                  } else if (snapshot.data!.menteeQuestion!.isEmpty) {
                     return const Center(
                       child: Text("No question found!"),
                     );
                   } else {
-                  
                     return Expanded(
                       child: ListView.builder(
                           physics: bouncingscroll,
@@ -255,7 +232,8 @@ class _QuestionAndAnswerForumViewState
                                       child: Column(
                                         children: [
                                           Text(
-                                            controller.formatDate( snapshot.data!.menteeQuestion![index].date!),
+                                            controller.formatDate(snapshot.data!
+                                                .menteeQuestion![index].date!),
                                             style: manoropeFontFamily(
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.w600,
@@ -273,7 +251,6 @@ class _QuestionAndAnswerForumViewState
                                       ),
                                     ),
                                   ),
-
                                   Row(
                                     crossAxisAlignment: crosstart,
                                     children: [
@@ -286,7 +263,11 @@ class _QuestionAndAnswerForumViewState
                                         crossAxisAlignment: crosstart,
                                         children: [
                                           Text(
-                                          snapshot.data!.menteeQuestion![index].mentee!.email!,
+                                            snapshot
+                                                .data!
+                                                .menteeQuestion![index]
+                                                .mentee!
+                                                .email!,
                                             style: manoropeFontFamily(
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w400,
@@ -295,7 +276,10 @@ class _QuestionAndAnswerForumViewState
                                           SizedBox(
                                             width: 240.w,
                                             child: Text(
-                                                snapshot.data!.menteeQuestion![index].question!,
+                                              snapshot
+                                                  .data!
+                                                  .menteeQuestion![index]
+                                                  .question!,
                                               style: manoropeFontFamily(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -320,7 +304,20 @@ class _QuestionAndAnswerForumViewState
                                                     fontWeight: FontWeight.w400,
                                                     color: const Color(
                                                         0xff656466)),
-                                              )
+                                              ),
+                                            //   CustomButton(
+                                            //       buttonName: "Answer",
+                                            //       onPressed: () {},
+                                            //       textcolor: whitecolor,
+                                            //       loading: false,
+                                            //       backgroundColor:
+                                            //           Color(0xff109804),
+                                            //       rounded: true,
+                                            //       height: 20.h,
+                                            //       textSize: 12.sp,
+                                            //       width: 120.w),
+                                            // Divider(),
+
                                             ],
                                           ),
                                           10.heightBox,
@@ -350,36 +347,38 @@ class _QuestionAndAnswerForumViewState
 
   void showIndustryMenu(BuildContext context) {
     // Display the PopupMenuButton
-   showModalBottomSheet(
-  context: context,
-  builder: (BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 20,),
-      color: whitecolor,
-      child: ListView(
-        shrinkWrap: true,
-        children: controller.industries.map((String industry) {
-          return ListTile(
-            title: Text(
-              industry,
-              style: manoropeFontFamily(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: blackcolor),
-            ),
-            onTap: () {
-              controller.selectedIndustries.value = industry;
-              controller.questionsRepository
-                  .fetchAllQuestion(industry: controller.selectedIndustries.value);
-              setState(() {});
-              Navigator.pop(context); // Close the bottom sheet after selection
-            },
-          );
-        }).toList(),
-      ),
-    ).box.topRounded(value: 20).clip(Clip.antiAlias).make();
-  },
-);
-
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.only(
+            top: 20,
+          ),
+          color: whitecolor,
+          child: ListView(
+            shrinkWrap: true,
+            children: controller.industries.map((String industry) {
+              return ListTile(
+                title: Text(
+                  industry,
+                  style: manoropeFontFamily(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: blackcolor),
+                ),
+                onTap: () {
+                  controller.selectedIndustries.value = industry;
+                  controller.questionsRepository.fetchAllQuestion(
+                      industry: controller.selectedIndustries.value);
+                  setState(() {});
+                  Navigator.pop(
+                      context); // Close the bottom sheet after selection
+                },
+              );
+            }).toList(),
+          ),
+        ).box.topRounded(value: 20).clip(Clip.antiAlias).make();
+      },
+    );
   }
 }

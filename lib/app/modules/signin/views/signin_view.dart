@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,14 +63,97 @@ class SigninView extends GetView<SigninController> {
                       "Forget Password",
                       style: TextStyle(color: darkBrownColor),
                     ))),
+            Text(
+              "Select",
+              style: poppins(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: blackcolor),
+            ),
+            Row(
+              children: [
+                Obx(
+                  () => Row(
+                    children: [
+                      Checkbox(
+                        checkColor: blackcolor,
+                        side: const BorderSide(color: greyColor),
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.selected)) {
+                            // Set the fill color of the checkbox when it is selected (checked)
+                            return halfwhitecolor; // Change the color to your preferred color
+                          }
+                          // Set the fill color of the checkbox when it is not selected (unchecked)
+                          return Colors
+                              .transparent; // Change the color to your preferred color
+                        }),
+                        value: controller.selectUserType.value == 'Mentee',
+                        onChanged: (bool? value) {
+                          if (value != null && value) {
+                            controller.setSelectUserType('Mentee');
+                          }
+                        },
+                      ),
+                      Text(
+                        "Mentee",
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                80.widthBox,
+                Obx(
+                  () => Row(
+                    children: [
+                      Checkbox(
+                        side: const BorderSide(color: greyColor),
+                        checkColor: blackcolor,
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.selected)) {
+                            // Set the fill color of the checkbox when it is selected (checked)
+                            return halfwhitecolor; // Change the color to your preferred color
+                          }
+                          // Set the fill color of the checkbox when it is not selected (unchecked)
+                          return Colors
+                              .transparent; // Change the color to your preferred color
+                        }),
+                        value: controller.selectUserType.value == 'Mentor',
+                        onChanged: (bool? value) {
+                          if (value != null && value) {
+                            controller.setSelectUserType('Mentor');
+                          }
+                        },
+                      ),
+                      Text(
+                        "Mentor",
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             40.heightBox,
             CustomButton(
                 buttonName: "Sign in",
                 onPressed: () async {
                   if (controller.nameController.value.text.isNotEmpty &&
-                      controller.passwordController.value.text.isNotEmpty) {
+                      controller.passwordController.value.text.isNotEmpty &&
+                      controller.selectUserType.value != '') {
                     controller.loginMentee();
-                  } else {
+                  } 
+                  else if(controller.selectUserType.value==''){
+                     Utils.snakbar(
+                        title: "Failed",
+                        body: "Please select user type.");
+                  }
+                  else {
                     Utils.snakbar(
                         title: "Failed",
                         body: "Please fill the required fields");

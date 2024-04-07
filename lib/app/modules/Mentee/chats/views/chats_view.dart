@@ -11,6 +11,7 @@ import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:zego_zimkit/zego_zimkit.dart';
 
 import '../controllers/chats_controller.dart';
 
@@ -45,71 +46,76 @@ class ChatsView extends GetView<ChatsController> {
                     shrinkWrap: true,
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return Row(
-                        mainAxisAlignment: mainbetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 24.r,
-                            backgroundImage: const AssetImage(mentor),
-                          ),
-                          SizedBox(
-                            width: 200.w,
-                            child: Column(
-                              crossAxisAlignment: crosstart,
+                      return GestureDetector(
+                        onTap: () {
+                         
+                        },
+                        child: Row(
+                          mainAxisAlignment: mainbetween,
+                          children: [
+                            CircleAvatar(
+                              radius: 24.r,
+                              backgroundImage: const AssetImage(mentor),
+                            ),
+                            SizedBox(
+                              width: 200.w,
+                              child: Column(
+                                crossAxisAlignment: crosstart,
+                                children: [
+                                  Text(
+                                    "Chinyere Njoku",
+                                    style: manoropeFontFamily(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                  3.heightBox,
+                                  Text(
+                                    "Can you please send a direction....",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: manoropeFontFamily(
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff656466)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
                               children: [
                                 Text(
-                                  "Chinyere Njoku",
-                                  style: manoropeFontFamily(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: blackcolor),
-                                ),
-                                3.heightBox,
-                                Text(
-                                  "Can you please send a direction....",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  "11:20am",
                                   style: manoropeFontFamily(
                                       fontSize: 11.sp,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                       color: const Color(0xff656466)),
                                 ),
+                                SizedBox(
+                                  child: Text(
+                                    "5",
+                                    style: manoropeFontFamily(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white),
+                                  ),
+                                )
+                                    .box
+                                    .color(darkBrownColor)
+                                    .padding(defaultpad)
+                                    .roundedFull
+                                    .make()
                               ],
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "11:20am",
-                                style: manoropeFontFamily(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff656466)),
-                              ),
-                              SizedBox(
-                                child: Text(
-                                  "5",
-                                  style: manoropeFontFamily(
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
-                              )
-                                  .box
-                                  .color(darkBrownColor)
-                                  .padding(defaultpad)
-                                  .roundedFull
-                                  .make()
-                            ],
-                          )
-                        ],
-                      )
-                          .box
-                          .padding(pad14)
-                          .margin(const EdgeInsets.only(top: 10))
-                          .rounded
-                          .border(color: textfieldgrey.withOpacity(0.2))
-                          .make().onTap(() {Get.toNamed(Routes.MESSAGES);});
+                            )
+                          ],
+                        )
+                            .box
+                            .padding(pad14)
+                            .margin(const EdgeInsets.only(top: 10))
+                            .rounded
+                            .border(color: textfieldgrey.withOpacity(0.2))
+                            .make(),
+                      );
                     })
               ],
             ),

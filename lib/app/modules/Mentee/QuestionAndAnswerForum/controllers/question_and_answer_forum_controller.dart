@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mentor_app/app/models/getallQuestions.dart';
+import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
 
 class QuestionAndAnswerForumController extends GetxController {

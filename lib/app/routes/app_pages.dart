@@ -30,14 +30,8 @@ import '../modules/Mentee/jobDetails/bindings/job_details_binding.dart';
 import '../modules/Mentee/jobDetails/views/job_details_view.dart';
 import '../modules/Mentee/meetings/bindings/meetings_binding.dart';
 import '../modules/Mentee/meetings/views/meetings_view.dart';
-import '../modules/Mentee/mentorProfile/bindings/mentor_profile_binding.dart';
-import '../modules/Mentee/mentorProfile/views/mentor_profile_view.dart';
 import '../modules/Mentee/messages/bindings/messages_binding.dart';
 import '../modules/Mentee/messages/views/messages_view.dart';
-import '../modules/Mentee/navigationBar/bindings/navigation_bar_binding.dart';
-import '../modules/Mentee/navigationBar/views/navigation_bar_view.dart';
-import '../modules/Mentee/notifications/bindings/notifications_binding.dart';
-import '../modules/Mentee/notifications/views/notifications_view.dart';
 import '../modules/Mentee/onBoarding/bindings/on_boarding_binding.dart';
 import '../modules/Mentee/onBoarding/views/on_boarding_view.dart';
 import '../modules/Mentee/postedJobs/bindings/posted_jobs_binding.dart';
@@ -58,6 +52,8 @@ import '../modules/Mentor/MentorAvailability/bindings/mentor_availability_bindin
 import '../modules/Mentor/MentorAvailability/views/mentor_availability_view.dart';
 import '../modules/Mentor/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
 import '../modules/Mentor/MentorEducationBackground/views/mentor_education_background_view.dart';
+import '../modules/Mentor/mentorProfile/bindings/mentor_profile_binding.dart';
+import '../modules/Mentor/mentorProfile/views/mentor_profile_view.dart';
 import '../modules/Mentor/scheduleMeetings/bindings/schedule_meetings_binding.dart';
 import '../modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
 import '../modules/MentorMatched/bindings/mentor_matched_binding.dart';
@@ -70,6 +66,12 @@ import '../modules/findingBestMatch/bindings/finding_best_match_binding.dart';
 import '../modules/findingBestMatch/views/finding_best_match_view.dart';
 import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
+import '../modules/jobApplicationForm/bindings/job_application_form_binding.dart';
+import '../modules/jobApplicationForm/views/job_application_form_view.dart';
+import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
+import '../modules/navigationBar/views/navigation_bar_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
@@ -274,6 +276,11 @@ class AppPages {
       name: _Paths.MENTOR_MATCHED,
       page: () => const MentorMatchedView(),
       binding: MentorMatchedBinding(),
+    ),
+    GetPage(
+      name: _Paths.JOB_APPLICATION_FORM,
+      page: () => const JobApplicationFormView(),
+      binding: JobApplicationFormBinding(),
     ),
   ];
 }

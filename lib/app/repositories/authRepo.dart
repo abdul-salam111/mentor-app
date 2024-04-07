@@ -6,7 +6,7 @@ import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/data/network/baseApiServices.dart';
 import 'package:mentor_app/app/data/network/networkApiServices.dart';
 import 'package:http/http.dart' as http;
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/resources/apiKeys.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -111,7 +111,7 @@ class AuthRepository {
 
         if (data['messageStatus'] !=
             "java.lang.IllegalArgumentException: Incorrect password") {
-          print("ok>>>>>>>>>>>>>>>>>>>>>>>.");
+     
           StorageServices.to.remove(usertoken);
           StorageServices.to.remove(getmenteeinfo);
           Utils.snakbar(
@@ -149,6 +149,7 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        print(data);
 
         return GetMenteeInfo.fromJson(data);
       } else {

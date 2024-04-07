@@ -92,6 +92,7 @@ class MentorEducationBackgroundController extends GetxController {
       print('Error picking image: $e');
     }
   }
+  final yearsOfExperience=TextEditingController().obs;
   var isIndusryOpen = false.obs;
   var selectedIndustries = "Select".obs;
   List<String> industries = [

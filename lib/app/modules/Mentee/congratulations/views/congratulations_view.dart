@@ -31,7 +31,7 @@ class CongratulationsView extends GetView<CongratulationsController> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                     onPressed: () {
-                      Get.toNamed(Routes.SIGNIN);
+                      Get.offAllNamed(Routes.SIGNIN);
                     },
                     child: Text(
                       "Skip",
@@ -80,7 +80,7 @@ class CongratulationsView extends GetView<CongratulationsController> {
                     CustomButton(
                         buttonName: "Continue",
                         onPressed: () {
-                          Get.toNamed(Routes.SIGNIN);
+                          Get.offAllNamed(Routes.SIGNIN);
                         },
                         textcolor: whitecolor,
                         loading: false,

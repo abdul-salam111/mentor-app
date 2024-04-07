@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:mentor_app/app/models/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/repositories/authRepo.dart';
+import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -34,7 +36,7 @@ class ProfileController extends GetxController {
     'Video Call',
     'Phone Call'
   ];
- RxList<String?> selectedChannles = RxList<String?>();
+  RxList<String?> selectedChannles = RxList<String?>();
 
   List<String> computerScienceSkills = [
     'Leadership',
@@ -59,41 +61,13 @@ class ProfileController extends GetxController {
     "Entrepreneurship"
   ];
   RxList<String?> selectedSkills = RxList<String?>();
+  
+
 
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    var skills =
-        getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-            .skills!
-            .map((e) => e.skill)
-            .where((skill) => skill != null) // Filter out null values
-            .cast<String>() // Cast to non-nullable String
-            .toList();
 
-    selectedSkills.value = RxList<String?>.from(skills).map((item) => item!.replaceAll('"', '')).toList();
-  
-
-    var availability =
-        getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-            .availableDays!
-            .map((e) => e.day)
-            .where((day) => day != null) // Filter out null values
-            .cast<String>() // Cast to non-nullable String
-            .toList();
-
-    availabilityList.value = RxList<String?>.from(availability).map((item) => item!.replaceAll('"', '')).toList();
    
-
-    selectedDuration.value =
-        getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-            .sessionDuration!;
-    var communication= getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-            .communicationChannels!
-            .map((e) => e.channel)
-            .where((day) => day != null) // Filter out null values
-            .cast<String>() // Cast to non-nullable String
-            .toList();
-      selectedChannles.value = RxList<String?>.from(communication) .map((item) => item!.replaceAll('"', '')).toList();      
   }
 }

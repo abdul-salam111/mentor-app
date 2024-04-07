@@ -12,6 +12,13 @@ const userPhone="userPhone";
 const getmenteeinfo="getmenteeinfo";
 const loginMenteeInfo="loginMenteeInfo";
 const usertoken="usertoken";
+
 const remainingQuestions="remainingQuestions";
-const isUserLoggedinWithGoogle="isUserLoggedinWithGoogle";
+
+const getMentorInformation="getMentorInformation";
+const mentorToken="mentorToken";
+const selectedUserType="selectedUserType";
+
+const userCheck="userCheck";
+
 

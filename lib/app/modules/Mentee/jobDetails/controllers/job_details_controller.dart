@@ -1,23 +1,12 @@
 import 'package:get/get.dart';
+import 'package:mentor_app/app/models/jobs/getJobById.dart';
+import 'package:mentor_app/app/repositories/jobsRepo.dart';
 
 class JobDetailsController extends GetxController {
-  //TODO: Implement JobDetailsController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  JobsRepository jobsRepository = JobsRepository();
+  Future<GetJobById> getJobsDetail() async {
+    var jobdata = await jobsRepository.getJobsById(jobId: '1');
+    return jobdata;
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  
 }

@@ -157,10 +157,10 @@ class MentorEducationBackgroundView
                 10.widthBox,
                 Text(
                   "Industry",
-                  style:  manoropeFontFamily(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: blackcolor),
+                  style: manoropeFontFamily(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
                 ),
               ],
             ),
@@ -264,9 +264,9 @@ class MentorEducationBackgroundView
                 Text(
                   "Mentorship Style",
                   style: manoropeFontFamily(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: blackcolor),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
                 ),
               ],
             ),
@@ -372,17 +372,18 @@ class MentorEducationBackgroundView
                 10.widthBox,
                 Text(
                   "years in industry",
-                  style:  manoropeFontFamily(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: blackcolor),
+                  style: manoropeFontFamily(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
                 ),
               ],
             ),
           ),
           10.heightBox,
           TextField(
-            controller: controller.professionalBg.value,
+            keyboardType: TextInputType.phone,
+            controller: controller.yearsOfExperience.value,
             decoration: InputDecoration(
                 hintText: 'eg. 1 year', // Your hint text
                 hintStyle: manoropeFontFamily(
@@ -398,13 +399,22 @@ class MentorEducationBackgroundView
               .margin(const EdgeInsets.only(left: 20, right: 20))
               .roundedSM
               .make(),
-              30.heightBox,
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: CustomButton(buttonName: "Next", onPressed: (){
+          30.heightBox,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: CustomButton(
+                buttonName: "Next",
+                onPressed: () {
                   Get.toNamed(Routes.MENTOR_AVAILABILITY);
-                }, textcolor: whitecolor, loading: false, backgroundColor: darkBrownColor, rounded: true, height: 40.h, textSize: 20.sp, width: double.infinity),
-              ),
+                },
+                textcolor: whitecolor,
+                loading: false,
+                backgroundColor: darkBrownColor,
+                rounded: true,
+                height: 40.h,
+                textSize: 20.sp,
+                width: double.infinity),
+          ),
           50.heightBox,
         ]));
   }

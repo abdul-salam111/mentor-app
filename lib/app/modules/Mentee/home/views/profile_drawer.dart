@@ -10,6 +10,8 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 
@@ -45,7 +47,7 @@ class ProfileDrawer extends StatelessWidget {
                           color: blackcolor),
                     ),
                     Text(
-                      "Mantee",
+                      StorageServices.to.getString(selectedUserType),
                       style: manoropeFontFamily(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w500,
