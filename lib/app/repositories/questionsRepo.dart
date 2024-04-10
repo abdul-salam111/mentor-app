@@ -3,8 +3,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
+import 'package:mentor_app/app/models/questions/getAnswerReplies.dart';
 import 'package:mentor_app/app/models/questions/getPostQuestionModel.dart';
 import 'package:mentor_app/app/models/questions/getallQuestions.dart';
+import 'package:mentor_app/app/models/questions/submitAnswer.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -69,7 +72,7 @@ class QuestionsRepository {
     try {
       final response = await http.get(
           Uri.parse(
-              'https://guided-by-culture-production.up.railway.app/api/mentee/get-question-count/${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email}'),
+              'https://guided-by-culture-production.up.railway.app/api/mentee/get-question-count/${StorageServices.to.getString(selectedUserType) == "Mentee" ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).email}'),
           headers: {
             "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
           });
@@ -109,28 +112,81 @@ class QuestionsRepository {
     }
   }
 
-  //post question replies
-  Future<GetQuestionModel> submitAnswersToQuestions(
-      {required String answer,
-      required String menteeQuestionId,
-      required String mentorQuestionId}) async {
-    try {
-      final response = await http.get(
-          Uri.parse(
-              'https://guided-by-culture-production.up.railway.app/api/mentee/questions/industry'),
-          headers: {
-            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
-          });
+  Future<SubmitAnswer> submitAnswer({
+    required String answer,
+    required int questionId,
+  }) async {
+    // Endpoint URL
+    String url =
+        "https://guided-by-culture-production.up.railway.app/api/mentee/questions/submit-answer";
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return GetQuestionModel.fromJson(data);
+    // JSON data for the request body
+    Map<String, dynamic> payload = {
+      "answer": answer,
+      "menteeQuestionId": questionId,
+      "mentorId": getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .id,
+    };
+
+    // Set headers
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+    };
+
+    // Make POST request
+    try {
+      EasyLoading.show(status: "Submitting...");
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: jsonEncode(payload),
+      );
+
+      // Check response status
+      if (response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        Utils.snakbar(
+            title: "Answer submitted.", body: "Your answer is submitted.");
+        EasyLoading.dismiss();
+        return SubmitAnswer.fromJson(data);
       } else {
-        print(response.body);
-        throw Exception('Failed to load data');
+        EasyLoading.dismiss();
+        throw Exception();
       }
     } catch (e) {
-      Utils.snakbar(title: "Error", body: e.toString());
+      print("Error: $e");
+
+      EasyLoading.dismiss();
+      throw Exception();
+    }
+  }
+
+  //get all questions replies
+  Future getQuestionsReplies(qid) async {
+    try {
+      // Make the POST request
+      final response = await http.get(Uri.parse(
+          "https://guided-by-culture-production.up.railway.app/api/mentee/questions/question/$qid"));
+
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        
+
+        return data;
+      } else {
+        // Request failed
+        EasyLoading.dismiss();
+
+        throw Exception();
+      }
+    } catch (e) {
+      // An error occurred
+      EasyLoading.dismiss();
+
+      print('Error making POST request: $e');
       throw Exception();
     }
   }

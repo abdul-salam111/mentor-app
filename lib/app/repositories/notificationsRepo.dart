@@ -10,7 +10,7 @@ import 'package:mentor_app/app/storage/storage.dart';
 class NotificationsRepository {
   Future<GetNotificationResponseModel> getNotifications() async {
     var url = Uri.parse(
-        "https://guided-by-culture-production.up.railway.app/api/notification/notifications/${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email}");
+        "https://guided-by-culture-production.up.railway.app/api/notification/notifications/${StorageServices.to.getString(selectedUserType) == "Mentee" ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).email}");
     var headers = {
       'Accept': 'application/json',
       "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}",
@@ -21,7 +21,7 @@ class NotificationsRepository {
         url,
         headers: headers,
       );
-    
+
       if (response.statusCode == 200) {
         var data = await jsonDecode(response.body);
         return GetNotificationResponseModel.fromJson(data);

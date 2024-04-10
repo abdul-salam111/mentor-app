@@ -42,13 +42,11 @@ class NotificationsView extends GetView<NotificationsController> {
             builder: (context,
                 AsyncSnapshot<GetNotificationResponseModel>
                     getnotificationsResponseModel) {
-              if (!getnotificationsResponseModel.hasData) {
-                return AnotherShimmerList();
+              if (getnotificationsResponseModel.hasData) {
+                return const SizedBox.shrink();
               } else if (getnotificationsResponseModel.hasError) {
                 return Center(
-                  child: Utils.snakbar(
-                      title: "Error",
-                      body: getnotificationsResponseModel.error.toString()),
+                  child: Text(getnotificationsResponseModel.error.toString()),
                 );
               } else if (getnotificationsResponseModel.connectionState ==
                   ConnectionState.waiting) {
@@ -96,7 +94,7 @@ class NotificationsView extends GetView<NotificationsController> {
                     )
                         .box
                         .padding(pad16)
-                        .margin(EdgeInsets.fromLTRB(20, 10, 20, 0))
+                        .margin(const EdgeInsets.fromLTRB(20, 10, 20, 0))
                         .rounded
                         .outerShadow
                         .white

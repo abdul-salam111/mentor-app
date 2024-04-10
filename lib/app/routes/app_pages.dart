@@ -58,6 +58,8 @@ import '../modules/Mentor/scheduleMeetings/bindings/schedule_meetings_binding.da
 import '../modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
 import '../modules/MentorMatched/bindings/mentor_matched_binding.dart';
 import '../modules/MentorMatched/views/mentor_matched_view.dart';
+import '../modules/MentorProfileInformation/bindings/mentor_profile_information_binding.dart';
+import '../modules/MentorProfileInformation/views/mentor_profile_information_view.dart';
 import '../modules/connections/bindings/connections_binding.dart';
 import '../modules/connections/views/connections_view.dart';
 import '../modules/createNewPassword/bindings/create_new_password_binding.dart';
@@ -281,6 +283,11 @@ class AppPages {
       name: _Paths.JOB_APPLICATION_FORM,
       page: () => const JobApplicationFormView(),
       binding: JobApplicationFormBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTOR_PROFILE_INFORMATION,
+      page: () => const MentorProfileInformationView(),
+      binding: MentorProfileInformationBinding(),
     ),
   ];
 }

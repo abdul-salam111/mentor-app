@@ -15,7 +15,7 @@ const usertoken="usertoken";
 
 const remainingQuestions="remainingQuestions";
 
-const getMentorInformation="getMentorInformation";
+const getMentorInformationsss="getMentorInformationsss";
 const mentorToken="mentorToken";
 const selectedUserType="selectedUserType";
 

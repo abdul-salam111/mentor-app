@@ -1,169 +1,98 @@
 // To parse this JSON data, do
 //
-//     final createMentorResponseModel = createMentorResponseModelFromJson(jsonString);
+//     final getMentorInfo = getMentorInfoFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-CreateMentorResponseModel createMentorResponseModelFromJson(String str) => CreateMentorResponseModel.fromJson(json.decode(str));
+GetMentorInfo getMentorInfoFromJson(String str) => GetMentorInfo.fromJson(json.decode(str));
 
-String createMentorResponseModelToJson(CreateMentorResponseModel data) => json.encode(data.toJson());
+String getMentorInfoToJson(GetMentorInfo data) => json.encode(data.toJson());
 
-class CreateMentorResponseModel {
-    final String? about;
-    final String? availabilityStatus;
-    final List<AvailableDay>? availableDays;
-    final List<CommunicationChannel>? communicationChannels;
-    final String? email;
-    final String? fullName;
-    final String? gender;
-    final int? id;
-    final String? industry;
-    final String? isVerified;
-    final String? mentorshipStyle;
-    final String? messageStatus;
-    final String? password;
-    final String? professionalBackgroundDescription;
-    final String? profilePicUrl;
-    final String? sessionDuration;
-    final List<Skill>? skills;
-    final String? timeZone;
-    final int? yearsOfExperience;
+class GetMentorInfo {
+    final int id;
+    final String fullName;
+    final String email;
+    final String password;
+    final String isVerified;
+    final String gender;
+    final String mentorshipStyle;
+    final String industry;
+    final String about;
+    final String professionalBackgroundDescription;
+    final String profilePicUrl;
+    final int yearsOfExperience;
+    final String availabilityStatus;
+    final String timeZone;
+    final String sessionDuration;
+    final List<String> availableDays;
+    final List<String> communicationChannels;
+    final List<String> skills;
+    final String messageStatus;
 
-    CreateMentorResponseModel({
-        this.about,
-        this.availabilityStatus,
-        this.availableDays,
-        this.communicationChannels,
-        this.email,
-        this.fullName,
-        this.gender,
-        this.id,
-        this.industry,
-        this.isVerified,
-        this.mentorshipStyle,
-        this.messageStatus,
-        this.password,
-        this.professionalBackgroundDescription,
-        this.profilePicUrl,
-        this.sessionDuration,
-        this.skills,
-        this.timeZone,
-        this.yearsOfExperience,
+    GetMentorInfo({
+        required this.id,
+        required this.fullName,
+        required this.email,
+        required this.password,
+        required this.isVerified,
+        required this.gender,
+        required this.mentorshipStyle,
+        required this.industry,
+        required this.about,
+        required this.professionalBackgroundDescription,
+        required this.profilePicUrl,
+        required this.yearsOfExperience,
+        required this.availabilityStatus,
+        required this.timeZone,
+        required this.sessionDuration,
+        required this.availableDays,
+        required this.communicationChannels,
+        required this.skills,
+        required this.messageStatus,
     });
 
-    factory CreateMentorResponseModel.fromJson(Map<String, dynamic> json) => CreateMentorResponseModel(
-        about: json["about"],
-        availabilityStatus: json["availabilityStatus"],
-        availableDays: json["availableDays"] == null ? [] : List<AvailableDay>.from(json["availableDays"]!.map((x) => AvailableDay.fromJson(x))),
-        communicationChannels: json["communicationChannels"] == null ? [] : List<CommunicationChannel>.from(json["communicationChannels"]!.map((x) => CommunicationChannel.fromJson(x))),
-        email: json["email"],
-        fullName: json["fullName"],
-        gender: json["gender"],
+    factory GetMentorInfo.fromJson(Map<String, dynamic> json) => GetMentorInfo(
         id: json["id"],
-        industry: json["industry"],
-        isVerified: json["isVerified"],
-        mentorshipStyle: json["mentorshipStyle"],
-        messageStatus: json["messageStatus"],
+        fullName: json["fullName"],
+        email: json["email"],
         password: json["password"],
+        isVerified: json["isVerified"],
+        gender: json["gender"],
+        mentorshipStyle: json["mentorshipStyle"],
+        industry: json["industry"],
+        about: json["about"],
         professionalBackgroundDescription: json["professionalBackgroundDescription"],
         profilePicUrl: json["profilePicUrl"],
-        sessionDuration: json["sessionDuration"],
-        skills: json["skills"] == null ? [] : List<Skill>.from(json["skills"]!.map((x) => Skill.fromJson(x))),
-        timeZone: json["timeZone"],
         yearsOfExperience: json["yearsOfExperience"],
+        availabilityStatus: json["availabilityStatus"],
+        timeZone: json["timeZone"],
+        sessionDuration: json["sessionDuration"],
+        availableDays: List<String>.from(json["availableDays"].map((x) => x)),
+        communicationChannels: List<String>.from(json["communicationChannels"].map((x) => x)),
+        skills: List<String>.from(json["skills"].map((x) => x)),
+        messageStatus: json["messageStatus"],
     );
 
     Map<String, dynamic> toJson() => {
-        "about": about,
-        "availabilityStatus": availabilityStatus,
-        "availableDays": availableDays == null ? [] : List<dynamic>.from(availableDays!.map((x) => x.toJson())),
-        "communicationChannels": communicationChannels == null ? [] : List<dynamic>.from(communicationChannels!.map((x) => x.toJson())),
-        "email": email,
-        "fullName": fullName,
-        "gender": gender,
         "id": id,
-        "industry": industry,
-        "isVerified": isVerified,
-        "mentorshipStyle": mentorshipStyle,
-        "messageStatus": messageStatus,
+        "fullName": fullName,
+        "email": email,
         "password": password,
+        "isVerified": isVerified,
+        "gender": gender,
+        "mentorshipStyle": mentorshipStyle,
+        "industry": industry,
+        "about": about,
         "professionalBackgroundDescription": professionalBackgroundDescription,
         "profilePicUrl": profilePicUrl,
-        "sessionDuration": sessionDuration,
-        "skills": skills == null ? [] : List<dynamic>.from(skills!.map((x) => x.toJson())),
-        "timeZone": timeZone,
         "yearsOfExperience": yearsOfExperience,
-    };
-}
-
-class AvailableDay {
-    final String? day;
-    final int? id;
-    final int? mentorId;
-
-    AvailableDay({
-        this.day,
-        this.id,
-        this.mentorId,
-    });
-
-    factory AvailableDay.fromJson(Map<String, dynamic> json) => AvailableDay(
-        day: json["day"],
-        id: json["id"],
-        mentorId: json["mentorId"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "day": day,
-        "id": id,
-        "mentorId": mentorId,
-    };
-}
-
-class CommunicationChannel {
-    final String? channel;
-    final int? id;
-    final int? mentorId;
-
-    CommunicationChannel({
-        this.channel,
-        this.id,
-        this.mentorId,
-    });
-
-    factory CommunicationChannel.fromJson(Map<String, dynamic> json) => CommunicationChannel(
-        channel: json["channel"],
-        id: json["id"],
-        mentorId: json["mentorId"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "channel": channel,
-        "id": id,
-        "mentorId": mentorId,
-    };
-}
-
-class Skill {
-    final int? id;
-    final int? mentorId;
-    final String? skill;
-
-    Skill({
-        this.id,
-        this.mentorId,
-        this.skill,
-    });
-
-    factory Skill.fromJson(Map<String, dynamic> json) => Skill(
-        id: json["id"],
-        mentorId: json["mentorId"],
-        skill: json["skill"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "mentorId": mentorId,
-        "skill": skill,
+        "availabilityStatus": availabilityStatus,
+        "timeZone": timeZone,
+        "sessionDuration": sessionDuration,
+        "availableDays": List<dynamic>.from(availableDays.map((x) => x)),
+        "communicationChannels": List<dynamic>.from(communicationChannels.map((x) => x)),
+        "skills": List<dynamic>.from(skills.map((x) => x)),
+        "messageStatus": messageStatus,
     };
 }

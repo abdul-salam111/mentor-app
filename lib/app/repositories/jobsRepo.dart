@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
+import 'package:mentor_app/app/models/jobs/createNewJob.dart';
 import 'package:mentor_app/app/models/jobs/getJobById.dart';
 import 'package:mentor_app/app/models/jobs/getJobByIndustry.dart';
 import 'package:mentor_app/app/models/jobs/jobCreationResponseModel.dart';
@@ -11,7 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/storage/storage.dart';
 
 class JobsRepository {
-  Future<JobCreationResponseModel> createJob({dynamic body}) async {
+  Future<void> createJob({dynamic data}) async {
     // Endpoint URL
     String url =
         "https://guided-by-culture-production.up.railway.app/api/job/create";
@@ -26,12 +27,12 @@ class JobsRepository {
       final response = await http.post(
         Uri.parse(url),
         headers: headers,
-        body: jsonEncode(body),
+        body: jsonEncode(data),
       );
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
+        Utils.snakbar(title: "Uploaded", body: "Job uploaded successfully!");
         EasyLoading.dismiss();
-        return JobCreationResponseModel.fromJson(data);
+      
       } else {
         EasyLoading.dismiss();
         throw Exception();

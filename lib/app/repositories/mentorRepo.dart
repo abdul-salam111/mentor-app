@@ -2,15 +2,13 @@ import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mentor_app/app/data/network/baseApiServices.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
-import 'package:mentor_app/app/resources/apiKeys.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 class MentorRepository {
-
   Future<void> createMentor(dynamic data) async {
     var url = Uri.parse(
         'https://guided-by-culture-production.up.railway.app/api/mentors/create');
@@ -39,7 +37,31 @@ class MentorRepository {
         throw Exception();
       }
     } catch (error) {
-       EasyLoading.dismiss();
+      EasyLoading.dismiss();
+      throw Exception();
+    }
+  }
+
+  //get mentor infor
+  //post question replies
+  Future<GetMentorInfo> getmentorinformation(
+      {required String mentorEmail}) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              'https://guided-by-culture-production.up.railway.app/api/mentors/$mentorEmail'),
+          headers: {
+            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
+          });
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return GetMentorInfo.fromJson(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Error", body: e.toString());
       throw Exception();
     }
   }

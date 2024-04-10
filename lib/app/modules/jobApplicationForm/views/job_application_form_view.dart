@@ -38,7 +38,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 8,right: 8),
             child: ListView(
               children: [
                 Text(
@@ -62,7 +62,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                       contentPadding: const EdgeInsets.only(
                           top: 12.0, left: 12.0), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.roundedSM.outerShadow.make(),
+                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Compansation Range",
@@ -85,7 +85,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.roundedSM.outerShadow.make(),
+                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Job Mode",
@@ -96,7 +96,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                 ),
                 10.heightBox,
                 TextField(
-                  controller: controller.compensationrangeController.value,
+                  controller: controller.jobModeController.value,
                   decoration: InputDecoration(
                       hintText: 'Full Time/Part Time', // Your hint text
                       hintStyle: manoropeFontFamily(
@@ -108,7 +108,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.roundedSM.outerShadow.make(),
+                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Location",
@@ -119,7 +119,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                 ),
                 10.heightBox,
                 TextField(
-                  controller: controller.compensationrangeController.value,
+                  controller: controller.locationController.value,
                   decoration: InputDecoration(
                       hintText: 'Location', // Your hint text
                       hintStyle: manoropeFontFamily(
@@ -131,7 +131,30 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.roundedSM.outerShadow.make(),
+                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                 20.heightBox,
+                Text(
+                  "Job Url",
+                  style: manoropeFontFamily(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: blackcolor),
+                ),
+                10.heightBox,
+                TextField(
+                  controller: controller.jobUrl.value,
+                  decoration: InputDecoration(
+                      hintText: 'Job Url', // Your hint text
+                      hintStyle: manoropeFontFamily(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: blackcolor),
+                      contentPadding: const EdgeInsets.only(
+                          top: 0.0,
+                          left: 12.0,
+                          bottom: 5), // Padding from top and left
+                      border: InputBorder.none),
+                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Row(
                   children: [
@@ -229,7 +252,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                   ],
                 )
                     .box
-                    .white
+                    .white.margin(EdgeInsets.only(left: 8,right: 8))
                     .padding(defaultpad)
                     .width(double.infinity)
                     .outerShadow
@@ -238,7 +261,9 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                 40.heightBox,
                 CustomButton(
                     buttonName: "Add Job",
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.createNewJob();
+                    },
                     textcolor: whitecolor,
                     loading: false,
                     backgroundColor: darkBrownColor,

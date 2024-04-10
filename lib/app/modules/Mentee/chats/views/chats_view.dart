@@ -48,7 +48,7 @@ class ChatsView extends GetView<ChatsController> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                         
+                         Get.toNamed(Routes.MESSAGES);
                         },
                         child: Row(
                           mainAxisAlignment: mainbetween,

@@ -13,6 +13,8 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/posted_jobs_controller.dart';
@@ -49,7 +51,27 @@ class _PostedJobsViewState extends State<PostedJobsView> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
-              child: customSearchTextField(hinttext: "Search"),
+              child: Row(
+          
+                children: [
+                  Expanded(child: customSearchTextField(hinttext: "Search")),
+                  10.widthBox,
+                  StorageServices.to.getString(selectedUserType) == "Mentor"
+                      ? CustomButton(
+                          buttonName: "Create Job",
+                          onPressed: () {
+                            Get.toNamed(Routes.JOB_APPLICATION_FORM);
+                          },
+                          textcolor: whitecolor,
+                          loading: false,
+                          backgroundColor: darkBrownColor,
+                          rounded: false,
+                          height: 40.h,
+                          textSize: 13.sp,
+                          width: 100.w)
+                      : SizedBox.shrink()
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),

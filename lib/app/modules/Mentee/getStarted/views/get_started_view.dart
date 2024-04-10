@@ -53,7 +53,7 @@ class GetStartedView extends GetView<GetStartedController> {
                 CustomButton(
                   buttonName: "Get Started",
                   onPressed: () {
-                    Get.toNamed(Routes.SIGNUP);
+                    Get.toNamed(Routes.SIGNIN);
                   },
                   textcolor: darkBrownColor,
                   loading: false,

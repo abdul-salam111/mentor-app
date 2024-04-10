@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/authModels/loginMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
+import 'package:mentor_app/app/repositories/mentorRepo.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -27,10 +29,11 @@ class SigninController extends GetxController {
     selectUserType.value = gender;
   }
 
+  MentorRepository mentorRepository = MentorRepository();
   AuthRepository authRepository = AuthRepository();
   QuestionsRepository questionsRepository = QuestionsRepository();
   final signupcontroller = Get.put(SignupController());
-  Future<void> loginMentee() async {
+  Future<void> loginUser() async {
     EasyLoading.show(status: "Signing In");
 
     LoginMenteeRequestModel signinModel = LoginMenteeRequestModel(
@@ -38,20 +41,28 @@ class SigninController extends GetxController {
         usernameOrEmail: nameController.value.text);
 
     await authRepository
-        .signInMentee(jsonEncode(signinModel))
+        .signInUser(jsonEncode(signinModel), selectUserType)
         .then((value) async {
       await StorageServices.to
           .setString(key: usertoken, value: value['accessToken']);
       StorageServices.to
           .setString(key: selectedUserType, value: selectUserType.value);
+      if (selectUserType.value == "Mentee") {
+        var menteedata = await authRepository.getMenteeData(
+            email: nameController.value.text.toString());
 
-      var menteedata = await authRepository.getMenteeData(
-          email: nameController.value.text.toString());
+        StorageServices.to.setString(
+            key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
+        questionsRepository.fetchQuestionCount();
+      } else {
+        var mentordata = await mentorRepository.getmentorinformation(
+            mentorEmail: nameController.value.text.toString());
 
-      StorageServices.to.setString(
-          key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
-      questionsRepository.fetchQuestionCount();
-
+        StorageServices.to.setString(
+            key: getMentorInformationsss,
+            value: getMentorInfoToJson(mentordata));
+           
+      }
       ZegoUIKitPrebuiltCallInvitationService().init(
         appID: 501015063 /*input your AppID*/,
         appSign:
@@ -63,8 +74,7 @@ class SigninController extends GetxController {
                 "Abdul Salam",
         plugins: [ZegoUIKitSignalingPlugin()],
       );
-      
-          
+
       EasyLoading.dismiss();
       Get.offAllNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {

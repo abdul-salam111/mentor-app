@@ -146,7 +146,7 @@ class SigninView extends GetView<SigninController> {
                   if (controller.nameController.value.text.isNotEmpty &&
                       controller.passwordController.value.text.isNotEmpty &&
                       controller.selectUserType.value != '') {
-                    controller.loginMentee();
+                    controller.loginUser();
                   } 
                   else if(controller.selectUserType.value==''){
                      Utils.snakbar(

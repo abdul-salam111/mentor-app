@@ -61,13 +61,18 @@ class ProfileController extends GetxController {
     "Entrepreneurship"
   ];
   RxList<String?> selectedSkills = RxList<String?>();
-  
 
+  
 
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
-   
+    selectedSkills.value =getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+            .skills.map((string) => string.replaceAll('"', '')).toList();
+      availabilityList.value=  getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+            .availableDays.map((string) => string.replaceAll('"', '')).toList();
+    selectedDuration.value=getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).sessionDuration;
+  selectedChannles.value=getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+            .communicationChannels.map((string) => string.replaceAll('"', '')).toList();
   }
 }

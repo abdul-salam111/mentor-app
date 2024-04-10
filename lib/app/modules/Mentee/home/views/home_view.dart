@@ -4,12 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/resources/physics.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/home_controller.dart';
@@ -17,19 +20,19 @@ import 'profile_drawer.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
-       endDrawer: ProfileDrawer(),
+      endDrawer: ProfileDrawer(),
       body: SafeArea(
         child: ListView(
           children: [
             10.heightBox,
             Padding(
-              padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
@@ -44,7 +47,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       ),
                       2.widthBox,
                       Text(
-                        "Damilola",
+                        getMenteeInfoFromJson(
+                                    StorageServices.to.getString(getmenteeinfo))
+                                .fullName ??
+                            "Damilola",
                         style: manoropeFontFamily(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
@@ -53,8 +59,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                     ],
                   ),
                   GestureDetector(
-                    onTap: (){
-                       _scaffoldKey.currentState?.openEndDrawer();
+                    onTap: () {
+                      _scaffoldKey.currentState?.openEndDrawer();
                     },
                     child: const CircleAvatar(
                       backgroundImage: AssetImage(profilepicture),
@@ -65,12 +71,12 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
             ),
             10.heightBox,
             Padding(
-                padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: customSearchTextField(),
             ),
             10.heightBox,
             Padding(
-               padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
                 children: [
                   SizedBox(
@@ -146,7 +152,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
             ),
             20.heightBox,
             Padding(
-               padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
@@ -174,7 +180,11 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               ),
                               10.heightBox,
                               Text(
-                                'Find Mentors',
+                                StorageServices.to
+                                            .getString(selectedUserType) ==
+                                        "Mentor"
+                                    ? 'Find Mentors'
+                                    : 'Mentee requests',
                                 style: manoropeFontFamily(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
@@ -187,7 +197,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       .outerShadow
                       .clip(Clip.antiAlias)
                       .rounded
-                      .make(),
+                      .make()
+                      .onTap(() {
+                    Get.toNamed(Routes.CONNECTIONS);
+                  }),
                   Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           // decoration: BoxDecoration(
@@ -268,15 +281,16 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       .outerShadow
                       .clip(Clip.antiAlias)
                       .rounded
-                      .make().onTap(() {
-                         Get.toNamed(Routes.POSTED_JOBS);
-                      }),
+                      .make()
+                      .onTap(() {
+                    Get.toNamed(Routes.POSTED_JOBS);
+                  }),
                 ],
               ),
             ),
             20.heightBox,
             Padding(
-              padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Text(
                 'Upcoming Meetings',
                 style: manoropeFontFamily(
@@ -287,7 +301,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
             ),
             10.heightBox,
             Padding(
-             padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 children: [
                   ListTile(
@@ -315,39 +329,38 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       size: 15.sp,
                     ),
                   ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
-                   10.heightBox,
-              ListTile(
-                leading: CircleAvatar(
-                  radius: 30.r,
-                  backgroundImage: const AssetImage(mentor2),
-                ),
-                title: Text(
-                  "Mentoring with Tom",
-                  style: manoropeFontFamily(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: blackcolor),
-                ),
-                subtitle: Text(
-                  "Today at 9:00 PM - 30 min",
-                  style: manoropeFontFamily(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: textfieldgrey),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: textfieldgrey,
-                  size: 15.sp,
-                ),
-              ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
+                  10.heightBox,
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 30.r,
+                      backgroundImage: const AssetImage(mentor2),
+                    ),
+                    title: Text(
+                      "Mentoring with Tom",
+                      style: manoropeFontFamily(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: blackcolor),
+                    ),
+                    subtitle: Text(
+                      "Today at 9:00 PM - 30 min",
+                      style: manoropeFontFamily(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: textfieldgrey),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: textfieldgrey,
+                      size: 15.sp,
+                    ),
+                  ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
                 ],
               ),
             ),
-           
             20.heightBox,
             Padding(
-             padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
                 mainAxisAlignment: mainbetween,
                 children: [
@@ -374,7 +387,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
               ),
             ),
             Padding(
-               padding: const EdgeInsets.only(left: 15,right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: GridView.builder(
                   physics: neverscroll,
                   shrinkWrap: true,
@@ -394,7 +407,6 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                             CircleAvatar(
                               backgroundImage: AssetImage(mentor),
                             ),
-                          
                             Icon(
                               Icons.favorite,
                               color: greencolor,
@@ -443,11 +455,15 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                     )
                         .box
                         .height(110.h)
-                        .padding(EdgeInsets.symmetric(horizontal: 20,vertical: 10))
+                        .padding(
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10))
                         .white
                         .outerShadow
                         .roundedSM
-                        .make().onTap(() {Get.toNamed(Routes.MENTOR_PROFILE);});
+                        .make()
+                        .onTap(() {
+                      Get.toNamed(Routes.MENTOR_PROFILE);
+                    });
                   }),
             )
           ],

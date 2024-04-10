@@ -15,10 +15,10 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AuthRepository {
   BaseApiServices networkApiService = NetworkApiService();
-  Future<dynamic> signInMentee(dynamic data) async {
+  Future<dynamic> signInUser(dynamic data,userType) async {
     try {
       dynamic response =
-          await networkApiService.getPostResponse(loginMentee, data);
+          await networkApiService.getPostResponse(userType=="Mentee"?loginMentee:loginMentor, data);
 
       return response;
     } catch (e) {
@@ -45,6 +45,7 @@ class AuthRepository {
         EasyLoading.dismiss();
         ZegoUIKitPrebuiltCallInvitationService().uninit();
         StorageServices.to.remove(usertoken);
+        StorageServices.to.remove(selectedUserType);
         Get.offAllNamed(Routes.SIGNIN);
       } else {
         Utils.snakbar(title: "Faild", body: "Failed");

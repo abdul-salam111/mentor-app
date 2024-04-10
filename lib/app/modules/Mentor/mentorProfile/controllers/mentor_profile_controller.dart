@@ -1,23 +1,10 @@
 import 'package:get/get.dart';
+import 'package:mentor_app/app/repositories/connectionsRepo.dart';
 
 class MentorProfileController extends GetxController {
-  //TODO: Implement MentorProfileController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  ConnectionsRepository connectionsRepository=ConnectionsRepository();
+  var requestSent=false.obs;
+  Future<bool> createRequest(recId,recName)async{
+return await connectionsRepository.createConnection(recId,recName);
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

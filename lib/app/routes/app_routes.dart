@@ -45,6 +45,7 @@ abstract class Routes {
   static const FINDING_BEST_MATCH = _Paths.FINDING_BEST_MATCH;
   static const MENTOR_MATCHED = _Paths.MENTOR_MATCHED;
   static const JOB_APPLICATION_FORM = _Paths.JOB_APPLICATION_FORM;
+  static const MENTOR_PROFILE_INFORMATION = _Paths.MENTOR_PROFILE_INFORMATION;
 }
 
 abstract class _Paths {
@@ -89,4 +90,5 @@ abstract class _Paths {
   static const FINDING_BEST_MATCH = '/finding-best-match';
   static const MENTOR_MATCHED = '/mentor-matched';
   static const JOB_APPLICATION_FORM = '/job-application-form';
+  static const MENTOR_PROFILE_INFORMATION = '/mentor-profile-information';
 }

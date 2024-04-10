@@ -8,18 +8,18 @@ import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../controllers/mentor_profile_controller.dart';
+import '../../../resources/icons.dart';
+import '../controllers/mentor_profile_information_controller.dart';
 
-class MentorProfileView extends GetView<MentorProfileController> {
-  const MentorProfileView({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
+class MentorProfileInformationView
+    extends GetView<MentorProfileInformationController> {
+  const MentorProfileInformationView({Key? key}) : super(key: key);
+ Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -238,39 +238,17 @@ class MentorProfileView extends GetView<MentorProfileController> {
                             .border(color: greyColor.withOpacity(0.5))
                             .roundedSM
                             .make(),
-                        70.heightBox,
-                        Obx(
-                          () => CustomButton(
-                              buttonName: controller.requestSent.value
-                                  ? "Cancel Request"
-                                  : "Send Request",
-                              onPressed: () {
-                              if(controller.requestSent.value){
-
-                              }
-                              else{
-                                  controller
-                                    .createRequest(
-                                  getMentorInfoFromJson(StorageServices.to
-                                          .getString(getMentorInformationsss))
-                                      .id,
-                                  getMentorInfoFromJson(StorageServices.to
-                                          .getString(getMentorInformationsss))
-                                      .fullName,
-                                )
-                                    .then((value) {
-                                  controller.requestSent.value = value;
-                                });
-                              }
-                              },
-                              textcolor: whitecolor,
-                              loading: false,
-                              backgroundColor: darkBrownColor,
-                              rounded: true,
-                              height: 50,
-                              textSize: 15,
-                              width: double.infinity),
-                        ),
+                        20.heightBox,
+                        CustomButton(
+                            buttonName: "Update Profile",
+                            onPressed: () {},
+                            textcolor: whitecolor,
+                            loading: false,
+                            backgroundColor: darkBrownColor,
+                            rounded: true,
+                            height: 50,
+                            textSize: 15,
+                            width: double.infinity),
                         20.heightBox,
                       ],
                     )
@@ -290,7 +268,7 @@ class MentorProfileView extends GetView<MentorProfileController> {
                   ? MediaQuery.sizeOf(context).width / 2.8
                   : MediaQuery.sizeOf(context).width / 3.4,
               child: CircleAvatar(
-                radius: height > 770 ? 50.r : 70.r,
+                radius: height > 770 ? 46.r : 70.r,
                 backgroundImage: const AssetImage(
                   mentor,
                 ),

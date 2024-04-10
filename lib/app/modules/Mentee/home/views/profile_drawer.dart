@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/Mentee/home/controllers/home_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -13,7 +15,6 @@ import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 
 class ProfileDrawer extends StatelessWidget {
   @override
@@ -40,7 +41,13 @@ class ProfileDrawer extends StatelessWidget {
                   crossAxisAlignment: crosstart,
                   children: [
                     Text(
-                      "Damilola John",
+                      StorageServices.to.getString(selectedUserType) == "Mentor"
+                          ? getMentorInfoFromJson(StorageServices.to
+                                  .getString(getMentorInformationsss))
+                              .fullName
+                          : getMenteeInfoFromJson(
+                                  StorageServices.to.getString(getmenteeinfo))
+                              .fullName??"John Jickey",
                       style: manoropeFontFamily(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
@@ -61,7 +68,9 @@ class ProfileDrawer extends StatelessWidget {
             CustomButton(
                 buttonName: "Edit Profile",
                 onPressed: () {
-                  Get.toNamed(Routes.PROFILE);
+                  StorageServices.to.getString(selectedUserType) == "Mentee"
+                      ? Get.toNamed(Routes.PROFILE)
+                      : Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
                 },
                 textcolor: whitecolor,
                 loading: false,
@@ -128,7 +137,6 @@ class ProfileDrawer extends StatelessWidget {
               ],
             ).onTap(() {
               Get.toNamed(Routes.CHANGE_PASSWORD);
-             
             }),
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),
