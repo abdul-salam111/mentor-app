@@ -11,6 +11,8 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../controllers/signup_controller.dart';
 
@@ -143,7 +145,7 @@ class SignupView extends GetView<SignupController> {
                   if (controller.accepttermsandConditions.value == true &&
                       controller.selectUserType.value != '' &&
                       controller.selectUserType.value.isNotEmpty) {
-                
+                         StorageServices.to.setString(key: selectedUserType, value: controller.selectUserType.value);
                       Get.toNamed(Routes.ON_BOARDING);
                      
                   } else if (controller.emailController.value.text.isEmpty ||

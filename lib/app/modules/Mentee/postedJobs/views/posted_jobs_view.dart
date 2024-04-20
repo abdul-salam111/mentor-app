@@ -52,7 +52,6 @@ class _PostedJobsViewState extends State<PostedJobsView> {
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
               child: Row(
-          
                 children: [
                   Expanded(child: customSearchTextField(hinttext: "Search")),
                   10.widthBox,
@@ -60,7 +59,10 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                       ? CustomButton(
                           buttonName: "Create Job",
                           onPressed: () {
-                            Get.toNamed(Routes.JOB_APPLICATION_FORM);
+                            Get.toNamed(Routes.JOB_APPLICATION_FORM)!
+                                .then((value) {
+                              setState(() {});
+                            });
                           },
                           textcolor: whitecolor,
                           loading: false,
@@ -178,7 +180,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                   return Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 12,
+                        itemCount: snapshot.data!.mentorJobs!.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -198,12 +200,20 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              'Chinyere Njoku',
-                                              style: manoropeFontFamily(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: blackcolor),
+                                            SizedBox(
+                                              width: 80.w,
+                                              child: Text(
+                                                snapshot
+                                                    .data!
+                                                    .mentorJobs![index]
+                                                    .mentor!
+                                                    .fullName
+                                                    .toString(),
+                                                style: manoropeFontFamily(
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: blackcolor),
+                                              ),
                                             ),
                                             130.widthBox,
                                             Image.asset(
@@ -215,7 +225,9 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                         ),
                                         5.heightBox,
                                         Text(
-                                          "Web Design",
+                                          snapshot.data!.mentorJobs![index]
+                                              .mentor!.industry
+                                              .toString(),
                                           style: manoropeFontFamily(
                                               fontSize: 10.sp,
                                               fontWeight: FontWeight.w400,
@@ -225,7 +237,9 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                         SizedBox(
                                           width: 240.w,
                                           child: Text(
-                                            "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. ",
+                                            snapshot.data!.mentorJobs![index]
+                                                .description
+                                                .toString(),
                                             style: manoropeFontFamily(
                                                 fontSize: 11.sp,
                                                 fontWeight: FontWeight.w400,
@@ -238,7 +252,9 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                           mainAxisAlignment: mainbetween,
                                           children: [
                                             Text(
-                                              '11:20am',
+                                              snapshot.data!.mentorJobs![index]
+                                                  .postTime
+                                                  .toString(),
                                               style: manoropeFontFamily(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -252,7 +268,11 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                                 buttonName: "View",
                                                 onPressed: () {
                                                   Get.toNamed(
-                                                      Routes.JOB_DETAILS);
+                                                      Routes.JOB_DETAILS,
+                                                      arguments: snapshot
+                                                          .data!
+                                                          .mentorJobs![index]
+                                                          .id);
                                                 },
                                                 textcolor: whitecolor,
                                                 loading: false,

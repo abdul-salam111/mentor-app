@@ -49,7 +49,7 @@ class JobApplicationFormController extends GetxController {
                 location: locationController.value.text.toString(),
                 jobType: jobModeController.value.text.toString(),
                 jobUrl: jobUrl.value.text.toString(),
-                description: jobDescriptionController.value.toString())
+                description: jobDescriptionController.value.text.toString())
             .toJson()).then((value){
               jobDescriptionController.value.clear();
               jobModeController.value.clear();

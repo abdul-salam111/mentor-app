@@ -44,14 +44,15 @@ class JobsRepository {
   }
 
   //get jobs
-  Future<GetJobById> getJobsById({required String jobId}) async {
+  Future<GetJobById> getJobsById({required int jobId}) async {
     try {
       final response = await http.get(
           Uri.parse(
-              'https://guided-by-culture-production.up.railway.app/api/job/getById/$jobId'),
+              'https://guided-by-culture-production.up.railway.app/api/job/getById?jobId=$jobId'),
           headers: {
             "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
           });
+
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

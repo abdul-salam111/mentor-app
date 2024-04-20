@@ -58,13 +58,16 @@ class OnboardingPage extends StatelessWidget {
                                textAlign: TextAlign.center,
                       ),
                       30.heightBox,
-                      Text(
-                        description,
-                        style: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,
-                            color: darkGreyColor),
-                        textAlign: TextAlign.center,
+                      SizedBox(
+                        height:  MediaQuery.sizeOf(context).height/5.5,
+                        child: Text(
+                          description,
+                          style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.sp,
+                              color: darkGreyColor),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                   (heightpageno).heightBox,
                       Text(

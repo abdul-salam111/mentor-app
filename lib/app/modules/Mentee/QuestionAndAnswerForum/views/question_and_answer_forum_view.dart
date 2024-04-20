@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +7,6 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
-import 'package:mentor_app/app/models/questions/getAnswerReplies.dart';
 import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -349,7 +347,7 @@ class _QuestionAndAnswerForumViewState
                                                       rounded: true,
                                                       height: 20.h,
                                                       textSize: 10.sp,
-                                                      width: 50.w)
+                                                      width: 70.w)
                                                   : const SizedBox.shrink(),
                                             ],
                                           ),
@@ -459,13 +457,13 @@ class _QuestionAndAnswerForumViewState
                                           )
                                         : const SizedBox.shrink(),
                                   ),
-                                  Obx(() => isAnswerOpen.value
+                                 StorageServices.to.getString(selectedUserType)=='Mentor'? Obx(() => isAnswerOpen.value
                                       ? const Divider(
                                           thickness: 1,
                                           color: greyColor,
                                         )
-                                      : const SizedBox.shrink()),
-                                  Obx(() => isAnswerOpen.value
+                                      : const SizedBox.shrink()):const SizedBox.shrink(),
+                                  StorageServices.to.getString(selectedUserType)=='Mentor'?   Obx(() => isAnswerOpen.value
                                       ? TextField(
                                           style: manoropeFontFamily(
                                               fontSize: 14.sp,
@@ -509,7 +507,7 @@ class _QuestionAndAnswerForumViewState
                                                       12.0), // Padding from top and left
                                               border: InputBorder.none),
                                         ).box.white.roundedSM.outerShadow.make()
-                                      : const SizedBox.shrink()),
+                                      : const SizedBox.shrink()):const SizedBox.shrink(),
                                 ],
                               )
                                   .box

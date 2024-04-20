@@ -78,24 +78,29 @@ class ProfileDrawer extends StatelessWidget {
                 rounded: false,
                 height: 30.h,
                 textSize: 11.sp,
-                width: 60),
+                width: 80),
             20.heightBox,
-            Row(
-              children: [
-                Image.asset(
-                  profileicon,
-                  height: 45.h,
-                  width: 45.w,
-                ),
-                10.widthBox,
-                Text(
-                  "Account",
-                  style: manoropeFontFamily(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: blackcolor),
-                ),
-              ],
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(Routes.PROFILE);
+              },
+              child: Row(
+                children: [
+                  Image.asset(
+                    profileicon,
+                    height: 45.h,
+                    width: 45.w,
+                  ),
+                  10.widthBox,
+                  Text(
+                    "Account",
+                    style: manoropeFontFamily(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w500,
+                        color: blackcolor),
+                  ),
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 8),

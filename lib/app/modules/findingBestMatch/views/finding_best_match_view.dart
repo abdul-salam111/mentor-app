@@ -11,8 +11,10 @@ import 'circularWidget.dart';
 
 class FindingBestMatchView extends GetView<FindingBestMatchController> {
   const FindingBestMatchView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    controller.findingBestMentor();
     return Scaffold(
         body: Column(
       children: [
@@ -21,12 +23,17 @@ class FindingBestMatchView extends GetView<FindingBestMatchController> {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Cancel",
-                  style: manoropeFontFamily(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                      color: blackcolor),
+                child: GestureDetector(
+                  onTap: (){
+                    Get.back();
+                  },
+                  child: Text(
+                    "Cancel",
+                    style: manoropeFontFamily(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                        color: blackcolor),
+                  ),
                 ),
               )),
         const LoginAssets(),

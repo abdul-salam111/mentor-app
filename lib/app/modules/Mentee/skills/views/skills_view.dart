@@ -7,6 +7,8 @@ import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../Utils/Utils.dart';
@@ -17,7 +19,7 @@ class SkillsView extends GetView<SkillsController> {
 
   @override
   Widget build(BuildContext context) {
-    final signupcontroller = Get.put(SignupController());
+  
     return Scaffold(
         appBar: AppBar(
           surfaceTintColor: whitecolor,
@@ -96,15 +98,16 @@ class SkillsView extends GetView<SkillsController> {
               child: CustomButton(
                   buttonName: "Continue",
                   onPressed: () {
+            
                     if (controller.selectedSkills.isNotEmpty &&
-                        signupcontroller.selectUserType.value == 'Mentee') {
+                        StorageServices.to.getString(selectedUserType) ==
+                            'Mentee') {
                       Get.toNamed(Routes.EDUCATION);
-                    } 
-                    else if(controller.selectedSkills.isNotEmpty &&
-                        signupcontroller.selectUserType.value == 'Mentor'){
-                          Get.toNamed(Routes.MENTOR_EDUCATION_BACKGROUND);
-                        }
-                    else {
+                    } else if (controller.selectedSkills.isNotEmpty &&
+                        StorageServices.to.getString(selectedUserType) ==
+                            'Mentor') {
+                      Get.toNamed(Routes.MENTOR_EDUCATION_BACKGROUND);
+                    } else {
                       Utils.snakbar(
                           title: "Select Skills",
                           body: "Please select at least 1 skill.");

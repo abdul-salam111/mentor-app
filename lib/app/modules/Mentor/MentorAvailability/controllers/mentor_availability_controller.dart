@@ -1,15 +1,40 @@
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:mentor_app/app/models/mentor/createMentorRequestModel.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
+import 'package:mentor_app/app/models/mentor/updateMentor.dart';
 import 'package:mentor_app/app/modules/Mentee/skills/controllers/skills_controller.dart';
 import 'package:mentor_app/app/modules/Mentor/MentorEducationBackground/controllers/mentor_education_background_controller.dart';
 import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 class MentorAvailabilityController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    if (StorageServices.to.getbool('updateProfile')) {
+      availabilityList.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .availableDays;
+      selectedGender.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .gender;
+      selectedTimeZone.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .timeZone;
+      selectedDuration.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .sessionDuration;
+      selectedChannles.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .communicationChannels;
+      selectedStatus.value = getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .availabilityStatus;
+    }
+  }
+
   List<String> daysOfWeek = [
     'Monday',
     'Tuesday',
@@ -65,7 +90,7 @@ class MentorAvailabilityController extends GetxController {
     'Video Call',
     'Phone Call'
   ];
-  List<String> selectedChannles = <String>[].obs;
+  RxList<String> selectedChannles = <String>[].obs;
 
   var isStatusOpen = false.obs;
   List<String> availablityStatus = [
@@ -79,14 +104,14 @@ class MentorAvailabilityController extends GetxController {
   void setSelectedGender(String gender) {
     selectedGender.value = gender;
   }
+
   final signupController = Get.put(SignupController());
   final eductioncontroller = Get.put(MentorEducationBackgroundController());
   MentorRepository mentorRepository = MentorRepository();
   final skillController = Get.put(SkillsController());
 
   Future signupMentor() async {
-    await mentorRepository
-        .createMentor(CreateMentorRequestModel(
+    var data = CreateMentorRequestModel(
       communicationChannels: communitcationChannels,
       about: eductioncontroller.aboutMe.value.text.toString(),
       fullName: signupController.nameController.value.text.toString(),
@@ -104,22 +129,45 @@ class MentorAvailabilityController extends GetxController {
       yearsOfExperience:
           int.parse(eductioncontroller.yearsOfExperience.value.text),
       gender: selectedGender.value,
-    ).toJson())
-        .then((value) {
+    );
+    if (StorageServices.to.getbool('updateProfile')) {
+      mentorRepository.updateMentor(UpdateMentorRequestMode(
+              communicationChannels: communitcationChannels,
+              about: eductioncontroller.aboutMe.value.text.toString(),
+              fullName: signupController.nameController.value.text.toString(),
+              email: signupController.emailController.value.text.toString(),
+              industry: eductioncontroller.selectedIndustries.value,
+              mentorshipStyle: eductioncontroller.selectedMentorshipstyle.value,
+              availabilityStatus: selectedStatus.value,
+              availableDays: availabilityList,
+              professionalBackgroundDescription:
+                  eductioncontroller.professionalBg.value.text.toString(),
+              sessionDuration: selectedDuration.value,
+              timeZone: selectedTimeZone.value,
+              skills: skillController.selectedSkills,
+              yearsOfExperience:
+                  int.parse(eductioncontroller.yearsOfExperience.value.text),
+              gender: selectedGender.value,
+              isVerified: '',
+              profilePicUrl: '')
+          .toJson());
+    } else {
+      await mentorRepository.createMentor(data.toJson());
       StorageServices.to.setString(
           key: selectedUserType, value: signupController.selectUserType.value);
-      eductioncontroller.aboutMe.value.clear();
-      signupController.nameController.value.clear();
-      signupController.emailController.value.clear();
-      signupController.passwordController.value.clear();
-      eductioncontroller.selectedIndustries.value = "Select";
-      eductioncontroller.selectedMentorshipstyle.value = "Select";
-      availabilityList.clear();
-      eductioncontroller.professionalBg.value.clear();
-      selectedDuration.value = "Select";
-      selectedTimeZone.value = "Select";
-      eductioncontroller.yearsOfExperience.value.clear();
-      selectedGender.value = "";
-    });
+    }
+
+    eductioncontroller.aboutMe.value.clear();
+    signupController.nameController.value.clear();
+    signupController.emailController.value.clear();
+    signupController.passwordController.value.clear();
+    eductioncontroller.selectedIndustries.value = "Select";
+    eductioncontroller.selectedMentorshipstyle.value = "Select";
+    availabilityList.clear();
+    eductioncontroller.professionalBg.value.clear();
+    selectedDuration.value = "Select";
+    selectedTimeZone.value = "Select";
+    eductioncontroller.yearsOfExperience.value.clear();
+    selectedGender.value = "";
   }
 }

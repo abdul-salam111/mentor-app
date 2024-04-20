@@ -1,23 +1,14 @@
 import 'package:get/get.dart';
+import 'package:mentor_app/app/models/connections/getMentorConnections.dart';
+import 'package:mentor_app/app/repositories/connectionsRepo.dart';
 
 class ConnectionsController extends GetxController {
-  //TODO: Implement ConnectionsController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  ConnectionsRepository connectionsRepository =ConnectionsRepository();
+  Future<GetMentorConnections> getMentorConnections()async{
+    return connectionsRepository.getMentorsconnections();
+  }
+  Future<GetMentorConnections> denyMenteeRequest()async{
+    return connectionsRepository.getMentorsconnections();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

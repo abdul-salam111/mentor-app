@@ -1,23 +1,10 @@
 import 'package:get/get.dart';
+import 'package:mentor_app/app/repositories/mentorRepo.dart';
 
 class FindingBestMatchController extends GetxController {
-  //TODO: Implement FindingBestMatchController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  MentorRepository mentorRepository = MentorRepository();
+  Future findingBestMentor() async {
+    mentorRepository.getBestMentor();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

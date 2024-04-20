@@ -29,8 +29,8 @@ final signupcontroller=Get.put(SignupController());
               "1/3",10),
          
           OnboardingPage(
-              signupcontroller.selectUserType.value=='Mentee'?  "Mentor Matching":"Connect. Cultivate. \nElevate.",
-              signupcontroller.selectUserType.value=='Mentee'?  "Lorem ipsum dolor sit amet consectetur. Congue massa ullamcorper in non diam quis leo diam. Elit non proin lectus eget at nunc nibh sit arcu. Lectus ut ut mauris nullam. Sed.":"In today's competitive world, we recognize that not everyone has access to the same opportunities. That's why we're here—to level the playing field and empower you to achieve your goals. ",
+              signupcontroller.selectUserType.value=='Mentee'?  "Mentor Matching":"Connect. Cultivate. Elevate.",
+              signupcontroller.selectUserType.value=='Mentee'?  "Lorem ipsum dolor sit amet consectetur. Congue massa ullamcorper in non diam quis leo diam. Elit non proin lectus eget at nunc nibh sit arcu. Lectus ut ut mauris nullam. Sed.":"In today's competitive world, we recognize that not everyone has access to the same opportunities. That's why we're here—to level the playing field and empower you to achieve your goals.",
               introimage2,
               signupcontroller.selectUserType.value=='Mentee'? "Complete Profile":"Get Started",
               "2/3",0),

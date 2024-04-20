@@ -33,6 +33,7 @@ dependencies:
   zego_uikit_signaling_plugin: ^2.7.6
   shimmer: ^3.0.0
   zego_zimkit: ^1.17.2
+  url_launcher: ^6.2.6
 
 
 

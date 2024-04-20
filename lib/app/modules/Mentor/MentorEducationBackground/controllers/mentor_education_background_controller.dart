@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mentor_app/app/resources/icons.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
+
+import '../../../../models/mentor/getMentorInfor.dart';
 
 class MentorEducationBackgroundController extends GetxController {
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    if(StorageServices.to.getbool('updateProfile')){
+      aboutMe.value.text=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .about;
+      professionalBg.value.text=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .professionalBackgroundDescription;
+     selectedIndustries.value=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .industry;
+    selectedMentorshipstyle.value=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .mentorshipStyle;
+      yearsOfExperience.value.text=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .yearsOfExperience.toString();
+    }
+  }
 
   var ismentorshipOpen = false.obs;
 

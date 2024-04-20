@@ -5,6 +5,7 @@ import 'package:mentor_app/app/resources/colors.dart';
 
 Widget customSearchTextField({String hinttext="Search for mentors"}) {
   return TextField(
+
     style: manoropeFontFamily(
         fontSize: 14.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
     decoration: InputDecoration(
