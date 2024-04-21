@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +14,24 @@ import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 class MentorRepository {
-  Future<void> createMentor(dynamic data) async {
+  final firebaseauth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  Future signUpUsertoFirebase(var mentor, userId, email, password) async {
+    try {
+      await firebaseauth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((user) {
+        FirebaseFirestore.instance
+            .collection('mentors')
+            .doc(userId)
+            .set(mentor);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> createMentor(dynamic data, email, password) async {
     var url = Uri.parse(
         'https://guided-by-culture-production.up.railway.app/api/mentors/create');
     var headers = {
@@ -30,9 +49,11 @@ class MentorRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        // StorageServices.to.setString(
-        //     key: getMentorInformation,
-        //     value: getMentorInformationModelToJson(data));
+        StorageServices.to.setString(key: userId, value: data['id'].toString());
+
+        signUpUsertoFirebase(data,
+            StorageServices.to.getString(userId).toString(), email, password);
+
         Get.offAllNamed(Routes.CONGRATULATIONS);
         EasyLoading.dismiss();
       } else {
@@ -59,6 +80,8 @@ class MentorRepository {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+         StorageServices.to.setString(key: userId, value: data['id'].toString());
+                 StorageServices.to.setString(key: userName, value: data['fullName'].toString());
         return GetMentorInfo.fromJson(data);
       } else {
         throw Exception('Failed to load data');

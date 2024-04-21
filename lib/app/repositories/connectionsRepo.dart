@@ -13,18 +13,18 @@ import 'package:mentor_app/app/storage/storage.dart';
 class ConnectionsRepository {
   Future<bool> createConnection(recId, recName) async {
     try {
-      print(recId);
       EasyLoading.show(status: "Sending...");
       // Make the POST request
       final response = await http.post(Uri.parse(
-          "https://guided-by-culture-production.up.railway.app/api/connection-request/create?receiverId=${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id}&senderId=$recId"));
+          "https://guided-by-culture-production.up.railway.app/api/connection-request/create?receiverId=$recId&senderId=${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id}"));
 
       // Check if the request was successful (status code 200)
       if (response.statusCode == 201) {
         // Request successful, handle response data if needed
-
-        print('Request successful');
-        print('Response: ${response.body}');
+        var data = jsonDecode(response.body);
+        // Request successful, handle response data if needed
+        StorageServices.to
+            .setString(key: 'cancelrequestId', value: data['id'].toString());
         Utils.snakbar(
             title: "Request Sent",
             body: "Request sent to $recName succefully!");
@@ -46,17 +46,15 @@ class ConnectionsRepository {
     }
   }
 
-  Future<bool> cancelConnection(recId, recName) async {
+  Future<bool> cancelConnection() async {
     try {
-      EasyLoading.show(status: "Sending...");
+      EasyLoading.show(status: "wait please...");
       // Make the POST request
-      final response = await http.post(Uri.parse(
-          "https://guided-by-culture-production.up.railway.app/api/connection-request/create?receiverId=${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id}&senderId=$recId"));
+      final response = await http.delete(Uri.parse(
+          'https://guided-by-culture-production.up.railway.app/api/connection-request/cancel/${int.parse(StorageServices.to.getString('cancelrequestId'))}'));
 
       // Check if the request was successful (status code 200)
-      if (response.statusCode == 201) {
-        // Request successful, handle response data if needed
-
+      if (response.statusCode == 200) {
         print('Request cacelled');
         print('Response: ${response.body}');
         Utils.snakbar(title: "Request cancelled", body: "Request cancelled");
@@ -103,12 +101,11 @@ class ConnectionsRepository {
     try {
       // Make the POST request
       final response = await http.get(Uri.parse(
-          "https://guided-by-culture-production.up.railway.app/api/connections/mentee/${getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).id}"));
+          "https://guided-by-culture-production.up.railway.app/api/connections/mentee/${getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id}"));
 
       if (response.statusCode == 200) {
         // Request successful, handle response data if needed
         var data = jsonDecode(response.body);
-
         return GetMenteeConnections.fromJson(data);
       } else {
         throw Exception(response.body);

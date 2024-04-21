@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "488211719513",
+    "project_id": "guidedbycutlture",
+    "storage_bucket": "guidedbycutlture.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488211719513:android:13dfc35eb5745f4082d848",
+        "android_client_info": {
+          "package_name": "com.example.mentor_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd4m4kPurTSILXE2RKcJbQhQRvs8sTT2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

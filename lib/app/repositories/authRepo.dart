@@ -15,10 +15,10 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AuthRepository {
   BaseApiServices networkApiService = NetworkApiService();
-  Future<dynamic> signInUser(dynamic data,userType) async {
+  Future<dynamic> signInUser(dynamic data, userType) async {
     try {
-      dynamic response =
-          await networkApiService.getPostResponse(userType=="Mentee"?loginMentee:loginMentor, data);
+      dynamic response = await networkApiService.getPostResponse(
+          userType == "Mentee" ? loginMentee : loginMentor, data);
 
       return response;
     } catch (e) {
@@ -46,6 +46,7 @@ class AuthRepository {
         ZegoUIKitPrebuiltCallInvitationService().uninit();
         StorageServices.to.remove(usertoken);
         StorageServices.to.remove(selectedUserType);
+        StorageServices.to.remove('updateProfile');
         Get.offAllNamed(Routes.SIGNIN);
       } else {
         Utils.snakbar(title: "Faild", body: "Failed");
@@ -112,7 +113,6 @@ class AuthRepository {
 
         if (data['messageStatus'] !=
             "java.lang.IllegalArgumentException: Incorrect password") {
-     
           StorageServices.to.remove(usertoken);
           StorageServices.to.remove(getmenteeinfo);
           Utils.snakbar(
@@ -150,7 +150,9 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data);
+        StorageServices.to.setString(key: userId, value: data['id'].toString());
+        StorageServices.to
+            .setString(key: userName, value: data['fullName'].toString());
 
         return GetMenteeInfo.fromJson(data);
       } else {
@@ -272,6 +274,41 @@ class AuthRepository {
 
       Utils.snakbar(title: "Failed", body: e.toString());
       throw Exception();
+    }
+  }
+
+  //update mentee
+  Future<void> updateMentee(Map<String, dynamic> data) async {
+    final String apiUrl =
+        'https://guided-by-culture-production.up.railway.app/api/mentee/update/${StorageServices.to.getString(userId)}';
+
+    try {
+      EasyLoading.show(status: "Updating profile...");
+      final response = await http.put(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        EasyLoading.dismiss();
+        print(response.body);
+        getMenteeData(
+            email: getMenteeInfoFromJson(
+                    StorageServices.to.getString(getmenteeinfo))
+                .email);
+                 Utils.snakbar(title: "Updated", body: "Profile Updated");
+      } else {
+        EasyLoading.dismiss();
+       
+       
+      }
+    } catch (error) {
+        EasyLoading.dismiss();
+
+     
     }
   }
 }

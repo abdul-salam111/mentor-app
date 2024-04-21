@@ -48,6 +48,8 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
+import '../modules/Mentee/MenteeConnections/bindings/mentee_connections_binding.dart';
+import '../modules/Mentee/MenteeConnections/views/mentee_connections_view.dart';
 import '../modules/Mentor/MentorAvailability/bindings/mentor_availability_binding.dart';
 import '../modules/Mentor/MentorAvailability/views/mentor_availability_view.dart';
 import '../modules/Mentor/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
@@ -196,7 +198,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MESSAGES,
-      page: () => const MessagesView(),
+      page: () =>  MessagesView(),
       binding: MessagesBinding(),
     ),
     GetPage(
@@ -288,6 +290,11 @@ class AppPages {
       name: _Paths.MENTOR_PROFILE_INFORMATION,
       page: () => const MentorProfileInformationView(),
       binding: MentorProfileInformationBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENTEE_CONNECTIONS,
+      page: () => const MenteeConnectionsView(),
+      binding: MenteeConnectionsBinding(),
     ),
   ];
 }

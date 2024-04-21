@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mentor_app/app/models/authModels/createMenteeModel.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/careerGoals/controllers/career_goals_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/education/controllers/education_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/preferredMentor/controllers/preferred_mentor_controller.dart';
@@ -10,6 +16,8 @@ import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart
 import 'package:mentor_app/app/resources/apiKeys.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:http/http.dart' as http;
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 
 import '../../../../Utils/Utils.dart';
 
@@ -97,90 +105,118 @@ class AvailbilityController extends GetxController {
   }
 
   Future<void> createMentee() async {
-  try {
-    EasyLoading.show(status: "Creating Profile...");
+    try {
+      EasyLoading.show(status: "Creating Profile...");
 
-    // Gather data from controllers and other sources
-    String fullName = signUpController.nameController.value.text.toString();
-    List<String> goals = careerGoalsController.selectedGoalsList;
-    List<String> skills = skillsController.selectedSkills;
-    String education = educationController.selectedSubject.value;
-    String industry = preferredMentorController.selectedIndustries.value;
-    String mentorshipStyle = preferredMentorController.selectedMentorshipstyle.value;
-    String email = signUpController.emailController.value.text;
-    String gender = preferredMentorController.selectedGender.value;
-    String sessionDuration = selectedDuration.value;
-    String about = preferredMentorController.aboutMe.value.text.toString();
-    List<String> communicationChannels = selectedChannles;
-    String password = signUpController.passwordController.value.text;
-    List<String> availableDays = availabilityList;
-    String timeZone = selectedTimeZone.value;
+      // Gather data from controllers and other sources
+      String fullName = signUpController.nameController.value.text.toString();
+      List<String> goals = careerGoalsController.selectedGoalsList;
+      List<String> skills = skillsController.selectedSkills;
+      String education = educationController.selectedSubject.value;
+      String industry = preferredMentorController.selectedIndustries.value;
+      String mentorshipStyle =
+          preferredMentorController.selectedMentorshipstyle.value;
+      String email = signUpController.emailController.value.text;
+      String gender = preferredMentorController.selectedGender.value;
+      String sessionDuration = selectedDuration.value;
+      String about = preferredMentorController.aboutMe.value.text.toString();
+      List<String> communicationChannels = selectedChannles;
+      String password = signUpController.passwordController.value.text;
+      List<String> availableDays = availabilityList;
+      String timeZone = selectedTimeZone.value;
 
-    // Create the model
-    CreateMenteeRequestModel createMenteeModel = CreateMenteeRequestModel(
-      fullName: fullName,
-      goals: goals,
-      skills: skills,
-      education: education,
-      industry: industry,
-      mentorshipStyle: mentorshipStyle,
-      email: email,
-      gender: gender,
-      sessionDuration: sessionDuration,
-      about: about,
-      communicationChannels: communicationChannels,
-      password: password,
-      availableDays: availableDays,
-      timeZone: timeZone,
-    );
-
-    // Create a multipart request
-    var request = http.MultipartRequest('POST', Uri.parse(createMenteeUrl));
-
-    // Add profile picture file to the request
-    var profilePicStream = http.ByteStream(imageFile.value!.openRead());
-    var profilePicLength = await imageFile.value!.length();
-    var profilePicMultipartFile = http.MultipartFile(
-      'profilePicUrl',
-      profilePicStream,
-      profilePicLength,
-      filename: imageFile.value!.path.split('/').last,
-    );
-    request.files.add(profilePicMultipartFile);
-
-    // Add form fields from the model
-    createMenteeModel.toJson().forEach((key, value) {
-      request.fields[key] = value.toString();
-    });
-
-    // Send the request and await response
-    var response = await request.send();
-
-    // Check response status code
-    if (response.statusCode == 200) {
-      EasyLoading.dismiss();
-      clearTextfields();
-      Get.offAndToNamed(Routes.CONGRATULATIONS);
-      Utils.snakbar(
-        title: "Account Created!",
-        body: "Your account is created successfully!",
+      // Create the model
+      CreateMenteeRequestModel createMenteeModel = CreateMenteeRequestModel(
+        fullName: fullName,
+        goals: goals,
+        skills: skills,
+        education: education,
+        industry: industry,
+        mentorshipStyle: mentorshipStyle,
+        email: email,
+        gender: gender,
+        sessionDuration: sessionDuration,
+        about: about,
+        communicationChannels: communicationChannels,
+        password: password,
+        availableDays: availableDays,
+        timeZone: timeZone,
       );
-    } else {
-      EasyLoading.dismiss();
-      Utils.snakbar(
-        title: "Failed!",
-        body: "Failed to create Account!",
+
+      // Create a multipart request
+      var request = http.MultipartRequest('POST', Uri.parse(createMenteeUrl));
+
+      // Add profile picture file to the request
+      var profilePicStream = http.ByteStream(imageFile.value!.openRead());
+      var profilePicLength = await imageFile.value!.length();
+      var profilePicMultipartFile = http.MultipartFile(
+        'profilePicUrl',
+        profilePicStream,
+        profilePicLength,
+        filename: imageFile.value!.path.split('/').last,
       );
+      request.files.add(profilePicMultipartFile);
+
+      // Add form fields from the model
+      createMenteeModel.toJson().forEach((key, value) {
+        request.fields[key] = value.toString();
+      });
+
+      // Send the request and await response
+      var response = await request.send();
+
+      // Check response status code
+      if (response.statusCode == 200) {
+        String responseBody = await response.stream.bytesToString();
+
+        // Decode the JSON response body
+        var responseData = jsonDecode(responseBody);
+        signUpUsertoFirebase(createMenteeModel.toJson(),responseData['id'].toString());
+        StorageServices.to.setString(key: userId, value: responseData['id'].toString());
+        EasyLoading.dismiss();
+        clearTextfields();
+
+        Utils.snakbar(
+          title: "Account Created!",
+          body: "Your account is created successfully!",
+        );
+      } else {
+        EasyLoading.dismiss();
+        Utils.snakbar(
+          title: "Failed!",
+          body: "Failed to create Account!",
+        );
+      }
+    } catch (e) {
+      print(e);
+      Utils.snakbar(
+        title: "Failed",
+        body: "Failed to create Account because! $e",
+      );
+      EasyLoading.dismiss();
     }
-  } catch (e) {
-    print(e);
-    Utils.snakbar(
-      title: "Failed",
-      body: "Failed to create Account because! $e",
-    );
-    EasyLoading.dismiss();
   }
-}
+
+  final firebaseauth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  Future signUpUsertoFirebase(var menteemodel, userId) async {
+    try {
+      await firebaseauth
+          .createUserWithEmailAndPassword(
+              email: signUpController.emailController.value.text.toString(),
+              password:
+                  signUpController.passwordController.value.text.toString())
+          .then((user) async {
+        await FirebaseFirestore.instance
+            .collection('mentees')
+            .doc(userId)
+            .set(menteemodel);
+        Get.offAndToNamed(Routes.CONGRATULATIONS);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   clearTextfields() {
     signUpController.nameController.value.clear();

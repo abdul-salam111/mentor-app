@@ -245,23 +245,24 @@ class MentorProfileView extends GetView<MentorProfileController> {
                                   ? "Cancel Request"
                                   : "Send Request",
                               onPressed: () {
-                              if(controller.requestSent.value){
-
-                              }
-                              else{
+                                if (controller.requestSent.value) {
+                                  controller.cancelRequest().then((value) {
+                                    controller.requestSent.value = false;
+                                  });
+                                } else {
                                   controller
-                                    .createRequest(
-                                  getMentorInfoFromJson(StorageServices.to
-                                          .getString(getMentorInformationsss))
-                                      .id,
-                                  getMentorInfoFromJson(StorageServices.to
-                                          .getString(getMentorInformationsss))
-                                      .fullName,
-                                )
-                                    .then((value) {
-                                  controller.requestSent.value = value;
-                                });
-                              }
+                                      .createRequest(
+                                    getMentorInfoFromJson(StorageServices.to
+                                            .getString(getMentorInformationsss))
+                                        .id,
+                                    getMentorInfoFromJson(StorageServices.to
+                                            .getString(getMentorInformationsss))
+                                        .fullName,
+                                  )
+                                      .then((value) {
+                                    controller.requestSent.value = value;
+                                  });
+                                }
                               },
                               textcolor: whitecolor,
                               loading: false,

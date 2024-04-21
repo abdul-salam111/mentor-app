@@ -34,6 +34,9 @@ dependencies:
   shimmer: ^3.0.0
   zego_zimkit: ^1.17.2
   url_launcher: ^6.2.6
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.15.8
+  firebase_core: ^2.27.0
 
 
 

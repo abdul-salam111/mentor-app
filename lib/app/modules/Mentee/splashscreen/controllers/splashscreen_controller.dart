@@ -18,19 +18,10 @@ class SplashscreenController extends GetxController {
           appID: 501015063 /*input your AppID*/,
           appSign:
               "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
-          userID: StorageServices.to.getString(selectedUserType) == "Mentee"
-              ? getMenteeInfoFromJson(
-                      StorageServices.to.getString(getmenteeinfo))
-                  .email
-              : getMentorInfoFromJson(
-                      StorageServices.to.getString(getMentorInformationsss))
-                  .email,
-          userName:StorageServices.to.getString(selectedUserType) == "Mentee"?
-              getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-                      .email 
-                  :getMentorInfoFromJson(
-                      StorageServices.to.getString(getMentorInformationsss))
-                  .fullName,
+           userID: StorageServices.to.getString(userId),
+        userName: StorageServices.to.getString(userName).isEmpty
+            ? "Userame"
+            : StorageServices.to.getString(userName),
           plugins: [ZegoUIKitSignalingPlugin()],
         );
         Get.offAllNamed(Routes.NAVIGATION_BAR);

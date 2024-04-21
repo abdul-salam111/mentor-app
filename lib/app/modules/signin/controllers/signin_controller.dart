@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -29,6 +31,14 @@ class SigninController extends GetxController {
     selectUserType.value = gender;
   }
 
+  final firebaseauth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  Future firebaseLoginuser() async {
+    await firebaseauth.signInWithEmailAndPassword(
+        email: nameController.value.text.toString(),
+        password: passwordController.value.text);
+  }
+
   MentorRepository mentorRepository = MentorRepository();
   AuthRepository authRepository = AuthRepository();
   QuestionsRepository questionsRepository = QuestionsRepository();
@@ -50,7 +60,7 @@ class SigninController extends GetxController {
       if (selectUserType.value == "Mentee") {
         var menteedata = await authRepository.getMenteeData(
             email: nameController.value.text.toString());
-
+        firebaseLoginuser();
         StorageServices.to.setString(
             key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
         questionsRepository.fetchQuestionCount();
@@ -61,17 +71,15 @@ class SigninController extends GetxController {
         StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));
-           
       }
       ZegoUIKitPrebuiltCallInvitationService().init(
         appID: 501015063 /*input your AppID*/,
         appSign:
             "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
-        userID: nameController.value.text,
-        userName:
-            getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-                    .fullName ??
-                "Abdul Salam",
+        userID: StorageServices.to.getString(userId),
+        userName: StorageServices.to.getString(userName).isEmpty
+            ? "Userame"
+            : StorageServices.to.getString(userName),
         plugins: [ZegoUIKitSignalingPlugin()],
       );
 

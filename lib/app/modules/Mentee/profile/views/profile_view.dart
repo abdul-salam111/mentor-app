@@ -20,11 +20,11 @@ import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-    final controller=Get.put(ProfileController());
-print(controller.availabilityList);
+    final controller = Get.put(ProfileController());
+    print(controller.availabilityList);
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
@@ -46,7 +46,7 @@ print(controller.availabilityList);
           child: ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20,right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   mainAxisAlignment: mainbetween,
                   children: [
@@ -65,7 +65,9 @@ print(controller.availabilityList);
                           width: 20,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                                showskillsdropdown(context);
+                            },
                             child: Text(
                               'Add more',
                               style: manoropeFontFamily(
@@ -79,38 +81,50 @@ print(controller.availabilityList);
                 ),
               ),
               GridView.builder(
-                physics: neverscroll,
-                itemCount: controller.selectedSkills.length,
-                shrinkWrap: true,
-                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                    
-                    mainAxisExtent: 50.h,
-                      crossAxisCount: 2,mainAxisSpacing: 6,crossAxisSpacing: 6),
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Image.asset(
-                          skills,
-                          width: 25,
-                          height: 25,
-                         fit: BoxFit.cover,
-                        ),
-                        5.widthBox,
-                        SizedBox(
-                          width: 100.w,
-                          child: Text(
-                          controller.selectedSkills[index]!,
-                            style: GoogleFonts.lato(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.normal,
-                              color: const Color(0xff656466),
+                      physics: neverscroll,
+                      itemCount: controller.selectedSkills.length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisExtent: 50.h,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 6,
+                          crossAxisSpacing: 6),
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            Image.asset(
+                              skills,
+                              width: 25,
+                              height: 25,
+                              fit: BoxFit.cover,
                             ),
-                          ),
+                            5.widthBox,
+                            SizedBox(
+                              width: 100.w,
+                              child: Text(
+                                controller.selectedSkills[index]!,
+                                style: GoogleFonts.lato(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xff656466),
+                                ),
+                              ),
+                            )
+                          ],
                         )
-                      ],
-                    ).box.rounded.padding(const EdgeInsets.only(left: 5)).white.make();
-                  }).box.color(const Color(0xffEFEFEF)).rounded.clip(Clip.antiAlias).margin( const EdgeInsets.only(left: 20,right: 20)).padding(pad16).make(),
-           
+                            .box
+                            .rounded
+                            .padding(const EdgeInsets.only(left: 5))
+                            .white
+                            .make();
+                      })
+                  .box
+                  .color(const Color(0xffEFEFEF))
+                  .rounded
+                  .clip(Clip.antiAlias)
+                  .margin(const EdgeInsets.only(left: 20, right: 20))
+                  .padding(pad16)
+                  .make(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
                 child: Row(
@@ -132,7 +146,7 @@ print(controller.availabilityList);
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.w,right: 5),
+                padding: EdgeInsets.only(left: 5.w, right: 5),
                 child: Wrap(
                   spacing: 5.0, // Adjust the spacing between checkboxes
                   children: List.generate(
@@ -184,9 +198,9 @@ print(controller.availabilityList);
                 ),
               ),
               10.heightBox,
-                Padding(
-                  padding:const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                  child: Row(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                child: Row(
                   children: [
                     Image.asset(
                       mentorshipStyle,
@@ -202,11 +216,10 @@ print(controller.availabilityList);
                           color: blackcolor),
                     ),
                   ],
-                                ),
                 ),
-            
+              ),
               Padding(
-               padding:const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                 child: Column(
                   crossAxisAlignment: crosstart,
                   children: [
@@ -245,8 +258,7 @@ print(controller.availabilityList);
                           : const SizedBox.shrink(),
                     ),
                     Obx(() => controller.isDurationOpen.value
-                        ? GetBuilder<ProfileController>(
-                            builder: (contextsss) {
+                        ? GetBuilder<ProfileController>(builder: (contextsss) {
                             return SizedBox(
                               height: 200.h,
                               child: ListView.builder(
@@ -331,9 +343,9 @@ print(controller.availabilityList);
                     .make(),
               ),
               10.heightBox,
-                Padding(
-                   padding:const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                  child: Row(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                child: Row(
                   children: [
                     Image.asset(
                       daysoftheweek,
@@ -349,11 +361,11 @@ print(controller.availabilityList);
                           color: blackcolor),
                     ),
                   ],
-                                ),
                 ),
+              ),
               10.heightBox,
               Padding(
-   padding: EdgeInsets.only(left: 5.w,right: 5),
+                padding: EdgeInsets.only(left: 5.w, right: 5),
                 child: Wrap(
                   spacing: 5.0, // Adjust the spacing between checkboxes
                   children: List.generate(
@@ -406,12 +418,109 @@ print(controller.availabilityList);
               ),
               30.heightBox,
               Padding(
-                padding: EdgeInsets.only(left: 20.w,right: 20,bottom: 30),
-                child: CustomButton(buttonName: "Save Profile", onPressed: (){}, textcolor: whitecolor, loading: false, backgroundColor: darkBrownColor, rounded: true, height: 40.h, textSize: 15.sp, width: double.infinity),
+                padding: EdgeInsets.only(left: 20.w, right: 20, bottom: 30),
+                child: CustomButton(
+                    buttonName: "Save Profile",
+                    onPressed: () {
+                   controller.updateMentee();
+      
+                    },
+                    textcolor: whitecolor,
+                    loading: false,
+                    backgroundColor: darkBrownColor,
+                    rounded: true,
+                    height: 40.h,
+                    textSize: 15.sp,
+                    width: double.infinity),
               )
             ],
           ),
-
         ));
+  }
+  void showskillsdropdown(BuildContext context) {
+    // Display the PopupMenuButton
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.only(
+            top: 20,
+          ),
+          color: whitecolor,
+          child: Column(
+            children: [
+              Expanded(
+                child: GetBuilder<ProfileController>(builder: (contextsss) {
+                  return ListView.builder(
+                    itemCount: controller.computerScienceSkills.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final skill = controller.computerScienceSkills[index];
+                      final isSelected =
+                          controller.selectedSkills.contains(skill);
+                      return ListTile(
+                        title: Text(
+                          skill,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        leading: Image.asset(
+                          skills,
+                          height: 25,
+                          width: 25,
+                        ),
+                        trailing: isSelected == true
+                            ? SizedBox(
+                                height: 10.h,
+                                width: 10.h,
+                              ).box.color(darkBrownColor).rounded.make()
+                            : SizedBox(
+                                height: 10.h,
+                                width: 10.h,
+                              )
+                                .box
+                                .border(color: darkBrownColor)
+                                .rounded
+                                .make(),
+                      )
+                          .box
+                          .margin(const EdgeInsets.all(8))
+                          .color(halfwhitecolor)
+                          .rounded
+                          .make()
+                          .onTap(() {
+                        if (isSelected) {
+                          controller.selectedSkills.remove(skill);
+                          contextsss.update();
+                        } else {
+                          controller.selectedSkills.add(skill);
+                          contextsss.update();
+                        }
+                      });
+                    },
+                  );
+                }),
+              ),
+              CustomButton(
+                backgroundColor: darkBrownColor,
+                textSize: 14.sp,
+                width: double.infinity,
+                height: 40.h,
+                textcolor: whitecolor,
+                buttonName: "Select",
+                loading: false,
+                rounded: false,
+                onPressed: () {
+                  controller.isSkillsOpen.value = false;
+              
+                 
+                  Navigator.pop(
+                      context); // Close the bottom sheet after selection
+                },
+              ),
+            ],
+          ),
+        ).box.topRounded(value: 20).clip(Clip.antiAlias).make();
+      },
+    );
   }
 }

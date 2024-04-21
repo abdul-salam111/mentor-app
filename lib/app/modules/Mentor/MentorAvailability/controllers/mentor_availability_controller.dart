@@ -152,22 +152,28 @@ class MentorAvailabilityController extends GetxController {
               profilePicUrl: '')
           .toJson());
     } else {
-      await mentorRepository.createMentor(data.toJson());
-      StorageServices.to.setString(
-          key: selectedUserType, value: signupController.selectUserType.value);
+      await mentorRepository
+          .createMentor(
+              data.toJson(),
+              signupController.emailController.value.text.toString(),
+              signupController.passwordController.value.text.toString())
+          .then((value) {});
+     
+    
+      
     }
 
-    eductioncontroller.aboutMe.value.clear();
-    signupController.nameController.value.clear();
-    signupController.emailController.value.clear();
-    signupController.passwordController.value.clear();
-    eductioncontroller.selectedIndustries.value = "Select";
-    eductioncontroller.selectedMentorshipstyle.value = "Select";
-    availabilityList.clear();
-    eductioncontroller.professionalBg.value.clear();
-    selectedDuration.value = "Select";
-    selectedTimeZone.value = "Select";
-    eductioncontroller.yearsOfExperience.value.clear();
-    selectedGender.value = "";
+    // eductioncontroller.aboutMe.value.clear();
+    // signupController.nameController.value.clear();
+    // signupController.emailController.value.clear();
+    // signupController.passwordController.value.clear();
+    // eductioncontroller.selectedIndustries.value = "Select";
+    // eductioncontroller.selectedMentorshipstyle.value = "Select";
+    // availabilityList.clear();
+    // eductioncontroller.professionalBg.value.clear();
+    // selectedDuration.value = "Select";
+    // selectedTimeZone.value = "Select";
+    // eductioncontroller.yearsOfExperience.value.clear();
+    // selectedGender.value = "";
   }
 }

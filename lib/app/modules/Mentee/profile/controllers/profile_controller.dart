@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/authModels/updateMenteeProfile.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -61,7 +63,7 @@ class ProfileController extends GetxController {
     "Entrepreneurship"
   ];
   RxList<String?> selectedSkills = RxList<String?>();
-
+final aboutMe=TextEditingController(text:getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).about ).obs;
   
 
   void onInit() {
@@ -73,6 +75,27 @@ class ProfileController extends GetxController {
             .availableDays.map((string) => string.replaceAll('"', '')).toList();
     selectedDuration.value=getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).sessionDuration;
   selectedChannles.value=getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-            .communicationChannels.map((string) => string.replaceAll('"', '')).toList();
+            .communicationChannels;
+            
+  }
+   var isSkillsOpen = false.obs;
+  AuthRepository authRepository=AuthRepository();
+  Future updateMentee()async{
+    authRepository.updateMentee(UpdateMenteeProfile(
+      skills: selectedSkills.where((skill) => skill != null).cast<String>().toList(),
+      communicationChannels: selectedChannles.where((selectedChannles) => selectedChannles != null).cast<String>().toList(),
+      about:getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).about ,
+      email: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email,
+      availableDays: availabilityList.where((availabilityList) => availabilityList != null).cast<String>().toList(),
+      education: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).education,
+      fullName: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).fullName??"UserName",
+      gender: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).gender,
+      goals: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).goals,
+      industry: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).industry,
+      mentorshipStyle: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).mentorshipStyle,
+      sessionDuration: selectedDuration.value,
+      timeZone: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).timeZone,
+    
+    ).toJson());
   }
 }

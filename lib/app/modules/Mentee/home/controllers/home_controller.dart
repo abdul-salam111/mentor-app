@@ -10,7 +10,7 @@ import 'package:mentor_app/app/storage/storage.dart';
 
 class HomeController extends GetxController {
    var isIndusryOpen = false.obs;
-  var selectedIndustries = "Industry".obs;
+  var selectedIndustries = "Information Technology (IT)".obs;
    var isSkillsOpen = false.obs;
 
   List<String> computerScienceSkills = [
@@ -59,11 +59,7 @@ class HomeController extends GetxController {
     'Environmental',
     // Add more industries as needed
   ];
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
+
 
   MentorRepository mentorRepository = MentorRepository();
   Future<List<GetSearchedMentors>> searchMentors(
@@ -81,7 +77,7 @@ class HomeController extends GetxController {
   AuthRepository authRepository = AuthRepository();
   Future<void> logoutUser() async {
     EasyLoading.show(status: "Logging out");
-    authRepository.logoutUser().then((value) {});
+    authRepository.logoutUser();
   }
 
   final passwordController = TextEditingController().obs;

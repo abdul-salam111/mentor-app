@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/storage.dart';
-import 'package:velocity_x/velocity_x.dart';
-
+import 'package:zego_zimkit/zego_zimkit.dart';
 import '../../../storage/keys.dart';
 import '../controllers/mentor_matched_controller.dart';
 
@@ -17,7 +16,7 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
   const MentorMatchedView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var data=Get.arguments;
+    var data = Get.arguments;
     return Scaffold(
         body: SafeArea(
       child: Stack(
@@ -45,7 +44,7 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                     Get.back();
                   },
@@ -61,51 +60,51 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
           Positioned(
             top: MediaQuery.sizeOf(context).height / 2.5,
             right: MediaQuery.sizeOf(context).width / 2.2,
-            child: CircleAvatar(
-              backgroundColor: blackcolor,
-              radius: 62.r,
-              child: CircleAvatar(
-                radius: 60.r,
-                backgroundImage: const AssetImage(mentor),
-              ),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  backgroundColor: blackcolor,
+                  radius: 62.r,
+                  child: CircleAvatar(
+                    radius: 60.r,
+                    backgroundImage: const AssetImage(mentor),
+                  ),
+                ),
+                Text(
+                  data['fullName'],
+                  style: manoropeFontFamily(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
+                ),
+              ],
             ),
           ),
           Positioned(
             top: MediaQuery.sizeOf(context).height / 2.5,
             left: MediaQuery.sizeOf(context).width / 2.2,
-            child: CircleAvatar(
-              backgroundColor: blackcolor,
-              radius: 62.r,
-              child: CircleAvatar(
-                radius: 60.r,
-                backgroundImage: const AssetImage(mentor2),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: MediaQuery.sizeOf(context).height / 2.8,
-            left: MediaQuery.sizeOf(context).width / 4,
-            child: SizedBox(
-              width: MediaQuery.sizeOf(context).width / 1.5 ,
-              child: Row(
-                children: [
-                  Text(
-                  data['fullName'],
-                    style: manoropeFontFamily(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: blackcolor),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  backgroundColor: blackcolor,
+                  radius: 62.r,
+                  child: CircleAvatar(
+                    radius: 60.r,
+                    backgroundImage: const AssetImage(mentor2),
                   ),
-                  20.widthBox,
-                  Text(
-                   getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).fullName==null?"Abdul Salam":"Sameer",
-                    style: manoropeFontFamily(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: blackcolor),
-                  )
-                ],
-              ),
+                ),
+                Text(
+                  getMenteeInfoFromJson(
+                                  StorageServices.to.getString(getmenteeinfo))
+                              .fullName??"Name"
+                          
+                      ,
+                  style: manoropeFontFamily(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
+                )
+              ],
             ),
           ),
           Positioned(
@@ -113,7 +112,14 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
             left: 30.w,
             child: CustomButton(
                 buttonName: "Start Messaging",
-                onPressed: () {},
+                onPressed: () async {
+     
+                  var chatRoomId = controller.chatRoomId(
+                      recieverId: data['id'].toString(),
+                      senderId: StorageServices.to.getString(userId).toString());
+                    
+                  Get.toNamed(Routes.MESSAGES, arguments: [data,chatRoomId]);
+                },
                 textcolor: whitecolor,
                 loading: false,
                 backgroundColor: darkBrownColor,
@@ -122,7 +128,7 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
                 textSize: 15.sp,
                 width: 300.w),
           ),
-           Positioned(
+          Positioned(
             top: MediaQuery.sizeOf(context).height / 1.2,
             left: 30.w,
             child: CustomButton(

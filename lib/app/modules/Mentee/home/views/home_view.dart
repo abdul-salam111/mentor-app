@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -56,10 +58,15 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       2.widthBox,
                       Text(
-                        getMenteeInfoFromJson(
-                                    StorageServices.to.getString(getmenteeinfo))
-                                .fullName ??
-                            "Damilola",
+                        StorageServices.to.getString(selectedUserType) ==
+                                "Mentee"
+                            ? getMenteeInfoFromJson(StorageServices.to
+                                        .getString(getmenteeinfo))
+                                    .fullName ??
+                                "Damilola"
+                            : getMentorInfoFromJson(StorageServices.to
+                                    .getString(getMentorInformationsss))
+                                .fullName,
                         style: manoropeFontFamily(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
@@ -79,7 +86,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             10.heightBox,
-            Padding(
+           StorageServices.to.getString(selectedUserType) == "Mentee"?    Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: TextField(
                   onTap: () {
@@ -119,82 +126,86 @@ class _HomeViewState extends State<HomeView> {
                         Icons.search,
                         color: textfieldgrey,
                       )),
-                )),
-            15.heightBox,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showIndustryMenu(context);
-                    },
-                    child: Padding(
-                      padding: symetrichorizontal8,
-                      child: Row(
-                        mainAxisAlignment: mainbetween,
-                        children: [
-                          Text(
-                            controller.selectedIndustries.value,
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: textfieldgrey),
-                          ),
-                          const Icon(
-                            Icons.expand_more,
-                            color: textfieldgrey,
-                          )
-                        ],
-                      ),
-                    ).box.border(color: greyColor).rounded.make(),
-                  ),
-                  5.widthBox,
-                  GestureDetector(
-                    onTap: () {
-                      showskillsdropdown(context);
-                    },
-                    child: Padding(
-                      padding: symetrichorizontal8,
-                      child: Row(
-                        mainAxisAlignment: mainbetween,
-                        children: [
-                          Text(
-                            "Skills",
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: textfieldgrey),
-                          ),
-                          const Icon(
-                            Icons.expand_more,
-                            color: textfieldgrey,
-                          )
-                        ],
-                      ),
-                    ).box.border(color: greyColor).rounded.make(),
-                  ),
-                  // SizedBox(
-                  //   height: 20.h,
-                  //   width: 210.w,
-                  //   child: ListView.builder(
-                  //       shrinkWrap: true,
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemCount: 1,
-                  //       itemBuilder: (context, index) {
-                  //         return SizedBox(
-                  //           child:
-                  //         ).box.border(color: greyColor).rounded.make();
-                  //       }),
-                  // // ),
-                  // Image.asset(
-                  //   filters,
-                  //   height: 20,
-                  //   width: 20,
-                  // )
-                ],
-              ),
-            ),
+                )):const SizedBox.shrink(),
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? 15.heightBox
+                : const SizedBox.shrink(),
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showIndustryMenu(context);
+                          },
+                          child: Padding(
+                            padding: symetrichorizontal8,
+                            child: Row(
+                              mainAxisAlignment: mainbetween,
+                              children: [
+                                Text(
+                                  controller.selectedIndustries.value,
+                                  style: manoropeFontFamily(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: textfieldgrey),
+                                ),
+                                const Icon(
+                                  Icons.expand_more,
+                                  color: textfieldgrey,
+                                )
+                              ],
+                            ),
+                          ).box.border(color: greyColor).rounded.make(),
+                        ),
+                        5.widthBox,
+                        GestureDetector(
+                          onTap: () {
+                            showskillsdropdown(context);
+                          },
+                          child: Padding(
+                            padding: symetrichorizontal8,
+                            child: Row(
+                              mainAxisAlignment: mainbetween,
+                              children: [
+                                Text(
+                                  "Skills",
+                                  style: manoropeFontFamily(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: textfieldgrey),
+                                ),
+                                const Icon(
+                                  Icons.expand_more,
+                                  color: textfieldgrey,
+                                )
+                              ],
+                            ),
+                          ).box.border(color: greyColor).rounded.make(),
+                        ),
+                        // SizedBox(
+                        //   height: 20.h,
+                        //   width: 210.w,
+                        //   child: ListView.builder(
+                        //       shrinkWrap: true,
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: 1,
+                        //       itemBuilder: (context, index) {
+                        //         return SizedBox(
+                        //           child:
+                        //         ).box.border(color: greyColor).rounded.make();
+                        //       }),
+                        // // ),
+                        // Image.asset(
+                        //   filters,
+                        //   height: 20,
+                        //   width: 20,
+                        // )
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
             20.heightBox,
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
@@ -394,161 +405,162 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             20.heightBox,
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Row(
-                mainAxisAlignment: mainbetween,
-                children: [
-                  Text(
-                    'Top Mentors',
-                    style: manoropeFontFamily(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: darkBrownColor),
-                  ),
-                  TextButton(
-                    child: Text(
-                      'See All',
-                      style: manoropeFontFamily(
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w400,
-                          color: darkBrownColor),
-                    ),
-                    onPressed: () {
-                      Get.toNamed(Routes.FIND_MENTORS);
-                    },
-                  ),
-                ],
-              ),
-            ),
-            FutureBuilder(
-                future: controller.searchMentors(
-                    availablility: "accept new mentees",
-                    skills: [
-                      'app',
-                      'web',
-                    ],
-                    search: 'abdul salam',
-                    industry: 'Information Technology (IT)'),
-                builder: (context,
-                    AsyncSnapshot<List<GetSearchedMentors>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return SizedBox.shrink();
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center();
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(snapshot.error.toString()),
-                    );
-                  } else if (snapshot.data!.isEmpty) {
-                    return Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.FIND_MENTORS);
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/not found.jpg",
-                              width: 300.w,
-                              height: 200.h,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Couldn't found, search to find.",
-                              style: manoropeFontFamily(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: blackcolor),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-                  return Padding(
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? Padding(
                     padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: GridView.builder(
-                        physics: neverscroll,
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            mainAxisExtent: 115.h,
-                            crossAxisCount: 2),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: crosstart,
-                            children: [
-                              const Row(
-                                mainAxisAlignment: mainbetween,
+                    child: Row(
+                      mainAxisAlignment: mainbetween,
+                      children: [
+                        Text(
+                          'Top Mentors',
+                          style: manoropeFontFamily(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: darkBrownColor),
+                        ),
+                        TextButton(
+                          child: Text(
+                            'See All',
+                            style: manoropeFontFamily(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: darkBrownColor),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.FIND_MENTORS);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? FutureBuilder(
+                    future: controller.searchMentors(
+                        availablility: "Accept new mentees",
+                        skills: [],
+                        search: '',
+                        industry: controller.selectedIndustries.value),
+                    builder: (context,
+                        AsyncSnapshot<List<GetSearchedMentors>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const HomeScreenShimmerList();
+                      } else if (!snapshot.hasData) {
+                        return const SizedBox.shrink();
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      } else if (snapshot.data!.isEmpty) {
+                        return Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.FIND_MENTORS);
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/not found.jpg",
+                                  width: 300.w,
+                                  height: 200.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                Text(
+                                  "Couldn't found, search to find.",
+                                  style: manoropeFontFamily(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: blackcolor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: GridView.builder(
+                            physics: neverscroll,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    mainAxisExtent: 115.h,
+                                    crossAxisCount: 2),
+                            itemBuilder: (context, index) {
+                              return Column(
+                                crossAxisAlignment: crosstart,
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage: AssetImage(mentor),
+                                  const Row(
+                                    mainAxisAlignment: mainbetween,
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: AssetImage(mentor),
+                                      ),
+                                      Icon(
+                                        Icons.favorite,
+                                        color: greencolor,
+                                      )
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.favorite,
-                                    color: greencolor,
-                                  )
-                                ],
-                              ),
-                              10.heightBox,
-                              Text(
-                                "Anna Tchaiko",
-                                style: manoropeFontFamily(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: blackcolor),
-                              ),
-                              5.heightBox,
-                              Row(
-                                mainAxisAlignment: mainbetween,
-                                children: [
+                                  10.heightBox,
                                   Text(
-                                    "Health",
+                                    snapshot.data![index].fullName,
                                     style: manoropeFontFamily(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        color: textfieldgrey),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
                                   ),
+                                  5.heightBox,
                                   Row(
+                                    mainAxisAlignment: mainbetween,
                                     children: [
                                       Text(
-                                        "4.9",
+                                        "Health",
                                         style: manoropeFontFamily(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: blackcolor),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                            color: textfieldgrey),
                                       ),
-                                      10.widthBox,
-                                      Icon(
-                                        Icons.star,
-                                        color: ratingcolor,
-                                        size: 17.sp,
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "4.9",
+                                            style: manoropeFontFamily(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: blackcolor),
+                                          ),
+                                          10.widthBox,
+                                          Icon(
+                                            Icons.star,
+                                            color: ratingcolor,
+                                            size: 17.sp,
+                                          )
+                                        ],
                                       )
                                     ],
                                   )
                                 ],
                               )
-                            ],
-                          )
-                              .box
-                              .height(110.h)
-                              .padding(EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10))
-                              .white
-                              .outerShadow
-                              .roundedSM
-                              .make()
-                              .onTap(() {
-                            Get.toNamed(Routes.MENTOR_PROFILE);
-                          });
-                        }),
-                  );
-                })
+                                  .box
+                                  .height(110.h)
+                                  .padding(const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10))
+                                  .white
+                                  .outerShadow
+                                  .roundedSM
+                                  .make()
+                                  .onTap(() {
+                                Get.toNamed(Routes.MENTOR_PROFILE);
+                              });
+                            }),
+                      );
+                    })
+                : const SizedBox.shrink()
           ],
         ),
       ),
@@ -578,7 +590,11 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 onTap: () {
                   controller.selectedIndustries.value = industry;
-
+                  controller.searchMentors(
+                      availablility: 'Accept new mentees',
+                      industry: controller.selectedIndustries.value,
+                      search: '',
+                      skills: controller.selectedSkills);
                   setState(() {});
                   Navigator.pop(
                       context); // Close the bottom sheet after selection
@@ -665,6 +681,14 @@ class _HomeViewState extends State<HomeView> {
                 rounded: false,
                 onPressed: () {
                   controller.isSkillsOpen.value = false;
+                  controller.searchMentors(
+                      availablility: 'Accept new mentees',
+                      industry: controller.selectedIndustries.value,
+                      search: '',
+                      skills: controller.selectedSkills);
+                  setState(() {});
+                  Navigator.pop(
+                      context); // Close the bottom sheet after selection
                 },
               ),
             ],

@@ -45,9 +45,10 @@ class ProfileDrawer extends StatelessWidget {
                           ? getMentorInfoFromJson(StorageServices.to
                                   .getString(getMentorInformationsss))
                               .fullName
-                          : getMenteeInfoFromJson(
-                                  StorageServices.to.getString(getmenteeinfo))
-                              .fullName??"John Jickey",
+                          : getMenteeInfoFromJson(StorageServices.to
+                                      .getString(getmenteeinfo))
+                                  .fullName ??
+                              "John Jickey",
                       style: manoropeFontFamily(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
@@ -81,7 +82,7 @@ class ProfileDrawer extends StatelessWidget {
                 width: 80),
             20.heightBox,
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(Routes.PROFILE);
               },
               child: Row(
@@ -100,18 +101,6 @@ class ProfileDrawer extends StatelessWidget {
                         color: blackcolor),
                   ),
                 ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15, right: 8),
-              child: Divider(
-                height: 0,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15, right: 8),
-              child: Divider(
-                height: 0,
               ),
             ),
             const Padding(
@@ -149,7 +138,41 @@ class ProfileDrawer extends StatelessWidget {
                 height: 0,
               ),
             ),
-            10.heightBox,
+            StorageServices.to.getString(selectedUserType) == 'Mentee'
+                ? Column(
+                    children: [
+                      10.heightBox,
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.MENTEE_CONNECTIONS);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              profileicon,
+                              height: 45.h,
+                              width: 45.w,
+                            ),
+                            10.widthBox,
+                            Text(
+                              "Connections",
+                              style: manoropeFontFamily(
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: blackcolor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15, right: 8),
+                        child: Divider(
+                          height: 0,
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(),
             Row(
               children: [
                 Padding(
