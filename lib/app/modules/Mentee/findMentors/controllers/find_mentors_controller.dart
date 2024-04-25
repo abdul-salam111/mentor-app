@@ -5,7 +5,7 @@ import '../../../../models/mentor/getSearchedMentorsModel.dart';
 
 class FindMentorsController extends GetxController {
     MentorRepository mentorRepository = MentorRepository();
-  Future<List<GetSearchedMentors>> searchMentors(
+  Future<dynamic> searchMentors(
       {required String availablility,
       required String industry,
       required String search,

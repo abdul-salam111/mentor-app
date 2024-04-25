@@ -109,38 +109,30 @@ class AvailbilityController extends GetxController {
       EasyLoading.show(status: "Creating Profile...");
 
       // Gather data from controllers and other sources
-      String fullName = signUpController.nameController.value.text.toString();
-      List<String> goals = careerGoalsController.selectedGoalsList;
-      List<String> skills = skillsController.selectedSkills;
-      String education = educationController.selectedSubject.value;
-      String industry = preferredMentorController.selectedIndustries.value;
-      String mentorshipStyle =
-          preferredMentorController.selectedMentorshipstyle.value;
-      String email = signUpController.emailController.value.text;
-      String gender = preferredMentorController.selectedGender.value;
-      String sessionDuration = selectedDuration.value;
-      String about = preferredMentorController.aboutMe.value.text.toString();
-      List<String> communicationChannels = selectedChannles;
-      String password = signUpController.passwordController.value.text;
-      List<String> availableDays = availabilityList;
-      String timeZone = selectedTimeZone.value;
+     
+  
+
+   
+
+ 
 
       // Create the model
       CreateMenteeRequestModel createMenteeModel = CreateMenteeRequestModel(
-        fullName: fullName,
-        goals: goals,
-        skills: skills,
-        education: education,
-        industry: industry,
-        mentorshipStyle: mentorshipStyle,
-        email: email,
-        gender: gender,
-        sessionDuration: sessionDuration,
-        about: about,
-        communicationChannels: communicationChannels,
-        password: password,
-        availableDays: availableDays,
-        timeZone: timeZone,
+        fullName: signUpController.nameController.value.text.toString(),
+        goals: careerGoalsController.selectedGoalsList.join(','),
+        skills:  skillsController.selectedSkills.join(','),
+        education: educationController.selectedSubject.value,
+        industry: preferredMentorController.selectedMentorshipstyle.value,
+        mentorshipStyle: preferredMentorController.selectedMentorshipstyle.value,
+        email: signUpController.emailController.value.text,
+        gender: preferredMentorController.selectedGender.value,
+        sessionDuration: selectedDuration.value,
+        about:  preferredMentorController.aboutMe.value.text.toString(),
+        profilePicUrl: '',
+        communicationChannels: selectedChannles.join(','),
+        password: signUpController.passwordController.value.text.toString(),
+        availableDays: availabilityList.join(','),
+        timeZone: selectedTimeZone.value,
       );
 
       // Create a multipart request

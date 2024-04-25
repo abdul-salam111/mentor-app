@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
@@ -47,6 +48,7 @@ class AuthRepository {
         StorageServices.to.remove(usertoken);
         StorageServices.to.remove(selectedUserType);
         StorageServices.to.remove('updateProfile');
+        await FirebaseAuth.instance.signOut();
         Get.offAllNamed(Routes.SIGNIN);
       } else {
         Utils.snakbar(title: "Faild", body: "Failed");
@@ -147,9 +149,11 @@ class AuthRepository {
           "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
         },
       );
+    
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+     
         StorageServices.to.setString(key: userId, value: data['id'].toString());
         StorageServices.to
             .setString(key: userName, value: data['fullName'].toString());
@@ -159,7 +163,7 @@ class AuthRepository {
         throw Exception();
       }
     } catch (e) {
-      Utils.snakbar(title: "Failed", body: e.toString());
+
       throw Exception();
     }
   }

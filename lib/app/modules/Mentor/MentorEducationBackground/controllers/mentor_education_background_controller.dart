@@ -9,7 +9,7 @@ import '../../../../models/mentor/getMentorInfor.dart';
 
 class MentorEducationBackgroundController extends GetxController {
 
-
+final nameController=TextEditingController().obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -30,6 +30,9 @@ class MentorEducationBackgroundController extends GetxController {
       yearsOfExperience.value.text=getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .yearsOfExperience.toString();
+      nameController.value.text=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .fullName.toString();
     }
   }
 

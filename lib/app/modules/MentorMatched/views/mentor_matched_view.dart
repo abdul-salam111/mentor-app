@@ -1,13 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/storage.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:zego_zimkit/zego_zimkit.dart';
 import '../../../storage/keys.dart';
 import '../controllers/mentor_matched_controller.dart';
@@ -88,17 +91,26 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
                 CircleAvatar(
                   backgroundColor: blackcolor,
                   radius: 62.r,
-                  child: CircleAvatar(
-                    radius: 60.r,
-                    backgroundImage: const AssetImage(mentor2),
-                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: StorageServices.to.getString(selectedUserType) ==
+                            "Mentee"
+                        ? getMenteeInfoFromJson(
+                                StorageServices.to.getString(getmenteeinfo))
+                            .profilePicUrl
+                            .toString()
+                        : getMentorInfoFromJson(StorageServices.to
+                                .getString(getMentorInformationsss))
+                            .profilePicUrl,
+                    height: 120.h,
+                    width: 120.w,
+                    fit: BoxFit.cover,
+                  ).box.roundedFull.clip(Clip.antiAlias).make(),
                 ),
                 Text(
                   getMenteeInfoFromJson(
-                                  StorageServices.to.getString(getmenteeinfo))
-                              .fullName??"Name"
-                          
-                      ,
+                              StorageServices.to.getString(getmenteeinfo))
+                          .fullName ??
+                      "Name",
                   style: manoropeFontFamily(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
@@ -113,12 +125,12 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
             child: CustomButton(
                 buttonName: "Start Messaging",
                 onPressed: () async {
-     
                   var chatRoomId = controller.chatRoomId(
                       recieverId: data['id'].toString(),
-                      senderId: StorageServices.to.getString(userId).toString());
-                    
-                  Get.toNamed(Routes.MESSAGES, arguments: [data,chatRoomId]);
+                      senderId:
+                          StorageServices.to.getString(userId).toString());
+
+                  Get.toNamed(Routes.MESSAGES, arguments: [data, chatRoomId]);
                 },
                 textcolor: whitecolor,
                 loading: false,

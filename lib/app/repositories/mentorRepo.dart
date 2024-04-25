@@ -80,8 +80,9 @@ class MentorRepository {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-         StorageServices.to.setString(key: userId, value: data['id'].toString());
-                 StorageServices.to.setString(key: userName, value: data['fullName'].toString());
+        StorageServices.to.setString(key: userId, value: data['id'].toString());
+        StorageServices.to
+            .setString(key: userName, value: data['fullName'].toString());
         return GetMentorInfo.fromJson(data);
       } else {
         throw Exception('Failed to load data');
@@ -144,12 +145,12 @@ class MentorRepository {
   }
 
   //search mentors
-  Future<List<GetSearchedMentors>> searchMentors(
+  Future<dynamic> searchMentors(
       {required String availablility,
       required String industry,
       required String search,
       required List skills}) async {
-    List<GetSearchedMentors> listOfMentors = [];
+    var listOfMentors = [];
     try {
       final response = await http.get(
         Uri.parse(
@@ -158,8 +159,7 @@ class MentorRepository {
           'Content-Type': 'application/json',
         },
       );
-      print(response.statusCode);
-      print(response.body);
+
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         for (var i in data) {
@@ -171,6 +171,25 @@ class MentorRepository {
       }
     } catch (error) {
       throw Exception(error);
+    }
+  }
+
+//get other mentors profiles
+  Future<GetMentorInfo> getOtherMentors({required String mentorEmail}) async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://guided-by-culture-production.up.railway.app/api/mentors/$mentorEmail'));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        return GetMentorInfo.fromJson(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      Utils.snakbar(title: "Error", body: e.toString());
+      throw Exception();
     }
   }
 }

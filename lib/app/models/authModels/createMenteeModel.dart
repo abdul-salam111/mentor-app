@@ -10,19 +10,19 @@ String createMenteeRequestModelToJson(CreateMenteeRequestModel data) => json.enc
 
 class CreateMenteeRequestModel {
     final String? about;
-    final List<String>? availableDays;
-    final List<String>? communicationChannels;
+    final String? availableDays;
+    final String? communicationChannels;
     final String? education;
     final String? email;
     final String? fullName;
-    final List<String>? goals;
+    final String? goals;
     final String? gender;
     final String? industry;
     final String? mentorshipStyle;
     final String? password;
     final String? profilePicUrl;
     final String? sessionDuration;
-    final List<String>? skills;
+    final String? skills;
     final String? timeZone;
 
     CreateMenteeRequestModel({
@@ -45,38 +45,38 @@ class CreateMenteeRequestModel {
 
     factory CreateMenteeRequestModel.fromJson(Map<String, dynamic> json) => CreateMenteeRequestModel(
     about: json["about"],
-    availableDays: json["availableDays"] == null ? [] : List<String>.from(json["availableDays"].map((x) => x.toString())),
-    communicationChannels: json["communicationChannels"] == null ? [] : List<String>.from(json["communicationChannels"].map((x) => x.toString())),
+    availableDays: json["availableDays"],
+    communicationChannels: json["communicationChannels"],
     education: json["education"],
     email: json["email"],
     fullName: json["fullName"],
-    goals: json["goals"] == null ? [] : List<String>.from(json["goals"].map((x) => x.toString())),
+    goals: json["goals"],
     gender: json["gender"],
     industry: json["industry"],
     mentorshipStyle: json["mentorshipStyle"],
     password: json["password"],
     profilePicUrl: json["profilePicUrl"],
     sessionDuration: json["sessionDuration"],
-    skills: json["skills"] == null ? [] : List<String>.from(json["skills"].map((x) => x.toString())),
+    skills: json["skills"],
     timeZone: json["timeZone"],
 );
 
 
     Map<String, dynamic> toJson() => {
         "about": about,
-        "availableDays": availableDays == null ? [] : List<dynamic>.from(availableDays!.map((x) => x)),
-        "communicationChannels": communicationChannels == null ? [] : List<dynamic>.from(communicationChannels!.map((x) => x)),
+        "availableDays": availableDays,
+        "communicationChannels": communicationChannels,
         "education": education,
         "email": email,
         "fullName": fullName,
-        "goals": goals == null ? [] : List<dynamic>.from(goals!.map((x) => x)),
+        "goals": goals,
         "gender": gender,
         "industry": industry,
         "mentorshipStyle": mentorshipStyle,
         "password": password,
         "profilePicUrl": profilePicUrl,
         "sessionDuration": sessionDuration,
-        "skills": skills == null ? [] : List<dynamic>.from(skills!.map((x) => x)),
+        "skills": skills,
         "timeZone": timeZone,
     };
 }

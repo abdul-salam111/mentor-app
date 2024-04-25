@@ -1,15 +1,35 @@
 // To parse this JSON data, do
 //
-//     final getMentorInfo = getMentorInfoFromJson(jsonString);
+//     final getMenteeSendRequests = getMenteeSendRequestsFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-GetMentorInfo getMentorInfoFromJson(String str) => GetMentorInfo.fromJson(json.decode(str));
+GetMenteeSendRequests getMenteeSendRequestsFromJson(String str) => GetMenteeSendRequests.fromJson(json.decode(str));
 
-String getMentorInfoToJson(GetMentorInfo data) => json.encode(data.toJson());
+String getMenteeSendRequestsToJson(GetMenteeSendRequests data) => json.encode(data.toJson());
 
-class GetMentorInfo {
+class GetMenteeSendRequests {
+    final List<MenteeConnection> menteeConnections;
+    final dynamic mentorConnections;
+
+    GetMenteeSendRequests({
+        required this.menteeConnections,
+        required this.mentorConnections,
+    });
+
+    factory GetMenteeSendRequests.fromJson(Map<String, dynamic> json) => GetMenteeSendRequests(
+        menteeConnections: List<MenteeConnection>.from(json["menteeConnections"].map((x) => MenteeConnection.fromJson(x))),
+        mentorConnections: json["mentorConnections"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "menteeConnections": List<dynamic>.from(menteeConnections.map((x) => x.toJson())),
+        "mentorConnections": mentorConnections,
+    };
+}
+
+class MenteeConnection {
     final int id;
     final String fullName;
     final String email;
@@ -25,13 +45,8 @@ class GetMentorInfo {
     final String availabilityStatus;
     final String timeZone;
     final String sessionDuration;
-    final List<String> availableDays;
-    final List<String> communicationChannels;
-    final List<String> skills;
-    final int resultScore;
-    final String messageStatus;
 
-    GetMentorInfo({
+    MenteeConnection({
         required this.id,
         required this.fullName,
         required this.email,
@@ -47,14 +62,9 @@ class GetMentorInfo {
         required this.availabilityStatus,
         required this.timeZone,
         required this.sessionDuration,
-        required this.availableDays,
-        required this.communicationChannels,
-        required this.skills,
-        required this.resultScore,
-        required this.messageStatus,
     });
 
-    factory GetMentorInfo.fromJson(Map<String, dynamic> json) => GetMentorInfo(
+    factory MenteeConnection.fromJson(Map<String, dynamic> json) => MenteeConnection(
         id: json["id"],
         fullName: json["fullName"],
         email: json["email"],
@@ -70,11 +80,6 @@ class GetMentorInfo {
         availabilityStatus: json["availabilityStatus"],
         timeZone: json["timeZone"],
         sessionDuration: json["sessionDuration"],
-        availableDays: List<String>.from(json["availableDays"].map((x) => x)),
-        communicationChannels: List<String>.from(json["communicationChannels"].map((x) => x)),
-        skills: List<String>.from(json["skills"].map((x) => x)),
-        resultScore: json["resultScore"],
-        messageStatus: json["messageStatus"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -93,10 +98,5 @@ class GetMentorInfo {
         "availabilityStatus": availabilityStatus,
         "timeZone": timeZone,
         "sessionDuration": sessionDuration,
-        "availableDays": List<dynamic>.from(availableDays.map((x) => x)),
-        "communicationChannels": List<dynamic>.from(communicationChannels.map((x) => x)),
-        "skills": List<dynamic>.from(skills.map((x) => x)),
-        "resultScore": resultScore,
-        "messageStatus": messageStatus,
     };
 }

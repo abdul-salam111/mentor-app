@@ -11,28 +11,32 @@ String updateMenteeProfileToJson(UpdateMenteeProfile data) => json.encode(data.t
 
 class UpdateMenteeProfile {
     final String about;
-    final List<String> availableDays;
-    final List<String> communicationChannels;
-    final String education;
-    final String email;
+    final String availableDays;
+    final String communicationChannels;
+
+
     final String fullName;
     final String gender;
-    final List<String> goals;
+    final String goals;
+    final String?profilePicUrl;
     final String industry;
     final String mentorshipStyle;
     final String sessionDuration;
-    final List<String> skills;
+    final String skills;
+    final int menteeId;
     final String timeZone;
 
     UpdateMenteeProfile({
         required this.about,
         required this.availableDays,
         required this.communicationChannels,
-        required this.education,
-        required this.email,
+
+
         required this.fullName,
         required this.gender,
         required this.goals,
+        required this.menteeId,
+        required this.profilePicUrl,
         required this.industry,
         required this.mentorshipStyle,
         required this.sessionDuration,
@@ -42,33 +46,37 @@ class UpdateMenteeProfile {
 
     factory UpdateMenteeProfile.fromJson(Map<String, dynamic> json) => UpdateMenteeProfile(
         about: json["about"],
-        availableDays: List<String>.from(json["availableDays"].map((x) => x)),
-        communicationChannels: List<String>.from(json["communicationChannels"].map((x) => x)),
-        education: json["education"],
-        email: json["email"],
+        availableDays: json['availableDays'],
+        communicationChannels:json['communicationChannels'],
+
+
         fullName: json["fullName"],
+        menteeId:json['menteeId'],
         gender: json["gender"],
-        goals: List<String>.from(json["goals"].map((x) => x)),
+        profilePicUrl:json['profilePicUrl'],
+        goals:json['goals'],
         industry: json["industry"],
         mentorshipStyle: json["mentorshipStyle"],
         sessionDuration: json["sessionDuration"],
-        skills: List<String>.from(json["skills"].map((x) => x)),
+        skills: json['skills'],
         timeZone: json["timeZone"],
     );
 
     Map<String, dynamic> toJson() => {
         "about": about,
-        "availableDays": List<dynamic>.from(availableDays.map((x) => x)),
-        "communicationChannels": List<dynamic>.from(communicationChannels.map((x) => x)),
-        "education": education,
-        "email": email,
+        "availableDays":availableDays ,
+        "communicationChannels": communicationChannels,
+        
+
         "fullName": fullName,
         "gender": gender,
-        "goals": List<dynamic>.from(goals.map((x) => x)),
+        "goals": goals,
+        "menteeId":menteeId,
+        "profilePicUrl":profilePicUrl,
         "industry": industry,
         "mentorshipStyle": mentorshipStyle,
         "sessionDuration": sessionDuration,
-        "skills": List<dynamic>.from(skills.map((x) => x)),
+        "skills": skills,
         "timeZone": timeZone,
     };
 }

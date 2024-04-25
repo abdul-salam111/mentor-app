@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,12 +22,14 @@ import 'package:mentor_app/app/storage/storage.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
-    print(controller.availabilityList);
+
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
@@ -45,6 +50,27 @@ class ProfileView extends GetView<ProfileController> {
         body: SafeArea(
           child: ListView(
             children: [
+              Obx(()=>
+                 CircleAvatar(
+                  radius: 50.r,
+                  child: controller.imageFile.value == null
+                      ? CachedNetworkImage(imageUrl: getMenteeInfoFromJson(
+                              StorageServices.to.getString(getmenteeinfo))
+                          .profilePicUrl,fit: BoxFit.cover,)
+                      : Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          Image.file(File(controller.imageFile.value!.path,),fit: BoxFit.cover,),
+                          IconButton(onPressed: (){
+                            controller.imageFile.value=null;
+                          }, icon: Icon(Icons.cancel,color: redColor,))
+                        ],
+                      )
+                        
+                ).box.outerShadowLg.clip(Clip.antiAlias).roundedFull.make().onTap(() {
+                  controller.pickImage();
+                }),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
@@ -66,7 +92,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         TextButton(
                             onPressed: () {
-                                showskillsdropdown(context);
+                              showskillsdropdown(context);
                             },
                             child: Text(
                               'Add more',
@@ -422,8 +448,7 @@ class ProfileView extends GetView<ProfileController> {
                 child: CustomButton(
                     buttonName: "Save Profile",
                     onPressed: () {
-                   controller.updateMentee();
-      
+                      controller.updateMentee();
                     },
                     textcolor: whitecolor,
                     loading: false,
@@ -437,6 +462,7 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ));
   }
+
   void showskillsdropdown(BuildContext context) {
     // Display the PopupMenuButton
     showModalBottomSheet(
@@ -511,8 +537,7 @@ class ProfileView extends GetView<ProfileController> {
                 rounded: false,
                 onPressed: () {
                   controller.isSkillsOpen.value = false;
-              
-                 
+
                   Navigator.pop(
                       context); // Close the bottom sheet after selection
                 },

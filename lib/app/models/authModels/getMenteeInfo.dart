@@ -13,7 +13,7 @@ class GetMenteeInfo {
     final int id;
     final String email;
     final dynamic fullName;
-    final String education;
+    final dynamic education;
     final String gender;
     final String mentorshipStyle;
     final String industry;

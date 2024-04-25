@@ -12,6 +12,7 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/mentor_education_background_controller.dart';
@@ -38,36 +39,49 @@ class MentorEducationBackgroundView
         ),
         body: ListView(children: [
           10.heightBox,
-          Obx(
-            () => Container(
-              height: 70.h,
-              width: 70,
-              color: greyColor,
-              child: Center(
-                child: controller.imageFile.value == null
-                    ? Column(mainAxisAlignment: maincenter, children: [
-                        const Icon(Icons.upload_file),
-                        5.heightBox,
-                        Text(
-                          "Upload",
-                          style: manoropeFontFamily(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: blackcolor),
-                        )
-                      ])
-                    : Image(
-                        image:
-                            FileImage(File(controller.imageFile.value!.path))),
-              ),
-            ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {
-              controller.pickImage();
-            }),
-          ),
+       
           Padding(
             padding: pad18,
             child: Column(
               children: [
+                    StorageServices.to.getbool('updateProfile')==true?   20.heightBox:const SizedBox.shrink(),
+            StorageServices.to.getbool('updateProfile')==true?    Row(
+            children: [
+              Image.asset(
+                profile,
+                height: 15,
+                width: 15,
+              ),
+              10.widthBox,
+              Text(
+                "Full Name",
+                style: manoropeFontFamily(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: blackcolor),
+              ),
+            ],
+          ):const SizedBox.shrink(),
+          10.heightBox,
+         StorageServices.to.getbool('updateProfile')==true? TextField(
+            keyboardType: TextInputType.text,
+            controller: controller.nameController.value,
+            decoration: InputDecoration(
+                hintText: 'eg. 1 year', // Your hint text
+                hintStyle: manoropeFontFamily(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: textfieldgrey),
+                contentPadding: const EdgeInsets.only(
+                    left: 12.0), // Padding from top and left
+                border: InputBorder.none),
+          )
+              .box
+              .color(const Color(0xffF4F4F4))
+             
+              .roundedSM
+              .make():const SizedBox.shrink(),
+                StorageServices.to.getbool('updateProfile')==true?    20.heightBox:const SizedBox.shrink(),
                 Row(
                   children: [
                     Image.asset(

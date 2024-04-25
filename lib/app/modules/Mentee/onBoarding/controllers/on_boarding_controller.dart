@@ -24,7 +24,7 @@ class OnboardingController extends GetxController {
         Get.toNamed(Routes.CAREER_GOALS);
       }
       else{
-        Get.toNamed(Routes.SKILLS);
+        Get.toNamed(Routes.CAREER_GOALS);
       }
     }
   }

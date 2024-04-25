@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+
 class CareerGoalsController extends GetxController {
   List<String> goalsList = [
     'Become a software engineer',
@@ -16,4 +17,5 @@ class CareerGoalsController extends GetxController {
     'Explore robotics and automation',
   ];
   RxList<String> selectedGoalsList = <String>[].obs;
+ 
 }

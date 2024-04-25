@@ -27,6 +27,7 @@ class ChatsView extends GetView<ChatsController> {
   const ChatsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    
     Get.put(ChatsController());
     return Scaffold(
         appBar: AppBar(

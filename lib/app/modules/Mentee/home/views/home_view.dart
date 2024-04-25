@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,6 +35,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
       backgroundColor: whitecolor,
       key: _scaffoldKey,
@@ -78,55 +80,69 @@ class _HomeViewState extends State<HomeView> {
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                     },
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage(profilepicture),
-                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: StorageServices.to
+                                  .getString(selectedUserType) ==
+                              "Mentee"
+                          ? getMenteeInfoFromJson(
+                                  StorageServices.to.getString(getmenteeinfo))
+                              .profilePicUrl
+                              .toString()
+                          : getMentorInfoFromJson(StorageServices.to
+                                  .getString(getMentorInformationsss))
+                              .profilePicUrl,
+                      height: 40.h,
+                      width: 50.w,
+                      fit: BoxFit.cover,
+                    ).box.roundedFull.clip(Clip.antiAlias).make(),
                   )
                 ],
               ),
             ),
             10.heightBox,
-           StorageServices.to.getString(selectedUserType) == "Mentee"?    Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: TextField(
-                  onTap: () {
-                    Get.toNamed(Routes.FIND_MENTORS);
-                  },
-                  readOnly: true,
-                  style: manoropeFontFamily(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: textfieldgrey),
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide: BorderSide(
-                              color: greyColor.withOpacity(0.5), width: 2)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide:
-                              BorderSide(color: greyColor.withOpacity(0.5))),
-                      border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide:
-                              BorderSide(color: greyColor.withOpacity(0.5))),
-                      contentPadding: const EdgeInsets.only(left: 10),
-                      hintText: "Search for mentors",
-                      hintStyle: manoropeFontFamily(
-                          fontSize: 12.sp,
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: TextField(
+                      onTap: () {
+                        Get.toNamed(Routes.FIND_MENTORS);
+                      },
+                      readOnly: true,
+                      style: manoropeFontFamily(
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                           color: textfieldgrey),
-                      suffixIcon: const Icon(
-                        Icons.search,
-                        color: textfieldgrey,
-                      )),
-                )):const SizedBox.shrink(),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5), width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5))),
+                          border: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5))),
+                          contentPadding: const EdgeInsets.only(left: 10),
+                          hintText: "Search for mentors",
+                          hintStyle: manoropeFontFamily(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: textfieldgrey),
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            color: textfieldgrey,
+                          )),
+                    ))
+                : const SizedBox.shrink(),
             StorageServices.to.getString(selectedUserType) == "Mentee"
                 ? 15.heightBox
                 : const SizedBox.shrink(),
@@ -441,12 +457,13 @@ class _HomeViewState extends State<HomeView> {
                         skills: [],
                         search: '',
                         industry: controller.selectedIndustries.value),
-                    builder: (context,
-                        AsyncSnapshot<List<GetSearchedMentors>> snapshot) {
+                    builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const HomeScreenShimmerList();
                       } else if (!snapshot.hasData) {
-                        return const SizedBox.shrink();
+                        return const Center(
+                          child: Text("Not found"),
+                        );
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Text(snapshot.error.toString()),
@@ -494,11 +511,11 @@ class _HomeViewState extends State<HomeView> {
                               return Column(
                                 crossAxisAlignment: crosstart,
                                 children: [
-                                  const Row(
+                                   Row(
                                     mainAxisAlignment: mainbetween,
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: AssetImage(mentor),
+                                        backgroundImage: CachedNetworkImageProvider(snapshot.data![index]['profilePicUrl']),
                                       ),
                                       Icon(
                                         Icons.favorite,
@@ -508,7 +525,7 @@ class _HomeViewState extends State<HomeView> {
                                   ),
                                   10.heightBox,
                                   Text(
-                                    snapshot.data![index].fullName,
+                                    snapshot.data![index]['fullName'],
                                     style: manoropeFontFamily(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w500,
@@ -555,7 +572,8 @@ class _HomeViewState extends State<HomeView> {
                                   .roundedSM
                                   .make()
                                   .onTap(() {
-                                Get.toNamed(Routes.MENTOR_PROFILE);
+                                Get.toNamed(Routes.MENTOR_PROFILE,
+                                    arguments: snapshot.data![index]['email']);
                               });
                             }),
                       );

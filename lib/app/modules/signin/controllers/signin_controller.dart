@@ -67,7 +67,7 @@ class SigninController extends GetxController {
       } else {
         var mentordata = await mentorRepository.getmentorinformation(
             mentorEmail: nameController.value.text.toString());
-
+        firebaseLoginuser();
         StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));

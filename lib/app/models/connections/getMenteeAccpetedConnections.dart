@@ -1,19 +1,37 @@
 // To parse this JSON data, do
 //
-//     final getSearchedMentors = getSearchedMentorsFromJson(jsonString);
+//     final getMenteeAcceptedConnection = getMenteeAcceptedConnectionFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<GetSearchedMentors> getSearchedMentorsFromJson(String str) => List<GetSearchedMentors>.from(json.decode(str).map((x) => GetSearchedMentors.fromJson(x)));
+GetMenteeAcceptedConnection getMenteeAcceptedConnectionFromJson(String str) => GetMenteeAcceptedConnection.fromJson(json.decode(str));
 
-String getSearchedMentorsToJson(List<GetSearchedMentors> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String getMenteeAcceptedConnectionToJson(GetMenteeAcceptedConnection data) => json.encode(data.toJson());
 
-class GetSearchedMentors {
+class GetMenteeAcceptedConnection {
+    final List<MentConnection> menteeConnections;
+    final List<MentConnection> mentorConnections;
+
+    GetMenteeAcceptedConnection({
+        required this.menteeConnections,
+        required this.mentorConnections,
+    });
+
+    factory GetMenteeAcceptedConnection.fromJson(Map<String, dynamic> json) => GetMenteeAcceptedConnection(
+        menteeConnections: List<MentConnection>.from(json["menteeConnections"].map((x) => MentConnection.fromJson(x))),
+        mentorConnections: List<MentConnection>.from(json["mentorConnections"].map((x) => MentConnection.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "menteeConnections": List<dynamic>.from(menteeConnections.map((x) => x.toJson())),
+        "mentorConnections": List<dynamic>.from(mentorConnections.map((x) => x.toJson())),
+    };
+}
+
+class MentConnection {
     final String about;
     final String availabilityStatus;
-    final List<String> availableDays;
-    final List<String> communicationChannels;
     final String email;
     final String fullName;
     final String gender;
@@ -21,21 +39,18 @@ class GetSearchedMentors {
     final String industry;
     final String isVerified;
     final String mentorshipStyle;
-    final String messageStatus;
     final String password;
     final String professionalBackgroundDescription;
     final String profilePicUrl;
-    final int resultScore;
     final String sessionDuration;
-    final List<String> skills;
     final String timeZone;
     final int yearsOfExperience;
+    final String education;
+    final int questionCount;
 
-    GetSearchedMentors({
+    MentConnection({
         required this.about,
         required this.availabilityStatus,
-        required this.availableDays,
-        required this.communicationChannels,
         required this.email,
         required this.fullName,
         required this.gender,
@@ -43,22 +58,19 @@ class GetSearchedMentors {
         required this.industry,
         required this.isVerified,
         required this.mentorshipStyle,
-        required this.messageStatus,
         required this.password,
         required this.professionalBackgroundDescription,
         required this.profilePicUrl,
-        required this.resultScore,
         required this.sessionDuration,
-        required this.skills,
         required this.timeZone,
         required this.yearsOfExperience,
+        required this.education,
+        required this.questionCount,
     });
 
-    factory GetSearchedMentors.fromJson(Map<String, dynamic> json) => GetSearchedMentors(
+    factory MentConnection.fromJson(Map<String, dynamic> json) => MentConnection(
         about: json["about"],
         availabilityStatus: json["availabilityStatus"],
-        availableDays: List<String>.from(json["availableDays"].map((x) => x)),
-        communicationChannels: List<String>.from(json["communicationChannels"].map((x) => x)),
         email: json["email"],
         fullName: json["fullName"],
         gender: json["gender"],
@@ -66,22 +78,19 @@ class GetSearchedMentors {
         industry: json["industry"],
         isVerified: json["isVerified"],
         mentorshipStyle: json["mentorshipStyle"],
-        messageStatus: json["messageStatus"],
         password: json["password"],
         professionalBackgroundDescription: json["professionalBackgroundDescription"],
         profilePicUrl: json["profilePicUrl"],
-        resultScore: json["resultScore"],
         sessionDuration: json["sessionDuration"],
-        skills: List<String>.from(json["skills"].map((x) => x)),
         timeZone: json["timeZone"],
         yearsOfExperience: json["yearsOfExperience"],
+        education: json["education"],
+        questionCount: json["questionCount"],
     );
 
     Map<String, dynamic> toJson() => {
         "about": about,
         "availabilityStatus": availabilityStatus,
-        "availableDays": List<dynamic>.from(availableDays.map((x) => x)),
-        "communicationChannels": List<dynamic>.from(communicationChannels.map((x) => x)),
         "email": email,
         "fullName": fullName,
         "gender": gender,
@@ -89,14 +98,13 @@ class GetSearchedMentors {
         "industry": industry,
         "isVerified": isVerified,
         "mentorshipStyle": mentorshipStyle,
-        "messageStatus": messageStatus,
         "password": password,
         "professionalBackgroundDescription": professionalBackgroundDescription,
         "profilePicUrl": profilePicUrl,
-        "resultScore": resultScore,
         "sessionDuration": sessionDuration,
-        "skills": List<dynamic>.from(skills.map((x) => x)),
         "timeZone": timeZone,
         "yearsOfExperience": yearsOfExperience,
+        "education": education,
+        "questionCount": questionCount,
     };
 }
