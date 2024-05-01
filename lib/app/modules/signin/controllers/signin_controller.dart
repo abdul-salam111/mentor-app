@@ -13,6 +13,7 @@ import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
+import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
@@ -31,12 +32,13 @@ class SigninController extends GetxController {
     selectUserType.value = gender;
   }
 
+  var accepttermsandConditions = false.obs;
+
   final firebaseauth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
-  Future firebaseLoginuser() async {
+  Future firebaseLoginuser(email, password) async {
     await firebaseauth.signInWithEmailAndPassword(
-        email: nameController.value.text.toString(),
-        password: passwordController.value.text);
+        email: email, password: passwordController.value.text);
   }
 
   MentorRepository mentorRepository = MentorRepository();
@@ -60,14 +62,16 @@ class SigninController extends GetxController {
       if (selectUserType.value == "Mentee") {
         var menteedata = await authRepository.getMenteeData(
             email: nameController.value.text.toString());
-        firebaseLoginuser();
+        firebaseLoginuser("mentee${nameController.value.text.toString()}",
+            passwordController.value.text.toString());
         StorageServices.to.setString(
             key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
         questionsRepository.fetchQuestionCount();
       } else {
         var mentordata = await mentorRepository.getmentorinformation(
             mentorEmail: nameController.value.text.toString());
-        firebaseLoginuser();
+        firebaseLoginuser(nameController.value.text.toString(),
+            passwordController.value.text.toString());
         StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));
@@ -76,9 +80,14 @@ class SigninController extends GetxController {
         appID: 501015063 /*input your AppID*/,
         appSign:
             "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
-        userID: StorageServices.to.getString(userId),
+        userID: StorageServices.to.getString(selectedUserType) == "Mentee"
+            ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                .email
+            : getMentorInfoFromJson(
+                    StorageServices.to.getString(getMentorInformationsss))
+                .email,
         userName: StorageServices.to.getString(userName).isEmpty
-            ? "Userame"
+            ? "Username"
             : StorageServices.to.getString(userName),
         plugins: [ZegoUIKitSignalingPlugin()],
       );

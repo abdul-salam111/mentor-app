@@ -12,4 +12,5 @@ class ChatsController extends GetxController {
       return "$senderId$recieverId";
     }
   }
+  var searchUser="".obs;
 }

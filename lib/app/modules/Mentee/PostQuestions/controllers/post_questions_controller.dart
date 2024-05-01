@@ -84,6 +84,7 @@ class PostQuestionsController extends GetxController {
         PaymentRepository paymentRepository = PaymentRepository();
         paymentRepository.createPayment(amount: double.parse(amount));
           questionsRepository.fetchQuestionCount();
+          update();
      
         paymentIntentData = null;
 
@@ -157,11 +158,11 @@ class PostQuestionsController extends GetxController {
       EasyLoading.dismiss();
  
     } else if (questionController.value.text.isEmpty) {
-      Utils.snakbar(title: "error", body: "Please enter question");
+      Utils.snakbar(title: "  ", body: "Please enter question");
     } else if (selectedIndustries.value == "Select") {
-      Utils.snakbar(title: "error", body: "Please select any of the industry");
+      Utils.snakbar(title: "  ", body: "Please select any of the industry");
     } else {
-      Utils.snakbar(title: "Error", body: "You have to pay first");
+      Utils.snakbar(title: "  ", body: "You have to pay first");
     }
   }
 }

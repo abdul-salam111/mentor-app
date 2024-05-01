@@ -3,14 +3,6 @@ import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/Utils/Utils.dart';
-import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
-import 'package:mentor_app/app/models/connections/getMenteeAccpetedConnections.dart';
-import 'package:mentor_app/app/models/connections/getMenteeConnections.dart';
-import 'package:mentor_app/app/models/connections/getMenteesendRequests.dart';
-import 'package:mentor_app/app/models/connections/getMentorAcceptedConnections.dart';
-import 'package:mentor_app/app/models/connections/getMentorrecievedConnections.dart';
-import 'package:mentor_app/app/models/connections/getMentorConnections.dart';
-import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 

@@ -74,34 +74,34 @@ class MentorProfileInformationView
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
+                              // 10.heightBox,
+                              // Row(
+                              //   mainAxisAlignment: maincenter,
+                              //   children: [
+                              //     Row(
+                              //       mainAxisAlignment: maincenter,
+                              //       children: List.generate(
+                              //           5,
+                              //           (index) => const Padding(
+                              //                 padding: EdgeInsets.symmetric(
+                              //                     horizontal: 7),
+                              //                 child: Icon(
+                              //                   Icons.star,
+                              //                   color: ratingcolor,
+                              //                 ),
+                              //               )),
+                              //     ),
+                              //     10.widthBox,
+                              //     Text(
+                              //       '15 reviews',
+                              //       style: GoogleFonts.lato(
+                              //           fontSize: 14.sp,
+                              //           color: ratingcolor,
+                              //           fontWeight: FontWeight.w600),
+                              //     )
+                              //   ],
+                              // ),
                               10.heightBox,
-                              Row(
-                                mainAxisAlignment: maincenter,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: maincenter,
-                                    children: List.generate(
-                                        5,
-                                        (index) => const Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 7),
-                                              child: Icon(
-                                                Icons.star,
-                                                color: ratingcolor,
-                                              ),
-                                            )),
-                                  ),
-                                  10.widthBox,
-                                  Text(
-                                    '15 reviews',
-                                    style: GoogleFonts.lato(
-                                        fontSize: 14.sp,
-                                        color: ratingcolor,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                ],
-                              ),
-                              20.heightBox,
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(

@@ -13,14 +13,22 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/post_questions_controller.dart';
 
-class PostQuestionsView extends GetView<PostQuestionsController> {
+class PostQuestionsView extends StatefulWidget {
   const PostQuestionsView({Key? key}) : super(key: key);
+
+  @override
+  State<PostQuestionsView> createState() => _PostQuestionsViewState();
+}
+
+class _PostQuestionsViewState extends State<PostQuestionsView> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(PostQuestionsController());
+    controller.getQuestionNumbers();
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
-        backgroundColor: whitecolor,
+          backgroundColor: whitecolor,
           leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -35,18 +43,15 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
           actions: [
             SizedBox(
               child: Center(
-                child: GetBuilder<PostQuestionsController>(
-
-                  builder: (cont) {
-                    return Text(
-                      (cont.getQuestionNumbers().toString()),
-                      style: manoropeFontFamily(
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.w400,
-                          color: whitecolor),
-                    );
-                  }
-                ),
+                child: GetBuilder<PostQuestionsController>(builder: (cont) {
+                  return Text(
+                    (cont.getQuestionNumbers().toString()),
+                    style: manoropeFontFamily(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w400,
+                        color: whitecolor),
+                  );
+                }),
               ),
             )
                 .box
@@ -182,14 +187,17 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                 .make(),
             20.heightBox,
             Padding(
-              padding: const EdgeInsets.only(left: 18, right: 18,),
+              padding: const EdgeInsets.only(
+                left: 18,
+                right: 18,
+              ),
               child: Align(
                 alignment: Alignment.topRight,
                 child: CustomButton(
                     buttonName: "Post",
                     onPressed: () {
-                    
                       controller.postQuestions();
+                      setState(() {});
                     },
                     textcolor: controller.getQuestionNumbers() != 0
                         ? whitecolor
@@ -212,7 +220,7 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                     children: [
                       10.heightBox,
                       Text(
-                        "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. In tortor et aliquam aliquet morbi urna dui. Placerat ac dictum scelerisque bibendum. Enim id nulla risus quisque.? ",
+                        "We appriciate you are creating questions, we give 5 questions for free, after that you have to pay 5\$ to upload questions. ",
                         style: manoropeFontFamily(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
@@ -231,9 +239,9 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                       CustomButton(
                           buttonName: "Purchase An Additional Question",
                           onPressed: () async {
-                           
-                           await controller.makePayment(amount: '5');
-                           
+                            await controller
+                                .makePayment(amount: '5')
+                                .then((value) {});
                           },
                           textcolor: blackcolor,
                           loading: false,
@@ -244,7 +252,14 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                           width: double.infinity),
                       20.heightBox,
                     ],
-                  ).box.padding(pad14).white.margin(EdgeInsets.only(left: 18, right: 18)).roundedSM.outerShadow.make()
+                  )
+                    .box
+                    .padding(pad14)
+                    .white
+                    .margin(EdgeInsets.only(left: 18, right: 18))
+                    .roundedSM
+                    .outerShadow
+                    .make()
                 : const SizedBox.shrink(),
             10.heightBox,
           ],

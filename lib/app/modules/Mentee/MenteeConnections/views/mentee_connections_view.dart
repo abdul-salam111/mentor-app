@@ -8,8 +8,10 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/connections/getMenteeAccpetedConnections.dart';
 import 'package:mentor_app/app/models/connections/getMenteeConnections.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/Mentee/messages/views/messages_view.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -113,10 +115,10 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return ShimmerList();
+                            return ShimmerList(10);
                           } else if (!snapshot.hasData) {
-                            return const Center(
-                              child: Text("No connections sent yet."),
+                            return  Center(
+                              child: Image.asset("assets/images/1.png",height: 100.h,width: 100.w,),
                             );
                           } else if (snapshot.hasError) {
                             return Center(
@@ -288,10 +290,10 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return ShimmerList();
+                            return ShimmerList(10);
                           } else if (!snapshot.hasData) {
-                            return const Center(
-                              child: Text("No connections found!"),
+                            return  Center(
+                              child: Image.asset("assets/images/not friend found.png",height: 100.h,width: 100.w,),
                             );
                           } else if (snapshot.hasError) {
                             return Center(
@@ -354,8 +356,11 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                                                   buttonName: "Remove",
                                                   onPressed: () {
                                                     controller
-                                                        .deleteAcceptedRequestByMentorsandSentByMentee(snapshot.data!['menteeConnections']
-                                                [index]['connectionId']);
+                                                        .deleteAcceptedRequestByMentorsandSentByMentee(
+                                                            snapshot.data![
+                                                                        'menteeConnections']
+                                                                    [index][
+                                                                'connectionId']);
                                                     setState(() {});
                                                   },
                                                   textcolor: whitecolor,
@@ -370,20 +375,23 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                                               CustomButton(
                                                   buttonName: "Message",
                                                   onPressed: () {
-                                                    var chatRoomId = controller
-                                                        .chatRoomId(
-                                                            recieverId: snapshot
-                                                                .data![
-                                                                    'menteeConnections']
-                                                                    [index]
-                                                                    ['id']
-                                                                .toString(),
-                                                            senderId:
-                                                                StorageServices
+                                                    var chatRoomId = controller.chatRoomId(
+                                                        recieverId: snapshot
+                                                            .data!['menteeConnections']
+                                                                [index]['email']
+                                                            .toString(),
+                                                        senderId: StorageServices
                                                                     .to
                                                                     .getString(
-                                                                        userId)
-                                                                    .toString());
+                                                                        selectedUserType) ==
+                                                                "Mentee"
+                                                            ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                                                                .email
+                                                            : getMentorInfoFromJson(
+                                                                    StorageServices
+                                                                        .to
+                                                                        .getString(getMentorInformationsss))
+                                                                .email);
 
                                                     Get.to(
                                                         () => MessagesView(
@@ -392,7 +400,7 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                                                                   .data![
                                                                       'menteeConnections']
                                                                       [index]
-                                                                      ['id']
+                                                                      ['email']
                                                                   .toString(),
                                                               recName: snapshot
                                                                           .data![

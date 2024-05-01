@@ -21,7 +21,7 @@ class EducationController extends GetxController {
   ];
   var selectedCertification = "Select".obs;
   List<String> certifications = [
-    'Select Education',
+    'None',
     'App Development',
     'Data Structures',
     'Algorithms',

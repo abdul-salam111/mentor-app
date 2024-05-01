@@ -5,8 +5,8 @@ import '../controllers/schedule_session_controller.dart';
 class ScheduleSessionBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ScheduleSessionController>(
-      () => ScheduleSessionController(),
+    Get.put<ScheduleSessionController>(
+      ScheduleSessionController(),
     );
   }
 }

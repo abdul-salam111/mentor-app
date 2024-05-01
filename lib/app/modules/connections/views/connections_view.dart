@@ -8,9 +8,11 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/commonWidgets/textfield.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/connections/getMentorAcceptedConnections.dart';
 import 'package:mentor_app/app/models/connections/getMentorConnections.dart';
 import 'package:mentor_app/app/models/connections/getMentorrecievedConnections.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/Mentee/messages/views/messages_view.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -115,10 +117,10 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return ShimmerList();
+                            return ShimmerList(10);
                           } else if (!snapshot.hasData) {
-                            return const Center(
-                              child: Text("No request recieved yet."),
+                            return  Center(
+                              child: Image.asset("assets/images/no friend found.png",height: 100.h,width: 100.w,),
                             );
                           } else if (snapshot.hasError) {
                             return Center(
@@ -191,36 +193,36 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                                   },
                                                   textcolor: whitecolor,
                                                   loading: false,
-                                                  backgroundColor: darkBrownColor,
+                                                  backgroundColor:
+                                                      darkBrownColor,
                                                   rounded: true,
                                                   height: 20.h,
                                                   textSize: 12.sp,
                                                   width: 100.w),
-                                                    10.widthBox,
-                                          CustomButton(
-                                              buttonName: "Accept",
-                                              onPressed: () async {
-                                                await controller
-                                                    .acceptConnections(snapshot
-                                                                .data![
-                                                            'connectionRequests']
-                                                        [
-                                                        index]['mentee']['id']);
-                                                setState(() {});
-                                              },
-                                              textcolor: whitecolor,
-                                              loading: false,
-                                              backgroundColor:
-                                                  const Color(0xff036118),
-                                              rounded: true,
-                                              height: 20.h,
-                                              textSize: 12.sp,
-                                              width: 100.w)
-                                        ],
-                                      ),
+                                              10.widthBox,
+                                              CustomButton(
+                                                  buttonName: "Accept",
+                                                  onPressed: () async {
+                                                    await controller
+                                                        .acceptConnections(snapshot
+                                                                        .data![
+                                                                    'connectionRequests']
+                                                                [index]
+                                                            ['mentee']['id']);
+                                                    setState(() {});
+                                                  },
+                                                  textcolor: whitecolor,
+                                                  loading: false,
+                                                  backgroundColor:
+                                                      const Color(0xff036118),
+                                                  rounded: true,
+                                                  height: 20.h,
+                                                  textSize: 12.sp,
+                                                  width: 100.w)
                                             ],
                                           ),
-                                        
+                                        ],
+                                      ),
                                       Text(
                                         "${snapshot.data['connectionRequests'][index]['connectionRequestTime']}",
                                         style: manoropeFontFamily(
@@ -308,17 +310,17 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return ShimmerList();
+                            return ShimmerList(10);
                           } else if (!snapshot.hasData) {
-                            return const Center(
-                              child: Text("No connections found!"),
+                            return  Center(
+                              child: Image.asset("assets/images/no friend found.png",height: 100.h,width: 100.w,),
                             );
                           } else if (snapshot.hasError) {
                             return Center(
                               child: Text(snapshot.error.toString()),
                             );
                           }
-                          print(snapshot.data!);
+
                           return Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
@@ -374,8 +376,11 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                                   buttonName: "Remove",
                                                   onPressed: () {
                                                     controller
-                                                        .deleteAcceptedMentorRequest(snapshot.data!['mentorConnections']
-                                                [index]['connectionId']);
+                                                        .deleteAcceptedMentorRequest(
+                                                            snapshot.data![
+                                                                        'mentorConnections']
+                                                                    [index][
+                                                                'connectionId']);
                                                     setState(() {});
                                                   },
                                                   textcolor: whitecolor,
@@ -386,32 +391,37 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                                   height: 20.h,
                                                   textSize: 12.sp,
                                                   width: 100.w),
-                                                  10.widthBox,
+                                              10.widthBox,
                                               CustomButton(
                                                   buttonName: "Message",
                                                   onPressed: () {
-                                                    var chatRoomId = controller
-                                                        .chatRoomId(
-                                                            recieverId: snapshot
-                                                                .data![
-                                                                    'mentorConnections']
-                                                                    [index]
-                                                                    ['id']
-                                                                .toString(),
-                                                            senderId:
-                                                                StorageServices
+                                                    var chatRoomId = controller.chatRoomId(
+                                                        recieverId: snapshot
+                                                            .data!['mentorConnections']
+                                                                [index]['email']
+                                                            .toString(),
+                                                        senderId: StorageServices
                                                                     .to
                                                                     .getString(
-                                                                        userId)
-                                                                    .toString());
+                                                                        selectedUserType) ==
+                                                                "Mentee"
+                                                            ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                                                                .email
+                                                            : getMentorInfoFromJson(
+                                                                    StorageServices
+                                                                        .to
+                                                                        .getString(getMentorInformationsss))
+                                                                .email);
 
                                                     Get.to(
                                                         () => MessagesView(
                                                               gofromChat: false,
                                                               recId: snapshot
-                                                                          .data![
+                                                                  .data![
                                                                       'mentorConnections']
-                                                                  [index]['id'].toString(),
+                                                                      [index]
+                                                                      ['id']
+                                                                  .toString(),
                                                               recName: snapshot
                                                                           .data![
                                                                       'mentorConnections']
@@ -422,8 +432,10 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                                           snapshot.data![
                                                                   'mentorConnections']
                                                               [index],
-                                                            chatRoomId
+                                                          chatRoomId
                                                         ]);
+
+                                   
                                                   },
                                                   textcolor: whitecolor,
                                                   loading: false,

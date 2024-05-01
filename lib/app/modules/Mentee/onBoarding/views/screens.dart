@@ -106,23 +106,23 @@ class OnboardingPage extends StatelessWidget {
               ],
             ),
           ),
-          height > 772
-              ? Positioned(
-                  top: 0.55.sh,
-                  left: MediaQuery.sizeOf(context).width / 2.35,
-                  child: Image.asset(
-                    introScreenRoundedIcon,
-                    height: 50,
-                    width: 50,
-                  ))
-              : Positioned(
-                  top: 0.43.sh,
-                  left: MediaQuery.sizeOf(context).width / 2.35,
-                  child: Image.asset(
-                    introScreenRoundedIcon,
-                      height: 50,
-                    width: 50,
-                  )),
+          // height > 772
+          //     ? Positioned(
+          //         top: 0.55.sh,
+          //         left: MediaQuery.sizeOf(context).width / 2.35,
+          //         child: Image.asset(
+          //           introScreenRoundedIcon,
+          //           height: 50,
+          //           width: 50,
+          //         ))
+          //     : Positioned(
+          //         top: 0.43.sh,
+          //         left: MediaQuery.sizeOf(context).width / 2.35,
+          //         child: Image.asset(
+          //           introScreenRoundedIcon,
+          //             height: 50,
+          //           width: 50,
+          //         )),
         ],
       ),
     );

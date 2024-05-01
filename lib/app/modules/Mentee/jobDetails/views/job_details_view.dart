@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -65,7 +66,7 @@ class JobDetailsView extends GetView<JobDetailsController> {
                         children: [
                           CircleAvatar(
                             radius: 23.r,
-                            backgroundImage: const AssetImage(girl),
+                            backgroundImage: CachedNetworkImageProvider( snapshot.data!.mentor!.profilePicUrl.toString()),
                           ),
                           10.widthBox,
                           Column(

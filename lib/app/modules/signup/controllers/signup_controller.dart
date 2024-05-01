@@ -16,5 +16,6 @@ class SignupController extends GetxController {
 
 
   var accepttermsandConditions = false.obs;
+
  
 }

@@ -67,8 +67,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                           },
                           child: Icon(
                             controller.oldpasswordObsecure.value
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                             color: Color(0xff656466),
                           )),
                       hintText: "***********",
@@ -110,8 +110,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                           },
                           child: Icon(
                             controller.newpasswordObsecure.value
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                              ? Icons.visibility_off
+                                : Icons.visibility,
                             color: Color(0xff656466),
                           )),
                       hintText: "***********",
@@ -153,8 +153,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                           },
                           child: Icon(
                             controller.confirmpasswordObsecure.value
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                               ? Icons.visibility_off
+                                : Icons.visibility,
                             color: Color(0xff656466),
                           )),
                       hintText: "***********",
@@ -179,8 +179,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                         if (controller.newPasswordController.value.text !=
                             controller.confirmPasswordController.value.text) {
                           Utils.snakbar(
-                              title: "Password not same!",
-                              body: "Passwords not matching.");
+                              title: "Error",
+                              body: "Passwords are not matching.");
                         } else if (controller
                                 .newPasswordController.value.text.isEmpty ||
                             controller

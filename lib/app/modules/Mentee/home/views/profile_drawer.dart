@@ -34,9 +34,8 @@ class ProfileDrawer extends StatelessWidget {
             Row(
               children: [
                 CachedNetworkImage(
-                      imageUrl: StorageServices.to
-                                  .getString(selectedUserType) ==
-                              "Mentee"
+                  imageUrl:
+                      StorageServices.to.getString(selectedUserType) == "Mentee"
                           ? getMenteeInfoFromJson(
                                   StorageServices.to.getString(getmenteeinfo))
                               .profilePicUrl
@@ -44,10 +43,10 @@ class ProfileDrawer extends StatelessWidget {
                           : getMentorInfoFromJson(StorageServices.to
                                   .getString(getMentorInformationsss))
                               .profilePicUrl,
-                              height: 70.h,
-                              width: 70.w,
-                              fit: BoxFit.cover,
-                    ).box.roundedFull.clip(Clip.antiAlias).make(),
+                  height: 70.h,
+                  width: 70.w,
+                  fit: BoxFit.cover,
+                ).box.roundedFull.clip(Clip.antiAlias).make(),
                 10.widthBox,
                 Column(
                   crossAxisAlignment: crosstart,
@@ -95,7 +94,9 @@ class ProfileDrawer extends StatelessWidget {
             20.heightBox,
             GestureDetector(
               onTap: () {
-               StorageServices.to.getString(selectedUserType) == "Mentee"?  Get.toNamed(Routes.PROFILE):Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
+                StorageServices.to.getString(selectedUserType) == "Mentee"
+                    ? Get.toNamed(Routes.PROFILE)
+                    : Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
               },
               child: Row(
                 children: [
@@ -258,8 +259,8 @@ class ProfileDrawer extends StatelessWidget {
                                         },
                                         child: Icon(
                                           homeController.passwordObsecure.value
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
+                                             ? Icons.visibility_off
+                                : Icons.visibility,
                                           color: const Color(0xff656466),
                                         )),
                                     hintText: "***********",

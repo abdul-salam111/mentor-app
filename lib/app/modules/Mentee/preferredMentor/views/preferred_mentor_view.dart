@@ -357,6 +357,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 maxLines: null, // Allow multiple lines of text
                 minLines: 5,
                 controller: controller.aboutMe.value,
+                maxLength: 200,
                 decoration: InputDecoration(
                     hintText: 'Write...', // Your hint text
                     hintStyle: manoropeFontFamily(

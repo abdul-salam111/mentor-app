@@ -6,12 +6,14 @@ import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ShimmerList extends StatelessWidget {
+ ShimmerList(this.count);
+ int? count=10;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: count,
         itemBuilder: (context, index) {
           return ShimmerListItem();
         },
@@ -50,11 +52,13 @@ class ShimmerListItem extends StatelessWidget {
 }
 
 class AnotherShimmerList extends StatelessWidget {
+   AnotherShimmerList(this.count);
+ int? count=10;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: count,
       itemBuilder: (context, index) {
         return ShimmerListItem();
       },

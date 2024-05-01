@@ -16,7 +16,8 @@ class MessagesController extends GetxController {
       {required String recievedById,
       required String recievedByName,
       required String message,
-      required String chatRoomId}) async {
+      required String chatRoomId,
+      required String recImage}) async {
     try {
       await firestore
           .collection('chatsCollection')
@@ -24,12 +25,35 @@ class MessagesController extends GetxController {
           .set(
             MessageModel(
               userIds: [
-                StorageServices.to.getString(userId).toString(),
+                StorageServices.to.getString(selectedUserType) == "Mentee"
+                    ? getMenteeInfoFromJson(
+                            StorageServices.to.getString(getmenteeinfo))
+                        .email
+                    : getMentorInfoFromJson(StorageServices.to
+                            .getString(getMentorInformationsss))
+                        .email,
                 recievedById
               ],
+              recievedByProfilePicture: recImage,
+              sendByProfilePicture: StorageServices.to
+                          .getString(selectedUserType) ==
+                      "Mentee"
+                  ? getMenteeInfoFromJson(
+                          StorageServices.to.getString(getmenteeinfo))
+                      .profilePicUrl
+                  : getMentorInfoFromJson(
+                          StorageServices.to.getString(getMentorInformationsss))
+                      .profilePicUrl,
               recievedById: recievedById,
               recievedByName: recievedByName,
-              sendbyId: StorageServices.to.getString(userId).toString(),
+              sendbyId: StorageServices.to.getString(selectedUserType) ==
+                      "Mentee"
+                  ? getMenteeInfoFromJson(
+                          StorageServices.to.getString(getmenteeinfo))
+                      .email
+                  : getMentorInfoFromJson(
+                          StorageServices.to.getString(getMentorInformationsss))
+                      .email,
               lastMessage: message,
               createdAt: DateTime.now().toString(),
               sendbyName: StorageServices.to.getString(selectedUserType) ==
@@ -51,19 +75,38 @@ class MessagesController extends GetxController {
             .add(
               MessageModel(
                 userIds: [
-                  StorageServices.to.getString(userId).toString(),
+                  StorageServices.to.getString(selectedUserType) == "Mentee"
+                      ? getMenteeInfoFromJson(
+                              StorageServices.to.getString(getmenteeinfo))
+                          .email
+                      : getMentorInfoFromJson(StorageServices.to
+                              .getString(getMentorInformationsss))
+                          .email,
                   recievedById
                 ],
+                recievedByProfilePicture: recImage,
+                sendByProfilePicture:
+                    StorageServices.to.getString(selectedUserType) == "Mentee"
+                        ? getMenteeInfoFromJson(
+                                StorageServices.to.getString(getmenteeinfo))
+                            .profilePicUrl
+                        : getMentorInfoFromJson(StorageServices.to
+                                .getString(getMentorInformationsss))
+                            .profilePicUrl,
                 createdAt: DateTime.now().toString(),
                 recievedById: recievedById,
-                sendbyId: StorageServices.to.getString(userId).toString(),
+                sendbyId:
+                    StorageServices.to.getString(selectedUserType) == "Mentee"
+                        ? getMenteeInfoFromJson(
+                                StorageServices.to.getString(getmenteeinfo))
+                            .email
+                        : getMentorInfoFromJson(StorageServices.to
+                                .getString(getMentorInformationsss))
+                            .email,
                 lastMessage: message,
               ).toJson(),
             );
       });
-
-    
-
     } catch (e) {
       print(e);
     }

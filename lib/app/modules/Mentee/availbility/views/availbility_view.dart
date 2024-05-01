@@ -21,6 +21,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
   const AvailbilityView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.put(AvailbilityController());
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(

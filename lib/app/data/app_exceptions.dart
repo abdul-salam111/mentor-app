@@ -14,11 +14,11 @@ class FetchDataExceptions extends AppException {
 
 class BadRequestExceptions extends AppException {
   BadRequestExceptions([String? message])
-      : super(message, 'Invalid Request');
+      : super(message, '');
 }
 class UnAuthorizeExceptions extends AppException {
   UnAuthorizeExceptions([String? message])
-      : super(message, 'UnAuthorize Request');
+      : super(message, '');
 }
 class InvalidExceptions extends AppException {
   InvalidExceptions([String? message])

@@ -139,37 +139,7 @@ class SignupView extends GetView<SignupController> {
               ],
             ),
             30.heightBox,
-            CustomButton(
-                buttonName: "Sign up",
-                onPressed: () {
-                  if (controller.accepttermsandConditions.value == true &&
-                      controller.selectUserType.value != '' &&
-                      controller.selectUserType.value.isNotEmpty) {
-                         StorageServices.to.setString(key: selectedUserType, value: controller.selectUserType.value);
-                      Get.toNamed(Routes.ON_BOARDING);
-                     
-                  } else if (controller.emailController.value.text.isEmpty ||
-                      controller.nameController.value.text.isEmpty ||
-                      controller.passwordController.value.text.isEmpty) {
-                    Utils.snakbar(
-                        title: "Fields Required",
-                        body: "Please fill all fields");
-                  } else if (controller.accepttermsandConditions.value !=
-                      true) {
-                    Utils.snakbar(
-                        title: "Accpet terms and conditions",
-                        body: "Please accept terms and conditions!");
-                  }
-                },
-                textcolor: whitecolor,
-                loading: false,
-                backgroundColor: darkBrownColor,
-                rounded: true,
-                height: 40.h,
-                textSize: 14.sp,
-                width: double.infinity),
-            10.heightBox,
-            Row(
+              Row(
               children: [
                 Obx(
                   () => Row(
@@ -216,29 +186,67 @@ class SignupView extends GetView<SignupController> {
                 ),
               ],
             ),
-            10.heightBox,
-            Image.asset(or),
-            10.heightBox,
-            Row(
-              mainAxisAlignment: mainaround,
-              children: [
-                Image.asset(
-                  googlelogin,
-                  width: 70,
-                  height: 70,
-                ),
-                Image.asset(
-                  applelogin,
-                  width: 70,
-                  height: 70,
-                ),
-                Image.asset(
-                  twitter,
-                  width: 70,
-                  height: 70,
-                )
-              ],
-            ),
+            CustomButton(
+                buttonName: "Sign up",
+                onPressed: () {
+                  if (controller.selectUserType.value != '' && controller.accepttermsandConditions.value != false &&
+                      controller.selectUserType.value.isNotEmpty &&
+                      controller.passwordController.value.text.length >= 8) {
+                    StorageServices.to.setString(
+                        key: selectedUserType,
+                        value: controller.selectUserType.value);
+                    Get.toNamed(Routes.ON_BOARDING);
+                  } else if (controller.passwordController.value.text.length <
+                      8) {
+                    Utils.snakbar(
+                        title: "Error",
+                        body:
+                            "Password must be at equal to or greater than 8 characters.");
+                  } 
+                   else if (controller.accepttermsandConditions.value==false) {
+                    Utils.snakbar(
+                        title: "Error", body: "Please accept terms and conditions");
+                  } 
+                  else if (controller.emailController.value.text.isEmpty ||
+                      controller.nameController.value.text.isEmpty ||
+                      controller.passwordController.value.text.isEmpty) {
+                    Utils.snakbar(
+                        title: "Fields Required",
+                        body: "Please fill all fields");
+                  }
+                },
+                textcolor: whitecolor,
+                loading: false,
+                backgroundColor: darkBrownColor,
+                rounded: true,
+                height: 40.h,
+                textSize: 14.sp,
+                width: double.infinity),
+
+            20.heightBox,
+            // 10.heightBox,
+            // Image.asset(or),
+            // 10.heightBox,
+            // Row(
+            //   mainAxisAlignment: mainaround,
+            //   children: [
+            //     Image.asset(
+            //       googlelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ),
+            //     Image.asset(
+            //       applelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ),
+            //     Image.asset(
+            //       twitter,
+            //       width: 70,
+            //       height: 70,
+            //     )
+            //   ],
+            // ),
             GestureDetector(
               onTap: () {
                 Get.toNamed(Routes.SIGNIN);

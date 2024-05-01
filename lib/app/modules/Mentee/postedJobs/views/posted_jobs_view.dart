@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -167,11 +168,12 @@ class _PostedJobsViewState extends State<PostedJobsView> {
             FutureBuilder<GetJobByIndustry>(
                 future: controller.getJobByIndustry(),
                 builder: (context, AsyncSnapshot<GetJobByIndustry> snapshot) {
-                  if (!snapshot.hasData) {
-                    return ShimmerList();
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return ShimmerList();
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return ShimmerList(10);
+                  } else if (!snapshot.hasData) {
+                    return Center(
+                      child: Image.asset("assets/images/not found.jpg"),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),
@@ -192,7 +194,12 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                   children: [
                                     CircleAvatar(
                                       radius: 23.r,
-                                      backgroundImage: const AssetImage(girl),
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(snapshot
+                                              .data!
+                                              .mentorJobs![index]
+                                              .mentor!
+                                              .profilePicUrl!),
                                     ),
                                     10.widthBox,
                                     Column(

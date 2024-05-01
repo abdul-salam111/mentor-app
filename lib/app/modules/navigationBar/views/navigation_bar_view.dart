@@ -35,6 +35,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
               label: "Home",
             ),
             BottomNavigationBarItem(
+              
               icon: Obx(() => Image.asset(
                      height: 20.h,
                     width: 20.w,
@@ -79,7 +80,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
               label: 'Profile',
             ),
           ],
-          type: BottomNavigationBarType.fixed,
+          type: BottomNavigationBarType.shifting,
           showUnselectedLabels: true,
           showSelectedLabels: true,
           currentIndex: controller.selectedIndex.value,

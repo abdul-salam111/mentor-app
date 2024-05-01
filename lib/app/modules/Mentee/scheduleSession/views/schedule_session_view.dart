@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
+import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
@@ -17,6 +19,10 @@ class ScheduleSessionView extends GetView<ScheduleSessionController> {
   const ScheduleSessionView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.put(ScheduleSessionController());
+    var data = Get.arguments;
+// controller.fetchSchedulesForMentees();
+controller.update();
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
@@ -32,413 +38,330 @@ class ScheduleSessionView extends GetView<ScheduleSessionController> {
           ),
           centerTitle: false,
         ),
-        body: Padding(
-          padding: pad20,
-          child: ListView(
-            children: [
-              20.heightBox,
-              Center(
-                child: Image.asset(
-                  timer,
-                  width: 30,
-                  height: 30,
-                ),
-              ),
-              5.heightBox,
-              Center(
-                child: Text(
-                  "Schedule session",
-                  style: manoropeFontFamily(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: blackcolor),
-                ),
-              ),
-              5.heightBox,
-              Center(
-                child: Text(
-                  "You are booking with Jhon",
-                  style: manoropeFontFamily(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: darkBrownColor),
-                ),
-              ),
-              30.heightBox,
-              Text(
-                "Choose Industry",
-                style: manoropeFontFamily(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: blackcolor),
-              ),
-              10.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
+        body: GetBuilder<ScheduleSessionController>(builder: (ctrrr) {
+          if (ctrrr.scheduless.isNotEmpty) {
+            return Padding(
+              padding: pad20,
+              child: ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Text(
-                          "Skills Name",
-                          style: manoropeFontFamily(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: blackcolor.withOpacity(0.5)),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.isCertificateOpen.value =
-                          !controller.isCertificateOpen.value;
-                    }),
+                  20.heightBox,
+                  Center(
+                    child: Image.asset(
+                      timer,
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
-                  Obx(
-                    () => controller.isCertificateOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
+                  5.heightBox,
+                  Center(
+                    child: Text(
+                      "Schedule session",
+                      style: manoropeFontFamily(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w500,
+                          color: blackcolor),
+                    ),
                   ),
-                  Obx(() => controller.isCertificateOpen.value
-                      ? GetBuilder<ScheduleSessionController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount:
-                                  controller.computerScienceSkills.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill =
-                                    controller.computerScienceSkills[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                      //   trailing: isSelected == true
-                                      //       ? SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .color(darkBrownColor)
-                                      //           .rounded
-                                      //           .make()
-                                      //       : SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .border(color: darkBrownColor)
-                                      //           .rounded
-                                      //           .make(),
-                                      // ).box.make().onTap(() {
-                                      //   if (controller.selectedSkills.length > 4) {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       Utils.snakbar(
-                                      //           title: 'Maximum 5 goals',
-                                      //           body:
-                                      //               'You cannot select more than 5 goals.');
-                                      //     }
-                                      //   } else {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       controller.selectedSkills.add(skill);
-                                      //       contextsss.update();
-                                      //     }
-                                      //   }
-                                      // }),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          );
-                        })
-                      : const SizedBox.shrink())
+                  5.heightBox,
+                  Center(
+                    child: Text(
+                      "You are booking a meeting with ${data['fullName']}",
+                      style: manoropeFontFamily(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: darkBrownColor),
+                    ),
+                  ),
+                  30.heightBox,
+                  Text(
+                    "Appointment Reason",
+                    style: manoropeFontFamily(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: blackcolor),
+                  ),
+                  10.heightBox,
+                  commonTextField(
+                      obscureText: false,
+                      icon: profileicon,
+                      hinttext: "Appointment Reason",
+                      textEditingController:
+                          controller.appointmentReason.value),
+                  20.heightBox,
+                  Text(
+                    "Available Slots",
+                    style: manoropeFontFamily(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: blackcolor),
+                  ),
+                  10.heightBox,
+                  GetBuilder<ScheduleSessionController>(builder: (ctr) {
+                    return SizedBox(
+                      height: 120.h,
+                      child: ListView.builder(
+                          itemCount: ctr.scheduless.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: ((context, index) {
+                            return Obx(
+                              () => Column(
+                                crossAxisAlignment: crosstart,
+                                children: [
+                                  10.heightBox,
+                                  Text(
+                                    ctr.scheduless[index]['day'] == "mon"
+                                        ? "Monday"
+                                        : ctr.scheduless[index]['day'] == "tue"
+                                            ? "Tuesday"
+                                            : ctr.scheduless[index]['day'] ==
+                                                    "wed"
+                                                ? "Wednesday"
+                                                : ctr.scheduless[index]
+                                                            ['day'] ==
+                                                        "thu"
+                                                    ? "Thursday"
+                                                    : ctr.scheduless[index]
+                                                                ['day'] ==
+                                                            "fri"
+                                                        ? "Friday"
+                                                        : ctr.scheduless[index]
+                                                                    ['day'] ==
+                                                                "sat"
+                                                            ? "Saturday"
+                                                            : "Sunday",
+                                    style: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                  10.heightBox,
+                                  Text(
+                                    "Start time:  ${ctr.scheduless[index]['startTime']}",
+                                    style: manoropeFontFamily(
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: textfieldgrey),
+                                  ),
+                                  10.heightBox,
+                                  Text(
+                                    "Ending time:  ${ctr.scheduless[index]['endTime']}",
+                                    style: manoropeFontFamily(
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: textfieldgrey),
+                                  ),
+                                  10.heightBox,
+                                ],
+                              )
+                                  .box
+                                  .white
+                                  .width(130.w)
+                                  .clip(Clip.antiAlias)
+                                  .roundedSM
+                                  .border(
+                                      color: ctr.selectedIndex.value == index
+                                          ? darkBrownColor
+                                          : Colors.transparent,
+                                      width: 2)
+                                  .outerShadowLg
+                                  .margin(defaultpad)
+                                  .padding(defaultpad)
+                                  .make()
+                                  .onTap(() {
+                                ctr.selectedIndex.value = index;
+                              }),
+                            );
+                          })),
+                    );
+                  }),
+                  // Row(
+                  //   children: [
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         controller.isDayOpen.value = true;
+                  //       },
+                  //       child: Container(
+                  //         width: 80.w,
+                  //         color: whitecolor,
+                  //         child: Obx(() => Center(
+                  //                 child: Column(
+                  //               children: [
+                  //                 SizedBox(
+                  //                   height: 40.h,
+                  //                   child: Center(
+                  //                     child: Text(
+                  //                       controller.selectedDay.value,
+                  //                       style: TextStyle(fontSize: 16.sp),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 controller.isDayOpen.value
+                  //                     ? 20.heightBox
+                  //                     : const SizedBox.shrink(),
+                  //                 controller.isDayOpen.value == true
+                  //                     ? ListView.builder(
+                  //                         shrinkWrap: true,
+                  //                         itemCount: controller.sheduless.length,
+                  //                         itemBuilder: (context, index) {
+                  //                           return GestureDetector(
+                  //                             onTap: () {
+                  //                               controller.selectedDay.value =
+                  //                                   controller.sheduless[index]
+                  //                                       ['day'];
+                  //                               controller.isDayOpen.value = false;
+                  //                             },
+                  //                             child: Column(
+                  //                               children: [
+                  //                                 Text(controller.sheduless[index]
+                  //                                     ['day']),
+                  //                                 const Divider()
+                  //                               ],
+                  //                             ),
+                  //                           );
+                  //                         })
+                  //                     : const SizedBox.shrink(),
+                  //               ],
+                  //             ))),
+                  //       ).box.white.roundedSM.outerShadow.make(),
+                  //     ),
+                  //     20.widthBox,
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         controller.isStartTimeOpen.value = true;
+                  //       },
+                  //       child: Container(
+                  //         width: 80.w,
+                  //         color: whitecolor,
+                  //         child: Obx(() => Center(
+                  //                 child: Column(
+                  //               children: [
+                  //                 SizedBox(
+                  //                   height: 40.h,
+                  //                   child: Center(
+                  //                     child: Text(
+                  //                       controller.selectedStartTime.value,
+                  //                       style: TextStyle(fontSize: 16.sp),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 controller.isStartTimeOpen.value
+                  //                     ? 20.heightBox
+                  //                     : const SizedBox.shrink(),
+                  //                 controller.isStartTimeOpen.value == true
+                  //                     ? ListView.builder(
+                  //                         shrinkWrap: true,
+                  //                         itemCount: controller.sheduless.length,
+                  //                         itemBuilder: (context, index) {
+                  //                           return GestureDetector(
+                  //                             onTap: () {
+                  //                               controller.selectedStartTime.value =
+                  //                                   controller.sheduless[index]
+                  //                                       ['startTime'];
+                  //                               controller.isStartTimeOpen.value =
+                  //                                   false;
+                  //                             },
+                  //                             child: Column(
+                  //                               children: [
+                  //                                 Text(controller.sheduless[index]
+                  //                                     ['startTime']),
+                  //                                 const Divider()
+                  //                               ],
+                  //                             ),
+                  //                           );
+                  //                         })
+                  //                     : const SizedBox.shrink(),
+                  //               ],
+                  //             ))),
+                  //       ).box.white.roundedSM.outerShadow.make(),
+                  //     ),
+                  //     20.widthBox,
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         controller.isEndTimeOpen.value = true;
+                  //       },
+                  //       child: Container(
+                  //         width: 80.w,
+                  //         color: whitecolor,
+                  //         child: Obx(() => Center(
+                  //                 child: Column(
+                  //               children: [
+                  //                 SizedBox(
+                  //                   height: 40.h,
+                  //                   child: Center(
+                  //                     child: Text(
+                  //                       controller.selectedEndTime.value,
+                  //                       style: TextStyle(fontSize: 16.sp),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 controller.isEndTimeOpen.value
+                  //                     ? 20.heightBox
+                  //                     : const SizedBox.shrink(),
+                  //                 controller.isEndTimeOpen.value == true
+                  //                     ? ListView.builder(
+                  //                         shrinkWrap: true,
+                  //                         itemCount: controller.sheduless.length,
+                  //                         itemBuilder: (context, index) {
+                  //                           return GestureDetector(
+                  //                             onTap: () {
+                  //                               controller.selectedEndTime.value =
+                  //                                   controller.sheduless[index]
+                  //                                       ['endTime'];
+                  //                               controller.isEndTimeOpen.value =
+                  //                                   false;
+                  //                             },
+                  //                             child: Column(
+                  //                               children: [
+                  //                                 Text(controller.sheduless[index]
+                  //                                     ['endTime']),
+                  //                                 const Divider()
+                  //                               ],
+                  //                             ),
+                  //                           );
+                  //                         })
+                  //                     : const SizedBox.shrink(),
+                  //               ],
+                  //             ))),
+                  //       ).box.white.roundedSM.outerShadow.make(),
+                  //     ),
+                  //   ],
+                  // ),
+                  // ListView.builder(
+                  //     itemCount: controller.shedules.length,
+                  //     itemBuilder: (context, index) {
+                  //       return Column(
+                  //         children: [
+                  //           Text(controller.shedules[index]['day']),
+                  //         ],
+                  //       );
+                  //     }),
+                  40.heightBox,
+                  CustomButton(
+                      buttonName: "Book",
+                      onPressed: () {
+                        if (controller
+                            .appointmentReason.value.text.isNotEmpty) {
+                          controller.createMeetingWithMentor();
+                        } else {
+                          Utils.snakbar(
+                              title: "Error",
+                              body: "Please select all the required fields");
+                        }
+                      },
+                      textcolor: whitecolor,
+                      loading: false,
+                      backgroundColor: darkBrownColor,
+                      rounded: true,
+                      height: 40.h,
+                      textSize: 15.sp,
+                      width: double.infinity)
                 ],
-              )
-                  .box
-                  .color(Color(0xffF6F6F6))
-                  .padding(pad14)
-                  .width(double.infinity)
-                  .rounded
-                  .make(),
-              20.heightBox,
-              Text(
-                "Session type",
-                style: manoropeFontFamily(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: blackcolor),
               ),
-              10.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Text(
-                          "Select",
-                          style: manoropeFontFamily(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: blackcolor.withOpacity(0.5)),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.isOpen.value = !controller.isOpen.value;
-                    }),
-                  ),
-                  Obx(
-                    () => controller.isOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(() => controller.isOpen.value
-                      ? GetBuilder<ScheduleSessionController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount:
-                                  controller.computerScienceSkills.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill =
-                                    controller.computerScienceSkills[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                      //   trailing: isSelected == true
-                                      //       ? SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .color(darkBrownColor)
-                                      //           .rounded
-                                      //           .make()
-                                      //       : SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .border(color: darkBrownColor)
-                                      //           .rounded
-                                      //           .make(),
-                                      // ).box.make().onTap(() {
-                                      //   if (controller.selectedSkills.length > 4) {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       Utils.snakbar(
-                                      //           title: 'Maximum 5 goals',
-                                      //           body:
-                                      //               'You cannot select more than 5 goals.');
-                                      //     }
-                                      //   } else {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       controller.selectedSkills.add(skill);
-                                      //       contextsss.update();
-                                      //     }
-                                      //   }
-                                      // }),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          );
-                        })
-                      : const SizedBox.shrink())
-                ],
-              )
-                  .box
-                  .color(Color(0xffF6F6F6))
-                  .padding(pad14)
-                  .width(double.infinity)
-                  .rounded
-                  .make(),
-              20.heightBox,
-              Text(
-                "Available Slots",
-                style: manoropeFontFamily(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: blackcolor),
-              ),
-              10.heightBox,
-              SizedBox(
-                height: 110.h,
-                child: ListView.builder(
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: ((context, index) {
-                      return Obx(
-                        () => Column(
-                          children: [
-                            10.heightBox,
-                            Text(
-                              "Fri",
-                              style: manoropeFontFamily(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: blackcolor),
-                            ),
-                            10.heightBox,
-                            Text(
-                              "24 june",
-                              style: manoropeFontFamily(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: textfieldgrey),
-                            ),
-                            10.heightBox,
-                            Text(
-                              "5 Slots",
-                              style: manoropeFontFamily(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: darkBrownColor),
-                            ),
-                          ],
-                        )
-                            .box
-                            .white
-                            .width(80.w)
-                            .clip(Clip.antiAlias)
-                            .roundedSM
-                            .border(
-                                color: controller.selectedIndex.value == index
-                                    ? darkBrownColor
-                                    : Colors.transparent,
-                                width: 2)
-                            .outerShadowLg
-                            .margin(defaultpad)
-                            .padding(defaultpad)
-                            .make()
-                            .onTap(() {
-                          controller.selectedIndex.value = index;
-                        }),
-                      );
-                    })),
-              ),
-              20.heightBox,
-              Text(
-                "Time",
-                style: manoropeFontFamily(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: blackcolor),
-              ),
-              10.heightBox,
-              SizedBox(
-                height: 36.h,
-                child: ListView.builder(
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: ((context, index) {
-                      return Obx(
-                        () => SizedBox(
-                          child: Center(
-                            child: Text(
-                              "12 pm",
-                              style: manoropeFontFamily(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: darkBrownColor),
-                            ),
-                          ),
-                        )
-                            .box
-                            .white
-                            .clip(Clip.antiAlias)
-                            .roundedLg
-                            .width(70.w)
-                            .border(
-                                color: controller.selectedIndexOfTime.value ==
-                                        index
-                                    ? darkBrownColor
-                                    : Colors.transparent,
-                                width: 2)
-                            .outerShadow
-                            .margin(defaultpad)
-                            .make()
-                            .onTap(() {
-                          controller.selectedIndexOfTime.value = index;
-                        }),
-                      );
-                    })),
-              ),
-              40.heightBox,
-              CustomButton(
-                  buttonName: "Book",
-                  onPressed: () {},
-                  textcolor: whitecolor,
-                  loading: false,
-                  backgroundColor: darkBrownColor,
-                  rounded: true,
-                  height: 40.h,
-                  textSize: 15.sp,
-                  width: double.infinity)
-            ],
-          ),
-        ));
+            );
+          } 
+          else{
+            return const Center(child:  Text("Not availiblity"),);
+          }
+        }));
   }
 }

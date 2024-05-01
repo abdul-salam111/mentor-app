@@ -125,7 +125,8 @@ class ProfileController extends GetxController {
 
       // Create the model
       UpdateMenteeProfile updatementee = UpdateMenteeProfile(
-        fullName: "username",
+        fullName: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                .fullName??"UserName",
         skills: selectedSkills.join(','),
         goals:
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))

@@ -63,6 +63,7 @@ class SigninView extends GetView<SigninController> {
                       "Forget Password",
                       style: TextStyle(color: darkBrownColor),
                     ))),
+
             Text(
               "Select",
               style: poppins(
@@ -70,6 +71,7 @@ class SigninView extends GetView<SigninController> {
                   fontWeight: FontWeight.w500,
                   color: blackcolor),
             ),
+
             Row(
               children: [
                 Obx(
@@ -139,20 +141,22 @@ class SigninView extends GetView<SigninController> {
                 ),
               ],
             ),
-            40.heightBox,
+            30.heightBox,
+          
+
             CustomButton(
                 buttonName: "Sign in",
                 onPressed: () async {
-                  if (controller.nameController.value.text.isNotEmpty &&
+                  if (
+                      controller.nameController.value.text.isNotEmpty &&
                       controller.passwordController.value.text.isNotEmpty &&
                       controller.selectUserType.value != '') {
                     controller.loginUser();
+                  } else if (controller.selectUserType.value == '') {
+                    Utils.snakbar(
+                        title: "Error", body: "Please select user type.");
                   } 
-                  else if(controller.selectUserType.value==''){
-                     Utils.snakbar(
-                        title: "Failed",
-                        body: "Please select user type.");
-                  }
+                 
                   else {
                     Utils.snakbar(
                         title: "Failed",
@@ -166,31 +170,31 @@ class SigninView extends GetView<SigninController> {
                 height: 40.h,
                 textSize: 14.sp,
                 width: double.infinity),
-            20.heightBox,
-            Image.asset(or),
-            10.heightBox,
-            Row(
-              mainAxisAlignment: mainaround,
-              children: [
-                Image.asset(
-                  googlelogin,
-                  width: 70,
-                  height: 70,
-                ).onTap(() {
-                  // controller.handleSignIn();
-                }),
-                Image.asset(
-                  applelogin,
-                  width: 70,
-                  height: 70,
-                ),
-                Image.asset(
-                  twitter,
-                  width: 70,
-                  height: 70,
-                )
-              ],
-            ),
+            // 20.heightBox,
+            // Image.asset(or),
+            // 10.heightBox,
+            // Row(
+            //   mainAxisAlignment: mainaround,
+            //   children: [
+            //     Image.asset(
+            //       googlelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ).onTap(() {
+            //       // controller.handleSignIn();
+            //     }),
+            //     Image.asset(
+            //       applelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ),
+            //     Image.asset(
+            //       twitter,
+            //       width: 70,
+            //       height: 70,
+            //     )
+            //   ],
+            // ),
             20.heightBox,
             GestureDetector(
               onTap: () {

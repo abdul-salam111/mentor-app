@@ -8,7 +8,6 @@ import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getBestMentorModel.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
-import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';

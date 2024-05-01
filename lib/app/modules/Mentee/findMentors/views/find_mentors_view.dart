@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -188,206 +189,87 @@ class _FindMentorsViewState extends State<FindMentorsView> {
               ),
               Obx(() => controller.searchQuery.value.isEmpty
                   ? FutureBuilder(
-                    future: controller.searchMentors(
-                        availablility: "Accept new mentees",
-                        skills: controller.selectedSkills,
-                        search: '',
-                        industry: controller.selectedIndustries.value),
-                    builder: (context,
-                        AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Expanded(child: HomeScreenShimmerList());
-                      } else if (!snapshot.hasData) {
-                        return const Center(
-                          child: Text("Not found"),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(snapshot.error.toString()),
-                        );
-                      } else if (snapshot.data!.isEmpty) {
-                        return Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.FIND_MENTORS);
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/not found.jpg",
-                                  width: 300.w,
-                                  height: 200.h,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Couldn't found, search to find.",
-                                  style: manoropeFontFamily(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: blackcolor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-                      return Expanded(
-                        child: GridView.builder(
-                         
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 0,
-                                    mainAxisSpacing: 0,
-                                    mainAxisExtent: 115.h,
-                                    crossAxisCount: 2),
-                            itemBuilder: (context, index) {
-                              return Column(
-                                crossAxisAlignment: crosstart,
+                      future: controller.searchMentors(
+                          availablility: "Accept new mentees",
+                          skills: controller.selectedSkills,
+                          search: '',
+                          industry: controller.selectedIndustries.value),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Expanded(child: HomeScreenShimmerList());
+                        } else if (!snapshot.hasData) {
+                          return const Center(
+                            child: Text("Not found"),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        } else if (snapshot.data!.isEmpty) {
+                          return Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.FIND_MENTORS);
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
                                 children: [
-                                  const Row(
-                                    mainAxisAlignment: mainbetween,
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage: AssetImage(mentor),
-                                      ),
-                                      Icon(
-                                        Icons.favorite,
-                                        color: greencolor,
-                                      )
-                                    ],
+                                  Image.asset(
+                                    "assets/images/not found.jpg",
+                                    width: 300.w,
+                                    height: 200.h,
+                                    fit: BoxFit.cover,
                                   ),
-                                  10.heightBox,
                                   Text(
-                                    snapshot.data![index]['fullName'],
+                                    "Couldn't found, search to find.",
                                     style: manoropeFontFamily(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w500,
                                         color: blackcolor),
                                   ),
-                                  5.heightBox,
-                                  Row(
-                                    mainAxisAlignment: mainbetween,
-                                    children: [
-                                      Text(
-                                        "Health",
-                                        style: manoropeFontFamily(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: textfieldgrey),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "4.9",
-                                            style: manoropeFontFamily(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: blackcolor),
-                                          ),
-                                          10.widthBox,
-                                          Icon(
-                                            Icons.star,
-                                            color: ratingcolor,
-                                            size: 17.sp,
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )
                                 ],
-                              )
-                                  .box
-                                  .height(110.h)
-                                  .padding(const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10)).margin(const EdgeInsets.all(3))
-                                  .white
-                                  .outerShadow
-                                  .roundedSM
-                                  .make()
-                                  .onTap(() {
-                                 Get.toNamed(Routes.MENTOR_PROFILE,
-                                    arguments: snapshot.data![index]['email']);
-                              });
-                            }),
-                      );
-                    })
-     
-                  : FutureBuilder(
-                    future: controller.searchMentors(
-                        availablility: "Accept new mentees",
-                        skills: controller.selectedSkills,
-                        search: controller.searchQuery.value,
-                        industry: controller.selectedIndustries.value),
-                    builder: (context,
-                        AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Expanded(child: HomeScreenShimmerList());
-                      } else if (!snapshot.hasData) {
-                        return const Center(
-                          child: Text("Not found"),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(snapshot.error.toString()),
-                        );
-                      } else if (snapshot.data!.isEmpty) {
-                        return Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.FIND_MENTORS);
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/not found.jpg",
-                                  width: 300.w,
-                                  height: 200.h,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Couldn't found, search to find.",
-                                  style: manoropeFontFamily(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: blackcolor),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                     
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          );
+                        }
+                        return Expanded(
                           child: GridView.builder(
-                              physics: neverscroll,
                               shrinkWrap: true,
                               itemCount: snapshot.data!.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 0,
+                                      mainAxisSpacing: 0,
                                       mainAxisExtent: 115.h,
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
                                 return Column(
                                   crossAxisAlignment: crosstart,
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment: mainbetween,
                                       children: [
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(mentor),
-                                        ),
-                                        Icon(
-                                          Icons.favorite,
-                                          color: greencolor,
-                                        )
+                                        snapshot.data![index]
+                                                        ['profilePicUrl'] !=
+                                                    null &&
+                                                snapshot.data![index]
+                                                        ['profilePicUrl'] !=
+                                                    ""
+                                            ? CircleAvatar(
+                                                backgroundImage:
+                                                    CachedNetworkImageProvider(
+                                                        snapshot.data![index]
+                                                            ['profilePicUrl']),
+                                              )
+                                            : CircleAvatar(
+                                                backgroundImage:
+                                                    AssetImage(mentor),
+                                              ),
+                                        // Icon(
+                                        //   Icons.favorite,
+                                        //   color: greencolor,
+                                        // )
                                       ],
                                     ),
                                     10.heightBox,
@@ -399,54 +281,193 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                                           color: blackcolor),
                                     ),
                                     5.heightBox,
-                                    Row(
-                                      mainAxisAlignment: mainbetween,
-                                      children: [
-                                        Text(
-                                          "Health",
-                                          style: manoropeFontFamily(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: textfieldgrey),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "4.9",
-                                              style: manoropeFontFamily(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: blackcolor),
-                                            ),
-                                            10.widthBox,
-                                            Icon(
-                                              Icons.star,
-                                              color: ratingcolor,
-                                              size: 17.sp,
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    )
+                                    Text(
+                                      snapshot.data![index]['mentorshipStyle'],
+                                      style: manoropeFontFamily(
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: blackcolor),
+                                    ),
+                                    // Row(
+                                    //   mainAxisAlignment: mainbetween,
+                                    //   children: [
+                                    //     Text(
+                                    //       "Health",
+                                    //       style: manoropeFontFamily(
+                                    //           fontSize: 10,
+                                    //           fontWeight: FontWeight.w400,
+                                    //           color: textfieldgrey),
+                                    //     ),
+                                    //     Row(
+                                    //       children: [
+                                    //         Text(
+                                    //           "4.9",
+                                    //           style: manoropeFontFamily(
+                                    //               fontSize: 12.sp,
+                                    //               fontWeight: FontWeight.w500,
+                                    //               color: blackcolor),
+                                    //         ),
+                                    //         10.widthBox,
+                                    //         Icon(
+                                    //           Icons.star,
+                                    //           color: ratingcolor,
+                                    //           size: 17.sp,
+                                    //         )
+                                    //       ],
+                                    //     )
+                                    //   ],
+                                    // )
                                   ],
                                 )
                                     .box
                                     .height(110.h)
                                     .padding(const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10))
+                                    .margin(const EdgeInsets.all(3))
                                     .white
                                     .outerShadow
                                     .roundedSM
                                     .make()
                                     .onTap(() {
-                                   Get.toNamed(Routes.MENTOR_PROFILE,
-                                    arguments: snapshot.data![index]['email']);
+                                  Get.toNamed(Routes.MENTOR_PROFILE,
+                                      arguments: snapshot.data![index]
+                                          ['email']);
                                 });
                               }),
-                        ),
-                      );
-                    })
-               )
+                        );
+                      })
+                  : FutureBuilder(
+                      future: controller.searchMentors(
+                          availablility: "Accept new mentees",
+                          skills: controller.selectedSkills,
+                          search: controller.searchQuery.value,
+                          industry: controller.selectedIndustries.value),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Expanded(child: HomeScreenShimmerList());
+                        } else if (!snapshot.hasData) {
+                          return const Center(
+                            child: Text("Not found"),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        } else if (snapshot.data!.isEmpty) {
+                          return Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.FIND_MENTORS);
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/not found.jpg",
+                                    width: 300.w,
+                                    height: 200.h,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Text(
+                                    "Couldn't found, search to find.",
+                                    style: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+
+                        return Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: GridView.builder(
+                                physics: neverscroll,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        mainAxisExtent: 115.h,
+                                        crossAxisCount: 2),
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    crossAxisAlignment: crosstart,
+                                    children: [
+                                      const Row(
+                                        mainAxisAlignment: mainbetween,
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundImage: AssetImage(mentor),
+                                          ),
+                                          Icon(
+                                            Icons.favorite,
+                                            color: greencolor,
+                                          )
+                                        ],
+                                      ),
+                                      10.heightBox,
+                                      Text(
+                                        snapshot.data![index]['fullName'],
+                                        style: manoropeFontFamily(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: blackcolor),
+                                      ),
+                                      5.heightBox,
+                                      Row(
+                                        mainAxisAlignment: mainbetween,
+                                        children: [
+                                          Text(
+                                            "Health",
+                                            style: manoropeFontFamily(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: textfieldgrey),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "4.9",
+                                                style: manoropeFontFamily(
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: blackcolor),
+                                              ),
+                                              10.widthBox,
+                                              Icon(
+                                                Icons.star,
+                                                color: ratingcolor,
+                                                size: 17.sp,
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                      .box
+                                      .height(110.h)
+                                      .padding(const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10))
+                                      .white
+                                      .outerShadow
+                                      .roundedSM
+                                      .make()
+                                      .onTap(() {
+                                    Get.toNamed(Routes.MENTOR_PROFILE,
+                                        arguments: snapshot.data![index]
+                                            ['email']);
+                                  });
+                                }),
+                          ),
+                        );
+                      }))
             ],
           ),
         ));

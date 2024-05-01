@@ -47,9 +47,9 @@ class NetworkApiService extends BaseApiServices {
       dynamic jsonresponse=jsonDecode(response.body);
       return jsonresponse;
       case 400:
-        throw BadRequestExceptions("Wrong credentials");
+        throw BadRequestExceptions("Invalid email or password");
       case 404:
-        throw UnAuthorizeExceptions("User is not authorized");
+        throw UnAuthorizeExceptions("Invalid email or password");
       default:
         throw FetchDataExceptions(
             "Error occurred while communicating server with status code ${response.statusCode}");
