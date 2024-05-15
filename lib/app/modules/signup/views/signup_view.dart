@@ -20,6 +20,7 @@ class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -46,22 +47,60 @@ class SignupView extends GetView<SignupController> {
               ),
             ),
             20.heightBox,
-            commonTextField(
-                icon: nameicon,
-                hinttext: "Name",
-                textEditingController: controller.nameController.value),
-            20.heightBox,
-            commonTextField(
-                icon: emailicon,
-                hinttext: "Email",
-                textEditingController: controller.emailController.value),
-            20.heightBox,
-            commonTextField(
-                obscureText: true,
-                icon: passwordicon,
-                hinttext: "Password",
-                textEditingController: controller.passwordController.value),
-            10.heightBox,
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  commonTextField(
+                    icon: nameicon,
+                    hinttext: "Name",
+                    textEditingController: controller.nameController.value,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      // Additional validation logic if needed
+                      return null;
+                    },
+                  ),
+                      20.heightBox,
+                  commonTextField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email address';
+                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    icon: emailicon,
+                    hinttext: "Email",
+                    textEditingController: controller.emailController.value,
+                  ),
+                  20.heightBox,
+                  commonTextField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                      icon: passwordicon,
+                      hinttext: "Password",
+                      textEditingController:
+                          controller.passwordController.value),
+                  10.heightBox,
+                ],
+              ),
+            ),
+        
+
             Text(
               "Select",
               style: poppins(
@@ -139,7 +178,7 @@ class SignupView extends GetView<SignupController> {
               ],
             ),
             30.heightBox,
-              Row(
+            Row(
               children: [
                 Obx(
                   () => Row(
@@ -189,30 +228,19 @@ class SignupView extends GetView<SignupController> {
             CustomButton(
                 buttonName: "Sign up",
                 onPressed: () {
-                  if (controller.selectUserType.value != '' && controller.accepttermsandConditions.value != false &&
-                      controller.selectUserType.value.isNotEmpty &&
-                      controller.passwordController.value.text.length >= 8) {
+                  if (_formKey.currentState!.validate() &&
+                      controller.selectUserType.value != '' &&
+                      controller.accepttermsandConditions.value != false &&
+                      controller.selectUserType.value.isNotEmpty) {
                     StorageServices.to.setString(
                         key: selectedUserType,
                         value: controller.selectUserType.value);
                     Get.toNamed(Routes.ON_BOARDING);
-                  } else if (controller.passwordController.value.text.length <
-                      8) {
+                  } else if (controller.accepttermsandConditions.value ==
+                      false) {
                     Utils.snakbar(
                         title: "Error",
-                        body:
-                            "Password must be at equal to or greater than 8 characters.");
-                  } 
-                   else if (controller.accepttermsandConditions.value==false) {
-                    Utils.snakbar(
-                        title: "Error", body: "Please accept terms and conditions");
-                  } 
-                  else if (controller.emailController.value.text.isEmpty ||
-                      controller.nameController.value.text.isEmpty ||
-                      controller.passwordController.value.text.isEmpty) {
-                    Utils.snakbar(
-                        title: "Fields Required",
-                        body: "Please fill all fields");
+                        body: "Please accept terms and conditions");
                   }
                 },
                 textcolor: whitecolor,

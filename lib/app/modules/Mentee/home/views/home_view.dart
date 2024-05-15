@@ -384,7 +384,11 @@ class _HomeViewState extends State<HomeView> {
                   } else if (snapshot.data['meetingResponseList'].isEmpty) {
                     // If meetingResponseList is empty
                     return Center(
-                        child: Image.asset("assets/images/not found.jpg",width: 100.w,height: 100.h,));
+                        child: Image.asset(
+                      "assets/images/not found.jpg",
+                      width: 100.w,
+                      height: 100.h,
+                    ));
                   } else {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -397,33 +401,17 @@ class _HomeViewState extends State<HomeView> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              leading: snapshot.data!['meetingResponseList']
-                                                  [index]['mentor']
-                                              ['profilePicUrl'] ==
-                                          null ||
-                                      snapshot.data!['meetingResponseList']
-                                                  [index]['mentor']
-                                              ['profilePicUrl'] !=
-                                          ""
-                                  ? CircleAvatar(
-                                      radius: 30.r,
-                                      backgroundImage: CachedNetworkImageProvider(
-                                          StorageServices.to.getString(
-                                                      selectedUserType) ==
-                                                  "Mentee"
-                                              ? snapshot.data!['meetingResponseList']
-                                                      [index]['mentor']
-                                                  ['profilePicUrl']
-                                              : snapshot.data![
-                                                          'meetingResponseList']
-                                                      [index]['mentee']
-                                                  ['profilePicUrl']),
-                                    )
-                                  : CircleAvatar(
-                                      radius: 30.r,
-                                      backgroundImage: const AssetImage(
-                                        mentor,
-                                      )),
+                              leading: CircleAvatar(
+                                radius: 30.r,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    StorageServices.to
+                                                .getString(selectedUserType) ==
+                                            "Mentee"
+                                        ? snapshot.data!['meetingResponseList']
+                                            [index]['mentor']['profilePicUrl']
+                                        : snapshot.data!['meetingResponseList']
+                                            [index]['mentee']['profilePicUrl']),
+                              ),
                               title: Column(
                                 crossAxisAlignment: crosstart,
                                 children: [
@@ -565,19 +553,18 @@ class _HomeViewState extends State<HomeView> {
                                     mainAxisExtent: 115.h,
                                     crossAxisCount: 2),
                             itemBuilder: (context, index) {
+                          
                               return Column(
                                 crossAxisAlignment: crosstart,
                                 children: [
                                   Row(
                                     mainAxisAlignment: mainbetween,
                                     children: [
-                                     CircleAvatar(
-                                              backgroundImage:
-                                                  CachedNetworkImageProvider(
-                                                      snapshot.data![index]
-                                                          ['profilePicUrl']),
-                                            )
-                                         
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(snapshot
+                                            .data![index]['profilePicUrl']),
+                                      )
+
                                       // const Icon(
                                       //   Icons.favorite,
                                       //   color: greencolor,

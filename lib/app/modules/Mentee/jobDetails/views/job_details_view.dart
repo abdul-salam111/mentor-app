@@ -49,10 +49,10 @@ class JobDetailsView extends GetView<JobDetailsController> {
                 future: controller.getJobsDetail(id),
                 builder: (context, AsyncSnapshot<GetJobById> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return const Center();
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Center();
+                    return const Center();
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),

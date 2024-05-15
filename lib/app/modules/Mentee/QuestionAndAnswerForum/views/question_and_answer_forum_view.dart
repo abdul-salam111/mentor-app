@@ -32,6 +32,7 @@ class QuestionAndAnswerForumView extends StatefulWidget {
 class _QuestionAndAnswerForumViewState
     extends State<QuestionAndAnswerForumView> {
   final controller = Get.put(QuestionAndAnswerForumController());
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -52,38 +53,54 @@ class _QuestionAndAnswerForumViewState
                 fontSize: 14.sp, fontWeight: FontWeight.w500),
           ),
           centerTitle: false,
+          actions: [
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.POST_QUESTIONS)!.then((value) {
+                        setState(() {});
+                      });
+                    },
+                    child: const Text(
+                      "Create",
+                      style: TextStyle(color: darkBrownColor),
+                    ))
+                : const SizedBox.shrink()
+          ],
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: StorageServices.to.getString(selectedUserType) == "Mentee"
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        SizedBox(
-                            width: width / 1.7, child: customSearchTextField()),
-                        5.widthBox,
-                        CustomButton(
-                            buttonName: "Create",
-                            onPressed: () {
-                              Get.toNamed(Routes.POST_QUESTIONS)!.then((value) {
-                                setState(() {});
-                              });
-                            },
-                            textcolor: whitecolor,
-                            loading: false,
-                            backgroundColor: darkBrownColor,
-                            rounded: false,
-                            height: 45,
-                            textSize: 12.sp,
-                            width: width / 3.5)
-                      ],
-                    )
-                  : customSearchTextField(),
-            ),
-            15.heightBox,
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: StorageServices.to.getString(selectedUserType) == "Mentee"?
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: CustomButton(
+            //                 buttonName: "Create",
+            //                 onPressed: () {
+
+            //                 },
+            //                 textcolor: whitecolor,
+            //                 loading: false,
+            //                 backgroundColor: darkBrownColor,
+            //                 rounded: false,
+            //                 height: 45,
+            //                 textSize: 12.sp,
+            //                 width: width / 3.5),
+            // ):const SizedBox.shrink()
+            // ? Row(
+            //     mainAxisSize: MainAxisSize.min,
+            //     mainAxisAlignment: mainend,
+            //     children: [
+            //       // SizedBox(
+            //       //     width: width / 1.7, child: customSearchTextField()),
+            //       // 5.widthBox,
+
+            //     ],
+            //   )
+            // : customSearchTextField(),
+            // ),
+            // 15.heightBox,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -199,7 +216,6 @@ class _QuestionAndAnswerForumViewState
                   } else {
                     return Expanded(
                       child: ListView.builder(
-                       
                           physics: bouncingscroll,
                           shrinkWrap: true,
                           itemCount: snapshot.data!.menteeQuestion!.length,
@@ -253,11 +269,14 @@ class _QuestionAndAnswerForumViewState
                                                   ""
                                           ? SizedBox(
                                               child: CachedNetworkImage(
-                                                  imageUrl: snapshot
-                                                      .data!
-                                                      .menteeQuestion![index]
-                                                      .mentee!
-                                                      .profilePicUrl!,width: 50,height: 50,),
+                                                imageUrl: snapshot
+                                                    .data!
+                                                    .menteeQuestion![index]
+                                                    .mentee!
+                                                    .profilePicUrl!,
+                                                width: 50,
+                                                height: 50,
+                                              ),
                                             )
                                               .box
                                               .roundedFull
@@ -387,7 +406,8 @@ class _QuestionAndAnswerForumViewState
                                                       ConnectionState.waiting) {
                                                     return Center(
                                                         child:
-                                                            AnotherShimmerList(10));
+                                                            AnotherShimmerList(
+                                                                10));
                                                   }
                                                   if (!snapshot.hasData) {
                                                     return const Center(

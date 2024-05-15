@@ -28,7 +28,7 @@ class OnBoardingView extends GetView<OnboardingController> {
               "1/3",
               10),
           OnboardingPage(
-              "Connect. Cultivate. Elevate.",
+              "Connect. Cultivate. \nElevate.",
               "In today's competitive world, we recognize that not everyone has access to the same opportunities. That's why we're here—to level the playing field and empower you to achieve your goals.",
               introimage2,
               signupcontroller.selectUserType.value == 'Mentee'

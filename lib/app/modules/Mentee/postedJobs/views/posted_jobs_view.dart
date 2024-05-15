@@ -54,7 +54,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
               padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
               child: Row(
                 children: [
-                  Expanded(child: customSearchTextField(hinttext: "Search")),
+                  // Expanded(child: customSearchTextField(hinttext: "Search")),
                   10.widthBox,
                   StorageServices.to.getString(selectedUserType) == "Mentor"
                       ? CustomButton(

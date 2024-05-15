@@ -40,7 +40,8 @@ class SkillsView extends GetView<SkillsController> {
             10.heightBox,
             Center(
               child: Text(
-                "What are your skills?",
+                "What skills do you want to strengthen?",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.manrope(
                     fontSize: 20.sp, fontWeight: FontWeight.w500),
               ),

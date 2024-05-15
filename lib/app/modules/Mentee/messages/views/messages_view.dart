@@ -13,6 +13,7 @@ import 'package:mentor_app/app/modules/chats/messagesModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -281,31 +282,25 @@ class MessagesView extends GetView<MessagesController> {
                                                   .email)
                                       ? CircleAvatar(
                                           radius: 20.r,
-                                          backgroundImage:
-                                              CachedNetworkImageProvider(messageModel
-                                                          .sendbyId !=
-                                                      (
-                                                        StorageServices.to
-                                                                    .getString(
-                                                                        selectedUserType) ==
-                                                                "Mentee"
-                                                            ? getMenteeInfoFromJson(
-                                                                    StorageServices
-                                                                        .to
-                                                                        .getString(
-                                                                            getmenteeinfo))
-                                                                .email
-                                                            : getMentorInfoFromJson(
-                                                                    StorageServices
-                                                                        .to
-                                                                        .getString(
-                                                                            getMentorInformationsss))
-                                                                .email
-                                                      )
-                                                  ? messageModel
-                                                      .recievedByProfilePicture!
-                                                  : messageModel
-                                                      .sendByProfilePicture!),
+                                          backgroundImage: CachedNetworkImageProvider(messageModel
+                                                      .sendbyId !=
+                                                  (StorageServices.to.getString(
+                                                              selectedUserType) ==
+                                                          "Mentee"
+                                                      ? getMenteeInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getmenteeinfo))
+                                                          .email
+                                                      : getMentorInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getMentorInformationsss))
+                                                          .email)
+                                              ? messageModel
+                                                  .recievedByProfilePicture!
+                                              : messageModel
+                                                  .sendByProfilePicture!),
                                         )
                                       : const SizedBox.shrink(),
                                 ],
@@ -332,6 +327,44 @@ class MessagesView extends GetView<MessagesController> {
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 30),
             child: Row(
               children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                 
+                   
+                     showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: darkestRed,
+                            contentPadding: EdgeInsets.all(10),
+                            content: TextButton(
+                                onPressed: () {
+                                  if(gofromChat==true){
+
+                                  }
+                                  else{
+                                    Get.toNamed(Routes.SCHEDULE_SESSION,arguments: data);
+                                  }
+                                },
+                                child: const Text(
+                                  "Schedule Meeting",
+                                  style: TextStyle(color: whitecolor),
+                                )),
+                          );
+                        });
+                   
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: darkestBrownColor,
+                    child: Image.asset(
+                      attactFile,
+                      color: whitecolor,
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                ),
+                10.widthBox,
                 Expanded(
                   child: TextField(
                     controller: controller.messageController.value,

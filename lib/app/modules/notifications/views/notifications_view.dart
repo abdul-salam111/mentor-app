@@ -38,8 +38,8 @@ class NotificationsView extends GetView<NotificationsController> {
             builder: (context,
                 AsyncSnapshot<GetNotificationResponseModel>
                     getnotificationsResponseModel) {
-              if (getnotificationsResponseModel.hasData) {
-                return const SizedBox.shrink();
+              if (!getnotificationsResponseModel.hasData) {
+                return  Center(child: Image.asset("assets/images/not found.jpg",height: 100,width: 100,),);
               } else if (getnotificationsResponseModel.hasError) {
                 return Center(
                   child: Text(getnotificationsResponseModel.error.toString()),

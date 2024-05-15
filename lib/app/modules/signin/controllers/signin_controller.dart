@@ -51,7 +51,7 @@ class SigninController extends GetxController {
     LoginMenteeRequestModel signinModel = LoginMenteeRequestModel(
         password: passwordController.value.text,
         usernameOrEmail: nameController.value.text);
-
+  print(signinModel.toJson());
     await authRepository
         .signInUser(jsonEncode(signinModel), selectUserType)
         .then((value) async {
@@ -77,9 +77,9 @@ class SigninController extends GetxController {
             value: getMentorInfoToJson(mentordata));
       }
       ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: 501015063 /*input your AppID*/,
+        appID: 555496812 /*input your AppID*/,
         appSign:
-            "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
+            "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
         userID: StorageServices.to.getString(selectedUserType) == "Mentee"
             ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .email
@@ -96,7 +96,7 @@ class SigninController extends GetxController {
       Get.offAllNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {
       EasyLoading.dismiss();
-      Utils.snakbar(title: "Failed to Search", body: error.toString());
+      Utils.snakbar(title: "", body: error.toString());
     });
   }
 
@@ -121,4 +121,5 @@ class SigninController extends GetxController {
   //     print('Error occurred during sign-in: $error');
   //   }
   // }
+    
 }

@@ -69,7 +69,8 @@ class AvailbilityView extends GetView<AvailbilityController> {
               10.heightBox,
               Center(
                 child: Text(
-                  "Availability",
+                  "Tell us when you are available to meet with your mentor!",
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.manrope(
                       fontSize: 20.sp, fontWeight: FontWeight.w500),
                 ),
@@ -86,7 +87,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                     ),
                     10.widthBox,
                     Text(
-                      "Days of the week available",
+                      "Availablity",
                       style: manoropeFontFamily(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
@@ -166,88 +167,91 @@ class AvailbilityView extends GetView<AvailbilityController> {
                 ],
               ),
               20.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Obx(
-                          () => Text(
-                            controller.selectedTimeZone.value,
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: blackcolor),
-                          ),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.isOpen.value = !controller.isOpen.value;
-                    }),
-                  ),
-                  Obx(
-                    () => controller.isOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(() => controller.isOpen.value
-                      ? GetBuilder<AvailbilityController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount: controller.timezones.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill = controller.timezones[index];
-
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                ).onTap(() {
-                                  controller.selectedTimeZone.value =
-                                      controller.timezones[index];
-                                  controller.isOpen.value = false;
-                                });
-                              },
+              Padding(
+                padding: const EdgeInsets.only(left:4.0,right: 4),
+                child: Column(
+                  crossAxisAlignment: crosstart,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: mainbetween,
+                        children: [
+                          Obx(
+                            () => Text(
+                              controller.selectedTimeZone.value,
+                              style: manoropeFontFamily(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: blackcolor),
                             ),
-                          );
-                        })
-                      : const SizedBox.shrink())
-                ],
-              )
-                  .box
-                  .white
-                  .padding(defaultpad)
-                  .width(double.infinity)
-                  .outerShadow
-                  .roundedSM
-                  .make(),
+                          ),
+                          const Icon(Icons.expand_more),
+                        ],
+                      ).box.make().onTap(() {
+                        controller.isOpen.value = !controller.isOpen.value;
+                      }),
+                    ),
+                    Obx(
+                      () => controller.isOpen.value
+                          ? Column(
+                              children: [
+                                10.heightBox,
+                                Container(
+                                  color: greyColor,
+                                  height: 1,
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                    Obx(() => controller.isOpen.value
+                        ? GetBuilder<AvailbilityController>(
+                            builder: (contextsss) {
+                            return SizedBox(
+                              height: 200.h,
+                              child: ListView.builder(
+                                itemCount: controller.timezones.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final skill = controller.timezones[index];
+                
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          skill,
+                                          style: manoropeFontFamily(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: blackcolor),
+                                        ),
+                                      ),
+                                      Container(
+                                        color: greyColor,
+                                        height: 1,
+                                      ),
+                                    ],
+                                  ).onTap(() {
+                                    controller.selectedTimeZone.value =
+                                        controller.timezones[index];
+                                    controller.isOpen.value = false;
+                                  });
+                                },
+                              ),
+                            );
+                          })
+                        : const SizedBox.shrink())
+                  ],
+                )
+                    .box
+                    .white
+                    .padding(defaultpad)
+                    .width(double.infinity)
+                    .outerShadow
+                    .roundedSM
+                    .make(),
+              ),
               20.heightBox,
               Row(
                 children: [
@@ -267,128 +271,131 @@ class AvailbilityView extends GetView<AvailbilityController> {
                 ],
               ),
               20.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Obx(
-                          () => Text(
-                            controller.selectedDuration.value,
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: blackcolor),
-                          ),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.isDurationOpen.value =
-                          !controller.isDurationOpen.value;
-                    }),
-                  ),
-                  Obx(
-                    () => controller.isDurationOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(() => controller.isDurationOpen.value
-                      ? GetBuilder<AvailbilityController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount: controller.durations.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill = controller.durations[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                      //   trailing: isSelected == true
-                                      //       ? SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .color(darkBrownColor)
-                                      //           .rounded
-                                      //           .make()
-                                      //       : SizedBox(
-                                      //           height: 10.h,
-                                      //           width: 10.h,
-                                      //         )
-                                      //           .box
-                                      //           .border(color: darkBrownColor)
-                                      //           .rounded
-                                      //           .make(),
-                                      // ).box.make().onTap(() {
-                                      //   if (controller.selectedSkills.length > 4) {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       Utils.snakbar(
-                                      //           title: 'Maximum 5 goals',
-                                      //           body:
-                                      //               'You cannot select more than 5 goals.');
-                                      //     }
-                                      //   } else {
-                                      //     if (isSelected) {
-                                      //       controller.selectedSkills.remove(skill);
-                                      //       contextsss.update();
-                                      //     } else {
-                                      //       controller.selectedSkills.add(skill);
-                                      //       contextsss.update();
-                                      //     }
-                                      //   }
-                                      // }),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                ).onTap(() {
-                                  controller.selectedDuration.value =
-                                      controller.durations[index];
-                                  controller.isDurationOpen.value = false;
-                                });
-                              },
+              Padding(
+           padding: const EdgeInsets.only(left:4.0,right: 4),
+                child: Column(
+                  crossAxisAlignment: crosstart,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: mainbetween,
+                        children: [
+                          Obx(
+                            () => Text(
+                              controller.selectedDuration.value,
+                              style: manoropeFontFamily(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: blackcolor),
                             ),
-                          );
-                        })
-                      : const SizedBox.shrink())
-                ],
-              )
-                  .box
-                  .white
-                  .padding(defaultpad)
-                  .width(double.infinity)
-                  .outerShadow
-                  .roundedSM
-                  .make(),
+                          ),
+                          const Icon(Icons.expand_more),
+                        ],
+                      ).box.make().onTap(() {
+                        controller.isDurationOpen.value =
+                            !controller.isDurationOpen.value;
+                      }),
+                    ),
+                    Obx(
+                      () => controller.isDurationOpen.value
+                          ? Column(
+                              children: [
+                                10.heightBox,
+                                Container(
+                                  color: greyColor,
+                                  height: 1,
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                    Obx(() => controller.isDurationOpen.value
+                        ? GetBuilder<AvailbilityController>(
+                            builder: (contextsss) {
+                            return SizedBox(
+                              height: 200.h,
+                              child: ListView.builder(
+                                itemCount: controller.durations.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final skill = controller.durations[index];
+                                  // final isSelected =
+                                  //     controller.selectedSkills.contains(skill);
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          skill,
+                                          style: manoropeFontFamily(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: blackcolor),
+                                        ),
+                                        //   trailing: isSelected == true
+                                        //       ? SizedBox(
+                                        //           height: 10.h,
+                                        //           width: 10.h,
+                                        //         )
+                                        //           .box
+                                        //           .color(darkBrownColor)
+                                        //           .rounded
+                                        //           .make()
+                                        //       : SizedBox(
+                                        //           height: 10.h,
+                                        //           width: 10.h,
+                                        //         )
+                                        //           .box
+                                        //           .border(color: darkBrownColor)
+                                        //           .rounded
+                                        //           .make(),
+                                        // ).box.make().onTap(() {
+                                        //   if (controller.selectedSkills.length > 4) {
+                                        //     if (isSelected) {
+                                        //       controller.selectedSkills.remove(skill);
+                                        //       contextsss.update();
+                                        //     } else {
+                                        //       Utils.snakbar(
+                                        //           title: 'Maximum 5 goals',
+                                        //           body:
+                                        //               'You cannot select more than 5 goals.');
+                                        //     }
+                                        //   } else {
+                                        //     if (isSelected) {
+                                        //       controller.selectedSkills.remove(skill);
+                                        //       contextsss.update();
+                                        //     } else {
+                                        //       controller.selectedSkills.add(skill);
+                                        //       contextsss.update();
+                                        //     }
+                                        //   }
+                                        // }),
+                                      ),
+                                      Container(
+                                        color: greyColor,
+                                        height: 1,
+                                      ),
+                                    ],
+                                  ).onTap(() {
+                                    controller.selectedDuration.value =
+                                        controller.durations[index];
+                                    controller.isDurationOpen.value = false;
+                                  });
+                                },
+                              ),
+                            );
+                          })
+                        : const SizedBox.shrink())
+                  ],
+                )
+                    .box
+                    .white
+                    .padding(defaultpad)
+                    .width(double.infinity)
+                    .outerShadow
+                    .roundedSM
+                    .make(),
+              ),
               20.heightBox,
               Row(
                 children: [
@@ -399,7 +406,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Preferred communication channel",
+                    "Put preferred communication channel first",
                     style: manoropeFontFamily(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,

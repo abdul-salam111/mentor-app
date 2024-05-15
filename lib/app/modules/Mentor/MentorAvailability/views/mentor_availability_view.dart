@@ -78,7 +78,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Days of the week available",
+                    "Availablity",
                     style: manoropeFontFamily(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -192,7 +192,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                       ],
                     ),
                   ),
-                  30.widthBox,
+                  20.widthBox,
                   Obx(
                     () => Row(
                       children: [
@@ -218,6 +218,39 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         ),
                         Text(
                           "Female",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                    20.widthBox,
+                   Obx(
+                    () => Row(
+                      children: [
+                        Checkbox(
+                          side: const BorderSide(color: greyColor),
+                          checkColor: blackcolor,
+                          fillColor: MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.selected)) {
+                              // Set the fill color of the checkbox when it is selected (checked)
+                              return halfwhitecolor; // Change the color to your preferred color
+                            }
+                            // Set the fill color of the checkbox when it is not selected (unchecked)
+                            return Colors
+                                .transparent; // Change the color to your preferred color
+                          }),
+                          value: controller.selectedGender.value == 'other',
+                          onChanged: (bool? value) {
+                            if (value != null && value) {
+                              controller.setSelectedGender('other');
+                            }
+                          },
+                        ),
+                        Text(
+                          "Other",
                           style: GoogleFonts.poppins(
                             fontSize: 12.sp,
                           ),

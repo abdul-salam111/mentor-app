@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
-import 'package:mentor_app/app/resources/colors.dart';
-
 import 'package:velocity_x/velocity_x.dart';
 
-Widget commonTextField({required String icon, required String hinttext,required TextEditingController textEditingController,  bool obscureText=false, TextInputType textInputType=TextInputType.text}) {
-  return TextField(
+import 'poppinsFont.dart';
+import '../resources/colors.dart';
+
+typedef FormValidator = String? Function(String?);
+
+Widget commonTextField({
+  required String icon,
+  required String hinttext,
+  required TextEditingController textEditingController,
+  FormValidator? validator, // Accepts a validator parameter
+  bool obscureText = false,
+  TextInputType textInputType = TextInputType.text,
+}) {
+  return TextFormField(
+    validator: validator, // Assign the provided validator function here
     keyboardType: textInputType,
-    obscureText:obscureText ,
+    obscureText: obscureText,
     controller: textEditingController,
     cursorHeight: 15.h,
     style: poppins(
-        fontSize: 12.sp, fontWeight: FontWeight.w500, color: textfieldgrey),
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w500,
+      color: textfieldgrey,
+    ),
     decoration: InputDecoration(
       focusedBorder: InputBorder.none,
       enabledBorder: InputBorder.none,
@@ -34,7 +46,10 @@ Widget commonTextField({required String icon, required String hinttext,required 
       filled: true,
       fillColor: const Color(0xffF0F0F0),
       hintStyle: poppins(
-          fontSize: 11.sp, fontWeight: FontWeight.w400, color: textfieldgrey),
+        fontSize: 11.sp,
+        fontWeight: FontWeight.w400,
+        color: textfieldgrey,
+      ),
     ),
   ).box.rounded.clip(Clip.antiAlias).make();
 }

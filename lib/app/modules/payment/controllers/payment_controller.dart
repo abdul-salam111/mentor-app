@@ -1,44 +1,16 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/Utils/Utils.dart';
+import 'package:mentor_app/app/modules/Mentee/PostQuestions/controllers/post_questions_controller.dart';
+import 'package:mentor_app/app/modules/Mentee/PostQuestions/views/post_questions_view.dart';
 import 'package:mentor_app/app/repositories/paymentRepo.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
-import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
-class PostQuestionsController extends GetxController {
-  final questionController = TextEditingController().obs;
-  var isIndusryOpen = false.obs;
-  var selectedIndustries = "Select".obs;
-  List<String> industries = [
-    'Information Technology (IT)',
-    'Healthcare',
-    'Finance',
-    'Education',
-    'Manufacturing',
-    'Retail',
-    'Hospitality',
-    'Transportation',
-    'Entertainment',
-    'Agriculture',
-    'Real Estate',
-    'Construction',
-    'Energy',
-    'Telecommunications',
-    'Media',
-    'Automotive',
-    'Aerospace',
-    'Pharmaceutical',
-    'Biotechnology',
-    'Environmental',
-    // Add more industries as needed
-  ];
-
+class PaymentController extends GetxController {
   Future<void> makePayment({required String amount}) async {
     try {
       paymentIntentData = await createPaymentIntent(amount, 'USD');
@@ -76,6 +48,7 @@ class PostQuestionsController extends GetxController {
     }
   }
 
+  QuestionsRepository questionsRepository = QuestionsRepository();
   PaymentRepository paymentRepository = PaymentRepository();
   displayPaymentSheet({required amount}) async {
     try {
@@ -83,13 +56,17 @@ class PostQuestionsController extends GetxController {
         await Stripe.instance.confirmPaymentSheetPayment();
         PaymentRepository paymentRepository = PaymentRepository();
         paymentRepository.createPayment(amount: double.parse(amount));
-          questionsRepository.fetchQuestionCount();
-     
+        questionsRepository.fetchQuestionCount();
+
         paymentIntentData = null;
 
         Utils.snakbar(
             title: "Payment Done",
             body: "Payment has been done, successfully!");
+        PostQuestionsController().update();
+        StorageServices.to.setBool(key: "bought", value: true);
+      await  Get.to(() => PostQuestionsView());
+
       }).onError((error, stackTrace) {});
     } on Exception catch (e) {
       if (e is StripeException) {
@@ -131,37 +108,5 @@ class PostQuestionsController extends GetxController {
   calculateAmount(String amount) {
     final price = (int.parse(amount)) * 100;
     return price.toString();
-  }
-
-  int getQuestionNumbers() {
-    int questions = (StorageServices.to.getString(remainingQuestions) == ''
-        ? 0
-        : int.parse(StorageServices.to.getString(remainingQuestions)));
-    return questions;
-  }
-
-  QuestionsRepository questionsRepository = QuestionsRepository();
-  Future<void> postQuestions() async {
-    if (getQuestionNumbers() != 0 &&
-        questionController.value.text.isNotEmpty &&
-        selectedIndustries.value != "Select") {
-    
-   
-      questionsRepository.postQuestion(
-          question: questionController.value.text.toString(),
-          industry: selectedIndustries.value.toString()).then((value){
-            update();
-          });
-      questionController.value.clear();
-      selectedIndustries.value="Select";
-      EasyLoading.dismiss();
- 
-    } else if (questionController.value.text.isEmpty) {
-      Utils.snakbar(title: "  ", body: "Please enter question");
-    } else if (selectedIndustries.value == "Select") {
-      Utils.snakbar(title: "  ", body: "Please select any of the industry");
-    } else {
-      Utils.snakbar(title: "  ", body: "You have to pay first");
-    }
   }
 }

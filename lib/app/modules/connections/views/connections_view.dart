@@ -55,10 +55,10 @@ class _ConnectionsViewState extends State<ConnectionsView> {
             ? SafeArea(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: customSearchTextField(hinttext: "Search"),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: customSearchTextField(hinttext: "Search"),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                       child: Row(
@@ -97,7 +97,7 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                             )
                                 .box
                                 .padding(const EdgeInsets.fromLTRB(8, 4, 8, 4))
-                                .width(100)
+                                .width(110)
                                 .border(color: greyColor)
                                 .rounded
                                 .color(controller.index.value == 1
@@ -119,9 +119,12 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                               ConnectionState.waiting) {
                             return ShimmerList(10);
                           } else if (!snapshot.hasData) {
-                            return  Center(
-                              child: Image.asset("assets/images/no friend found.png",height: 100.h,width: 100.w,),
-                            );
+                            return Expanded(
+                                child: Image.asset(
+                              "assets/images/fnotfound.png",
+                              height: 100.h,
+                              width: 100.w,
+                            ));
                           } else if (snapshot.hasError) {
                             return Center(
                               child: Text(snapshot.error.toString()),
@@ -248,10 +251,10 @@ class _ConnectionsViewState extends State<ConnectionsView> {
             : SafeArea(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: customSearchTextField(hinttext: "Search"),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: customSearchTextField(hinttext: "Search"),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                       child: Row(
@@ -290,7 +293,7 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                             )
                                 .box
                                 .padding(const EdgeInsets.fromLTRB(8, 4, 8, 4))
-                                .width(100)
+                                .width(110)
                                 .border(color: greyColor)
                                 .rounded
                                 .color(controller.index.value == 1
@@ -308,13 +311,21 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                     FutureBuilder(
                         future: controller.getMentorAcceptedConnections(),
                         builder: (context, AsyncSnapshot snapshot) {
+
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return ShimmerList(10);
-                          } else if (!snapshot.hasData) {
-                            return  Center(
-                              child: Image.asset("assets/images/no friend found.png",height: 100.h,width: 100.w,),
-                            );
+                          } 
+                         
+                          
+                          else if (!snapshot.hasData) {
+                            return Expanded(
+                                child: Image.asset(
+                              "assets/images/fnotfound.png",
+                              height: 100.h,
+                              width: 100.w,
+                            ));
+                            
                           } else if (snapshot.hasError) {
                             return Center(
                               child: Text(snapshot.error.toString()),
@@ -434,8 +445,6 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                                               [index],
                                                           chatRoomId
                                                         ]);
-
-                                   
                                                   },
                                                   textcolor: whitecolor,
                                                   loading: false,
@@ -450,7 +459,7 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                                         ],
                                       ),
                                       Text(
-                                        "2:30pm",
+                                        "${index==0?"2:30pm":index==1?"4:00pm":"10:13am"} ",
                                         style: manoropeFontFamily(
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w500,

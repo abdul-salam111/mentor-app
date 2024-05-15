@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
@@ -35,11 +36,11 @@ class ProfileView extends GetView<ProfileController> {
         appBar: AppBar(
           backgroundColor: whitecolor,
           surfaceTintColor: whitecolor,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back)),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Get.back();
+          //     },
+          //     icon: const Icon(Icons.arrow_back)),
           title: Text(
             'Edit Profile',
             style: GoogleFonts.manrope(
@@ -71,6 +72,7 @@ class ProfileView extends GetView<ProfileController> {
                   controller.pickImage();
                 }),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
@@ -448,7 +450,12 @@ class ProfileView extends GetView<ProfileController> {
                 child: CustomButton(
                     buttonName: "Save Profile",
                     onPressed: () {
-                      controller.updateMentee();
+                     if(controller.imageFile.value!=null){
+                       controller.updateMentee();
+                     }
+                     else{
+                      Utils.snakbar(title: "", body: "Please select image");
+                     }
                     },
                     textcolor: whitecolor,
                     loading: false,

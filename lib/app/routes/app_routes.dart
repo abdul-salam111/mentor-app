@@ -48,6 +48,7 @@ abstract class Routes {
   static const MENTOR_PROFILE_INFORMATION = _Paths.MENTOR_PROFILE_INFORMATION;
   static const MENTEE_CONNECTIONS = _Paths.MENTEE_CONNECTIONS;
   static const MEETING_DETAILS = _Paths.MEETING_DETAILS;
+  static const PAYMENT = _Paths.PAYMENT;
 }
 
 abstract class _Paths {
@@ -95,4 +96,5 @@ abstract class _Paths {
   static const MENTOR_PROFILE_INFORMATION = '/mentor-profile-information';
   static const MENTEE_CONNECTIONS = '/mentee-connections';
   static const MEETING_DETAILS = '/meeting-details';
+  static const PAYMENT = '/payment';
 }

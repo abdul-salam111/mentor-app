@@ -8,6 +8,7 @@ import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../commonWidgets/commonTextfield.dart';
@@ -19,6 +20,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: pad20,
@@ -35,10 +37,11 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
               40.heightBox,
               Center(
                 child: Text(
-                  "Forget Password",
+                  "Enter the email associated with the account.",
+                  textAlign: TextAlign.center,
                   style: poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
                       color: blackcolor),
                 ),
               ),
@@ -48,26 +51,26 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                   hinttext: "Email",
                   textEditingController: controller.emailcontroller.value),
               20.heightBox,
-              Align(
-                alignment: Alignment.centerRight,
-                child: CustomButton(
-                  buttonName: "Send OTP",
-                  onPressed: () {
-                    if (controller.emailcontroller.value.text.isNotEmpty) {
-                      controller.sendOtp();
-                    } else {
-                      Utils.snakbar(
-                          title: "Email", body: "Enter email please.");
-                    }
-                  },
-                  backgroundColor: darkBrownColor,
-                  textSize: 15.sp,
-                  textcolor: whitecolor,
-                  width: 130.w,
-                  height: 35.h,
-                  loading: false,
-                  rounded: false,
-                ),
+              CustomButton(
+                buttonName: "  Request One Time Password  ",
+                onPressed: () {
+                  if (controller.emailcontroller.value.text.isNotEmpty) {
+                    controller.sendOtp();
+                    StorageServices.to.setString(
+                        key: 'forgetEmail',
+                        value: controller.emailcontroller.value.text);
+                  } else {
+                    Utils.snakbar(
+                        title: "Enter Email", body: "Enter email please.");
+                  }
+                },
+                backgroundColor: darkBrownColor,
+                textSize: 15.sp,
+                textcolor: whitecolor,
+                width: double.infinity,
+                height: 40.h,
+                loading: false,
+                rounded: false,
               )
             ],
           ),

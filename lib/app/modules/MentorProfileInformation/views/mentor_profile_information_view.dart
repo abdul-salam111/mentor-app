@@ -27,11 +27,7 @@ class MentorProfileInformationView
   Get.put(MentorProfileInformationController());
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back)),
+         
           title: Text(
             'Mentor Profile',
             style: GoogleFonts.manrope(

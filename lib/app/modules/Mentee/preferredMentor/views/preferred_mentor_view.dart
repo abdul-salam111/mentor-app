@@ -39,7 +39,8 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               10.heightBox,
               Center(
                 child: Text(
-                  "Preferred mentor characteristics",
+                  "Tell us about your perfect mentor!",
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.manrope(
                       fontSize: 20.sp, fontWeight: FontWeight.w500),
                 ),
@@ -101,7 +102,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                         ],
                       ),
                     ),
-                    30.widthBox,
+                    20.widthBox,
                     Obx(
                       () => Row(
                         children: [
@@ -134,6 +135,39 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                         ],
                       ),
                     ),
+                    20.widthBox,
+                    Obx(
+                      () => Row(
+                        children: [
+                          Checkbox(
+                            side: const BorderSide(color: greyColor),
+                            checkColor: blackcolor,
+                            fillColor: MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.selected)) {
+                                // Set the fill color of the checkbox when it is selected (checked)
+                                return halfwhitecolor; // Change the color to your preferred color
+                              }
+                              // Set the fill color of the checkbox when it is not selected (unchecked)
+                              return Colors
+                                  .transparent; // Change the color to your preferred color
+                            }),
+                            value: controller.selectedGender.value == 'other',
+                            onChanged: (bool? value) {
+                              if (value != null && value) {
+                                controller.setSelectedGender('other');
+                              }
+                            },
+                          ),
+                          Text(
+                            "Other",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -156,91 +190,94 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 ],
               ),
               20.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Obx(
-                          () => Text(
-                            controller.selectedMentorshipstyle.value,
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: blackcolor),
-                          ),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.ismentorshipOpen.value =
-                          !controller.ismentorshipOpen.value;
-                    }),
-                  ),
-                  Obx(
-                    () => controller.ismentorshipOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(() => controller.ismentorshipOpen.value
-                      ? GetBuilder<PreferredMentorController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount: controller.mentorshipstyles.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill =
-                                    controller.mentorshipstyles[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                ).onTap(() {
-                                  controller.selectedMentorshipstyle.value =
-                                      controller.mentorshipstyles[index];
-                                  controller.ismentorshipOpen.value = false;
-                                });
-                              },
+              Padding(
+                padding: const EdgeInsets.only(left: 4, right: 4),
+                child: Column(
+                  crossAxisAlignment: crosstart,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: mainbetween,
+                        children: [
+                          Obx(
+                            () => Text(
+                              controller.selectedMentorshipstyle.value,
+                              style: manoropeFontFamily(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: blackcolor),
                             ),
-                          );
-                        })
-                      : const SizedBox.shrink())
-                ],
-              )
-                  .box
-                  .white
-                  .padding(defaultpad)
-                  .width(double.infinity)
-                  .outerShadow
-                  .roundedSM
-                  .make(),
+                          ),
+                          const Icon(Icons.expand_more),
+                        ],
+                      ).box.make().onTap(() {
+                        controller.ismentorshipOpen.value =
+                            !controller.ismentorshipOpen.value;
+                      }),
+                    ),
+                    Obx(
+                      () => controller.ismentorshipOpen.value
+                          ? Column(
+                              children: [
+                                10.heightBox,
+                                Container(
+                                  color: greyColor,
+                                  height: 1,
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                    Obx(() => controller.ismentorshipOpen.value
+                        ? GetBuilder<PreferredMentorController>(
+                            builder: (contextsss) {
+                            return SizedBox(
+                              height: 200.h,
+                              child: ListView.builder(
+                                itemCount: controller.mentorshipstyles.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final skill =
+                                      controller.mentorshipstyles[index];
+                                  // final isSelected =
+                                  //     controller.selectedSkills.contains(skill);
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          skill,
+                                          style: manoropeFontFamily(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: blackcolor),
+                                        ),
+                                      ),
+                                      Container(
+                                        color: greyColor,
+                                        height: 1,
+                                      ),
+                                    ],
+                                  ).onTap(() {
+                                    controller.selectedMentorshipstyle.value =
+                                        controller.mentorshipstyles[index];
+                                    controller.ismentorshipOpen.value = false;
+                                  });
+                                },
+                              ),
+                            );
+                          })
+                        : const SizedBox.shrink())
+                  ],
+                )
+                    .box
+                    .white
+                    .padding(defaultpad)
+                    .width(double.infinity)
+                    .outerShadow
+                    .roundedSM
+                    .make(),
+              ),
               30.heightBox,
               Row(
                 children: [
@@ -260,90 +297,93 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 ],
               ),
               20.heightBox,
-              Column(
-                crossAxisAlignment: crosstart,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        Obx(
-                          () => Text(
-                            controller.selectedIndustries.value,
-                            style: manoropeFontFamily(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: blackcolor),
-                          ),
-                        ),
-                        const Icon(Icons.expand_more),
-                      ],
-                    ).box.make().onTap(() {
-                      controller.isIndusryOpen.value =
-                          !controller.isIndusryOpen.value;
-                    }),
-                  ),
-                  Obx(
-                    () => controller.isIndusryOpen.value
-                        ? Column(
-                            children: [
-                              10.heightBox,
-                              Container(
-                                color: greyColor,
-                                height: 1,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(() => controller.isIndusryOpen.value
-                      ? GetBuilder<PreferredMentorController>(
-                          builder: (contextsss) {
-                          return SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                              itemCount: controller.industries.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final skill = controller.industries[index];
-                                // final isSelected =
-                                //     controller.selectedSkills.contains(skill);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        skill,
-                                        style: manoropeFontFamily(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: blackcolor),
-                                      ),
-                                    ),
-                                    Container(
-                                      color: greyColor,
-                                      height: 1,
-                                    ),
-                                  ],
-                                ).onTap(() {
-                                  controller.isIndusryOpen.value = false;
-                                  controller.selectedIndustries.value =
-                                      controller.industries[index];
-                                });
-                              },
+              Padding(
+                padding: const EdgeInsets.only(left: 4, right: 4),
+                child: Column(
+                  crossAxisAlignment: crosstart,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: mainbetween,
+                        children: [
+                          Obx(
+                            () => Text(
+                              controller.selectedIndustries.value,
+                              style: manoropeFontFamily(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: blackcolor),
                             ),
-                          );
-                        })
-                      : const SizedBox.shrink())
-                ],
-              )
-                  .box
-                  .white
-                  .padding(defaultpad)
-                  .width(double.infinity)
-                  .outerShadow
-                  .roundedSM
-                  .make(),
+                          ),
+                          const Icon(Icons.expand_more),
+                        ],
+                      ).box.make().onTap(() {
+                        controller.isIndusryOpen.value =
+                            !controller.isIndusryOpen.value;
+                      }),
+                    ),
+                    Obx(
+                      () => controller.isIndusryOpen.value
+                          ? Column(
+                              children: [
+                                10.heightBox,
+                                Container(
+                                  color: greyColor,
+                                  height: 1,
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                    Obx(() => controller.isIndusryOpen.value
+                        ? GetBuilder<PreferredMentorController>(
+                            builder: (contextsss) {
+                            return SizedBox(
+                              height: 200.h,
+                              child: ListView.builder(
+                                itemCount: controller.industries.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final skill = controller.industries[index];
+                                  // final isSelected =
+                                  //     controller.selectedSkills.contains(skill);
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          skill,
+                                          style: manoropeFontFamily(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: blackcolor),
+                                        ),
+                                      ),
+                                      Container(
+                                        color: greyColor,
+                                        height: 1,
+                                      ),
+                                    ],
+                                  ).onTap(() {
+                                    controller.isIndusryOpen.value = false;
+                                    controller.selectedIndustries.value =
+                                        controller.industries[index];
+                                  });
+                                },
+                              ),
+                            );
+                          })
+                        : const SizedBox.shrink())
+                  ],
+                )
+                    .box
+                    .white
+                    .padding(defaultpad)
+                    .width(double.infinity)
+                    .outerShadow
+                    .roundedSM
+                    .make(),
+              ),
               20.heightBox,
               Text(
                 "Add general about me section",
@@ -353,21 +393,25 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                     color: blackcolor),
               ),
               10.heightBox,
-              TextField(
-                maxLines: null, // Allow multiple lines of text
-                minLines: 5,
-                controller: controller.aboutMe.value,
-                maxLength: 200,
-                decoration: InputDecoration(
-                    hintText: 'Write...', // Your hint text
-                    hintStyle: manoropeFontFamily(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: blackcolor),
-                    contentPadding: const EdgeInsets.only(
-                        top: 12.0, left: 12.0), // Padding from top and left
-                    border: InputBorder.none),
-              ).box.white.roundedSM.outerShadow.make(),
+              Padding(
+                padding: const EdgeInsets.only(left: 4, right: 4),
+                child: TextField(
+                  maxLines: null, // Allow multiple lines of text
+                  minLines: 5,
+
+                  controller: controller.aboutMe.value,
+                  maxLength: 200,
+                  decoration: InputDecoration(
+                      hintText: 'Write...', // Your hint text
+                      hintStyle: manoropeFontFamily(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: blackcolor),
+                      contentPadding: const EdgeInsets.only(
+                          top: 12.0, left: 12.0), // Padding from top and left
+                      border: InputBorder.none),
+                ).box.white.roundedSM.outerShadow.make(),
+              ),
               100.heightBox,
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
@@ -386,21 +430,17 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                         Utils.snakbar(
                             title: "Select Gender",
                             body: "Please select any gendre.");
-                      }
-                      else if (controller.selectedMentorshipstyle.value ==
-                              "Select") {
+                      } else if (controller.selectedMentorshipstyle.value ==
+                          "Select") {
                         Utils.snakbar(
                             title: "Select Mentorship Style",
                             body: "Please select any mentorship style.");
-                      }
-                       else if (controller.selectedIndustries.value ==
-                              "Select") {
+                      } else if (controller.selectedIndustries.value ==
+                          "Select") {
                         Utils.snakbar(
                             title: "Select Industry",
                             body: "Please select any Industry.");
-                      }
-                       else if (controller.aboutMe.value.text.isEmpty 
-                              ) {
+                      } else if (controller.aboutMe.value.text.isEmpty) {
                         Utils.snakbar(
                             title: "About me",
                             body: "Please write something about yourself.");

@@ -170,8 +170,10 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                         );
                       } else if (snapshot.data['meetingResponseList'].isEmpty) {
                         // If meetingResponseList is empty
-                        return Center(
-                            child: Image.asset("assets/images/not found.jpg"));
+                        return Expanded(
+                          child: Center(
+                              child: Image.asset("assets/images/not found.jpg",height: 100,width: 100,)),
+                        );
                       }
                       return Expanded(
                         child: ListView.builder(

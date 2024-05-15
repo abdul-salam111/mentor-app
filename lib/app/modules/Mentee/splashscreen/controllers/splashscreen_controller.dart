@@ -15,9 +15,9 @@ class SplashscreenController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () async {
       if (StorageServices.to.getString(usertoken).isNotEmpty) {
         ZegoUIKitPrebuiltCallInvitationService().init(
-          appID: 501015063 /*input your AppID*/,
+          appID: 555496812 /*input your AppID*/,
           appSign:
-              "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
+              "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
           userID: StorageServices.to.getString(selectedUserType) == "Mentee"
               ? getMenteeInfoFromJson(
                       StorageServices.to.getString(getmenteeinfo))
@@ -31,11 +31,16 @@ class SplashscreenController extends GetxController {
           plugins: [ZegoUIKitSignalingPlugin()],
         );
         Get.offAllNamed(Routes.NAVIGATION_BAR);
-      } else if (StorageServices.to.getbool('getStartedSeen') == true) {
-        Get.offAllNamed(Routes.SIGNIN);
-      } else {
-        Get.offAllNamed(Routes.GET_STARTED);
+      } 
+      else{
+         Get.offAllNamed(Routes.SIGNIN);
       }
+      // else if (StorageServices.to.getbool('getStartedSeen') == true) {
+      //   Get.offAllNamed(Routes.SIGNIN);
+      // }
+      //  else {
+      //   Get.offAllNamed(Routes.GET_STARTED);
+      // }
     });
   }
 }

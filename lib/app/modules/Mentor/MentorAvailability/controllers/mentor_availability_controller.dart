@@ -57,30 +57,15 @@ class MentorAvailabilityController extends GetxController {
   ];
   RxList<String> availabilityList = <String>[].obs;
   final List<String> timezones = [
-    'UTC',
-    'America/New_York',
-    'America/Los_Angeles',
-    'Europe/London',
-    'Europe/Paris',
-    'Asia/Tokyo',
-    'Australia/Sydney',
-    'Pacific/Honolulu',
-    'America/Chicago',
-    'America/Denver',
-    'America/Phoenix',
-    'America/Anchorage',
-    'Europe/Berlin',
-    'Asia/Shanghai',
-    'Asia/Dubai',
-    'Australia/Melbourne',
-    'Africa/Johannesburg',
-    'Pacific/Auckland',
-    'Asia/Kolkata',
-    'Europe/Moscow',
+    " Eastern Time Zone (ET)",
+    "Central Time Zone (CT)"
+        "Mountain Time Zone (MT)",
+    "Pacific Time Zone (PT)"
   ];
   var selectedTimeZone = "Select".obs;
   var isOpen = false.obs;
   List<String> durations = [
+    '30 minutes',
     '1 hour',
     '1 hour 30 minutes',
     '2 hours',
@@ -163,7 +148,6 @@ class MentorAvailabilityController extends GetxController {
             int.parse(eductioncontroller.yearsOfExperience.value.text),
         timeZone: selectedTimeZone.value,
       );
-      print(creatementorModel.toJson());
 
       var request = http.MultipartRequest(
           'POST',
@@ -203,12 +187,6 @@ class MentorAvailabilityController extends GetxController {
         StorageServices.to
             .setString(key: userId, value: responseData['id'].toString());
         EasyLoading.dismiss();
-        print(responseData);
-        Get.offAllNamed(Routes.CONGRATULATIONS);
-        Utils.snakbar(
-          title: "Account Created!",
-          body: "Your account is created successfully!",
-        );
       } else {
         print(response.statusCode);
 
@@ -231,11 +209,18 @@ class MentorAvailabilityController extends GetxController {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((user) {
-        FirebaseFirestore.instance
+          .then((user)async {
+        await FirebaseFirestore.instance
             .collection('mentors')
             .doc(userId)
-            .set(mentor);
+            .set(mentor)
+            .then((value) {
+          Get.offAllNamed(Routes.CONGRATULATIONS);
+          Utils.snakbar(
+            title: "Account Created!",
+            body: "Your account is created successfully!",
+          );
+        });
       });
     } catch (e) {
       print(e);
@@ -304,7 +289,7 @@ class MentorAvailabilityController extends GetxController {
                     StorageServices.to.getString(getMentorInformationsss))
                 .email);
 
-      await  StorageServices.to.setString(
+        await StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));
         EasyLoading.dismiss();
