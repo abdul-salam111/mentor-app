@@ -245,6 +245,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                   return Column(
                                     children: [
                                       ListTile(
+                                        leading: Image.asset(controller.mentorshipImages[index]),
                                         title: Text(
                                           skill,
                                           style: manoropeFontFamily(

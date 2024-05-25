@@ -43,11 +43,20 @@ class PreferredMentorController extends GetxController {
     "Entrepreneurial Mentorship",
     "Life-Stage Mentorship"
   ];
+  List<String> mentorshipImages = [
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Life-Stage Mentorship.png"
+
+  ];
 
   RxString selectedGoal = 'Select Education'.obs;
 
   void setSelectedGoal(String goal) {
     selectedGoal.value = goal;
   }
-final aboutMe=TextEditingController().obs;
+
+  final aboutMe = TextEditingController().obs;
 }
