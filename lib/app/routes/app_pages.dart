@@ -102,7 +102,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ON_BOARDING,
-      page: () => OnBoardingView(),
+      page: () =>  OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     GetPage(
@@ -157,7 +157,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => ProfileView(),
+      page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -272,7 +272,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SCHEDULE_MEETINGS,
-      page: () => ScheduleMeetingsView(),
+      page: () => const ScheduleMeetingsView(),
       binding: ScheduleMeetingsBinding(),
     ),
     GetPage(

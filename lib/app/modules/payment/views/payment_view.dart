@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/modules/Mentee/PostQuestions/views/post_questions_view.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -89,7 +88,7 @@ final controller=Get.put(PaymentController());
                     .box
                     .padding(pad14)
                     .white
-                    .margin(EdgeInsets.only(left: 18, right: 18))
+                    .margin(const EdgeInsets.only(left: 18, right: 18))
                     .roundedSM
                     .outerShadow
                     .make()

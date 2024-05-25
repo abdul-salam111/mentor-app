@@ -65,7 +65,7 @@ class PaymentController extends GetxController {
             body: "Payment has been done, successfully!");
         PostQuestionsController().update();
         StorageServices.to.setBool(key: "bought", value: true);
-      await  Get.to(() => PostQuestionsView());
+      await  Get.to(() => const PostQuestionsView());
 
       }).onError((error, stackTrace) {});
     } on Exception catch (e) {
@@ -74,7 +74,7 @@ class PaymentController extends GetxController {
             title: "failed",
             body: 'Error from Stripe: ${e.error.localizedMessage}');
       } else {
-        Utils.snakbar(title: "failed", body: 'Unforeseen error: ${e}');
+        Utils.snakbar(title: "failed", body: 'Unforeseen error: $e');
       }
     }
   }

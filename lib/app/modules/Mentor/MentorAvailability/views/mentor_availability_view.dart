@@ -10,7 +10,6 @@ import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -100,9 +99,9 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         Checkbox(
                           checkColor: blackcolor,
                           side: const BorderSide(color: greyColor),
-                          fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 return halfwhitecolor;
                               }
                               return Colors.transparent;
@@ -166,9 +165,9 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         Checkbox(
                           side: const BorderSide(color: greyColor),
                           checkColor: blackcolor,
-                          fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.selected)) {
                               // Set the fill color of the checkbox when it is selected (checked)
                               return halfwhitecolor; // Change the color to your preferred color
                             }
@@ -199,9 +198,9 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         Checkbox(
                           checkColor: blackcolor,
                           side: const BorderSide(color: greyColor),
-                          fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.selected)) {
                               // Set the fill color of the checkbox when it is selected (checked)
                               return halfwhitecolor; // Change the color to your preferred color
                             }
@@ -232,9 +231,9 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         Checkbox(
                           side: const BorderSide(color: greyColor),
                           checkColor: blackcolor,
-                          fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.selected)) {
                               // Set the fill color of the checkbox when it is selected (checked)
                               return halfwhitecolor; // Change the color to your preferred color
                             }
@@ -263,7 +262,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
             ),
             10.heightBox,
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
                   Row(
@@ -371,7 +370,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
             ),
             20.heightBox,
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
                   Row(
@@ -519,7 +518,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
             ),
             20.heightBox,
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 children: [
                   Image.asset(
@@ -529,7 +528,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Preferred communication channel",
+                    "Put preferred communication channel first",
                     style: manoropeFontFamily(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -551,9 +550,9 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                         Checkbox(
                           checkColor: blackcolor,
                           side: const BorderSide(color: greyColor),
-                          fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 return halfwhitecolor;
                               }
                               return Colors.transparent;
@@ -592,7 +591,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
             ),
             20.heightBox,
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
                   Row(

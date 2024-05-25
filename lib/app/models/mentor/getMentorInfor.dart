@@ -2,7 +2,6 @@
 //
 //     final getMentorInfo = getMentorInfoFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMentorInfo getMentorInfoFromJson(String str) => GetMentorInfo.fromJson(json.decode(str));

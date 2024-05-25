@@ -153,7 +153,7 @@ class MentorRepository {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://guided-by-culture-production.up.railway.app/api/mentors/get-mentors?availability=${availablility}&industry=${industry}&search=${search}&skills=${skills}'),
+            'https://guided-by-culture-production.up.railway.app/api/mentors/get-mentors?availability=$availablility&industry=$industry&search=$search&skills=$skills'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

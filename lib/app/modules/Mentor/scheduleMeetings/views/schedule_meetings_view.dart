@@ -17,12 +17,14 @@ import 'package:velocity_x/velocity_x.dart';
 import '../controllers/schedule_meetings_controller.dart';
 
 class ScheduleMeetingsView extends StatefulWidget {
+  const ScheduleMeetingsView({super.key});
+
   @override
   State<ScheduleMeetingsView> createState() => _ScheduleMeetingsViewState();
 }
 
 class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
-  final GlobalKey _pageViewKey = GlobalKey();
+
   final controller=  Get.put(ScheduleMeetingsController());
   @override
   Widget build(BuildContext context) {

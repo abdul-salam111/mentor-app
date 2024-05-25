@@ -2,7 +2,6 @@
 //
 //     final getMenteeConnections = getMenteeConnectionsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteeConnections getMenteeConnectionsFromJson(String str) => GetMenteeConnections.fromJson(json.decode(str));

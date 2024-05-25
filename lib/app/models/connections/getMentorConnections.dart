@@ -2,7 +2,6 @@
 //
 //     final getMentorConnections = getMentorConnectionsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMentorConnections getMentorConnectionsFromJson(String str) => GetMentorConnections.fromJson(json.decode(str));

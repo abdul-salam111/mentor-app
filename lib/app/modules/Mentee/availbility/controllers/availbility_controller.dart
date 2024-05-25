@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mentor_app/app/models/authModels/createMenteeModel.dart';
-import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/careerGoals/controllers/career_goals_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/education/controllers/education_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/preferredMentor/controllers/preferred_mentor_controller.dart';

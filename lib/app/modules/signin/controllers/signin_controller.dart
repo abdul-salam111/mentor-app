@@ -13,13 +13,11 @@ import 'package:mentor_app/app/modules/signup/controllers/signup_controller.dart
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
 import 'package:mentor_app/app/repositories/questionsRepo.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
-import 'package:zego_zimkit/zego_zimkit.dart';
 
 import '../../../Utils/Utils.dart';
 

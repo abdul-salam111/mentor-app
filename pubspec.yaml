@@ -7,7 +7,7 @@ environment:
 
 dependencies: 
   cupertino_icons: ^1.0.2
-  velocity_x: ^4.1.2
+  velocity_x: ^4.2.0
   http: ^0.13.6
   get: 4.6.6
   flutter: 
@@ -20,7 +20,7 @@ dependencies:
   image_picker: ^1.0.7
   timeago: ^3.6.0
   flutter_easyloading: ^3.0.5
-  intl: ^0.18.1
+  intl: ^0.19.0
   google_fonts: ^4.0.4
   flutter_spinkit: ^5.2.0
   timezone: ^0.9.2
@@ -37,7 +37,6 @@ dependencies:
   firebase_auth: ^4.17.8
   cloud_firestore: ^4.15.8
   firebase_core: ^2.27.0
-  time_picker_spinner_pop_up: ^1.5.0
   otp_timer_button: ^1.1.1
 
 

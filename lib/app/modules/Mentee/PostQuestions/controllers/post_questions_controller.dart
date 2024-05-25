@@ -97,7 +97,7 @@ class PostQuestionsController extends GetxController {
             title: "failed",
             body: 'Error from Stripe: ${e.error.localizedMessage}');
       } else {
-        Utils.snakbar(title: "failed", body: 'Unforeseen error: ${e}');
+        Utils.snakbar(title: "failed", body: 'Unforeseen error: $e');
       }
     }
   }

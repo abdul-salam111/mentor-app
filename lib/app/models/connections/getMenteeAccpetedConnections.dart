@@ -2,7 +2,6 @@
 //
 //     final getMenteeAcceptedConnection = getMenteeAcceptedConnectionFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteeAcceptedConnection getMenteeAcceptedConnectionFromJson(String str) => GetMenteeAcceptedConnection.fromJson(json.decode(str));

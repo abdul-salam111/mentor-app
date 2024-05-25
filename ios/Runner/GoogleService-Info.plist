@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyD59VTGAiGjL5ISqjSAtaAmsl-f_DQYPKw</string>
+	<string>AIzaSyAS6U9l7Ug_225R7Wg55J0STKIQ3Y4UtxE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>488211719513</string>
+	<string>1060144671461</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.mentorApp</string>
+	<string>com.guidedbyculture.app</string>
 	<key>PROJECT_ID</key>
-	<string>guidedbycutlture</string>
+	<string>updatedguidedbyculture</string>
 	<key>STORAGE_BUCKET</key>
-	<string>guidedbycutlture.appspot.com</string>
+	<string>updatedguidedbyculture.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:488211719513:ios:504ddb50cecbc71c82d848</string>
+	<string>1:1060144671461:ios:2c332a382d1d3b256c820c</string>
 </dict>
 </plist>

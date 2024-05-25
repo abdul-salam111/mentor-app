@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/jobs/getJobByIndustry.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -72,7 +71,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                           height: 40.h,
                           textSize: 13.sp,
                           width: 100.w)
-                      : SizedBox.shrink()
+                      : const SizedBox.shrink()
                 ],
               ),
             ),

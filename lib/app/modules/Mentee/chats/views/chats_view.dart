@@ -7,20 +7,16 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/Mentee/messages/views/messages_view.dart';
 import 'package:mentor_app/app/modules/chats/messagesModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:zego_zimkit/zego_zimkit.dart';
 
 import '../controllers/chats_controller.dart';
 

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mentor_app/app/Utils/Utils.dart';
-import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/poppinsFont.dart';
 import 'package:mentor_app/app/modules/signin/controllers/signin_controller.dart';
@@ -19,7 +17,7 @@ class SigninView extends GetView<SigninController> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -46,7 +44,7 @@ class SigninView extends GetView<SigninController> {
             ),
             40.heightBox,
             Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 children: [
                   TextFormField(
@@ -170,9 +168,9 @@ class SigninView extends GetView<SigninController> {
                       Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -203,9 +201,9 @@ class SigninView extends GetView<SigninController> {
                       Checkbox(
                         side: const BorderSide(color: greyColor),
                         checkColor: blackcolor,
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -236,7 +234,7 @@ class SigninView extends GetView<SigninController> {
             CustomButton(
                 buttonName: "Sign in",
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()&&
+                  if (formKey.currentState!.validate()&&
                       controller.selectUserType.value != '') {
                     controller.loginUser();
                   } 

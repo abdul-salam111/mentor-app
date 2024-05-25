@@ -2,7 +2,6 @@
 //
 //     final getMenteesMeetings = getMenteesMeetingsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteesMeetings getMenteesMeetingsFromJson(String str) => GetMenteesMeetings.fromJson(json.decode(str));

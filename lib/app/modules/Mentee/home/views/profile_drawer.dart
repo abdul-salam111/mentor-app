@@ -18,6 +18,8 @@ import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProfileDrawer extends StatelessWidget {
+  const ProfileDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     final homeController = Get.put(HomeController());

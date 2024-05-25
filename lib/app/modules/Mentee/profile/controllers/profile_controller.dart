@@ -8,10 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/authModels/updateMenteeProfile.dart';
-import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
@@ -79,9 +77,13 @@ class ProfileController extends GetxController {
                   .about)
       .obs;
 
+  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    nameController.value.text =
+        getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+            .fullName;
     selectedSkills.value =
         getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
             .skills
@@ -117,6 +119,7 @@ class ProfileController extends GetxController {
     }
   }
 
+  final nameController = TextEditingController().obs;
   MentorRepository mentorRepo = MentorRepository();
   AuthRepository authRepository = AuthRepository();
   Future<void> updateMentee() async {
@@ -125,8 +128,10 @@ class ProfileController extends GetxController {
 
       // Create the model
       UpdateMenteeProfile updatementee = UpdateMenteeProfile(
-        fullName: getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
-                .fullName??"UserName",
+        fullName: nameController.value.text.isNotEmpty
+            ? nameController
+            : getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                .fullName,
         skills: selectedSkills.join(','),
         goals:
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
@@ -146,8 +151,9 @@ class ProfileController extends GetxController {
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .gender,
         sessionDuration: selectedDuration.value,
-        about:
-            getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+        about: aboutMe.value.text.isNotEmpty
+            ? aboutMe.value.text
+            : getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .about,
         timeZone:
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))

@@ -6,15 +6,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
-import 'package:mentor_app/app/storage/keys.dart';
-import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/mentor_profile_controller.dart';
@@ -44,7 +40,7 @@ class MentorProfileView extends GetView<MentorProfileController> {
             future: controller.getOthersMentorsProfile(mentorEmail),
             builder: (context, AsyncSnapshot<GetMentorInfo> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (!snapshot.hasData) {

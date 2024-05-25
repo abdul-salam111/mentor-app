@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
-import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/repositories/meetingsController.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';

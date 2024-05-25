@@ -2,7 +2,6 @@
 //
 //     final createMeetingWithMentee = createMeetingWithMenteeFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CreateMeetingWithMentee createMeetingWithMenteeFromJson(String str) => CreateMeetingWithMentee.fromJson(json.decode(str));

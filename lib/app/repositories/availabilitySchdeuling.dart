@@ -2,7 +2,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/models/mentor/createMentorSchedularList.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'dart:convert';
@@ -31,7 +30,7 @@ class AvailabilityScheduling {
 
   Future<dynamic> fetchMentorAvailbleSchedulesforMentees(mentorId) async {
     final response = await http.get(Uri.parse(
-        "https://guided-by-culture-production.up.railway.app/api/mentor-schedule/${mentorId}/all"));
+        "https://guided-by-culture-production.up.railway.app/api/mentor-schedule/$mentorId/all"));
 
     try {
       if (response.statusCode == 200) {

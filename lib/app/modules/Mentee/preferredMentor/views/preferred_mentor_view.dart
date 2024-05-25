@@ -76,9 +76,9 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           Checkbox(
                             side: const BorderSide(color: greyColor),
                             checkColor: blackcolor,
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 // Set the fill color of the checkbox when it is selected (checked)
                                 return halfwhitecolor; // Change the color to your preferred color
                               }
@@ -109,9 +109,9 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           Checkbox(
                             checkColor: blackcolor,
                             side: const BorderSide(color: greyColor),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 // Set the fill color of the checkbox when it is selected (checked)
                                 return halfwhitecolor; // Change the color to your preferred color
                               }
@@ -142,9 +142,9 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           Checkbox(
                             side: const BorderSide(color: greyColor),
                             checkColor: blackcolor,
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 // Set the fill color of the checkbox when it is selected (checked)
                                 return halfwhitecolor; // Change the color to your preferred color
                               }

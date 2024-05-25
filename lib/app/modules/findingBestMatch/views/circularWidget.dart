@@ -68,7 +68,7 @@ class _LoginAssetsState extends State<LoginAssets>
                   width: 200,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
-                      color: Color(0xffFFE4EC),
+                      color: const Color(0xffFFE4EC),
                       shape: BoxShape.circle),
                   child: Padding(
                     padding: const EdgeInsets.all(30),

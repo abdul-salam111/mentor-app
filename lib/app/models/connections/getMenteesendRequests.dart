@@ -2,7 +2,6 @@
 //
 //     final getMenteeSendRequests = getMenteeSendRequestsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteeSendRequests getMenteeSendRequestsFromJson(String str) => GetMenteeSendRequests.fromJson(json.decode(str));

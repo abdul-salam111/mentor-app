@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
 
-import '../../../../models/mentor/getSearchedMentorsModel.dart';
 
 class FindMentorsController extends GetxController {
     MentorRepository mentorRepository = MentorRepository();

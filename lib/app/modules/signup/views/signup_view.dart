@@ -20,7 +20,7 @@ class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -48,7 +48,7 @@ class SignupView extends GetView<SignupController> {
             ),
             20.heightBox,
             Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 children: [
                   commonTextField(
@@ -116,9 +116,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -149,9 +149,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         side: const BorderSide(color: greyColor),
                         checkColor: blackcolor,
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -186,9 +186,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -228,7 +228,7 @@ class SignupView extends GetView<SignupController> {
             CustomButton(
                 buttonName: "Sign up",
                 onPressed: () {
-                  if (_formKey.currentState!.validate() &&
+                  if (formKey.currentState!.validate() &&
                       controller.selectUserType.value != '' &&
                       controller.accepttermsandConditions.value != false &&
                       controller.selectUserType.value.isNotEmpty) {

@@ -2,7 +2,6 @@
 //
 //     final getMenteeInfo = getMenteeInfoFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteeInfo getMenteeInfoFromJson(String str) => GetMenteeInfo.fromJson(json.decode(str));

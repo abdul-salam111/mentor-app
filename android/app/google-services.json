@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "488211719513",
-    "project_id": "guidedbycutlture",
-    "storage_bucket": "guidedbycutlture.appspot.com"
+    "project_number": "1060144671461",
+    "project_id": "updatedguidedbyculture",
+    "storage_bucket": "updatedguidedbyculture.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:488211719513:android:13dfc35eb5745f4082d848",
+        "mobilesdk_app_id": "1:1060144671461:android:6a8538f4eaf4e7626c820c",
         "android_client_info": {
-          "package_name": "com.example.mentor_app"
+          "package_name": "com.guidedbyculture.app"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDd4m4kPurTSILXE2RKcJbQhQRvs8sTT2M"
+          "current_key": "AIzaSyAlt0ke7Z1mQ6LtyoD8nMvGkznfxPoCWSY"
         }
       ],
       "services": {

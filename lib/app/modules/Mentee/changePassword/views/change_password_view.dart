@@ -69,7 +69,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             controller.oldpasswordObsecure.value
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Color(0xff656466),
+                            color: const Color(0xff656466),
                           )),
                       hintText: "***********",
                       contentPadding: const EdgeInsets.only(left: 20, top: 12),
@@ -112,7 +112,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             controller.newpasswordObsecure.value
                               ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Color(0xff656466),
+                            color: const Color(0xff656466),
                           )),
                       hintText: "***********",
                       contentPadding: const EdgeInsets.only(left: 20, top: 12),
@@ -155,7 +155,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             controller.confirmpasswordObsecure.value
                                ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Color(0xff656466),
+                            color: const Color(0xff656466),
                           )),
                       hintText: "***********",
                       contentPadding: const EdgeInsets.only(left: 20, top: 12),

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,10 +6,8 @@ import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
-import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -35,12 +32,12 @@ class _HomeViewState extends State<HomeView> {
   final controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
       backgroundColor: whitecolor,
-      key: _scaffoldKey,
-      endDrawer: ProfileDrawer(),
+      key: scaffoldKey,
+      endDrawer: const ProfileDrawer(),
       body: SafeArea(
         child: ListView(
           children: [
@@ -79,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _scaffoldKey.currentState?.openEndDrawer();
+                      scaffoldKey.currentState?.openEndDrawer();
                     },
                     child: CachedNetworkImage(
                       imageUrl: StorageServices.to

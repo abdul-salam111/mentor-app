@@ -10,8 +10,11 @@ import 'package:mentor_app/app/resources/images.dart';
 import '../controllers/on_boarding_controller.dart';
 
 class OnBoardingView extends GetView<OnboardingController> {
+  @override
   final OnboardingController controller = Get.put(OnboardingController());
   final signupcontroller = Get.put(SignupController());
+
+   OnBoardingView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +23,7 @@ class OnBoardingView extends GetView<OnboardingController> {
         controller: controller.pageController,
         onPageChanged: controller.onPageChanged,
         children: [
-          OnboardingPage(
+          const OnboardingPage(
               'The Mission',
               "Our mission is simple: We are empowering individuals from underrepresented communities by facilitating connections between industry professionals (mentors) and aspiring individuals (mentees), to foster mentorship, guidance, and career opportunities",
               introimage1,

@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -19,14 +18,11 @@ class OnboardingPage extends StatelessWidget {
   final String? pageno;
   final int heightpageno;
 
-  OnboardingPage(
-      this.title, this.description, this.image, this.buttonName, this.pageno,this.heightpageno);
+  const OnboardingPage(
+      this.title, this.description, this.image, this.buttonName, this.pageno,this.heightpageno, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-    final height = MediaQuery.of(context).size.height;
-
     return GestureDetector(
       onTap: () {
         OnboardingController controller = Get.find();

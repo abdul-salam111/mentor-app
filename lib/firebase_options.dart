@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDd4m4kPurTSILXE2RKcJbQhQRvs8sTT2M',
-    appId: '1:488211719513:android:13dfc35eb5745f4082d848',
-    messagingSenderId: '488211719513',
-    projectId: 'guidedbycutlture',
-    storageBucket: 'guidedbycutlture.appspot.com',
+    apiKey: 'AIzaSyAlt0ke7Z1mQ6LtyoD8nMvGkznfxPoCWSY',
+    appId: '1:1060144671461:android:6a8538f4eaf4e7626c820c',
+    messagingSenderId: '1060144671461',
+    projectId: 'updatedguidedbyculture',
+    storageBucket: 'updatedguidedbyculture.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD59VTGAiGjL5ISqjSAtaAmsl-f_DQYPKw',
-    appId: '1:488211719513:ios:504ddb50cecbc71c82d848',
-    messagingSenderId: '488211719513',
-    projectId: 'guidedbycutlture',
-    storageBucket: 'guidedbycutlture.appspot.com',
-    iosBundleId: 'com.example.mentorApp',
+    apiKey: 'AIzaSyAS6U9l7Ug_225R7Wg55J0STKIQ3Y4UtxE',
+    appId: '1:1060144671461:ios:2c332a382d1d3b256c820c',
+    messagingSenderId: '1060144671461',
+    projectId: 'updatedguidedbyculture',
+    storageBucket: 'updatedguidedbyculture.appspot.com',
+    iosBundleId: 'com.guidedbyculture.app',
   );
 }

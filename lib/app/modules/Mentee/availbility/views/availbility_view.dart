@@ -109,9 +109,9 @@ class AvailbilityView extends GetView<AvailbilityController> {
                           Checkbox(
                             checkColor: blackcolor,
                             side: const BorderSide(color: greyColor),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.selected)) {
                                   return halfwhitecolor;
                                 }
                                 return Colors.transparent;
@@ -428,9 +428,9 @@ class AvailbilityView extends GetView<AvailbilityController> {
                           Checkbox(
                             checkColor: blackcolor,
                             side: const BorderSide(color: greyColor),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.selected)) {
                                   return halfwhitecolor;
                                 }
                                 return Colors.transparent;

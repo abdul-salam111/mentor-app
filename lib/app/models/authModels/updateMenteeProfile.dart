@@ -2,7 +2,6 @@
 //
 //     final updateMenteeProfile = updateMenteeProfileFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 UpdateMenteeProfile updateMenteeProfileFromJson(String str) => UpdateMenteeProfile.fromJson(json.decode(str));

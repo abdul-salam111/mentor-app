@@ -2,7 +2,6 @@
 //
 //     final createMentorSchedularModel = createMentorSchedularModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CreateMentorSchedularModel createMentorSchedularModelFromJson(String str) =>

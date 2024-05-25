@@ -1,10 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mentor_app/app/models/connections/getMentorAcceptedConnections.dart';
-import 'package:mentor_app/app/models/connections/getMentorConnections.dart';
-import 'package:mentor_app/app/models/connections/getMentorrecievedConnections.dart';
 import 'package:mentor_app/app/repositories/connectionsRepo.dart';
-import 'package:mentor_app/app/storage/keys.dart';
-import 'package:mentor_app/app/storage/storage.dart';
 
 class ConnectionsController extends GetxController {
   ConnectionsRepository connectionsRepository = ConnectionsRepository();

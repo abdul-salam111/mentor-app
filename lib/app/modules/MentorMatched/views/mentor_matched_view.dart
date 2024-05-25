@@ -7,11 +7,9 @@ import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:zego_zimkit/zego_zimkit.dart';
 import '../../../storage/keys.dart';
 import '../controllers/mentor_matched_controller.dart';
 
@@ -33,7 +31,7 @@ class MentorMatchedView extends GetView<MentorMatchedController> {
               top: MediaQuery.sizeOf(context).height / 5,
               left: 100.w,
               child: Text(
-                "You have a new Match!",
+                "You have a new match!",
                 style: manoropeFontFamily(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,

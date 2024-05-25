@@ -2,7 +2,6 @@
 //
 //     final getMentorAcceptedConnection = getMentorAcceptedConnectionFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMentorAcceptedConnection getMentorAcceptedConnectionFromJson(String str) => GetMentorAcceptedConnection.fromJson(json.decode(str));

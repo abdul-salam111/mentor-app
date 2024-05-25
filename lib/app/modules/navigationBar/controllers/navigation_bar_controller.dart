@@ -1,11 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mentor_app/app/modules/Mentee/availbility/views/availbility_view.dart';
 import 'package:mentor_app/app/modules/Mentee/chats/views/chats_view.dart';
 import 'package:mentor_app/app/modules/Mentee/home/views/home_view.dart';
-import 'package:mentor_app/app/modules/Mentee/meetings/views/meetings_view.dart';
-import 'package:mentor_app/app/modules/Mentee/scheduleSession/views/schedule_session_view.dart';
-import 'package:mentor_app/app/modules/Mentor/mentorProfile/views/mentor_profile_view.dart';
 import 'package:mentor_app/app/modules/Mentor/scheduleMeetings/views/schedule_meetings_view.dart';
 import 'package:mentor_app/app/modules/MentorProfileInformation/views/mentor_profile_information_view.dart';
 import 'package:mentor_app/app/modules/notifications/views/notifications_view.dart';
@@ -19,7 +15,7 @@ class NavigationBarController extends GetxController {
     // StorageServices.to.getString(selectedUserType) == "Mentee"
     //     ? const ScheduleSessionView()
     //     :  
-        ScheduleMeetingsView(),
+        const ScheduleMeetingsView(),
     const ChatsView(),
     const NotificationsView(),
     StorageServices.to.getString(selectedUserType) == "Mentee"

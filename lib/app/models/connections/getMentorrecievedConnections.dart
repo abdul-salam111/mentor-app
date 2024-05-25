@@ -2,7 +2,6 @@
 //
 //     final getMentorRecievedConnectionsRequestModel = getMentorRecievedConnectionsRequestModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMentorRecievedConnectionsRequestModel getMentorRecievedConnectionsRequestModelFromJson(String str) => GetMentorRecievedConnectionsRequestModel.fromJson(json.decode(str));

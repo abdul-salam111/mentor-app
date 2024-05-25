@@ -250,7 +250,7 @@ class _PostQuestionsViewState extends State<PostQuestionsView> {
                           CustomButton(
                               buttonName: "Purchase An Additional Question",
                               onPressed: () async {
-                              Get.to(()=>PaymentView())!.then((value){
+                              Get.to(()=>const PaymentView())!.then((value){
                                 setState(() {
                                   
                                 });
@@ -269,7 +269,7 @@ class _PostQuestionsViewState extends State<PostQuestionsView> {
                         .box
                         .padding(pad14)
                         .white
-                        .margin(EdgeInsets.only(left: 18, right: 18))
+                        .margin(const EdgeInsets.only(left: 18, right: 18))
                         .roundedSM
                         .outerShadow
                         .make()

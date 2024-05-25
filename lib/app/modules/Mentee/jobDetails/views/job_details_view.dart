@@ -7,8 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/jobs/getJobById.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';

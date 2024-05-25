@@ -5,8 +5,9 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class ShimmerList extends StatelessWidget {
- ShimmerList(this.count);
+ ShimmerList(this.count, {super.key});
  int? count=10;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ShimmerList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: count,
         itemBuilder: (context, index) {
-          return ShimmerListItem();
+          return const ShimmerListItem();
         },
       ),
     );
@@ -23,6 +24,8 @@ class ShimmerList extends StatelessWidget {
 }
 
 class ShimmerListItem extends StatelessWidget {
+  const ShimmerListItem({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -51,8 +54,9 @@ class ShimmerListItem extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AnotherShimmerList extends StatelessWidget {
-   AnotherShimmerList(this.count);
+   AnotherShimmerList(this.count, {super.key});
  int? count=10;
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ class AnotherShimmerList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: count,
       itemBuilder: (context, index) {
-        return ShimmerListItem();
+        return const ShimmerListItem();
       },
     );
   }

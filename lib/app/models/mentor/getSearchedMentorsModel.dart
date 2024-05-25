@@ -2,7 +2,6 @@
 //
 //     final getSearchedMentors = getSearchedMentorsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<GetSearchedMentors> getSearchedMentorsFromJson(String str) => List<GetSearchedMentors>.from(json.decode(str).map((x) => GetSearchedMentors.fromJson(x)));
