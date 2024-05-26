@@ -45,6 +45,14 @@ final nameController=TextEditingController().obs;
     "Entrepreneurial Mentorship",
     "Life-Stage Mentorship"
   ];
+  List<String> mentorshipImages = [
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Life-Stage Mentorship.png"
+
+  ];
 
    RxList<String> availabilityList = <String>[].obs;
    final aboutMe=TextEditingController().obs;

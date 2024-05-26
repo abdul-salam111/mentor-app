@@ -337,6 +337,7 @@ class MentorEducationBackgroundView
                             return Column(
                               children: [
                                 ListTile(
+                                  leading: Image.asset(controller.mentorshipImages[index],height: 30,width: 30,),
                                   title: Text(
                                     skill,
                                     style: manoropeFontFamily(
