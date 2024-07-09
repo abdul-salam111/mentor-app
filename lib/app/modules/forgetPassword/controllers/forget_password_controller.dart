@@ -8,5 +8,6 @@ class ForgetPasswordController extends GetxController {
   Future sendOtp() async {
     await authRepository.forgetPassword(
         email: emailcontroller.value.text.toString());
+        
   }
 }

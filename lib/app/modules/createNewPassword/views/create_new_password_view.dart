@@ -76,7 +76,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                             controller.passwordObsecure.value
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Color(0xff656466),
+                            color: const Color(0xff656466),
                           )),
                       hintText: "***********",
                       contentPadding: const EdgeInsets.only(left: 20, top: 12),
@@ -122,7 +122,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                             controller.confirmObsecure.value
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Color(0xff656466),
+                            color: const Color(0xff656466),
                           )),
                       hintText: "***********",
                       contentPadding: const EdgeInsets.only(left: 20, top: 12),

@@ -1,19 +1,24 @@
 import 'package:get/get.dart';
 
+
 class CareerGoalsController extends GetxController {
   List<String> goalsList = [
-    'Become a software engineer',
-    'Learn web development',
-    'Master data science',
-    'Become proficient in mobile app development',
-    'Get certified in cybersecurity',
-    'Learn machine learning and AI',
-    'Become an expert in cloud computing',
-    'Master database management',
-    'Learn networking fundamentals',
-    'Specialize in operating systems',
-    'Become proficient in game development',
-    'Explore robotics and automation',
+    'Career Advancement',
+    'Skill Development',
+    'Industry Transition',
+    'Entrepreneurship Guidance',
+    'Networking Opportunities',
+    'Leadership Development',
+    'Work-Life Balance',
+    'Personal Branding',
+    'Confidence Building',
+    'Job Search Support',
+    'Workplace Communication',
+    'Diversity and Inclusion Awareness',
+    'Financial Planning and Management',
+    'Professional Certification Guidance',
+    'Workforce Adaptability Skills',
   ];
   RxList<String> selectedGoalsList = <String>[].obs;
+ 
 }

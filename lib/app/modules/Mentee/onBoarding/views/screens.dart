@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -19,14 +18,11 @@ class OnboardingPage extends StatelessWidget {
   final String? pageno;
   final int heightpageno;
 
-  OnboardingPage(
-      this.title, this.description, this.image, this.buttonName, this.pageno,this.heightpageno);
+  const OnboardingPage(
+      this.title, this.description, this.image, this.buttonName, this.pageno,this.heightpageno, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-    final height = MediaQuery.of(context).size.height;
-
     return GestureDetector(
       onTap: () {
         OnboardingController controller = Get.find();
@@ -106,23 +102,23 @@ class OnboardingPage extends StatelessWidget {
               ],
             ),
           ),
-          height > 772
-              ? Positioned(
-                  top: 0.55.sh,
-                  left: MediaQuery.sizeOf(context).width / 2.35,
-                  child: Image.asset(
-                    introScreenRoundedIcon,
-                    height: 50,
-                    width: 50,
-                  ))
-              : Positioned(
-                  top: 0.43.sh,
-                  left: MediaQuery.sizeOf(context).width / 2.35,
-                  child: Image.asset(
-                    introScreenRoundedIcon,
-                      height: 50,
-                    width: 50,
-                  )),
+          // height > 772
+          //     ? Positioned(
+          //         top: 0.55.sh,
+          //         left: MediaQuery.sizeOf(context).width / 2.35,
+          //         child: Image.asset(
+          //           introScreenRoundedIcon,
+          //           height: 50,
+          //           width: 50,
+          //         ))
+          //     : Positioned(
+          //         top: 0.43.sh,
+          //         left: MediaQuery.sizeOf(context).width / 2.35,
+          //         child: Image.asset(
+          //           introScreenRoundedIcon,
+          //             height: 50,
+          //           width: 50,
+          //         )),
         ],
       ),
     );

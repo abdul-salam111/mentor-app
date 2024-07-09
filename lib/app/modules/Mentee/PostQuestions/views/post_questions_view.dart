@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/modules/payment/views/payment_view.dart';
 
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -13,14 +14,30 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/post_questions_controller.dart';
 
-class PostQuestionsView extends GetView<PostQuestionsController> {
+class PostQuestionsView extends StatefulWidget {
   const PostQuestionsView({Key? key}) : super(key: key);
+
+  @override
+  State<PostQuestionsView> createState() => _PostQuestionsViewState();
+}
+
+class _PostQuestionsViewState extends State<PostQuestionsView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getQuestionNumbers();
+    
+  }
+  final controller = Get.put(PostQuestionsController());
   @override
   Widget build(BuildContext context) {
+    
+    controller.getQuestionNumbers();
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
-        backgroundColor: whitecolor,
+          backgroundColor: whitecolor,
           leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -35,18 +52,15 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
           actions: [
             SizedBox(
               child: Center(
-                child: GetBuilder<PostQuestionsController>(
-
-                  builder: (cont) {
-                    return Text(
-                      (cont.getQuestionNumbers().toString()),
-                      style: manoropeFontFamily(
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.w400,
-                          color: whitecolor),
-                    );
-                  }
-                ),
+                child: GetBuilder<PostQuestionsController>(builder: (cont) {
+                  return Text(
+                    (cont.getQuestionNumbers().toString()),
+                    style: manoropeFontFamily(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w400,
+                        color: whitecolor),
+                  );
+                }),
               ),
             )
                 .box
@@ -182,14 +196,17 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
                 .make(),
             20.heightBox,
             Padding(
-              padding: const EdgeInsets.only(left: 18, right: 18,),
+              padding: const EdgeInsets.only(
+                left: 18,
+                right: 18,
+              ),
               child: Align(
                 alignment: Alignment.topRight,
                 child: CustomButton(
                     buttonName: "Post",
                     onPressed: () {
-                    
                       controller.postQuestions();
+                      setState(() {});
                     },
                     textcolor: controller.getQuestionNumbers() != 0
                         ? whitecolor
@@ -207,45 +224,58 @@ class PostQuestionsView extends GetView<PostQuestionsController> {
             Obx(() => controller.isIndusryOpen.value
                 ? 20.heightBox
                 : (MediaQuery.sizeOf(context).height / 9).heightBox),
-            controller.getQuestionNumbers() == 0
-                ? Column(
-                    children: [
-                      10.heightBox,
-                      Text(
-                        "Lorem ipsum dolor sit amet consectetur. Proin volutpat faucibus malesuada venenatis sollicitudin proin sit dignissim. In tortor et aliquam aliquet morbi urna dui. Placerat ac dictum scelerisque bibendum. Enim id nulla risus quisque.? ",
-                        style: manoropeFontFamily(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff656466)),
-                        textAlign: TextAlign.center,
-                      ),
-                      5.heightBox,
-                      Text(
-                        '\$5',
-                        style: manoropeFontFamily(
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.bold,
-                            color: darkBrownColor),
-                      ),
-                      10.heightBox,
-                      CustomButton(
-                          buttonName: "Purchase An Additional Question",
-                          onPressed: () async {
-                           
-                           await controller.makePayment(amount: '5');
-                           
-                          },
-                          textcolor: blackcolor,
-                          loading: false,
-                          backgroundColor: const Color(0xffCCD7C5),
-                          rounded: false,
-                          height: 45,
-                          textSize: 10.sp,
-                          width: double.infinity),
-                      20.heightBox,
-                    ],
-                  ).box.padding(pad14).white.margin(EdgeInsets.only(left: 18, right: 18)).roundedSM.outerShadow.make()
-                : const SizedBox.shrink(),
+            GetBuilder<PostQuestionsController>(
+              builder: (ctx) {
+                return ctx.getQuestionNumbers() == 0
+                    ? Column(
+                        children: [
+                          10.heightBox,
+                          Text(
+                            "We appreciate your interest in our service. We offer 5 questions for free. After that, there is a \$5 fee to upload additional questions. Thank you for understanding. ",
+                            style: manoropeFontFamily(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xff656466)),
+                            textAlign: TextAlign.center,
+                          ),
+                          5.heightBox,
+                          Text(
+                            '\$5',
+                            style: manoropeFontFamily(
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.bold,
+                                color: darkBrownColor),
+                          ),
+                          10.heightBox,
+                          CustomButton(
+                              buttonName: "Purchase An Additional Question",
+                              onPressed: () async {
+                              Get.to(()=>const PaymentView())!.then((value){
+                                setState(() {
+                                  
+                                });
+                              });
+                              },
+                              textcolor: blackcolor,
+                              loading: false,
+                              backgroundColor: const Color(0xffCCD7C5),
+                              rounded: false,
+                              height: 45,
+                              textSize: 10.sp,
+                              width: double.infinity),
+                          20.heightBox,
+                        ],
+                      )
+                        .box
+                        .padding(pad14)
+                        .white
+                        .margin(const EdgeInsets.only(left: 18, right: 18))
+                        .roundedSM
+                        .outerShadow
+                        .make()
+                    : const SizedBox.shrink();
+              }
+            ),
             10.heightBox,
           ],
         ));

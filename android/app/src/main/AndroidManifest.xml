@@ -18,7 +18,7 @@
     </intent>
 </queries>
     <application
-        android:label="mentor_app"
+        android:label="Guided by Culture"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

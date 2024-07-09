@@ -1,15 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/chats/messagesModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -20,18 +23,24 @@ import '../controllers/messages_controller.dart';
 
 // ignore: must_be_immutable
 class MessagesView extends GetView<MessagesController> {
-  MessagesView({Key? key, this.gofromChat,this.recId,this.recName}) : super(key: key);
+  MessagesView(
+      {Key? key, this.gofromChat, this.recId, this.recName, this.image})
+      : super(key: key);
   bool? gofromChat = false;
-  String?recId;
-  String?recName;
+  String? recId;
+  String? recName;
+  String? image;
+
   @override
   Widget build(BuildContext context) {
     Get.put(MessagesController());
     var data = Get.arguments[0];
     var chatRoomId = Get.arguments[1];
-  
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: whitecolor,
+        surfaceTintColor: whitecolor,
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -39,7 +48,7 @@ class MessagesView extends GetView<MessagesController> {
             icon: const Icon(Icons.arrow_back)),
         title: Row(children: [
           Text(
-            "Welcome",
+            "Chat with",
             style: manoropeFontFamily(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
@@ -47,7 +56,7 @@ class MessagesView extends GetView<MessagesController> {
           ),
           2.widthBox,
           Text(
-           gofromChat==true?recName!: data['fullName'].toString(),
+            gofromChat == true ? recName! : data['fullName'].toString(),
             style: manoropeFontFamily(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
@@ -72,8 +81,9 @@ class MessagesView extends GetView<MessagesController> {
             ),
             invitees: [
               ZegoUIKitUser(
-                id:   gofromChat==true?recId!:data['id'].toString(),
-                name:   gofromChat==true?recName!: data['fullName'].toString(),
+                id: gofromChat == true ? recId! : data['email'],
+                name:
+                    gofromChat == true ? recName! : data['fullName'].toString(),
               ),
             ],
           ),
@@ -93,15 +103,11 @@ class MessagesView extends GetView<MessagesController> {
             ),
             invitees: [
               ZegoUIKitUser(
-                id:   gofromChat==true?recId!:data['id'].toString(),
-                name:   gofromChat==true?recName!: data['fullName'].toString(),
+                id: gofromChat == true ? recId! : data['email'],
+                name:
+                    gofromChat == true ? recName! : data['fullName'].toString(),
               ),
             ],
-          ),
-          Image.asset(
-            verticalmenu,
-            height: 15,
-            width: 20,
           ),
           10.widthBox,
         ],
@@ -117,11 +123,12 @@ class MessagesView extends GetView<MessagesController> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child:  CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 final messages = snapshot.data?.docs;
                 if (messages == null || messages.isEmpty) {
-                  return const Center(child: Text("No messages"));
+                  return const Expanded(
+                      child: Center(child: Text("No messages")));
                 }
                 return Expanded(
                   child: ListView.builder(
@@ -153,20 +160,55 @@ class MessagesView extends GetView<MessagesController> {
                               10.heightBox,
                               Row(
                                 mainAxisAlignment: messageModel.sendbyId ==
-                                        StorageServices.to
-                                            .getString(userId)
-                                            .toString()
+                                        (StorageServices.to.getString(
+                                                    selectedUserType) ==
+                                                "Mentee"
+                                            ? getMenteeInfoFromJson(
+                                                    StorageServices.to
+                                                        .getString(
+                                                            getmenteeinfo))
+                                                .email
+                                            : getMentorInfoFromJson(
+                                                    StorageServices.to.getString(
+                                                        getMentorInformationsss))
+                                                .email)
                                     ? mainend
                                     : mainstart,
                                 children: [
                                   messageModel.sendbyId !=
-                                          StorageServices.to
-                                              .getString(userId)
-                                              .toString()
+                                          (StorageServices.to.getString(
+                                                      selectedUserType) ==
+                                                  "Mentee"
+                                              ? getMenteeInfoFromJson(
+                                                      StorageServices.to
+                                                          .getString(
+                                                              getmenteeinfo))
+                                                  .email
+                                              : getMentorInfoFromJson(
+                                                      StorageServices.to.getString(
+                                                          getMentorInformationsss))
+                                                  .email)
                                       ? CircleAvatar(
                                           radius: 20.r,
-                                          backgroundImage:
-                                              const AssetImage(mentor),
+                                          backgroundImage: CachedNetworkImageProvider(messageModel
+                                                      .sendbyId !=
+                                                  (StorageServices.to.getString(
+                                                              selectedUserType) ==
+                                                          "Mentee"
+                                                      ? getMenteeInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getmenteeinfo))
+                                                          .email
+                                                      : getMentorInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getMentorInformationsss))
+                                                          .email)
+                                              ? messageModel
+                                                  .sendByProfilePicture!
+                                              : messageModel
+                                                  .recievedByProfilePicture!),
                                         )
                                       : const SizedBox.shrink(),
                                   10.widthBox,
@@ -174,24 +216,41 @@ class MessagesView extends GetView<MessagesController> {
                                     padding: pad14,
                                     decoration: BoxDecoration(
                                       color: messageModel.sendbyId ==
-                                              StorageServices.to
-                                                  .getString(userId)
-                                                  .toString()
+                                              (StorageServices.to.getString(
+                                                          selectedUserType) ==
+                                                      "Mentee"
+                                                  ? getMenteeInfoFromJson(
+                                                          StorageServices.to
+                                                              .getString(
+                                                                  getmenteeinfo))
+                                                      .email
+                                                  : getMentorInfoFromJson(
+                                                          StorageServices.to
+                                                              .getString(
+                                                                  getMentorInformationsss))
+                                                      .email)
                                           ? const Color(0xffE1D1FA)
                                           : const Color(0xffA4DCF4),
                                       borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20.r),
                                           topRight: Radius.circular(20.r),
                                           bottomRight: messageModel.sendbyId !=
-                                                  StorageServices.to
-                                                      .getString(userId)
-                                                      .toString()
+                                                  (StorageServices.to.getString(
+                                                              selectedUserType) ==
+                                                          "Mentee"
+                                                      ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                                                          .email
+                                                      : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss))
+                                                          .email)
                                               ? Radius.circular(20.r)
                                               : const Radius.circular(0),
                                           bottomLeft: messageModel.sendbyId ==
-                                                  StorageServices.to
-                                                      .getString(userId)
-                                                      .toString()
+                                                  (StorageServices.to.getString(
+                                                              selectedUserType) ==
+                                                          "Mentee"
+                                                      ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                                                          .email
+                                                      : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).email)
                                               ? Radius.circular(20.r)
                                               : const Radius.circular(0)),
                                     ),
@@ -208,13 +267,39 @@ class MessagesView extends GetView<MessagesController> {
                                   ),
                                   10.widthBox,
                                   messageModel.sendbyId ==
-                                          StorageServices.to
-                                              .getString(userId)
-                                              .toString()
+                                          (StorageServices.to.getString(
+                                                      selectedUserType) ==
+                                                  "Mentee"
+                                              ? getMenteeInfoFromJson(
+                                                      StorageServices.to
+                                                          .getString(
+                                                              getmenteeinfo))
+                                                  .email
+                                              : getMentorInfoFromJson(
+                                                      StorageServices.to.getString(
+                                                          getMentorInformationsss))
+                                                  .email)
                                       ? CircleAvatar(
                                           radius: 20.r,
-                                          backgroundImage:
-                                              const AssetImage(mentor),
+                                          backgroundImage: CachedNetworkImageProvider(messageModel
+                                                      .sendbyId !=
+                                                  (StorageServices.to.getString(
+                                                              selectedUserType) ==
+                                                          "Mentee"
+                                                      ? getMenteeInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getmenteeinfo))
+                                                          .email
+                                                      : getMentorInfoFromJson(
+                                                              StorageServices.to
+                                                                  .getString(
+                                                                      getMentorInformationsss))
+                                                          .email)
+                                              ? messageModel
+                                                  .recievedByProfilePicture!
+                                              : messageModel
+                                                  .sendByProfilePicture!),
                                         )
                                       : const SizedBox.shrink(),
                                 ],
@@ -241,9 +326,42 @@ class MessagesView extends GetView<MessagesController> {
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 30),
             child: Row(
               children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: darkestBrownColor,
-                  child: Image.asset(attactFile),
+                GestureDetector(
+                  onTap: () {
+                 
+                   
+                     showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: darkestRed,
+                            contentPadding: const EdgeInsets.all(10),
+                            content: TextButton(
+                                onPressed: () {
+                                  if(gofromChat==true){
+
+                                  }
+                                  else{
+                                    Get.toNamed(Routes.SCHEDULE_SESSION,arguments: data);
+                                  }
+                                },
+                                child: const Text(
+                                  "Schedule Meeting",
+                                  style: TextStyle(color: whitecolor),
+                                )),
+                          );
+                        });
+                   
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: darkestBrownColor,
+                    child: Image.asset(
+                      attactFile,
+                      color: whitecolor,
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
                 ),
                 10.widthBox,
                 Expanded(
@@ -291,14 +409,23 @@ class MessagesView extends GetView<MessagesController> {
                 10.widthBox,
                 GestureDetector(
                   onTap: () {
-                    if(controller.messageController.value.text.isNotEmpty){
-                      controller.sendMessages(
-                        recievedById:  gofromChat==true?recId!:data['id'].toString(),
-                        recievedByName:  gofromChat==true?recName!: data['fullName'].toString(),
-                        message: controller.messageController.value.text,
-                        chatRoomId: chatRoomId).then((value){
-                          controller.messageController.value.clear();
-                        });
+                    if (controller.messageController.value.text.isNotEmpty) {
+                      controller
+                          .sendMessages(
+                              recImage: gofromChat == true
+                                  ? image!
+                                  : data['profilePicUrl'].toString(),
+                              recievedById: gofromChat == true
+                                  ? recId!
+                                  : data['email'].toString(),
+                              recievedByName: gofromChat == true
+                                  ? recName!
+                                  : data['fullName'].toString(),
+                              message: controller.messageController.value.text,
+                              chatRoomId: chatRoomId)
+                          .then((value) {
+                        controller.messageController.value.clear();
+                      });
                     }
                   },
                   child: CircleAvatar(

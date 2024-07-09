@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,8 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/jobs/getJobById.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -48,10 +47,10 @@ class JobDetailsView extends GetView<JobDetailsController> {
                 future: controller.getJobsDetail(id),
                 builder: (context, AsyncSnapshot<GetJobById> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return const Center();
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Center();
+                    return const Center();
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),
@@ -65,7 +64,7 @@ class JobDetailsView extends GetView<JobDetailsController> {
                         children: [
                           CircleAvatar(
                             radius: 23.r,
-                            backgroundImage: const AssetImage(girl),
+                            backgroundImage: CachedNetworkImageProvider( snapshot.data!.mentor!.profilePicUrl.toString()),
                           ),
                           10.widthBox,
                           Column(

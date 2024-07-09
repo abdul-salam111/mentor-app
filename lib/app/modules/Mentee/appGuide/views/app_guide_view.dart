@@ -105,7 +105,7 @@ class AppGuideView extends GetView<AppGuideController> {
                       .clip(Clip.antiAlias)
                       .rounded
                       .margin(defaultpad)
-                      .color(Color(0xffF5F5F5))
+                      .color(const Color(0xffF5F5F5))
                       .make();
                 },
               ),

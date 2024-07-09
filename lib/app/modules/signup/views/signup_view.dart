@@ -20,6 +20,7 @@ class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -46,22 +47,60 @@ class SignupView extends GetView<SignupController> {
               ),
             ),
             20.heightBox,
-            commonTextField(
-                icon: nameicon,
-                hinttext: "Name",
-                textEditingController: controller.nameController.value),
-            20.heightBox,
-            commonTextField(
-                icon: emailicon,
-                hinttext: "Email",
-                textEditingController: controller.emailController.value),
-            20.heightBox,
-            commonTextField(
-                obscureText: true,
-                icon: passwordicon,
-                hinttext: "Password",
-                textEditingController: controller.passwordController.value),
-            10.heightBox,
+            Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  commonTextField(
+                    icon: nameicon,
+                    hinttext: "Name",
+                    textEditingController: controller.nameController.value,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      // Additional validation logic if needed
+                      return null;
+                    },
+                  ),
+                      20.heightBox,
+                  commonTextField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email address';
+                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    icon: emailicon,
+                    hinttext: "Email",
+                    textEditingController: controller.emailController.value,
+                  ),
+                  20.heightBox,
+                  commonTextField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                      icon: passwordicon,
+                      hinttext: "Password",
+                      textEditingController:
+                          controller.passwordController.value),
+                  10.heightBox,
+                ],
+              ),
+            ),
+        
+
             Text(
               "Select",
               style: poppins(
@@ -77,9 +116,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -110,9 +149,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         side: const BorderSide(color: greyColor),
                         checkColor: blackcolor,
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -139,36 +178,6 @@ class SignupView extends GetView<SignupController> {
               ],
             ),
             30.heightBox,
-            CustomButton(
-                buttonName: "Sign up",
-                onPressed: () {
-                  if (controller.accepttermsandConditions.value == true &&
-                      controller.selectUserType.value != '' &&
-                      controller.selectUserType.value.isNotEmpty) {
-                         StorageServices.to.setString(key: selectedUserType, value: controller.selectUserType.value);
-                      Get.toNamed(Routes.ON_BOARDING);
-                     
-                  } else if (controller.emailController.value.text.isEmpty ||
-                      controller.nameController.value.text.isEmpty ||
-                      controller.passwordController.value.text.isEmpty) {
-                    Utils.snakbar(
-                        title: "Fields Required",
-                        body: "Please fill all fields");
-                  } else if (controller.accepttermsandConditions.value !=
-                      true) {
-                    Utils.snakbar(
-                        title: "Accpet terms and conditions",
-                        body: "Please accept terms and conditions!");
-                  }
-                },
-                textcolor: whitecolor,
-                loading: false,
-                backgroundColor: darkBrownColor,
-                rounded: true,
-                height: 40.h,
-                textSize: 14.sp,
-                width: double.infinity),
-            10.heightBox,
             Row(
               children: [
                 Obx(
@@ -177,9 +186,9 @@ class SignupView extends GetView<SignupController> {
                       Checkbox(
                         checkColor: blackcolor,
                         side: const BorderSide(color: greyColor),
-                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             // Set the fill color of the checkbox when it is selected (checked)
                             return halfwhitecolor; // Change the color to your preferred color
                           }
@@ -216,29 +225,56 @@ class SignupView extends GetView<SignupController> {
                 ),
               ],
             ),
-            10.heightBox,
-            Image.asset(or),
-            10.heightBox,
-            Row(
-              mainAxisAlignment: mainaround,
-              children: [
-                Image.asset(
-                  googlelogin,
-                  width: 70,
-                  height: 70,
-                ),
-                Image.asset(
-                  applelogin,
-                  width: 70,
-                  height: 70,
-                ),
-                Image.asset(
-                  twitter,
-                  width: 70,
-                  height: 70,
-                )
-              ],
-            ),
+            CustomButton(
+                buttonName: "Sign up",
+                onPressed: () {
+                  if (formKey.currentState!.validate() &&
+                      controller.selectUserType.value != '' &&
+                      controller.accepttermsandConditions.value != false &&
+                      controller.selectUserType.value.isNotEmpty) {
+                    StorageServices.to.setString(
+                        key: selectedUserType,
+                        value: controller.selectUserType.value);
+                    Get.toNamed(Routes.ON_BOARDING);
+                  } else if (controller.accepttermsandConditions.value ==
+                      false) {
+                    Utils.snakbar(
+                        title: "Error",
+                        body: "Please accept terms and conditions");
+                  }
+                },
+                textcolor: whitecolor,
+                loading: false,
+                backgroundColor: darkBrownColor,
+                rounded: true,
+                height: 40.h,
+                textSize: 14.sp,
+                width: double.infinity),
+
+            20.heightBox,
+            // 10.heightBox,
+            // Image.asset(or),
+            // 10.heightBox,
+            // Row(
+            //   mainAxisAlignment: mainaround,
+            //   children: [
+            //     Image.asset(
+            //       googlelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ),
+            //     Image.asset(
+            //       applelogin,
+            //       width: 70,
+            //       height: 70,
+            //     ),
+            //     Image.asset(
+            //       twitter,
+            //       width: 70,
+            //       height: 70,
+            //     )
+            //   ],
+            // ),
             GestureDetector(
               onTap: () {
                 Get.toNamed(Routes.SIGNIN);

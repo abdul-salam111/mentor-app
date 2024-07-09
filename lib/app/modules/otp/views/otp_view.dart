@@ -8,6 +8,7 @@ import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:otp_timer_button/otp_timer_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../resources/images.dart';
@@ -52,7 +53,28 @@ class OtpView extends GetView<OtpController> {
                 onCompleted: (pin) {
                   StorageServices.to.setString(key: "otp", value: pin);
                   controller.sendOtp(otp: pin);
-               
+                },
+              ),
+              20.heightBox,
+              OtpTimerButton(
+                height: 60,
+                text: const Text(
+                  'Resend OTP',
+                  style: TextStyle(color: darkBrownColor),
+                ),
+                duration: 60,
+                radius: 30,
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                buttonType:
+                    ButtonType.text_button, // or ButtonType.outlined_button
+                loadingIndicator: const CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.red,
+                ),
+                loadingIndicatorColor: Colors.red,
+                onPressed: () {
+                  controller.resendOtp();
                 },
               ),
             ],

@@ -8,6 +8,7 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/images.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/get_started_controller.dart';
@@ -54,6 +55,7 @@ class GetStartedView extends GetView<GetStartedController> {
                   buttonName: "Get Started",
                   onPressed: () {
                     Get.toNamed(Routes.SIGNIN);
+                    StorageServices.to.setBool(key: "getStartedSeen", value: true);
                   },
                   textcolor: darkBrownColor,
                   loading: false,

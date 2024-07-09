@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
@@ -14,6 +15,9 @@ import 'package:mentor_app/app/storage/storage.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AuthRepository {
+  //this repostiory includes all the functions and methods of signin
+  //login and edit profile. logout user. change password.
+
   BaseApiServices networkApiService = NetworkApiService();
   Future<dynamic> signInUser(dynamic data, userType) async {
     try {
@@ -22,7 +26,6 @@ class AuthRepository {
 
       return response;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -41,15 +44,16 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
-        Utils.snakbar(title: "Logged Out", body: "You have been loggedout!");
+        Utils.snakbar(title: "", body: "You have been logged out");
         EasyLoading.dismiss();
         ZegoUIKitPrebuiltCallInvitationService().uninit();
         StorageServices.to.remove(usertoken);
         StorageServices.to.remove(selectedUserType);
         StorageServices.to.remove('updateProfile');
+        await FirebaseAuth.instance.signOut();
         Get.offAllNamed(Routes.SIGNIN);
       } else {
-        Utils.snakbar(title: "Faild", body: "Failed");
+        Utils.snakbar(title: "Faild", body: "Failed to log out!");
       }
     } catch (e) {
       Utils.snakbar(title: "Faild", body: "Failed");
@@ -81,7 +85,7 @@ class AuthRepository {
         if (response.body ==
             "java.lang.IllegalArgumentException: Incorrect old password") {
           Utils.snakbar(
-              title: "Incorrecr Password", body: "Old password is incorrect");
+              title: "Incorrect Password", body: "Old password is incorrect");
         }
       }
     } catch (e) {
@@ -150,6 +154,7 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+
         StorageServices.to.setString(key: userId, value: data['id'].toString());
         StorageServices.to
             .setString(key: userName, value: data['fullName'].toString());
@@ -159,7 +164,6 @@ class AuthRepository {
         throw Exception();
       }
     } catch (e) {
-      Utils.snakbar(title: "Failed", body: e.toString());
       throw Exception();
     }
   }
@@ -176,20 +180,21 @@ class AuthRepository {
       var response = await http.post(
         url,
       );
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         EasyLoading.dismiss();
-        Utils.snakbar(title: "Email sent", body: "An Otp is sent to email!");
+        Utils.snakbar(
+            title: "Email sent",
+            body: " A one-time passcode will be sent to your email.");
         Get.toNamed(Routes.OTP);
       } else {
+        Utils.snakbar(title: "Not found", body: "Email not found.");
         EasyLoading.dismiss();
 
         throw Exception();
       }
     } catch (e) {
       EasyLoading.dismiss();
-
-      Utils.snakbar(title: "Failed", body: e.toString());
       throw Exception();
     }
   }
@@ -299,16 +304,12 @@ class AuthRepository {
             email: getMenteeInfoFromJson(
                     StorageServices.to.getString(getmenteeinfo))
                 .email);
-                 Utils.snakbar(title: "Updated", body: "Profile Updated");
+        Utils.snakbar(title: "Updated", body: "Profile Updated");
       } else {
         EasyLoading.dismiss();
-       
-       
       }
     } catch (error) {
-        EasyLoading.dismiss();
-
-     
+      EasyLoading.dismiss();
     }
   }
 }

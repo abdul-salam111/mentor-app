@@ -18,7 +18,6 @@ import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
-import 'package:zego_zimkit/zego_zimkit.dart';
 
 import '../../../Utils/Utils.dart';
 
@@ -31,12 +30,13 @@ class SigninController extends GetxController {
     selectUserType.value = gender;
   }
 
+  var accepttermsandConditions = false.obs;
+
   final firebaseauth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
-  Future firebaseLoginuser() async {
+  Future firebaseLoginuser(email, password) async {
     await firebaseauth.signInWithEmailAndPassword(
-        email: nameController.value.text.toString(),
-        password: passwordController.value.text);
+        email: email, password: passwordController.value.text);
   }
 
   MentorRepository mentorRepository = MentorRepository();
@@ -49,7 +49,7 @@ class SigninController extends GetxController {
     LoginMenteeRequestModel signinModel = LoginMenteeRequestModel(
         password: passwordController.value.text,
         usernameOrEmail: nameController.value.text);
-
+  print(signinModel.toJson());
     await authRepository
         .signInUser(jsonEncode(signinModel), selectUserType)
         .then((value) async {
@@ -60,25 +60,32 @@ class SigninController extends GetxController {
       if (selectUserType.value == "Mentee") {
         var menteedata = await authRepository.getMenteeData(
             email: nameController.value.text.toString());
-        firebaseLoginuser();
+        firebaseLoginuser("mentee${nameController.value.text.toString()}",
+            passwordController.value.text.toString());
         StorageServices.to.setString(
             key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
         questionsRepository.fetchQuestionCount();
       } else {
         var mentordata = await mentorRepository.getmentorinformation(
             mentorEmail: nameController.value.text.toString());
-
+        firebaseLoginuser(nameController.value.text.toString(),
+            passwordController.value.text.toString());
         StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));
       }
       ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: 501015063 /*input your AppID*/,
+        appID: 555496812 /*input your AppID*/,
         appSign:
-            "6b2c3129f696ea42de0450c0f8b2edd5c127a9c3fe60e103098fa680ee0fb55d" /*input your AppSign*/,
-        userID: StorageServices.to.getString(userId),
+            "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
+        userID: StorageServices.to.getString(selectedUserType) == "Mentee"
+            ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                .email
+            : getMentorInfoFromJson(
+                    StorageServices.to.getString(getMentorInformationsss))
+                .email,
         userName: StorageServices.to.getString(userName).isEmpty
-            ? "Userame"
+            ? "Username"
             : StorageServices.to.getString(userName),
         plugins: [ZegoUIKitSignalingPlugin()],
       );
@@ -87,7 +94,7 @@ class SigninController extends GetxController {
       Get.offAllNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {
       EasyLoading.dismiss();
-      Utils.snakbar(title: "Failed to Search", body: error.toString());
+      Utils.snakbar(title: "", body: error.toString());
     });
   }
 
@@ -112,4 +119,5 @@ class SigninController extends GetxController {
   //     print('Error occurred during sign-in: $error');
   //   }
   // }
+    
 }

@@ -2,7 +2,6 @@
 //
 //     final getBestMentorModel = getBestMentorModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetBestMentorModel getBestMentorModelFromJson(String str) => GetBestMentorModel.fromJson(json.decode(str));

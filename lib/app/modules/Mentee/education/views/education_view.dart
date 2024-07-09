@@ -40,7 +40,7 @@ class EducationView extends GetView<EducationController> {
               10.heightBox,
               Center(
                 child: Text(
-                  "Education",
+                  "Education Level",
                   style: GoogleFonts.manrope(
                       fontSize: 20.sp, fontWeight: FontWeight.w500),
                 ),
@@ -206,141 +206,163 @@ class EducationView extends GetView<EducationController> {
                   ),
                 ],
               ),
-              20.heightBox,
+              15.heightBox,
+
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 5, right: 5),
+              //   child: Column(
+              //     crossAxisAlignment: crosstart,
+              //     children: [
+              //       // Padding(
+              //       //   padding: const EdgeInsets.only(left: 16),
+              //       //   child: Row(
+              //       //     mainAxisAlignment: mainbetween,
+              //       //     children: [
+              //       //       Obx(
+              //       //         () => Text(
+              //       //           controller.selectedCertification.value,
+              //       //           style: manoropeFontFamily(
+              //       //               fontSize: 10.sp,
+              //       //               fontWeight: FontWeight.w400,
+              //       //               color: blackcolor),
+              //       //         ),
+              //       //       ),
+              //       //       const Icon(Icons.expand_more),
+              //       //     ],
+              //       //   ).box.make().onTap(() {
+              //       //     controller.isCertificateOpen.value =
+              //       //         !controller.isCertificateOpen.value;
+              //       //   }),
+              //       // ),
+              //       // Obx(
+              //       //   () => controller.isCertificateOpen.value
+              //       //       ? Column(
+              //       //           children: [
+              //       //             10.heightBox,
+              //       //             Container(
+              //       //               color: greyColor,
+              //       //               height: 1,
+              //       //             ),
+              //       //           ],
+              //       //         )
+              //       //       : const SizedBox.shrink(),
+              //       // ),
+              //       // Obx(() => controller.isCertificateOpen.value
+              //       //     ? GetBuilder<EducationController>(
+              //       //         builder: (contextsss) {
+              //       //         return SizedBox(
+              //       //           height: 200.h,
+              //       //           child: ListView.builder(
+              //       //             itemCount: controller.certifications.length,
+              //       //             shrinkWrap: true,
+              //       //             itemBuilder: (context, index) {
+              //       //               final skill =
+              //       //                   controller.certifications[index];
+              //       //               // final isSelected =
+              //       //               //     controller.selectedSkills.contains(skill);
+              //       //               return Column(
+              //       //                 children: [
+              //       //                   ListTile(
+              //       //                     title: Text(
+              //       //                       skill,
+              //       //                       style: manoropeFontFamily(
+              //       //                           fontSize: 10.sp,
+              //       //                           fontWeight: FontWeight.w400,
+              //       //                           color: blackcolor),
+              //       //                     ),
+              //       //                     //   trailing: isSelected == true
+              //       //                     //       ? SizedBox(
+              //       //                     //           height: 10.h,
+              //       //                     //           width: 10.h,
+              //       //                     //         )
+              //       //                     //           .box
+              //       //                     //           .color(darkBrownColor)
+              //       //                     //           .rounded
+              //       //                     //           .make()
+              //       //                     //       : SizedBox(
+              //       //                     //           height: 10.h,
+              //       //                     //           width: 10.h,
+              //       //                     //         )
+              //       //                     //           .box
+              //       //                     //           .border(color: darkBrownColor)
+              //       //                     //           .rounded
+              //       //                     //           .make(),
+              //       //                     // ).box.make().onTap(() {
+              //       //                     //   if (controller.selectedSkills.length > 4) {
+              //       //                     //     if (isSelected) {
+              //       //                     //       controller.selectedSkills.remove(skill);
+              //       //                     //       contextsss.update();
+              //       //                     //     } else {
+              //       //                     //       Utils.snakbar(
+              //       //                     //           title: 'Maximum 5 goals',
+              //       //                     //           body:
+              //       //                     //               'You cannot select more than 5 goals.');
+              //       //                     //     }
+              //       //                     //   } else {
+              //       //                     //     if (isSelected) {
+              //       //                     //       controller.selectedSkills.remove(skill);
+              //       //                     //       contextsss.update();
+              //       //                     //     } else {
+              //       //                     //       controller.selectedSkills.add(skill);
+              //       //                     //       contextsss.update();
+              //       //                     //     }
+              //       //                     //   }
+              //       //                     // }),
+              //       //                   ),
+              //       //                   Container(
+              //       //                     color: greyColor,
+              //       //                     height: 1,
+              //       //                   ),
+              //       //                 ],
+              //       //               ).onTap(() {
+              //       //                 controller.selectedCertification.value =
+              //       //                     controller.certifications[index];
+              //       //                 controller.isCertificateOpen.value = false;
+              //       //               });
+              //       //             },
+              //       //           ),
+              //       //         );
+              //       //       })
+              //       //     : const SizedBox.shrink())
+              //     ],
+              //   )
+              //       .box
+              //       .white
+              //       .padding(defaultpad)
+              //       .width(double.infinity)
+              //       .outerShadow
+              //       .roundedSM
+              //       .make(),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Column(
-                  crossAxisAlignment: crosstart,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Row(
-                        mainAxisAlignment: mainbetween,
-                        children: [
-                          Obx(
-                            () => Text(
-                              controller.selectedCertification.value,
-                              style: manoropeFontFamily(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: blackcolor),
-                            ),
-                          ),
-                          const Icon(Icons.expand_more),
-                        ],
-                      ).box.make().onTap(() {
-                        controller.isCertificateOpen.value =
-                            !controller.isCertificateOpen.value;
-                      }),
-                    ),
-                    Obx(
-                      () => controller.isCertificateOpen.value
-                          ? Column(
-                              children: [
-                                10.heightBox,
-                                Container(
-                                  color: greyColor,
-                                  height: 1,
-                                ),
-                              ],
-                            )
-                          : const SizedBox.shrink(),
-                    ),
-                    Obx(() => controller.isCertificateOpen.value
-                        ? GetBuilder<EducationController>(
-                            builder: (contextsss) {
-                            return SizedBox(
-                              height: 200.h,
-                              child: ListView.builder(
-                                itemCount: controller.certifications.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  final skill =
-                                      controller.certifications[index];
-                                  // final isSelected =
-                                  //     controller.selectedSkills.contains(skill);
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          skill,
-                                          style: manoropeFontFamily(
-                                              fontSize: 10.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: blackcolor),
-                                        ),
-                                        //   trailing: isSelected == true
-                                        //       ? SizedBox(
-                                        //           height: 10.h,
-                                        //           width: 10.h,
-                                        //         )
-                                        //           .box
-                                        //           .color(darkBrownColor)
-                                        //           .rounded
-                                        //           .make()
-                                        //       : SizedBox(
-                                        //           height: 10.h,
-                                        //           width: 10.h,
-                                        //         )
-                                        //           .box
-                                        //           .border(color: darkBrownColor)
-                                        //           .rounded
-                                        //           .make(),
-                                        // ).box.make().onTap(() {
-                                        //   if (controller.selectedSkills.length > 4) {
-                                        //     if (isSelected) {
-                                        //       controller.selectedSkills.remove(skill);
-                                        //       contextsss.update();
-                                        //     } else {
-                                        //       Utils.snakbar(
-                                        //           title: 'Maximum 5 goals',
-                                        //           body:
-                                        //               'You cannot select more than 5 goals.');
-                                        //     }
-                                        //   } else {
-                                        //     if (isSelected) {
-                                        //       controller.selectedSkills.remove(skill);
-                                        //       contextsss.update();
-                                        //     } else {
-                                        //       controller.selectedSkills.add(skill);
-                                        //       contextsss.update();
-                                        //     }
-                                        //   }
-                                        // }),
-                                      ),
-                                      Container(
-                                        color: greyColor,
-                                        height: 1,
-                                      ),
-                                    ],
-                                  ).onTap(() {
-                                    controller.selectedCertification.value =
-                                        controller.certifications[index];
-                                    controller.isCertificateOpen.value = false;
-                                  });
-                                },
-                              ),
-                            );
-                          })
-                        : const SizedBox.shrink())
-                  ],
-                )
-                    .box
-                    .white
-                    .padding(defaultpad)
-                    .width(double.infinity)
-                    .outerShadow
-                    .roundedSM
-                    .make(),
+                padding: const EdgeInsets.all(4),
+                child: TextField(
+                  style: manoropeFontFamily(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: blackcolor),
+                  controller: controller.certificationController.value,
+                  decoration: InputDecoration(
+                    fillColor: whitecolor,
+                    hintText: "Ceritification",
+                    filled: true,
+                    hintStyle: manoropeFontFamily(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w400,
+                        color: blackcolor),
+                    border: InputBorder.none,
+                  ),
+                ).box.outerShadow.roundedSM.clip(Clip.antiAlias).make(),
               ),
-              (MediaQuery.sizeOf(context).height / 2).heightBox,
+              (MediaQuery.sizeOf(context).height / 2.5).heightBox,
+
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: CustomButton(
                     buttonName: "Continue",
                     onPressed: () {
-                      if (controller.selectedCertification.isNotEmpty &&
-                          controller.selectedCertification.value != "Select" &&
+                      if (controller
+                              .certificationController.value.text.isNotEmpty &&
                           controller.selectedSubject.isNotEmpty &&
                           controller.selectedSubject.value != "Select") {
                         Get.toNamed(Routes.PREFERRED_MENTOR);
@@ -349,11 +371,11 @@ class EducationView extends GetView<EducationController> {
                         Utils.snakbar(
                             title: "Select subject",
                             body: "Please select any of subjects");
-                      } else if (controller.selectedCertification.isNotEmpty &&
-                          controller.selectedCertification.value == "Select") {
+                      } else if (controller
+                          .certificationController.value.text.isEmpty) {
                         Utils.snakbar(
-                            title: "Select certification",
-                            body: "Please select any of certifications");
+                            title: "Fields required",
+                            body: "Please enter certification.");
                       } else {
                         Utils.snakbar(
                             title: "Select each",

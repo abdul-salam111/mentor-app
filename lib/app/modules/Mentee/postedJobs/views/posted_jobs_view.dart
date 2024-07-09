@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/jobs/getJobByIndustry.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -53,7 +53,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
               padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
               child: Row(
                 children: [
-                  Expanded(child: customSearchTextField(hinttext: "Search")),
+                  // Expanded(child: customSearchTextField(hinttext: "Search")),
                   10.widthBox,
                   StorageServices.to.getString(selectedUserType) == "Mentor"
                       ? CustomButton(
@@ -71,7 +71,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                           height: 40.h,
                           textSize: 13.sp,
                           width: 100.w)
-                      : SizedBox.shrink()
+                      : const SizedBox.shrink()
                 ],
               ),
             ),
@@ -167,11 +167,12 @@ class _PostedJobsViewState extends State<PostedJobsView> {
             FutureBuilder<GetJobByIndustry>(
                 future: controller.getJobByIndustry(),
                 builder: (context, AsyncSnapshot<GetJobByIndustry> snapshot) {
-                  if (!snapshot.hasData) {
-                    return ShimmerList();
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return ShimmerList();
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return ShimmerList(10);
+                  } else if (!snapshot.hasData) {
+                    return Center(
+                      child: Image.asset("assets/images/not found.jpg"),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),
@@ -192,7 +193,12 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                   children: [
                                     CircleAvatar(
                                       radius: 23.r,
-                                      backgroundImage: const AssetImage(girl),
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(snapshot
+                                              .data!
+                                              .mentorJobs![index]
+                                              .mentor!
+                                              .profilePicUrl!),
                                     ),
                                     10.widthBox,
                                     Column(

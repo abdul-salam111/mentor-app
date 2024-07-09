@@ -13,6 +13,7 @@ class NetworkApiService extends BaseApiServices {
       final response =
           await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
       responsejson = returnResponse(response);
+  
     } on SocketException {
       throw FetchDataExceptions("No Internet Connection");
     }
@@ -37,8 +38,10 @@ class NetworkApiService extends BaseApiServices {
 
   dynamic returnResponse(http.Response response) {
 
-
+print(response.statusCode);
+print(response.body);
     switch (response.statusCode) {
+    
       
       case 200:
         dynamic jsonresponse = jsonDecode(response.body);
@@ -47,9 +50,9 @@ class NetworkApiService extends BaseApiServices {
       dynamic jsonresponse=jsonDecode(response.body);
       return jsonresponse;
       case 400:
-        throw BadRequestExceptions("Wrong credentials");
+        throw BadRequestExceptions("Invalid email or password");
       case 404:
-        throw UnAuthorizeExceptions("User is not authorized");
+        throw UnAuthorizeExceptions("Invalid email or password");
       default:
         throw FetchDataExceptions(
             "Error occurred while communicating server with status code ${response.statusCode}");

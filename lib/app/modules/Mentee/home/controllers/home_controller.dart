@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
-import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/repositories/authRepo.dart';
+import 'package:mentor_app/app/repositories/meetingsController.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
@@ -62,7 +62,7 @@ class HomeController extends GetxController {
 
 
   MentorRepository mentorRepository = MentorRepository();
-  Future<List<GetSearchedMentors>> searchMentors(
+  Future<dynamic> searchMentors(
       {required String availablility,
       required String industry,
       required String search,
@@ -91,6 +91,30 @@ class HomeController extends GetxController {
               .email
     }).then((value) {
       EasyLoading.dismiss();
+    });
+  }
+
+    MeetingRepository meetingRepository = MeetingRepository();
+  Future fetchMenteeScheduledMeetings() async {
+    return await meetingRepository.fetchMenteesMeetings();
+  }
+
+  Future cancelMeetingByMentee(meetingId, name) async {
+    return await meetingRepository
+        .cancelMeetingByMentee(meetingId, name)
+        .then((value) {
+      meetingRepository.fetchMenteesMeetings();
+    });
+  }
+  Future fetchMentorScheduledMeetings() async {
+    return await meetingRepository.fetchMentorsMeetings();
+  }
+
+  Future cancelMentorsMeetingsWithMentee(meetingId, name) async {
+    return await meetingRepository
+        .cancelMeetingByMentee(meetingId, name)
+        .then((value) {
+      meetingRepository.fetchMenteesMeetings();
     });
   }
 }

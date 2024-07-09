@@ -22,3 +22,4 @@ const selectedUserType="selectedUserType";
 const userCheck="userCheck";
 
 
+//share preferences keys used in app

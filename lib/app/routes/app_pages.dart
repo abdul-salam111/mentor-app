@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/Mentee/MenteeConnections/bindings/mentee_connections_binding.dart';
+import '../modules/Mentee/MenteeConnections/views/mentee_connections_view.dart';
 import '../modules/Mentee/PostQuestions/bindings/post_questions_binding.dart';
 import '../modules/Mentee/PostQuestions/views/post_questions_view.dart';
 import '../modules/Mentee/QuestionAndAnswerForum/bindings/question_and_answer_forum_binding.dart';
@@ -48,8 +50,6 @@ import '../modules/Mentee/skills/bindings/skills_binding.dart';
 import '../modules/Mentee/skills/views/skills_view.dart';
 import '../modules/Mentee/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/Mentee/splashscreen/views/splashscreen_view.dart';
-import '../modules/Mentee/MenteeConnections/bindings/mentee_connections_binding.dart';
-import '../modules/Mentee/MenteeConnections/views/mentee_connections_view.dart';
 import '../modules/Mentor/MentorAvailability/bindings/mentor_availability_binding.dart';
 import '../modules/Mentor/MentorAvailability/views/mentor_availability_view.dart';
 import '../modules/Mentor/MentorEducationBackground/bindings/mentor_education_background_binding.dart';
@@ -72,19 +72,23 @@ import '../modules/forgetPassword/bindings/forget_password_binding.dart';
 import '../modules/forgetPassword/views/forget_password_view.dart';
 import '../modules/jobApplicationForm/bindings/job_application_form_binding.dart';
 import '../modules/jobApplicationForm/views/job_application_form_view.dart';
+import '../modules/meetingDetails/bindings/meeting_details_binding.dart';
+import '../modules/meetingDetails/views/meeting_details_view.dart';
 import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
 import '../modules/navigationBar/views/navigation_bar_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 
 part 'app_routes.dart';
-
+//app pages
 class AppPages {
   AppPages._();
 
@@ -98,7 +102,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ON_BOARDING,
-      page: () => OnBoardingView(),
+      page: () =>  OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     GetPage(
@@ -153,7 +157,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => ProfileView(),
+      page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -198,7 +202,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MESSAGES,
-      page: () =>  MessagesView(),
+      page: () => MessagesView(),
       binding: MessagesBinding(),
     ),
     GetPage(
@@ -268,7 +272,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SCHEDULE_MEETINGS,
-      page: () => ScheduleMeetingsView(),
+      page: () => const ScheduleMeetingsView(),
       binding: ScheduleMeetingsBinding(),
     ),
     GetPage(
@@ -295,6 +299,16 @@ class AppPages {
       name: _Paths.MENTEE_CONNECTIONS,
       page: () => const MenteeConnectionsView(),
       binding: MenteeConnectionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEETING_DETAILS,
+      page: () => const MeetingDetailsView(),
+      binding: MeetingDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => const PaymentView(),
+      binding: PaymentBinding(),
     ),
   ];
 }

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../resources/colors.dart';
 
+
+//snakbar used in app
 class Utils {
   static snakbar({required String title, required String body}) {
     return Get.snackbar(

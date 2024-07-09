@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -5,10 +6,8 @@ import 'package:get/get.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
-import 'package:mentor_app/app/models/mentor/getSearchedMentorsModel.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -33,11 +32,12 @@ class _HomeViewState extends State<HomeView> {
   final controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
       backgroundColor: whitecolor,
-      key: _scaffoldKey,
-      endDrawer: ProfileDrawer(),
+      key: scaffoldKey,
+      endDrawer: const ProfileDrawer(),
       body: SafeArea(
         child: ListView(
           children: [
@@ -76,57 +76,71 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _scaffoldKey.currentState?.openEndDrawer();
+                      scaffoldKey.currentState?.openEndDrawer();
                     },
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage(profilepicture),
-                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: StorageServices.to
+                                  .getString(selectedUserType) ==
+                              "Mentee"
+                          ? getMenteeInfoFromJson(
+                                  StorageServices.to.getString(getmenteeinfo))
+                              .profilePicUrl
+                              .toString()
+                          : getMentorInfoFromJson(StorageServices.to
+                                  .getString(getMentorInformationsss))
+                              .profilePicUrl,
+                      height: 40.h,
+                      width: 50.w,
+                      fit: BoxFit.cover,
+                    ).box.roundedFull.clip(Clip.antiAlias).make(),
                   )
                 ],
               ),
             ),
             10.heightBox,
-           StorageServices.to.getString(selectedUserType) == "Mentee"?    Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: TextField(
-                  onTap: () {
-                    Get.toNamed(Routes.FIND_MENTORS);
-                  },
-                  readOnly: true,
-                  style: manoropeFontFamily(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: textfieldgrey),
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide: BorderSide(
-                              color: greyColor.withOpacity(0.5), width: 2)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide:
-                              BorderSide(color: greyColor.withOpacity(0.5))),
-                      border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide:
-                              BorderSide(color: greyColor.withOpacity(0.5))),
-                      contentPadding: const EdgeInsets.only(left: 10),
-                      hintText: "Search for mentors",
-                      hintStyle: manoropeFontFamily(
-                          fontSize: 12.sp,
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: TextField(
+                      onTap: () {
+                        Get.toNamed(Routes.FIND_MENTORS);
+                      },
+                      readOnly: true,
+                      style: manoropeFontFamily(
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                           color: textfieldgrey),
-                      suffixIcon: const Icon(
-                        Icons.search,
-                        color: textfieldgrey,
-                      )),
-                )):const SizedBox.shrink(),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5), width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5))),
+                          border: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              borderSide: BorderSide(
+                                  color: greyColor.withOpacity(0.5))),
+                          contentPadding: const EdgeInsets.only(left: 10),
+                          hintText: "Search for mentors",
+                          hintStyle: manoropeFontFamily(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: textfieldgrey),
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            color: textfieldgrey,
+                          )),
+                    ))
+                : const SizedBox.shrink(),
             StorageServices.to.getString(selectedUserType) == "Mentee"
                 ? 15.heightBox
                 : const SizedBox.shrink(),
@@ -346,64 +360,106 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             10.heightBox,
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      radius: 30.r,
-                      backgroundImage: const AssetImage(mentor),
-                    ),
-                    title: Text(
-                      "Health chat with Lidia",
-                      style: manoropeFontFamily(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: blackcolor),
-                    ),
-                    subtitle: Text(
-                      "Today at 9:00 PM - 30 min",
-                      style: manoropeFontFamily(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: textfieldgrey),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: textfieldgrey,
-                      size: 15.sp,
-                    ),
-                  ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
-                  10.heightBox,
-                  ListTile(
-                    leading: CircleAvatar(
-                      radius: 30.r,
-                      backgroundImage: const AssetImage(mentor2),
-                    ),
-                    title: Text(
-                      "Mentoring with Tom",
-                      style: manoropeFontFamily(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: blackcolor),
-                    ),
-                    subtitle: Text(
-                      "Today at 9:00 PM - 30 min",
-                      style: manoropeFontFamily(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: textfieldgrey),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: textfieldgrey,
-                      size: 15.sp,
-                    ),
-                  ).box.outerShadow.white.padding(defaultpad).roundedSM.make(),
-                ],
-              ),
-            ),
+            FutureBuilder(
+                future:
+                    StorageServices.to.getString(selectedUserType) == "Mentee"
+                        ? controller.fetchMenteeScheduledMeetings()
+                        : controller.fetchMentorScheduledMeetings(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: AnotherShimmerList(3),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data == null) {
+                    // If snapshot has no data or data is null
+                    return const Center(
+                      child: Text(
+                        "No meetings available",
+                        style: TextStyle(color: blackcolor),
+                      ),
+                    );
+                  } else if (snapshot.data['meetingResponseList'].isEmpty) {
+                    // If meetingResponseList is empty
+                    return Center(
+                        child: Image.asset(
+                      "assets/images/not found.jpg",
+                      width: 100.w,
+                      height: 100.h,
+                    ));
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: ListView.builder(
+                          itemCount:
+                              snapshot.data!['meetingResponseList'].length > 1
+                                  ? 2
+                                  : snapshot
+                                      .data!['meetingResponseList'].length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              leading: CircleAvatar(
+                                radius: 30.r,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    StorageServices.to
+                                                .getString(selectedUserType) ==
+                                            "Mentee"
+                                        ? snapshot.data!['meetingResponseList']
+                                            [index]['mentor']['profilePicUrl']
+                                        : snapshot.data!['meetingResponseList']
+                                            [index]['mentee']['profilePicUrl']),
+                              ),
+                              title: Column(
+                                crossAxisAlignment: crosstart,
+                                children: [
+                                  Text(
+                                    StorageServices.to
+                                                .getString(selectedUserType) ==
+                                            "Mentee"
+                                        ? snapshot.data!['meetingResponseList']
+                                            [index]['mentor']['fullName']
+                                        : snapshot.data!['meetingResponseList']
+                                            [index]['mentee']['fullName'],
+                                    style: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w800,
+                                        color: blackcolor),
+                                  ),
+                                  Text(
+                                    snapshot.data!['meetingResponseList'][index]
+                                        ['appointmentReason'],
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                ],
+                              ),
+                              subtitle: Text(
+                                "Today at ${snapshot.data!['meetingResponseList'][index]['startTime']} - ${snapshot.data!['meetingResponseList'][index]['endTime']}",
+                                style: manoropeFontFamily(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: textfieldgrey),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
+                                color: textfieldgrey,
+                                size: 15.sp,
+                              ),
+                            )
+                                .box
+                                .outerShadow
+                                .white
+                                .padding(defaultpad)
+                                .roundedSM
+                                .make();
+                          }),
+                    );
+                  }
+                }),
             20.heightBox,
             StorageServices.to.getString(selectedUserType) == "Mentee"
                 ? Padding(
@@ -441,12 +497,13 @@ class _HomeViewState extends State<HomeView> {
                         skills: [],
                         search: '',
                         industry: controller.selectedIndustries.value),
-                    builder: (context,
-                        AsyncSnapshot<List<GetSearchedMentors>> snapshot) {
+                    builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const HomeScreenShimmerList();
                       } else if (!snapshot.hasData) {
-                        return const SizedBox.shrink();
+                        return const Center(
+                          child: Text("Not found"),
+                        );
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Text(snapshot.error.toString()),
@@ -483,7 +540,9 @@ class _HomeViewState extends State<HomeView> {
                         child: GridView.builder(
                             physics: neverscroll,
                             shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
+                            itemCount: snapshot.data!.length > 10
+                                ? 10
+                                : snapshot.data!.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisSpacing: 10,
@@ -491,59 +550,69 @@ class _HomeViewState extends State<HomeView> {
                                     mainAxisExtent: 115.h,
                                     crossAxisCount: 2),
                             itemBuilder: (context, index) {
+                          
                               return Column(
                                 crossAxisAlignment: crosstart,
                                 children: [
-                                  const Row(
+                                  Row(
                                     mainAxisAlignment: mainbetween,
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: AssetImage(mentor),
-                                      ),
-                                      Icon(
-                                        Icons.favorite,
-                                        color: greencolor,
+                                        backgroundImage: NetworkImage(snapshot
+                                            .data![index]['profilePicUrl']),
                                       )
+
+                                      // const Icon(
+                                      //   Icons.favorite,
+                                      //   color: greencolor,
+                                      // )
                                     ],
                                   ),
                                   10.heightBox,
                                   Text(
-                                    snapshot.data![index].fullName,
+                                    snapshot.data![index]['fullName'],
                                     style: manoropeFontFamily(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w500,
                                         color: blackcolor),
                                   ),
                                   5.heightBox,
-                                  Row(
-                                    mainAxisAlignment: mainbetween,
-                                    children: [
-                                      Text(
-                                        "Health",
-                                        style: manoropeFontFamily(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: textfieldgrey),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "4.9",
-                                            style: manoropeFontFamily(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: blackcolor),
-                                          ),
-                                          10.widthBox,
-                                          Icon(
-                                            Icons.star,
-                                            color: ratingcolor,
-                                            size: 17.sp,
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )
+                                  Text(
+                                    snapshot.data![index]['mentorshipStyle'],
+                                    style: manoropeFontFamily(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment: mainbetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       "Health",
+                                  //       style: manoropeFontFamily(
+                                  //           fontSize: 10,
+                                  //           fontWeight: FontWeight.w400,
+                                  //           color: textfieldgrey),
+                                  //     ),
+                                  //     Row(
+                                  //       children: [
+                                  //         Text(
+                                  //           "4.9",
+                                  //           style: manoropeFontFamily(
+                                  //               fontSize: 12.sp,
+                                  //               fontWeight: FontWeight.w500,
+                                  //               color: blackcolor),
+                                  //         ),
+                                  //         10.widthBox,
+                                  //         Icon(
+                                  //           Icons.star,
+                                  //           color: ratingcolor,
+                                  //           size: 17.sp,
+                                  //         )
+                                  //       ],
+                                  //     )
+                                  //   ],
+                                  // )
                                 ],
                               )
                                   .box
@@ -555,7 +624,8 @@ class _HomeViewState extends State<HomeView> {
                                   .roundedSM
                                   .make()
                                   .onTap(() {
-                                Get.toNamed(Routes.MENTOR_PROFILE);
+                                Get.toNamed(Routes.MENTOR_PROFILE,
+                                    arguments: snapshot.data![index]['email']);
                               });
                             }),
                       );

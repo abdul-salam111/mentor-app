@@ -2,7 +2,6 @@
 //
 //     final sendMentorsSearchRequestModel = sendMentorsSearchRequestModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SendMentorsSearchRequestModel sendMentorsSearchRequestModelFromJson(String str) => SendMentorsSearchRequestModel.fromJson(json.decode(str));

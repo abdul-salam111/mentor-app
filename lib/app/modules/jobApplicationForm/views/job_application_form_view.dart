@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
@@ -62,7 +61,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                       contentPadding: const EdgeInsets.only(
                           top: 12.0, left: 12.0), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Compansation Range",
@@ -85,7 +84,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Job Mode",
@@ -108,7 +107,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
                   "Location",
@@ -131,7 +130,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                  20.heightBox,
                 Text(
                   "Job Url",
@@ -154,7 +153,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                           left: 12.0,
                           bottom: 5), // Padding from top and left
                       border: InputBorder.none),
-                ).box.white.margin(EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
+                ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Row(
                   children: [
@@ -252,7 +251,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                   ],
                 )
                     .box
-                    .white.margin(EdgeInsets.only(left: 8,right: 8))
+                    .white.margin(const EdgeInsets.only(left: 8,right: 8))
                     .padding(defaultpad)
                     .width(double.infinity)
                     .outerShadow

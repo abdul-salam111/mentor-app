@@ -70,7 +70,7 @@ class InmeetingScreenView extends GetView<InmeetingScreenController> {
                     radius: 80.r,
                     child: CircleAvatar(
                       radius: 75.r,
-                      backgroundImage: AssetImage(mentor),
+                      backgroundImage: const AssetImage(mentor),
                     ),
                   ),
                 ),

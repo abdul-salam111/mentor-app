@@ -2,7 +2,6 @@
 //
 //     final createNewJobModel = createNewJobModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CreateNewJobModel createNewJobModelFromJson(String str) => CreateNewJobModel.fromJson(json.decode(str));

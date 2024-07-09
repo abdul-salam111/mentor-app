@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
@@ -9,7 +8,7 @@ import '../../../../models/mentor/getMentorInfor.dart';
 
 class MentorEducationBackgroundController extends GetxController {
 
-
+final nameController=TextEditingController().obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -30,6 +29,9 @@ class MentorEducationBackgroundController extends GetxController {
       yearsOfExperience.value.text=getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .yearsOfExperience.toString();
+      nameController.value.text=getMentorInfoFromJson(
+              StorageServices.to.getString(getMentorInformationsss))
+          .fullName.toString();
     }
   }
 
@@ -42,6 +44,14 @@ class MentorEducationBackgroundController extends GetxController {
     "Peer Mentorship",
     "Entrepreneurial Mentorship",
     "Life-Stage Mentorship"
+  ];
+  List<String> mentorshipImages = [
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Peer Mentorship .png",
+    "assets/icons/Life-Stage Mentorship.png"
+
   ];
 
    RxList<String> availabilityList = <String>[].obs;

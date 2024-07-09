@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,8 @@ import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProfileDrawer extends StatelessWidget {
+  const ProfileDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     final homeController = Get.put(HomeController());
@@ -32,10 +35,20 @@ class ProfileDrawer extends StatelessWidget {
             70.heightBox,
             Row(
               children: [
-                CircleAvatar(
-                  radius: 35.r,
-                  backgroundImage: const AssetImage(profilepic),
-                ),
+                CachedNetworkImage(
+                  imageUrl:
+                      StorageServices.to.getString(selectedUserType) == "Mentee"
+                          ? getMenteeInfoFromJson(
+                                  StorageServices.to.getString(getmenteeinfo))
+                              .profilePicUrl
+                              .toString()
+                          : getMentorInfoFromJson(StorageServices.to
+                                  .getString(getMentorInformationsss))
+                              .profilePicUrl,
+                  height: 70.h,
+                  width: 70.w,
+                  fit: BoxFit.cover,
+                ).box.roundedFull.clip(Clip.antiAlias).make(),
                 10.widthBox,
                 Column(
                   crossAxisAlignment: crosstart,
@@ -83,7 +96,9 @@ class ProfileDrawer extends StatelessWidget {
             20.heightBox,
             GestureDetector(
               onTap: () {
-                Get.toNamed(Routes.PROFILE);
+                StorageServices.to.getString(selectedUserType) == "Mentee"
+                    ? Get.toNamed(Routes.PROFILE)
+                    : Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
               },
               child: Row(
                 children: [
@@ -246,8 +261,8 @@ class ProfileDrawer extends StatelessWidget {
                                         },
                                         child: Icon(
                                           homeController.passwordObsecure.value
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
+                                             ? Icons.visibility_off
+                                : Icons.visibility,
                                           color: const Color(0xff656466),
                                         )),
                                     hintText: "***********",

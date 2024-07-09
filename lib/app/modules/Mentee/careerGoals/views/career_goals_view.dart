@@ -9,6 +9,8 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../controllers/career_goals_controller.dart';
 
@@ -35,7 +37,7 @@ class CareerGoalsView extends GetView<CareerGoalsController> {
             10.heightBox,
             Center(
               child: Text(
-                "What are you career goals?",
+             StorageServices.to.getString(selectedUserType)=="Mentee"?   "What are you career goals?":" What are your mentorship goals",
                 style: GoogleFonts.manrope(
                     fontSize: 20.sp, fontWeight: FontWeight.w500),
               ),

@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mentor_app/app/models/authModels/createMenteeModel.dart';
-import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/modules/Mentee/careerGoals/controllers/career_goals_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/education/controllers/education_controller.dart';
 import 'package:mentor_app/app/modules/Mentee/preferredMentor/controllers/preferred_mentor_controller.dart';
@@ -49,29 +47,15 @@ class AvailbilityController extends GetxController {
     'Sunday',
   ];
   final List<String> timezones = [
-    'UTC',
-    'America/New_York',
-    'America/Los_Angeles',
-    'Europe/London',
-    'Europe/Paris',
-    'Asia/Tokyo',
-    'Australia/Sydney',
-    'Pacific/Honolulu',
-    'America/Chicago',
-    'America/Denver',
-    'America/Phoenix',
-    'America/Anchorage',
-    'Europe/Berlin',
-    'Asia/Shanghai',
-    'Asia/Dubai',
-    'Australia/Melbourne',
-    'Africa/Johannesburg',
-    'Pacific/Auckland',
-    'Asia/Kolkata',
-    'Europe/Moscow',
+    " Eastern Time Zone (ET)",
+    "Central Time Zone (CT)"
+        "Mountain Time Zone (MT)",
+    "Pacific Time Zone (PT)"
   ];
+
   var selectedTimeZone = "Select".obs;
   List<String> durations = [
+    '30 minutes',
     '1 hour',
     '1 hour 30 minutes',
     '2 hours',
@@ -109,38 +93,25 @@ class AvailbilityController extends GetxController {
       EasyLoading.show(status: "Creating Profile...");
 
       // Gather data from controllers and other sources
-      String fullName = signUpController.nameController.value.text.toString();
-      List<String> goals = careerGoalsController.selectedGoalsList;
-      List<String> skills = skillsController.selectedSkills;
-      String education = educationController.selectedSubject.value;
-      String industry = preferredMentorController.selectedIndustries.value;
-      String mentorshipStyle =
-          preferredMentorController.selectedMentorshipstyle.value;
-      String email = signUpController.emailController.value.text;
-      String gender = preferredMentorController.selectedGender.value;
-      String sessionDuration = selectedDuration.value;
-      String about = preferredMentorController.aboutMe.value.text.toString();
-      List<String> communicationChannels = selectedChannles;
-      String password = signUpController.passwordController.value.text;
-      List<String> availableDays = availabilityList;
-      String timeZone = selectedTimeZone.value;
 
       // Create the model
       CreateMenteeRequestModel createMenteeModel = CreateMenteeRequestModel(
-        fullName: fullName,
-        goals: goals,
-        skills: skills,
-        education: education,
-        industry: industry,
-        mentorshipStyle: mentorshipStyle,
-        email: email,
-        gender: gender,
-        sessionDuration: sessionDuration,
-        about: about,
-        communicationChannels: communicationChannels,
-        password: password,
-        availableDays: availableDays,
-        timeZone: timeZone,
+        fullName: signUpController.nameController.value.text.toString(),
+        goals: careerGoalsController.selectedGoalsList.join(','),
+        skills: skillsController.selectedSkills.join(','),
+        education: educationController.selectedSubject.value,
+        industry: preferredMentorController.selectedMentorshipstyle.value,
+        mentorshipStyle:
+            preferredMentorController.selectedMentorshipstyle.value,
+        email: signUpController.emailController.value.text,
+        gender: preferredMentorController.selectedGender.value,
+        sessionDuration: selectedDuration.value,
+        about: preferredMentorController.aboutMe.value.text.toString(),
+        profilePicUrl: '',
+        communicationChannels: selectedChannles.join(','),
+        password: signUpController.passwordController.value.text.toString(),
+        availableDays: availabilityList.join(','),
+        timeZone: selectedTimeZone.value,
       );
 
       // Create a multipart request
@@ -166,20 +137,36 @@ class AvailbilityController extends GetxController {
       var response = await request.send();
 
       // Check response status code
+
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
-
+        CreateMenteeRequestModel createMenteeModel2 = CreateMenteeRequestModel(
+          fullName: signUpController.nameController.value.text.toString(),
+          goals: careerGoalsController.selectedGoalsList.join(','),
+          skills: skillsController.selectedSkills.join(','),
+          education: educationController.selectedSubject.value,
+          industry: preferredMentorController.selectedMentorshipstyle.value,
+          mentorshipStyle:
+              preferredMentorController.selectedMentorshipstyle.value,
+          email: "mentee${signUpController.emailController.value.text}",
+          gender: preferredMentorController.selectedGender.value,
+          sessionDuration: selectedDuration.value,
+          about: preferredMentorController.aboutMe.value.text.toString(),
+          profilePicUrl: '',
+          communicationChannels: selectedChannles.join(','),
+          password: signUpController.passwordController.value.text.toString(),
+          availableDays: availabilityList.join(','),
+          timeZone: selectedTimeZone.value,
+        );
         // Decode the JSON response body
+
         var responseData = jsonDecode(responseBody);
-        signUpUsertoFirebase(createMenteeModel.toJson(),responseData['id'].toString());
-        StorageServices.to.setString(key: userId, value: responseData['id'].toString());
+        signUpUsertoFirebase(
+            createMenteeModel2.toJson(), responseData['id'].toString());
+        StorageServices.to
+            .setString(key: userId, value: responseData['id'].toString());
         EasyLoading.dismiss();
         clearTextfields();
-
-        Utils.snakbar(
-          title: "Account Created!",
-          body: "Your account is created successfully!",
-        );
       } else {
         EasyLoading.dismiss();
         Utils.snakbar(
@@ -188,7 +175,6 @@ class AvailbilityController extends GetxController {
         );
       }
     } catch (e) {
-      print(e);
       Utils.snakbar(
         title: "Failed",
         body: "Failed to create Account because! $e",
@@ -203,7 +189,7 @@ class AvailbilityController extends GetxController {
     try {
       await firebaseauth
           .createUserWithEmailAndPassword(
-              email: signUpController.emailController.value.text.toString(),
+              email: "meentee${signUpController.emailController.value.text}",
               password:
                   signUpController.passwordController.value.text.toString())
           .then((user) async {
@@ -211,6 +197,10 @@ class AvailbilityController extends GetxController {
             .collection('mentees')
             .doc(userId)
             .set(menteemodel);
+        Utils.snakbar(
+          title: "Account Created!",
+          body: "Your account is created successfully!",
+        );
         Get.offAndToNamed(Routes.CONGRATULATIONS);
       });
     } catch (e) {
@@ -224,7 +214,7 @@ class AvailbilityController extends GetxController {
     signUpController.passwordController.value.clear();
     careerGoalsController.selectedGoalsList.clear();
     skillsController.selectedSkills.clear();
-    educationController.selectedCertification.value = "Select";
+    educationController.certificationController.value.text = "Select";
     educationController.selectedSubject.value = "Select";
     preferredMentorController.aboutMe.value.clear();
     preferredMentorController.selectedGender.value = "";

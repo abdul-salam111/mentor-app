@@ -2,7 +2,6 @@
 //
 //     final getMenteeInfo = getMenteeInfoFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMenteeInfo getMenteeInfoFromJson(String str) => GetMenteeInfo.fromJson(json.decode(str));
@@ -13,7 +12,7 @@ class GetMenteeInfo {
     final int id;
     final String email;
     final dynamic fullName;
-    final String education;
+    final dynamic education;
     final String gender;
     final String mentorshipStyle;
     final String industry;

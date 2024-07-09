@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
-import 'package:mentor_app/app/commonWidgets/textfield.dart';
 import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -31,9 +31,10 @@ class QuestionAndAnswerForumView extends StatefulWidget {
 class _QuestionAndAnswerForumViewState
     extends State<QuestionAndAnswerForumView> {
   final controller = Get.put(QuestionAndAnswerForumController());
+
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
+
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
@@ -52,65 +53,53 @@ class _QuestionAndAnswerForumViewState
           ),
           centerTitle: false,
           actions: [
-            SizedBox(
-              child: Center(
-                child: Text(
-                  '5',
-                  style: manoropeFontFamily(
-                      fontSize: 9.sp,
-                      fontWeight: FontWeight.w400,
-                      color: whitecolor),
-                ),
-              ),
-            )
-                .box
-                .color(darkBrownColor)
-                .width(17.w)
-                .height(17.h)
-                .roundedFull
-                .make(),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  "New Notifications",
-                  style: manoropeFontFamily(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: darkestRed),
-                ))
+            StorageServices.to.getString(selectedUserType) == "Mentee"
+                ? TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.POST_QUESTIONS)!.then((value) {
+                        setState(() {});
+                      });
+                    },
+                    child: const Text(
+                      "Create",
+                      style: TextStyle(color: darkBrownColor),
+                    ))
+                : const SizedBox.shrink()
           ],
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: StorageServices.to.getString(selectedUserType) == "Mentee"
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: mainbetween,
-                      children: [
-                        SizedBox(
-                            width: width / 1.7, child: customSearchTextField()),
-                        5.widthBox,
-                        CustomButton(
-                            buttonName: "Create",
-                            onPressed: () {
-                              Get.toNamed(Routes.POST_QUESTIONS)!.then((value) {
-                                setState(() {});
-                              });
-                            },
-                            textcolor: whitecolor,
-                            loading: false,
-                            backgroundColor: darkBrownColor,
-                            rounded: false,
-                            height: 45,
-                            textSize: 12.sp,
-                            width: width / 3.5)
-                      ],
-                    )
-                  : customSearchTextField(),
-            ),
-            15.heightBox,
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: StorageServices.to.getString(selectedUserType) == "Mentee"?
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: CustomButton(
+            //                 buttonName: "Create",
+            //                 onPressed: () {
+
+            //                 },
+            //                 textcolor: whitecolor,
+            //                 loading: false,
+            //                 backgroundColor: darkBrownColor,
+            //                 rounded: false,
+            //                 height: 45,
+            //                 textSize: 12.sp,
+            //                 width: width / 3.5),
+            // ):const SizedBox.shrink()
+            // ? Row(
+            //     mainAxisSize: MainAxisSize.min,
+            //     mainAxisAlignment: mainend,
+            //     children: [
+            //       // SizedBox(
+            //       //     width: width / 1.7, child: customSearchTextField()),
+            //       // 5.widthBox,
+
+            //     ],
+            //   )
+            // : customSearchTextField(),
+            // ),
+            // 15.heightBox,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -205,17 +194,23 @@ class _QuestionAndAnswerForumViewState
                 future: controller.fetchAllQuestions(),
                 builder: (context, AsyncSnapshot<GetQuestionModel> snapshot) {
                   if (!snapshot.hasData) {
-                    return ShimmerList();
+                    return ShimmerList(10);
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return ShimmerList();
+                    return ShimmerList(10);
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(snapshot.error.toString()),
                     );
                   } else if (snapshot.data!.menteeQuestion!.isEmpty) {
-                    return const Center(
-                      child: Text("No question found!"),
+                    return Center(
+                      child: Column(
+                        children: [
+                          const Text("Question Not Found"),
+                          10.heightBox,
+                          Image.asset("assets/images/not found.jpg"),
+                        ],
+                      ),
                     );
                   } else {
                     return Expanded(
@@ -262,20 +257,53 @@ class _QuestionAndAnswerForumViewState
                                   Row(
                                     crossAxisAlignment: crosstart,
                                     children: [
-                                      CircleAvatar(
-                                        radius: 23.r,
-                                        backgroundImage: const AssetImage(girl),
-                                      ),
+                                      snapshot.data!.menteeQuestion![index]
+                                                      .mentee!.profilePicUrl !=
+                                                  null &&
+                                              snapshot
+                                                      .data!
+                                                      .menteeQuestion![index]
+                                                      .mentee!
+                                                      .profilePicUrl !=
+                                                  ""
+                                          ? SizedBox(
+                                              child: CachedNetworkImage(
+                                                imageUrl: snapshot
+                                                    .data!
+                                                    .menteeQuestion![index]
+                                                    .mentee!
+                                                    .profilePicUrl!,
+                                                width: 50,
+                                                height: 50,
+                                              ),
+                                            )
+                                              .box
+                                              .roundedFull
+                                              .clip(Clip.antiAlias)
+                                              .make()
+                                          : CircleAvatar(
+                                              radius: 23.r,
+                                              child: Image.asset(
+                                                mentor2,
+                                                fit: BoxFit.cover,
+                                              )),
                                       10.widthBox,
                                       Column(
                                         crossAxisAlignment: crosstart,
                                         children: [
                                           Text(
                                             snapshot
-                                                .data!
-                                                .menteeQuestion![index]
-                                                .mentee!
-                                                .email!,
+                                                        .data!
+                                                        .menteeQuestion![index]
+                                                        .mentee!
+                                                        .fullName !=
+                                                    null
+                                                ? snapshot
+                                                    .data!
+                                                    .menteeQuestion![index]
+                                                    .mentee!
+                                                    .fullName!
+                                                : "UserName",
                                             style: manoropeFontFamily(
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w400,
@@ -303,9 +331,8 @@ class _QuestionAndAnswerForumViewState
                                                 onTap: () {
                                                   seeReplies.value =
                                                       !seeReplies.value;
-                                                        isAnswerOpen.value =
-                                                            !isAnswerOpen.value;
-                                                  
+                                                  isAnswerOpen.value =
+                                                      !isAnswerOpen.value;
                                                 },
                                                 child: Row(
                                                   children: [
@@ -334,8 +361,8 @@ class _QuestionAndAnswerForumViewState
                                                   ? CustomButton(
                                                       buttonName: "Answer",
                                                       onPressed: () {
-                                                           seeReplies.value =
-                                                      !seeReplies.value;
+                                                        seeReplies.value =
+                                                            !seeReplies.value;
                                                         isAnswerOpen.value =
                                                             !isAnswerOpen.value;
                                                       },
@@ -377,12 +404,17 @@ class _QuestionAndAnswerForumViewState
                                                           .connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Center(
-                                                        child: AnotherShimmerList());
+                                                        child:
+                                                            AnotherShimmerList(
+                                                                10));
                                                   }
                                                   if (!snapshot.hasData) {
                                                     return const Center(
                                                       child: Text(
-                                                          "No answer submitted!",style: TextStyle(color: blackcolor),),
+                                                        "No answer submitted!",
+                                                        style: TextStyle(
+                                                            color: blackcolor),
+                                                      ),
                                                     );
                                                   }
 
@@ -392,11 +424,21 @@ class _QuestionAndAnswerForumViewState
                                                     itemBuilder:
                                                         (context, index) {
                                                       return ListTile(
-                                                        leading:
-                                                            const CircleAvatar(
-                                                          backgroundImage:
-                                                              AssetImage(
-                                                                  mentor),
+                                                        leading: CircleAvatar(
+                                                          backgroundImage: snapshot
+                                                                              .data[
+                                                                          index]
+                                                                      [
+                                                                      'profilePicUrl'] !=
+                                                                  null
+                                                              ? CachedNetworkImageProvider(
+                                                                  snapshot.data[
+                                                                          index]
+                                                                      [
+                                                                      'profilePicUrl'])
+                                                              : const AssetImage(
+                                                                      mentor)
+                                                                  as ImageProvider,
                                                         ),
                                                         title: Text(
                                                           snapshot.data[index][
@@ -457,57 +499,73 @@ class _QuestionAndAnswerForumViewState
                                           )
                                         : const SizedBox.shrink(),
                                   ),
-                                 StorageServices.to.getString(selectedUserType)=='Mentor'? Obx(() => isAnswerOpen.value
-                                      ? const Divider(
-                                          thickness: 1,
-                                          color: greyColor,
-                                        )
-                                      : const SizedBox.shrink()):const SizedBox.shrink(),
-                                  StorageServices.to.getString(selectedUserType)=='Mentor'?   Obx(() => isAnswerOpen.value
-                                      ? TextField(
-                                          style: manoropeFontFamily(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xff656466)),
-                                          maxLines:
-                                              null, // Allow multiple lines of text
-                                          minLines: 3,
-                                          controller: answerController.value,
-                                          decoration: InputDecoration(
-                                              suffixIcon: GestureDetector(
-                                                  onTap: () {
-                                                    controller
-                                                        .submitAnswer(
-                                                            answerController
-                                                                .value.text
-                                                                .toString(),
-                                                            snapshot
-                                                                .data!
-                                                                .menteeQuestion![
-                                                                    index]
-                                                                .id)
-                                                        .then((value) {
-                                                      answerController.value
-                                                          .clear();
-                                                    });
-                                                  },
-                                                  child:
-                                                      const Icon(Icons.send)),
-                                              hintText:
-                                                  'Write your answer here...', // Your hint text
-                                              hintStyle: manoropeFontFamily(
-                                                  fontSize: 12.sp,
+                                  StorageServices.to
+                                              .getString(selectedUserType) ==
+                                          'Mentor'
+                                      ? Obx(() => isAnswerOpen.value
+                                          ? const Divider(
+                                              thickness: 1,
+                                              color: greyColor,
+                                            )
+                                          : const SizedBox.shrink())
+                                      : const SizedBox.shrink(),
+                                  StorageServices.to
+                                              .getString(selectedUserType) ==
+                                          'Mentor'
+                                      ? Obx(() => isAnswerOpen.value
+                                          ? TextField(
+                                              style: manoropeFontFamily(
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w400,
                                                   color:
                                                       const Color(0xff656466)),
-                                              contentPadding: const EdgeInsets
-                                                  .only(
-                                                  top: 12.0,
-                                                  left:
-                                                      12.0), // Padding from top and left
-                                              border: InputBorder.none),
-                                        ).box.white.roundedSM.outerShadow.make()
-                                      : const SizedBox.shrink()):const SizedBox.shrink(),
+                                              maxLines:
+                                                  null, // Allow multiple lines of text
+                                              minLines: 3,
+                                              controller:
+                                                  answerController.value,
+                                              decoration: InputDecoration(
+                                                  suffixIcon: GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .submitAnswer(
+                                                                answerController
+                                                                    .value.text
+                                                                    .toString(),
+                                                                snapshot
+                                                                    .data!
+                                                                    .menteeQuestion![
+                                                                        index]
+                                                                    .id)
+                                                            .then((value) {
+                                                          answerController.value
+                                                              .clear();
+                                                        });
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.send)),
+                                                  hintText:
+                                                      'Write your answer here...', // Your hint text
+                                                  hintStyle: manoropeFontFamily(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: const Color(
+                                                          0xff656466)),
+                                                  contentPadding: const EdgeInsets
+                                                      .only(
+                                                      top: 12.0,
+                                                      left:
+                                                          12.0), // Padding from top and left
+                                                  border: InputBorder.none),
+                                            )
+                                              .box
+                                              .white
+                                              .roundedSM
+                                              .outerShadow
+                                              .make()
+                                          : const SizedBox.shrink())
+                                      : const SizedBox.shrink(),
                                 ],
                               )
                                   .box

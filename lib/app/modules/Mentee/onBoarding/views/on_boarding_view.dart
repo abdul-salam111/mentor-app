@@ -10,8 +10,11 @@ import 'package:mentor_app/app/resources/images.dart';
 import '../controllers/on_boarding_controller.dart';
 
 class OnBoardingView extends GetView<OnboardingController> {
+  @override
   final OnboardingController controller = Get.put(OnboardingController());
-final signupcontroller=Get.put(SignupController());
+  final signupcontroller = Get.put(SignupController());
+
+   OnBoardingView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,21 +23,22 @@ final signupcontroller=Get.put(SignupController());
         controller: controller.pageController,
         onPageChanged: controller.onPageChanged,
         children: [
-          OnboardingPage(
-              signupcontroller.selectUserType.value=='Mentee'?'Goals and Expectations':'The Mission',
-              signupcontroller.selectUserType.value=='Mentee'? "Lorem ipsum dolor sit amet consectetur. Congue massa ullamcorper in non diam quis leo diam. Elit non proin lectus eget at nunc nibh sit arcu. Lectus ut ut mauris nullam. Sed.":"Our mission is simple: We are empowering individuals from underrepresented communities by facilitating connections between industry professionals (mentors) and aspiring individuals (mentees), to foster mentorship, guidance, and career opportunities",
+          const OnboardingPage(
+              'The Mission',
+              "Our mission is simple: We are empowering individuals from underrepresented communities by facilitating connections between industry professionals (mentors) and aspiring individuals (mentees), to foster mentorship, guidance, and career opportunities",
               introimage1,
               "Next",
-              
-              "1/3",10),
-         
+              "1/3",
+              10),
           OnboardingPage(
-              signupcontroller.selectUserType.value=='Mentee'?  "Mentor Matching":"Connect. Cultivate. Elevate.",
-              signupcontroller.selectUserType.value=='Mentee'?  "Lorem ipsum dolor sit amet consectetur. Congue massa ullamcorper in non diam quis leo diam. Elit non proin lectus eget at nunc nibh sit arcu. Lectus ut ut mauris nullam. Sed.":"In today's competitive world, we recognize that not everyone has access to the same opportunities. That's why we're here—to level the playing field and empower you to achieve your goals.",
+              "Connect. Cultivate. \nElevate.",
+              "In today's competitive world, we recognize that not everyone has access to the same opportunities. That's why we're here—to level the playing field and empower you to achieve your goals.",
               introimage2,
-              signupcontroller.selectUserType.value=='Mentee'? "Complete Profile":"Get Started",
-              "2/3",0),
-        
+              signupcontroller.selectUserType.value == 'Mentee'
+                  ? "Complete Profile"
+                  : "Get Started",
+              "2/3",
+              0),
         ],
       ),
     );

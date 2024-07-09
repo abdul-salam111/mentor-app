@@ -2,7 +2,6 @@
 //
 //     final getSearchedMentors = getSearchedMentorsFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<GetSearchedMentors> getSearchedMentorsFromJson(String str) => List<GetSearchedMentors>.from(json.decode(str).map((x) => GetSearchedMentors.fromJson(x)));
@@ -25,6 +24,7 @@ class GetSearchedMentors {
     final String password;
     final String professionalBackgroundDescription;
     final String profilePicUrl;
+    final int resultScore;
     final String sessionDuration;
     final List<String> skills;
     final String timeZone;
@@ -46,6 +46,7 @@ class GetSearchedMentors {
         required this.password,
         required this.professionalBackgroundDescription,
         required this.profilePicUrl,
+        required this.resultScore,
         required this.sessionDuration,
         required this.skills,
         required this.timeZone,
@@ -68,6 +69,7 @@ class GetSearchedMentors {
         password: json["password"],
         professionalBackgroundDescription: json["professionalBackgroundDescription"],
         profilePicUrl: json["profilePicUrl"],
+        resultScore: json["resultScore"],
         sessionDuration: json["sessionDuration"],
         skills: List<String>.from(json["skills"].map((x) => x)),
         timeZone: json["timeZone"],
@@ -90,6 +92,7 @@ class GetSearchedMentors {
         "password": password,
         "professionalBackgroundDescription": professionalBackgroundDescription,
         "profilePicUrl": profilePicUrl,
+        "resultScore": resultScore,
         "sessionDuration": sessionDuration,
         "skills": List<dynamic>.from(skills.map((x) => x)),
         "timeZone": timeZone,

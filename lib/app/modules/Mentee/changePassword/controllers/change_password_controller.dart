@@ -20,7 +20,7 @@ class ChangePasswordController extends GetxController {
         .changeMenteePassword(
             email: getMenteeInfoFromJson(
                     StorageServices.to.getString(getmenteeinfo))
-                .email!,
+                .email,
             newpassword: confirmPasswordController.value.text.trim().toString(),
             oldpassword: oldPasswordController.value.text.trim().toString())
         .then((value) {

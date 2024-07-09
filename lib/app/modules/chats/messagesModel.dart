@@ -6,54 +6,59 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-MessageModel messageModelFromJson(String str) => MessageModel.fromJson(json.decode(str));
+MessageModel messageModelFromJson(String str) =>
+    MessageModel.fromJson(json.decode(str));
 
 String messageModelToJson(MessageModel data) => json.encode(data.toJson());
 
 class MessageModel {
-    final String? recievedById;
-    final String? recievedByName;
+  final String? recievedById;
+  final String? recievedByName;
+  final String? sendbyId;
+  final String? lastMessage;
+  final List<String>? userIds;
+  final String? sendbyName;
+  final String? createdAt;
+  final String? sendByProfilePicture;
+  final String?recievedByProfilePicture;
 
-    final String? sendbyId;
+  MessageModel({
+    this.recievedById,
+    this.recievedByName,
+    this.sendbyId,
+    this.lastMessage,
+    this.userIds,
+    this.sendbyName,
+    this.createdAt,
+    this.sendByProfilePicture,
+    this.recievedByProfilePicture,
 
-    final String? lastMessage;
-    final List<String>? userIds;
-    final String? sendbyName;
-    final String? createdAt;
+  });
 
-    MessageModel({
-        this.recievedById,
-        this.recievedByName,
-
-        this.sendbyId,
-
-        this.lastMessage,
-        this.userIds,
-        this.sendbyName,
-        this.createdAt,
-    });
-
-    factory MessageModel.fromJson(QueryDocumentSnapshot json) => MessageModel(
+  factory MessageModel.fromJson(QueryDocumentSnapshot json) => MessageModel(
         recievedById: json["recievedById"],
         recievedByName: json["recievedByName"],
-
         sendbyId: json["sendbyId"],
-
         lastMessage: json["lastMessage"],
-        userIds: json["userIds"] == null ? [] : List<String>.from(json["userIds"]!.map((x) => x)),
+        userIds: json["userIds"] == null
+            ? []
+            : List<String>.from(json["userIds"]!.map((x) => x)),
         sendbyName: json["sendbyName"],
         createdAt: json["createdAt"],
-    );
+        sendByProfilePicture: json['sendByProfilePicture'],
+        recievedByProfilePicture:json['recievedByProfilePicture'],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "recievedById": recievedById,
         "recievedByName": recievedByName,
-
         "sendbyId": sendbyId,
-
         "lastMessage": lastMessage,
-        "userIds": userIds == null ? [] : List<dynamic>.from(userIds!.map((x) => x)),
+        "userIds":
+            userIds == null ? [] : List<dynamic>.from(userIds!.map((x) => x)),
         "sendbyName": sendbyName,
         "createdAt": createdAt,
-    };
+        "sendByProfilePicture": sendByProfilePicture,
+        "recievedByProfilePicture":recievedByProfilePicture
+      };
 }

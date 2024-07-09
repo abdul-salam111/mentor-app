@@ -1,40 +1,45 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
+import 'package:mentor_app/app/commonWidgets/commonTextfield.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
-import 'package:mentor_app/app/repositories/authRepo.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/resources/physics.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:get/get.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
-    print(controller.availabilityList);
+
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
           backgroundColor: whitecolor,
           surfaceTintColor: whitecolor,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back)),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Get.back();
+          //     },
+          //     icon: const Icon(Icons.arrow_back)),
           title: Text(
             'Edit Profile',
             style: GoogleFonts.manrope(
@@ -45,6 +50,83 @@ class ProfileView extends GetView<ProfileController> {
         body: SafeArea(
           child: ListView(
             children: [
+              Obx(
+                () => CircleAvatar(
+                        radius: 50.r,
+                        child: controller.imageFile.value == null
+                            ? CachedNetworkImage(
+                                imageUrl: getMenteeInfoFromJson(StorageServices
+                                        .to
+                                        .getString(getmenteeinfo))
+                                    .profilePicUrl,
+                                fit: BoxFit.cover,
+                              )
+                            : Stack(
+                                alignment: Alignment.centerRight,
+                                children: [
+                                  Image.file(
+                                    File(
+                                      controller.imageFile.value!.path,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        controller.imageFile.value = null;
+                                      },
+                                      icon: const Icon(
+                                        Icons.cancel,
+                                        color: redColor,
+                                      ))
+                                ],
+                              ))
+                    .box
+                    .outerShadowLg
+                    .clip(Clip.antiAlias)
+                    .roundedFull
+                    .make()
+                    .onTap(() {
+                  controller.pickImage();
+                }),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 18, right: 18, top: 10),
+                child: commonTextField(
+                  icon: nameicon,
+                  hinttext: "Name",
+                  textEditingController: controller.nameController.value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    // Additional validation logic if needed
+                    return null;
+                  },
+                ),
+              ),
+              20.heightBox,
+              Padding(
+                padding: const EdgeInsets.only(left: 19, right: 19),
+                child: TextField(
+                  maxLines: null, // Allow multiple lines of text
+                  minLines: 4,
+
+                  controller: controller.aboutMe.value,
+                  style: manoropeFontFamily(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w400,
+                          color: textfieldgrey),
+                  decoration: InputDecoration(
+                      hintText: 'Write...', // Your hint text
+                      hintStyle: manoropeFontFamily(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w400,
+                          color: textfieldgrey),
+                      contentPadding: const EdgeInsets.only(
+                          top: 12.0, left: 12.0), // Padding from top and left
+                      border: InputBorder.none),
+                ).box.color(const Color(0xffEFEFEF)).roundedSM.outerShadow.make(),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
@@ -66,7 +148,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         TextButton(
                             onPressed: () {
-                                showskillsdropdown(context);
+                              showskillsdropdown(context);
                             },
                             child: Text(
                               'Add more',
@@ -158,9 +240,9 @@ class ProfileView extends GetView<ProfileController> {
                           Checkbox(
                             checkColor: blackcolor,
                             side: const BorderSide(color: greyColor),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.selected)) {
                                   return halfwhitecolor;
                                 }
                                 return Colors.transparent;
@@ -377,9 +459,9 @@ class ProfileView extends GetView<ProfileController> {
                           Checkbox(
                             checkColor: blackcolor,
                             side: const BorderSide(color: greyColor),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.selected)) {
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.selected)) {
                                   return halfwhitecolor;
                                 }
                                 return Colors.transparent;
@@ -422,8 +504,11 @@ class ProfileView extends GetView<ProfileController> {
                 child: CustomButton(
                     buttonName: "Save Profile",
                     onPressed: () {
-                   controller.updateMentee();
-      
+                      if (controller.imageFile.value != null) {
+                        controller.updateMentee();
+                      } else {
+                        Utils.snakbar(title: "", body: "Please select image");
+                      }
                     },
                     textcolor: whitecolor,
                     loading: false,
@@ -437,6 +522,7 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ));
   }
+
   void showskillsdropdown(BuildContext context) {
     // Display the PopupMenuButton
     showModalBottomSheet(
@@ -511,8 +597,7 @@ class ProfileView extends GetView<ProfileController> {
                 rounded: false,
                 onPressed: () {
                   controller.isSkillsOpen.value = false;
-              
-                 
+
                   Navigator.pop(
                       context); // Close the bottom sheet after selection
                 },

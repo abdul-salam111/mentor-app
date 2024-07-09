@@ -5,15 +5,20 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+
+//shimmer effect for loading
+// ignore: must_be_immutable 
 class ShimmerList extends StatelessWidget {
+ ShimmerList(this.count, {super.key});
+ int? count=10;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: count,
         itemBuilder: (context, index) {
-          return ShimmerListItem();
+          return const ShimmerListItem();
         },
       ),
     );
@@ -21,6 +26,8 @@ class ShimmerList extends StatelessWidget {
 }
 
 class ShimmerListItem extends StatelessWidget {
+  const ShimmerListItem({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -49,14 +56,17 @@ class ShimmerListItem extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AnotherShimmerList extends StatelessWidget {
+   AnotherShimmerList(this.count, {super.key});
+ int? count=10;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: count,
       itemBuilder: (context, index) {
-        return ShimmerListItem();
+        return const ShimmerListItem();
       },
     );
   }
@@ -124,6 +134,8 @@ class HomeScreenShimmer extends StatelessWidget {
     ));
   }
 }
+
+//for home screen loading
 
 class HomeScreenShimmerList extends StatelessWidget {
   const HomeScreenShimmerList({super.key});

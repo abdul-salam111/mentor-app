@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/commonWidgets/formateTime.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
@@ -12,7 +9,6 @@ import 'package:mentor_app/app/models/notifications/getnotificationsResponseMode
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../controllers/notifications_controller.dart';
 
 class NotificationsView extends GetView<NotificationsController> {
@@ -42,15 +38,15 @@ class NotificationsView extends GetView<NotificationsController> {
             builder: (context,
                 AsyncSnapshot<GetNotificationResponseModel>
                     getnotificationsResponseModel) {
-              if (getnotificationsResponseModel.hasData) {
-                return const SizedBox.shrink();
+              if (!getnotificationsResponseModel.hasData) {
+                return  Center(child: Image.asset("assets/images/not found.jpg",height: 100,width: 100,),);
               } else if (getnotificationsResponseModel.hasError) {
                 return Center(
                   child: Text(getnotificationsResponseModel.error.toString()),
                 );
               } else if (getnotificationsResponseModel.connectionState ==
                   ConnectionState.waiting) {
-               return AnotherShimmerList();
+               return AnotherShimmerList(10);
               }
               return ListView.builder(
               

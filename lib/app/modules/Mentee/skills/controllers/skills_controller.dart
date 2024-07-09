@@ -5,26 +5,21 @@ import 'package:mentor_app/app/storage/storage.dart';
 
 class SkillsController extends GetxController {
   List<String> computerScienceSkills = [
-    'Leadership',
-    'Communication',
-    'Team Collaboration',
-    'Time Management',
-    'Decision Making',
-    'Project Management',
-    "Networking strategies",
-    "Presentation Skills",
-    "Negotiation",
-    "Adaptability",
-    "Creativity",
-    "Innovation",
-    "Conflict Resolution",
-    "Technical Proficiency",
-    "Financial Literacy",
-    "Marketing Strategy",
-    "Sales Techniques",
-    "Customer Service",
-    "Data Analysis",
-    "Entrepreneurship"
+   'Communication Skills',
+  'Leadership Skills',
+  'Time Management',
+  'Problem-Solving Abilities',
+  'Decision-Making Skills',
+  'Emotional Intelligence',
+  'Adaptability',
+  'Collaboration and Teamwork',
+  'Critical Thinking',
+  'Creativity and Innovation',
+  'Networking Skills',
+  'Presentation Skills',
+  'Conflict Resolution Skills',
+  'Project Management Skills',
+  'Technical Skills (e.g., coding, data analysis, graphic design)',
   ];
   RxList<String> selectedSkills = <String>[].obs;
   @override

@@ -4,86 +4,89 @@
 
 import 'dart:convert';
 
-CreateMentorRequestModel createMentorRequestModelFromJson(String str) => CreateMentorRequestModel.fromJson(json.decode(str));
+CreateMentorRequestModel createMentorRequestModelFromJson(String str) =>
+    CreateMentorRequestModel.fromJson(json.decode(str));
 
-String createMentorRequestModelToJson(CreateMentorRequestModel data) => json.encode(data.toJson());
+String createMentorRequestModelToJson(CreateMentorRequestModel data) =>
+    json.encode(data.toJson());
 
 class CreateMentorRequestModel {
-    final String? about;
-    final String? availabilityStatus;
-    final List<String>? availableDays;
-    final List<String>? communicationChannels;
-    final String? email;
-    final String? fullName;
-    final String? gender;
-    final String? industry;
-    final String? isVerified;
-    final String? mentorshipStyle;
-    final String? password;
-    final String? professionalBackgroundDescription;
-    final String? profilePicUrl;
-    final String? sessionDuration;
-    final List<String>? skills;
-    final String? timeZone;
-    final int? yearsOfExperience;
+  final String? about;
+  final String? availabilityStatus;
+  final String? availableDays;
+  final String? communicationChannels;
+  final String? email;
+  final String? fullName;
+  final String? gender;
+  final String? industry;
+  final String? goals;
+  final String? mentorshipStyle;
+  final String? password;
+  final String? profBackDescription;
+  final String? profilePicUrl;
+  final String? sessionDuration;
+  final String? skills;
+  final String? timeZone;
+  final int? yearOfExperience;
 
-    CreateMentorRequestModel({
-        this.about,
-        this.availabilityStatus,
-        this.availableDays,
-        this.communicationChannels,
-        this.email,
-        this.fullName,
-        this.gender,
-        this.industry,
-        this.isVerified,
-        this.mentorshipStyle,
-        this.password,
-        this.professionalBackgroundDescription,
-        this.profilePicUrl,
-        this.sessionDuration,
-        this.skills,
-        this.timeZone,
-        this.yearsOfExperience,
-    });
+  CreateMentorRequestModel({
+    this.about,
+    this.availabilityStatus,
+    this.availableDays,
+    this.goals,
+    this.communicationChannels,
+    this.email,
+    this.fullName,
+    this.gender,
+    this.industry,
+    this.mentorshipStyle,
+    this.password,
+    this.profBackDescription,
+    this.profilePicUrl,
+    this.sessionDuration,
+    this.skills,
+    this.timeZone,
+    this.yearOfExperience,
+  });
 
-    factory CreateMentorRequestModel.fromJson(Map<String, dynamic> json) => CreateMentorRequestModel(
+  factory CreateMentorRequestModel.fromJson(Map<String, dynamic> json) =>
+      CreateMentorRequestModel(
         about: json["about"],
         availabilityStatus: json["availabilityStatus"],
-        availableDays: json["availableDays"] == null ? [] : List<String>.from(json["availableDays"]!.map((x) => x)),
-        communicationChannels: json["communicationChannels"] == null ? [] : List<String>.from(json["communicationChannels"]!.map((x) => x)),
+        availableDays: json['availableDays'],
+        communicationChannels: json['communicationChannels'],
         email: json["email"],
         fullName: json["fullName"],
         gender: json["gender"],
         industry: json["industry"],
-        isVerified: json["isVerified"],
+        goals: json['goals'],
         mentorshipStyle: json["mentorshipStyle"],
         password: json["password"],
-        professionalBackgroundDescription: json["professionalBackgroundDescription"],
+        profBackDescription: json["profBackDescription"],
         profilePicUrl: json["profilePicUrl"],
         sessionDuration: json["sessionDuration"],
-        skills: json["skills"] == null ? [] : List<String>.from(json["skills"]!.map((x) => x)),
+        skills: json['skills'],
         timeZone: json["timeZone"],
-        yearsOfExperience: json["yearsOfExperience"],
-    );
+        yearOfExperience: json["yearOfExperience"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "about": about,
         "availabilityStatus": availabilityStatus,
-        "availableDays": availableDays == null ? [] : List<dynamic>.from(availableDays!.map((x) => x)),
-        "communicationChannels": communicationChannels == null ? [] : List<dynamic>.from(communicationChannels!.map((x) => x)),
+        "availableDays": availableDays,
+        "communicationChannels": communicationChannels,
         "email": email,
         "fullName": fullName,
         "gender": gender,
         "industry": industry,
-        "isVerified": isVerified,
+        "goals": goals,
         "mentorshipStyle": mentorshipStyle,
         "password": password,
-        "professionalBackgroundDescription": professionalBackgroundDescription,
+        "profBackDescription": profBackDescription,
         "profilePicUrl": profilePicUrl,
         "sessionDuration": sessionDuration,
-        "skills": skills == null ? [] : List<dynamic>.from(skills!.map((x) => x)),
+        "skills": skills,
         "timeZone": timeZone,
-        "yearsOfExperience": yearsOfExperience,
-    };
+        "yearOfExperience": yearOfExperience,
+      };
 }

@@ -2,7 +2,6 @@
 //
 //     final getMentorInfo = getMentorInfoFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetMentorInfo getMentorInfoFromJson(String str) => GetMentorInfo.fromJson(json.decode(str));
@@ -28,6 +27,7 @@ class GetMentorInfo {
     final List<String> availableDays;
     final List<String> communicationChannels;
     final List<String> skills;
+    final int resultScore;
     final String messageStatus;
 
     GetMentorInfo({
@@ -49,6 +49,7 @@ class GetMentorInfo {
         required this.availableDays,
         required this.communicationChannels,
         required this.skills,
+        required this.resultScore,
         required this.messageStatus,
     });
 
@@ -71,6 +72,7 @@ class GetMentorInfo {
         availableDays: List<String>.from(json["availableDays"].map((x) => x)),
         communicationChannels: List<String>.from(json["communicationChannels"].map((x) => x)),
         skills: List<String>.from(json["skills"].map((x) => x)),
+        resultScore: json["resultScore"],
         messageStatus: json["messageStatus"],
     );
 
@@ -93,6 +95,7 @@ class GetMentorInfo {
         "availableDays": List<dynamic>.from(availableDays.map((x) => x)),
         "communicationChannels": List<dynamic>.from(communicationChannels.map((x) => x)),
         "skills": List<dynamic>.from(skills.map((x) => x)),
+        "resultScore": resultScore,
         "messageStatus": messageStatus,
     };
 }

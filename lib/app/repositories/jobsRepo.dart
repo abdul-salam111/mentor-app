@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mentor_app/app/Utils/Utils.dart';
-import 'package:mentor_app/app/models/jobs/createNewJob.dart';
 import 'package:mentor_app/app/models/jobs/getJobById.dart';
 import 'package:mentor_app/app/models/jobs/getJobByIndustry.dart';
-import 'package:mentor_app/app/models/jobs/jobCreationResponseModel.dart';
 import 'package:mentor_app/app/models/jobs/updateJobResponseModel.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:http/http.dart' as http;

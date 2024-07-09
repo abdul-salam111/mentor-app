@@ -10,3 +10,6 @@ const pad18=EdgeInsets.all(18);
 const pad20=EdgeInsets.all(20);
 const symetrichorizontal8=EdgeInsets.symmetric(horizontal: 8);
 const symetrichorizontal10=EdgeInsets.symmetric(horizontal: 10);
+
+
+//paddings used in the app.

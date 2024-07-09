@@ -2,6 +2,7 @@ class AppException implements Exception {
   final _message;
   final _prefix;
   AppException([this._message, this._prefix]);
+  @override
   String toString() {
     return '$_prefix $_message';
   }
@@ -14,11 +15,11 @@ class FetchDataExceptions extends AppException {
 
 class BadRequestExceptions extends AppException {
   BadRequestExceptions([String? message])
-      : super(message, 'Invalid Request');
+      : super(message, '');
 }
 class UnAuthorizeExceptions extends AppException {
   UnAuthorizeExceptions([String? message])
-      : super(message, 'UnAuthorize Request');
+      : super(message, '');
 }
 class InvalidExceptions extends AppException {
   InvalidExceptions([String? message])

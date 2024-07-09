@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
-import 'package:mentor_app/app/models/questions/getAnswerReplies.dart';
 import 'package:mentor_app/app/models/questions/getPostQuestionModel.dart';
 import 'package:mentor_app/app/models/questions/getallQuestions.dart';
 import 'package:mentor_app/app/models/questions/submitAnswer.dart';
