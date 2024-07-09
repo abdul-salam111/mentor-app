@@ -7,6 +7,8 @@ import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 class NotificationsRepository {
+
+  //get notiifcations of jobs and questions and other thins like payments
   Future<GetNotificationResponseModel> getNotifications() async {
     var url = Uri.parse(
         "https://guided-by-culture-production.up.railway.app/api/notification/notifications/${StorageServices.to.getString(selectedUserType) == "Mentee" ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).email}");

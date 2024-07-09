@@ -8,6 +8,9 @@ import 'dart:convert';
 
 import 'package:mentor_app/app/storage/storage.dart';
 
+//repostiory for availablity scheduling
+//fetching mentors
+//create schedule.
 class AvailabilityScheduling {
   Future fetchMentorAvailbleSchedules() async {
     final response = await http.get(Uri.parse(
@@ -27,6 +30,8 @@ class AvailabilityScheduling {
       throw Exception();
     }
   }
+
+  //fetching available mentors for mentees
 
   Future<dynamic> fetchMentorAvailbleSchedulesforMentees(mentorId) async {
     final response = await http.get(Uri.parse(
@@ -48,6 +53,8 @@ class AvailabilityScheduling {
     }
   }
 
+
+//create schedule for mentors to have meeting with mentee
   Future<void> createSchedule(String jsonAvailablity) async {
     // URL and JSON data
     String url =

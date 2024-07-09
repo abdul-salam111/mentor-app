@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 
+
+//search field used throughout the app
 Widget customSearchTextField({String hinttext="Search for mentors"}) {
   return TextField(
 

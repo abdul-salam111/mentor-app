@@ -5,6 +5,9 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 
+
+
+//Common button used throughout the app
 class CustomButton extends StatelessWidget {
   const CustomButton(
       {super.key,
@@ -41,6 +44,7 @@ class CustomButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         minimumSize: Size(width!, height!),
       ),
+      //check if the condition is true, loader will be shown else text
       child: loading
           ? SpinKitCircle(
               size: 30.sp,

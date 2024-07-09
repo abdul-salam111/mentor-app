@@ -15,6 +15,9 @@ import 'package:mentor_app/app/storage/storage.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AuthRepository {
+  //this repostiory includes all the functions and methods of signin
+  //login and edit profile. logout user. change password.
+
   BaseApiServices networkApiService = NetworkApiService();
   Future<dynamic> signInUser(dynamic data, userType) async {
     try {

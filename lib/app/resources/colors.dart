@@ -18,3 +18,4 @@ const darkestBrownColor=Color(0xff3D0C11);
 
 
 
+//colors used in the app.

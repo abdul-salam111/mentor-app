@@ -88,7 +88,7 @@ import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 
 part 'app_routes.dart';
-
+//app pages
 class AppPages {
   AppPages._();
 

@@ -13,7 +13,7 @@ class ConnectionsRepository {
       // Make the POST request
       final response = await http.post(Uri.parse(
           "https://guided-by-culture-production.up.railway.app/api/connection-request/create?receiverId=$recId&senderId=${StorageServices.to.getString(userId)}"));
-print(response.statusCode);
+
       // Check if the request was successful (status code 200)
       if (response.statusCode == 201) {
         

@@ -77,6 +77,4 @@ const appguide="assets/icons/appguide.png";
 
 
 
-
-
-
+//Icons used in the app

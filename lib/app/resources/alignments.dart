@@ -8,3 +8,5 @@ const mainend=MainAxisAlignment.end;
 const crosstart=CrossAxisAlignment.start;
 const crossend=MainAxisAlignment.end;
 const crosscenter=CrossAxisAlignment .center;
+
+//commonly used alighnments thoughtout the app

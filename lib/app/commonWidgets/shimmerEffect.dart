@@ -5,7 +5,9 @@ import 'package:mentor_app/app/resources/colors.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-// ignore: must_be_immutable
+
+//shimmer effect for loading
+// ignore: must_be_immutable 
 class ShimmerList extends StatelessWidget {
  ShimmerList(this.count, {super.key});
  int? count=10;
@@ -132,6 +134,8 @@ class HomeScreenShimmer extends StatelessWidget {
     ));
   }
 }
+
+//for home screen loading
 
 class HomeScreenShimmerList extends StatelessWidget {
   const HomeScreenShimmerList({super.key});

@@ -5,6 +5,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'poppinsFont.dart';
 import '../resources/colors.dart';
 
+//commonly used textfields throughout the app 
 typedef FormValidator = String? Function(String?);
 
 Widget commonTextField({
