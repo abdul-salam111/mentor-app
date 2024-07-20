@@ -1305,10 +1305,10 @@ packages:
     dependency: "direct main"
     description:
       name: velocity_x
-      sha256: "31b0750eac03d6a2e52f28eabe6251dcc0ca79859c3d6844fed684092282e684"
+      sha256: "99b910c80cc2010b184ef921f0af6894a8d632e13169cf77e6f6cb5a7f310698"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.2.1"
   video_player:
     dependency: transitive
     description:
