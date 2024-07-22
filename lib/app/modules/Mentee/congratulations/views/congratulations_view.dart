@@ -25,82 +25,84 @@ class CongratulationsView extends GetView<CongratulationsController> {
       padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
-          Column(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: TextButton(
-                    onPressed: () {
-                      Get.offAllNamed(Routes.SIGNIN);
-                    },
-                    child: Text(
-                      "Skip",
-                      style: manoropeFontFamily(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: blackcolor),
-                    )),
-              ),
-              20.heightBox,
-              height > 772
-                  ? Image.asset(
-                      congratulationimage,
-                      width: 210.w,
-                      height: 210.h,
-                    )
-                  : Image.asset(
-                      congratulationimage,
-                      width: 170.w,
-                      height: 170.h,
-                    ),
-              20.heightBox,
-              Padding(
-                padding: pad18,
-                child: Column(
-                  children: [
-                    20.heightBox,
-                    Text(
-                      "Congratulations!",
-                      style: manoropeFontFamily(
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w500,
-                          color: blackcolor),
-                      textAlign: TextAlign.center,
-                    ),
-                    30.heightBox,
-                    Text(
-                      "Welcome to the Guided By Culture Community!",
-                      style: manoropeFontFamily(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                          color: blackcolor),
-                      textAlign: TextAlign.center,
-                    ),
-                    100.heightBox,
-                    CustomButton(
-                        buttonName: "Continue",
-                        onPressed: () {
-                          Get.offAllNamed(Routes.SIGNIN);
-                        },
-                        textcolor: whitecolor,
-                        loading: false,
-                        backgroundColor: darkBrownColor,
-                        rounded: true,
-                        height: 37.h,
-                        textSize: 16,
-                        width: 300.w),
-                    70.heightBox,
-                  ],
-                )
-                    .box
-                    .white
-                    .width(double.infinity)
-                    .padding(pad12)
-                    .roundedLg
-                    .shadowSm
-                    .make(),
-              ),
-            ],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                      onPressed: () {
+                        Get.offAllNamed(Routes.SIGNIN);
+                      },
+                      child: Text(
+                        "Skip",
+                        style: manoropeFontFamily(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: blackcolor),
+                      )),
+                ),
+                20.heightBox,
+                height > 772
+                    ? Image.asset(
+                        congratulationimage,
+                        width: 210.w,
+                        height: 210.h,
+                      )
+                    : Image.asset(
+                        congratulationimage,
+                        width: 170.w,
+                        height: 170.h,
+                      ),
+                20.heightBox,
+                Padding(
+                  padding: pad18,
+                  child: Column(
+                    children: [
+                      20.heightBox,
+                      Text(
+                        "Congratulations!",
+                        style: manoropeFontFamily(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w500,
+                            color: blackcolor),
+                        textAlign: TextAlign.center,
+                      ),
+                      30.heightBox,
+                      Text(
+                        "Welcome to the Guided By Culture Community!",
+                        style: manoropeFontFamily(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                            color: blackcolor),
+                        textAlign: TextAlign.center,
+                      ),
+                      100.heightBox,
+                      CustomButton(
+                          buttonName: "Continue",
+                          onPressed: () {
+                            Get.offAllNamed(Routes.SIGNIN);
+                          },
+                          textcolor: whitecolor,
+                          loading: false,
+                          backgroundColor: darkBrownColor,
+                          rounded: true,
+                          height: 37.h,
+                          textSize: 16,
+                          width: 300.w),
+                      70.heightBox,
+                    ],
+                  )
+                      .box
+                      .white
+                      .width(double.infinity)
+                      .padding(pad12)
+                      .roundedLg
+                      .shadowSm
+                      .make(),
+                ),
+              ],
+            ),
           ),
           height > 772
               ? Positioned(
