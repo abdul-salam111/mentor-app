@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,9 @@ import 'package:mentor_app/app/repositories/availabilitySchdeuling.dart';
 import 'package:mentor_app/app/repositories/meetingsController.dart';
 
 class ScheduleSessionController extends GetxController {
+  var startTime = Rx<TimeOfDay?>(null);
+  var endTime = Rx<TimeOfDay?>(null);
+
   List<Map<String, dynamic>> scheduless = [];
   var isOpen = false.obs;
   var isCertificateOpen = false.obs;
@@ -57,13 +61,22 @@ class ScheduleSessionController extends GetxController {
   }
 
   MeetingRepository meetingRepository = MeetingRepository();
-  Future createMeetingWithMentor() async {
+  Future createMeetingWithMentor(String name) async {
+    final formattedStartTime = startTime.value != null
+        ? '${startTime.value!.hour}:${startTime.value!.minute.toString().padLeft(2, '0')}'
+        : null;
+    final formattedEndTime = endTime.value != null
+        ? '${endTime.value!.hour}:${endTime.value!.minute.toString().padLeft(2, '0')}'
+        : null;
+
     var data = Get.arguments;
     meetingRepository
         .createMeetingWithMentor(
+            name: name,
             mentorId: data['id'].toString(),
-            endTime: scheduless[selectedIndex.value]['endTime'],
-            startTime: scheduless[selectedIndex.value]['startTime'],
+            endTime: formattedEndTime ?? '',
+            startTime: formattedStartTime ?? '',
+            // scheduless[selectedIndex.value]['startTime'],
             dateTime:
                 "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
             appointreason: appointmentReason.value.text,

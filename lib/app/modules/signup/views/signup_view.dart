@@ -232,10 +232,13 @@ class SignupView extends GetView<SignupController> {
                       controller.selectUserType.value != '' &&
                       controller.accepttermsandConditions.value != false &&
                       controller.selectUserType.value.isNotEmpty) {
+
                     StorageServices.to.setString(
                         key: selectedUserType,
                         value: controller.selectUserType.value);
+                        
                     Get.toNamed(Routes.ON_BOARDING);
+
                   } else if (controller.accepttermsandConditions.value ==
                       false) {
                     Utils.snakbar(

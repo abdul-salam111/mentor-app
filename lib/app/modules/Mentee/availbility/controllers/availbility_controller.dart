@@ -31,8 +31,8 @@ class AvailbilityController extends GetxController {
   var isDurationOpen = false.obs;
 
   List<String> communitcationChannels = [
-    'App messaging',
-    'Video Call',
+    'In App Messaging',
+    'In App Video Calling',
     'Phone Call'
   ];
   List<String> selectedChannles = <String>[].obs;
@@ -47,10 +47,10 @@ class AvailbilityController extends GetxController {
     'Sunday',
   ];
   final List<String> timezones = [
-    " Eastern Time Zone (ET)",
-    "Central Time Zone (CT)"
-        "Mountain Time Zone (MT)",
-    "Pacific Time Zone (PT)"
+    " Eastern Time Zone (EST)",
+    "Central Time Zone (CST)"
+        "Mountain Time Zone (MST)",
+    "Pacific Time Zone (PST)"
   ];
 
   var selectedTimeZone = "Select".obs;

@@ -14,3 +14,16 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+clear contoller in bank detials
+hint style change forget pass screen
+
+flutter: ::: res {"responseCode":"404","responseDesc":"No records found","data":null} change this to zero zero 
+
+mark as complete in meetings for mentee
+
+
+
+flutter: ::::MeetingRepository => createMeetingWithMentor req body {appointmentReason: tsst, appointmentStatus: string, date: 26-7-2024, day: mon, endTime: 12:00, menteeId: 36, mentorId: 12, startTime: 1:00}

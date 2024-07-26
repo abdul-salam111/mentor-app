@@ -527,12 +527,15 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                     height: 15,
                   ),
                   10.widthBox,
-                  Text(
-                    "Put preferred communication channel first",
-                    style: manoropeFontFamily(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: blackcolor),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: context.width/1.2),
+                    child: Text(
+                      "Put preferred communication channel first",
+                      style: manoropeFontFamily(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: blackcolor),
+                    ),
                   ),
                 ],
               ),

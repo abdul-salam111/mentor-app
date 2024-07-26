@@ -38,82 +38,164 @@ class MessagesView extends GetView<MessagesController> {
     var chatRoomId = Get.arguments[1];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: whitecolor,
-        surfaceTintColor: whitecolor,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back)),
-        title: Row(children: [
-          Text(
-            "Chat with",
-            style: manoropeFontFamily(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-                color: blackcolor),
-          ),
-          2.widthBox,
-          Text(
-            gofromChat == true ? recName! : data['fullName'].toString(),
-            style: manoropeFontFamily(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-                color: darkBrownColor),
-          )
-        ]),
-        centerTitle: true,
-        actions: [
-          ZegoSendCallInvitationButton(
-            buttonSize: const Size(50, 20),
-            padding: EdgeInsets.zero,
-            margin: EdgeInsets.zero,
-            isVideoCall: true,
-            iconSize: Size(
-              20.h,
-              20.w,
-            ),
-            icon: ButtonIcon(
-              icon: Image.asset(
-                videocalling,
-              ),
-            ),
-            invitees: [
-              ZegoUIKitUser(
-                id: gofromChat == true ? recId! : data['email'],
-                name:
-                    gofromChat == true ? recName! : data['fullName'].toString(),
-              ),
-            ],
-          ),
-          ZegoSendCallInvitationButton(
-            buttonSize: const Size(50, 20),
-            padding: EdgeInsets.zero,
-            margin: EdgeInsets.zero,
-            isVideoCall: false,
-            iconSize: Size(
-              20.h,
-              20.w,
-            ),
-            icon: ButtonIcon(
-              icon: Image.asset(
-                audiocalling,
-              ),
-            ),
-            invitees: [
-              ZegoUIKitUser(
-                id: gofromChat == true ? recId! : data['email'],
-                name:
-                    gofromChat == true ? recName! : data['fullName'].toString(),
-              ),
-            ],
-          ),
-          10.widthBox,
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: whitecolor,
+      //   surfaceTintColor: whitecolor,
+      //   leading: IconButton(
+      //       onPressed: () {
+      //         Get.back();
+      //       },
+      //       icon: const Icon(Icons.arrow_back)),
+      //   title: Row(children: [
+      //     Text(
+      //       "Chat with",
+      //       style: manoropeFontFamily(
+      //           fontSize: 12.sp,
+      //           fontWeight: FontWeight.w500,
+      //           color: blackcolor),
+      //     ),
+      //     2.widthBox,
+      //     Text(
+      //       gofromChat == true ? recName! : data['fullName'].toString(),
+      //       style: manoropeFontFamily(
+      //           fontSize: 12.sp,
+      //           fontWeight: FontWeight.w500,
+      //           color: darkBrownColor),
+      //     )
+      //   ]),
+      //   centerTitle: true,
+      //   actions: [
+      //     ZegoSendCallInvitationButton(
+      //       buttonSize: const Size(50, 20),
+      //       padding: EdgeInsets.zero,
+      //       margin: EdgeInsets.zero,
+      //       isVideoCall: true,
+      //       iconSize: Size(
+      //         20.h,
+      //         20.w,
+      //       ),
+      //       icon: ButtonIcon(
+      //         icon: Image.asset(
+      //           videocalling,
+      //         ),
+      //       ),
+      //       invitees: [
+      //         ZegoUIKitUser(
+      //           id: gofromChat == true ? recId! : data['email'],
+      //           name:
+      //               gofromChat == true ? recName! : data['fullName'].toString(),
+      //         ),
+      //       ],
+      //     ),
+      //     ZegoSendCallInvitationButton(
+      //       buttonSize: const Size(20, 20),
+      //       padding: EdgeInsets.zero,
+      //       margin: EdgeInsets.zero,
+      //       isVideoCall: false,
+      //       iconSize: Size(
+      //         20.h,
+      //         20.w,
+      //       ),
+      //       icon: ButtonIcon(
+      //         icon: Image.asset(
+      //           audiocalling,
+      //         ),
+      //       ),
+      //       invitees: [
+      //         ZegoUIKitUser(
+      //           id: gofromChat == true ? recId! : data['email'],
+      //           name:
+      //               gofromChat == true ? recName! : data['fullName'].toString(),
+      //         ),
+      //       ],
+      //     ),
+      //     10.widthBox,
+      //   ],
+      // ),
+
       body: Column(
         children: <Widget>[
+          20.heightBox,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Get.back();
+                  }, icon: const Icon(Icons.arrow_back)),
+              10.widthBox,
+              Text(
+                "Chat with ",
+                style: manoropeFontFamily(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: blackcolor),
+              ),
+              2.widthBox,
+              Container(
+                constraints: BoxConstraints(maxWidth: context.width/2.5),
+                child: Text(
+                  gofromChat == true ? recName! : data['fullName'].toString(),
+                  style: manoropeFontFamily(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                      color: darkBrownColor),
+                ),
+              ),
+              Container(
+                width: context.width / 6,
+                child: ZegoSendCallInvitationButton(
+                  // buttonSize: const Size(50, 20),
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.zero,
+                  isVideoCall: true,
+                  iconSize: Size(
+                    20.h,
+                    20.w,
+                  ),
+                  icon: ButtonIcon(
+                    icon: Image.asset(
+                      videocalling,
+                    ),
+                  ),
+                  invitees: [
+                    ZegoUIKitUser(
+                      id: gofromChat == true ? recId! : data['email'],
+                      name: gofromChat == true
+                          ? recName!
+                          : data['fullName'].toString(),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: context.width / 6,
+                child: ZegoSendCallInvitationButton(
+                  // buttonSize: const Size(20, 20),
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.zero,
+                  isVideoCall: false,
+                  iconSize: Size(
+                    20.h,
+                    20.w,
+                  ),
+                  icon: ButtonIcon(
+                    icon: Image.asset(
+                      audiocalling,
+                    ),
+                  ),
+                  invitees: [
+                    ZegoUIKitUser(
+                      id: gofromChat == true ? recId! : data['email'],
+                      name: gofromChat == true
+                          ? recName!
+                          : data['fullName'].toString(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('chatsCollection')
@@ -328,9 +410,7 @@ class MessagesView extends GetView<MessagesController> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                 
-                   
-                     showDialog(
+                    showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
@@ -338,11 +418,10 @@ class MessagesView extends GetView<MessagesController> {
                             contentPadding: const EdgeInsets.all(10),
                             content: TextButton(
                                 onPressed: () {
-                                  if(gofromChat==true){
-
-                                  }
-                                  else{
-                                    Get.toNamed(Routes.SCHEDULE_SESSION,arguments: data);
+                                  if (gofromChat == true) {
+                                  } else {
+                                    Get.toNamed(Routes.SCHEDULE_SESSION,
+                                        arguments: data);
                                   }
                                 },
                                 child: const Text(
@@ -351,7 +430,6 @@ class MessagesView extends GetView<MessagesController> {
                                 )),
                           );
                         });
-                   
                   },
                   child: CircleAvatar(
                     backgroundColor: darkestBrownColor,

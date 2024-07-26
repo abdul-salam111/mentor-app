@@ -10,12 +10,15 @@ const userAddress="userAddress";
 
 const userPhone="userPhone";
 const getmenteeinfo="getmenteeinfo";
+// getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).id this is how to get menteeid
 const loginMenteeInfo="loginMenteeInfo";
 const usertoken="usertoken";
 
 const remainingQuestions="remainingQuestions";
 
 const getMentorInformationsss="getMentorInformationsss";
+// getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).id this is how to get mentor id
+
 const mentorToken="mentorToken";
 const selectedUserType="selectedUserType";
 

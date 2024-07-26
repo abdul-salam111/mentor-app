@@ -3,17 +3,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 import 'package:mentor_app/app/repositories/availabilitySchdeuling.dart';
 import 'package:mentor_app/app/repositories/meetingsController.dart';
-
 
 class ScheduleMeetingsController extends GetxController {
   final PageController pageController =
       PageController(initialPage: DateTime.now().month - 1);
   final Rx<DateTime> selectedDate = DateTime.now().obs;
   var index = 0.obs;
-  List<String> daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  List<String> daysOfWeek = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
 
   AvailabilityScheduling availabilityScheduling = AvailabilityScheduling();
   // List<String> timeList = [
@@ -67,6 +73,24 @@ class ScheduleMeetingsController extends GetxController {
       meetingRepository.fetchMenteesMeetings();
     });
   }
+
+  Future markAsCompletedlMeetingByMentee(
+      String mentorId,
+      menteeId,
+      String bookingId,
+      String name, // for screen
+    ) async {
+    return await meetingRepository
+        .meetingCopletedWithMentorByMentee(
+            mentorId: mentorId,
+            menteeId: menteeId,
+            bookingId: bookingId,
+            name: name)
+        .then((value) {
+      meetingRepository.fetchMenteesMeetings();
+    });
+  }
+
   Future fetchMentorScheduledMeetings() async {
     return await meetingRepository.fetchMentorsMeetings();
   }

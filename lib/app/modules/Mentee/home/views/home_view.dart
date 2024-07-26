@@ -221,131 +221,133 @@ class _HomeViewState extends State<HomeView> {
                   )
                 : const SizedBox.shrink(),
             20.heightBox,
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Row(
-                mainAxisAlignment: mainbetween,
-                children: [
-                  Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color.lerp(darkBrownColor,
-                                    const Color(0xffFF3300), 0.4)!,
-                                Color.lerp(const Color(0xffffffff),
-                                    const Color(0xffFF3300), 0.4)!,
-                              ],
+            FittedBox(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Row(
+                  mainAxisAlignment: mainbetween,
+                  children: [
+                    Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.lerp(darkBrownColor,
+                                      const Color(0xffFF3300), 0.4)!,
+                                  Color.lerp(const Color(0xffffffff),
+                                      const Color(0xffFF3300), 0.4)!,
+                                ],
+                              ),
                             ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: maincenter,
-                            children: [
-                              Image.asset(
-                                findMentors,
-                                height: 25,
-                                width: 25,
-                              ),
-                              10.heightBox,
-                              Text(
-                                StorageServices.to
-                                            .getString(selectedUserType) !=
-                                        "Mentor"
-                                    ? 'Find Mentors'
-                                    : 'Mentee requests',
-                                style: manoropeFontFamily(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: whitecolor),
-                              ),
-                            ],
-                          ))
-                      .box
-                      .height(90.w)
-                      .outerShadow
-                      .clip(Clip.antiAlias)
-                      .rounded
-                      .make()
-                      .onTap(() {
-                    StorageServices.to.getString(selectedUserType) == "Mentor"
-                        ? Get.toNamed(Routes.CONNECTIONS)
-                        : Get.toNamed(Routes.FINDING_BEST_MATCH);
-                  }),
-                  Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            mainAxisAlignment: maincenter,
-                            children: [
-                              Image.asset(
-                                qA,
-                                height: 30,
-                                width: 30,
-                              ),
-                              10.heightBox,
-                              Text(
-                                'Q&A forum  ',
-                                style: manoropeFontFamily(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: darkBrownColor),
-                              ),
-                            ],
-                          ))
-                      .box
-                      .white
-                      .height(90.w)
-                      .outerShadow
-                      .clip(Clip.antiAlias)
-                      .rounded
-                      .make()
-                      .onTap(() {
-                    Get.toNamed(Routes.QUESTION_AND_ANSWER_FORUM);
-                  }),
-                  Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          // decoration: BoxDecoration(
-                          //   gradient: LinearGradient(
-                          //     begin: Alignment.topCenter,
-                          //     end: Alignment.bottomCenter,
-                          //     colors: [
-                          //       Color.lerp(darkBrownColor,
-                          //           const Color(0xffFF3300), 0.4)!,
-                          //       Color.lerp(const Color(0xffffffff),
-                          //           const Color(0xffFF3300), 0.4)!,
-                          //     ],
-                          //   ),
-                          // ),
-                          child: Column(
-                            mainAxisAlignment: maincenter,
-                            children: [
-                              Image.asset(
-                                jobForum,
-                                height: 30,
-                                width: 30,
-                              ),
-                              10.heightBox,
-                              Text(
-                                'Job Forum  ',
-                                style: manoropeFontFamily(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: darkBrownColor),
-                              ),
-                            ],
-                          ))
-                      .box
-                      .white
-                      .height(90.w)
-                      .outerShadow
-                      .clip(Clip.antiAlias)
-                      .rounded
-                      .make()
-                      .onTap(() {
-                    Get.toNamed(Routes.POSTED_JOBS);
-                  }),
-                ],
+                            child: Column(
+                              mainAxisAlignment: maincenter,
+                              children: [
+                                Image.asset(
+                                  findMentors,
+                                  height: 25,
+                                  width: 25,
+                                ),
+                                10.heightBox,
+                                Text(
+                                  StorageServices.to
+                                              .getString(selectedUserType) !=
+                                          "Mentor"
+                                      ? 'Find Mentors'
+                                      : 'Mentee\nRequests',
+                                  style: manoropeFontFamily(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: whitecolor),
+                                ),
+                              ],
+                            ))
+                        .box
+                        .height(90.w)
+                        .outerShadow
+                        .clip(Clip.antiAlias)
+                        .rounded
+                        .make()
+                        .onTap(() {
+                      StorageServices.to.getString(selectedUserType) == "Mentor"
+                          ? Get.toNamed(Routes.CONNECTIONS)
+                          : Get.toNamed(Routes.FINDING_BEST_MATCH);
+                    }),
+                    Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              mainAxisAlignment: maincenter,
+                              children: [
+                                Image.asset(
+                                  qA,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                10.heightBox,
+                                Text(
+                                  'Q&A forum  ',
+                                  style: manoropeFontFamily(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: darkBrownColor),
+                                ),
+                              ],
+                            ))
+                        .box
+                        .white
+                        .height(90.w)
+                        .outerShadow
+                        .clip(Clip.antiAlias)
+                        .rounded
+                        .make()
+                        .onTap(() {
+                      Get.toNamed(Routes.QUESTION_AND_ANSWER_FORUM);
+                    }),
+                    Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            // decoration: BoxDecoration(
+                            //   gradient: LinearGradient(
+                            //     begin: Alignment.topCenter,
+                            //     end: Alignment.bottomCenter,
+                            //     colors: [
+                            //       Color.lerp(darkBrownColor,
+                            //           const Color(0xffFF3300), 0.4)!,
+                            //       Color.lerp(const Color(0xffffffff),
+                            //           const Color(0xffFF3300), 0.4)!,
+                            //     ],
+                            //   ),
+                            // ),
+                            child: Column(
+                              mainAxisAlignment: maincenter,
+                              children: [
+                                Image.asset(
+                                  jobForum,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                10.heightBox,
+                                Text(
+                                  'Job Forum  ',
+                                  style: manoropeFontFamily(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: darkBrownColor),
+                                ),
+                              ],
+                            ))
+                        .box
+                        .white
+                        .height(90.w)
+                        .outerShadow
+                        .clip(Clip.antiAlias)
+                        .rounded
+                        .make()
+                        .onTap(() {
+                      Get.toNamed(Routes.POSTED_JOBS);
+                    }),
+                  ],
+                ),
               ),
             ),
             20.heightBox,

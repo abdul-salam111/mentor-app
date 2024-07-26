@@ -65,7 +65,7 @@ abstract class _Paths {
   static const MEETINGS = '/meetings';
   static const CHATS = '/chats';
   static const NOTIFICATIONS = '/notifications';
-  static const PROFILE = '/profile';
+  static const  PROFILE = '/profile';
   static const FIND_MENTORS = '/find-mentors';
   static const MENTOR_PROFILE = '/mentor-profile';
   static const POST_QUESTIONS = '/post-questions';

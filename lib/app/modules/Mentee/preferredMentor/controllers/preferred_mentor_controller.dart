@@ -45,7 +45,7 @@ class PreferredMentorController extends GetxController {
   ];
   List<String> mentorshipImages = [
     "assets/icons/Situational Mentorship icons.png",
-    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/traditional.jpg",
     "assets/icons/Peer Mentorship .png",
     "assets/icons/Peer Mentorship .png",
     "assets/icons/Life-Stage Mentorship.png"

@@ -91,7 +91,7 @@ class _ConnectionsViewState extends State<ConnectionsView> {
                             )
                                 .box
                                 .padding(const EdgeInsets.fromLTRB(8, 4, 8, 4))
-                                .width(110)
+                                
                                 .border(color: greyColor)
                                 .rounded
                                 .color(controller.index.value == 1

@@ -132,7 +132,7 @@ class MentorRepository {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-
+        print('::: getBestMentor $data ');
         Get.toNamed(Routes.MENTOR_MATCHED, arguments: data);
         return GetBestMentorModel.fromJson(data);
       } else {

@@ -28,7 +28,7 @@ class OnBoardingView extends GetView<OnboardingController> {
               "Our mission is simple: We are empowering individuals from underrepresented communities by facilitating connections between industry professionals (mentors) and aspiring individuals (mentees), to foster mentorship, guidance, and career opportunities",
               introimage1,
               "Next",
-              "1/3",
+              "1/2",
               10),
           OnboardingPage(
               "Connect. Cultivate. \nElevate.",
@@ -37,7 +37,7 @@ class OnBoardingView extends GetView<OnboardingController> {
               signupcontroller.selectUserType.value == 'Mentee'
                   ? "Complete Profile"
                   : "Get Started",
-              "2/3",
+              "2/2",
               0),
         ],
       ),

@@ -56,43 +56,44 @@ class MentorAvailabilityController extends GetxController {
   ];
   RxList<String> availabilityList = <String>[].obs;
   final List<String> timezones = [
-    " Eastern Time Zone (ET)",
-    "Central Time Zone (CT)"
-        "Mountain Time Zone (MT)",
-    "Pacific Time Zone (PT)"
+    " Eastern Time Zone (EST)",
+    "Central Time Zone (CST)"
+        "Mountain Time Zone (MST)",
+    "Pacific Time Zone (PST)"
   ];
   var selectedTimeZone = "Select".obs;
   var isOpen = false.obs;
   List<String> durations = [
     '30 minutes',
     '1 hour',
-    '1 hour 30 minutes',
+    '90 minutes',
     '2 hours',
-    '2 hours 30 minutes',
-    '3 hours',
-    '3 hours 30 minutes',
-    '4 hours',
-    '4 hours 30 minutes',
-    '5 hours',
-    '5 hours 30 minutes',
-    '6 hours',
+    // '2 hours 30 minutes',
+    // '3 hours',
+    // '3 hours 30 minutes',
+    // '4 hours',
+    // '4 hours 30 minutes',
+    // '5 hours',
+    // '5 hours 30 minutes',
+    // '6 hours',
   ];
 
   var selectedDuration = 'Select'.obs;
   var isDurationOpen = false.obs;
   List<String> communitcationChannels = [
-    'App messaging',
-    'Video Call',
+    'In App Messaging',
+    'In App Video Calling',
     'Phone Call'
   ];
   RxList<String> selectedChannles = <String>[].obs;
 
   var isStatusOpen = false.obs;
   List<String> availablityStatus = [
-    'Accepting new mentees',
-    'currently at full capacity',
-    'On Hiatus',
+    'Accepting New Mentees',
+    'At Full Capacity',
+    'Not accepting new Mentees'
   ];
+
   var selectedStatus = 'Select'.obs;
   RxString selectedGender = ''.obs;
 
@@ -101,6 +102,7 @@ class MentorAvailabilityController extends GetxController {
   }
 
   final signupController = Get.put(SignupController());
+  final hourlyRateController = Get.put(MentorEducationBackgroundController());
   final eductioncontroller = Get.put(MentorEducationBackgroundController());
   MentorRepository mentorRepository = MentorRepository();
   final skillController = Get.put(SkillsController());
@@ -127,26 +129,27 @@ class MentorAvailabilityController extends GetxController {
 
       // Create the model
       CreateMentorRequestModel creatementorModel = CreateMentorRequestModel(
-        fullName: signupController.nameController.value.text.toString(),
-        industry: eductioncontroller.selectedIndustries.value,
-        mentorshipStyle: eductioncontroller.selectedMentorshipstyle.value,
-        email: signupController.emailController.value.text.toString(),
-        skills: skillController.selectedSkills.join(','),
-        goals: goalController.selectedGoalsList.join(','),
-        communicationChannels: communitcationChannels.join(','),
-        availableDays: availabilityList.join(','),
-        gender: selectedGender.value,
-        sessionDuration: selectedDuration.value,
-        about: eductioncontroller.aboutMe.value.text.toString(),
-        profilePicUrl: 'profilePicUrl',
-        profBackDescription:
-            eductioncontroller.professionalBg.value.text.toString(),
-        availabilityStatus: selectedStatus.value,
-        password: signupController.passwordController.value.text.toString(),
-        yearOfExperience:
-            int.parse(eductioncontroller.yearsOfExperience.value.text),
-        timeZone: selectedTimeZone.value,
-      );
+          fullName: signupController.nameController.value.text.toString(),
+          industry: eductioncontroller.selectedIndustries.value,
+          mentorshipStyle: eductioncontroller.selectedMentorshipstyle.value,
+          email: signupController.emailController.value.text.toString(),
+          skills: skillController.selectedSkills.join(','),
+          goals: goalController.selectedGoalsList.join(','),
+          communicationChannels: communitcationChannels.join(','),
+          availableDays: availabilityList.join(','),
+          gender: selectedGender.value,
+          sessionDuration: selectedDuration.value,
+          about: eductioncontroller.aboutMe.value.text.toString(),
+          profilePicUrl: 'profilePicUrl',
+          profBackDescription:
+              eductioncontroller.professionalBg.value.text.toString(),
+          availabilityStatus: selectedStatus.value,
+          password: signupController.passwordController.value.text.toString(),
+          yearOfExperience:
+              int.parse(eductioncontroller.yearsOfExperience.value.text),
+          timeZone: selectedTimeZone.value,
+          ratePerHour:
+              int.parse(hourlyRateController.sessionHourlyRate.value.text));
 
       var request = http.MultipartRequest(
           'POST',
@@ -171,11 +174,13 @@ class MentorAvailabilityController extends GetxController {
 
       // Send the request and await response
       var response = await request.send();
+      print('::: res body ${request.files}');
 
       // Check response status code
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
-
+        print('::: res statusCode ${response.statusCode}');
+        print('::: res statusCode $responseBody');
         // Decode the JSON response body
         var responseData = jsonDecode(responseBody);
         signUpUsertoFirebase(
@@ -187,8 +192,6 @@ class MentorAvailabilityController extends GetxController {
             .setString(key: userId, value: responseData['id'].toString());
         EasyLoading.dismiss();
       } else {
-        
-
         EasyLoading.dismiss();
         Utils.snakbar(
           title: "Failed!",
@@ -208,7 +211,7 @@ class MentorAvailabilityController extends GetxController {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((user)async {
+          .then((user) async {
         await FirebaseFirestore.instance
             .collection('mentors')
             .doc(userId)

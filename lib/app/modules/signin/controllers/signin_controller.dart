@@ -43,21 +43,31 @@ class SigninController extends GetxController {
   AuthRepository authRepository = AuthRepository();
   QuestionsRepository questionsRepository = QuestionsRepository();
   final signupcontroller = Get.put(SignupController());
+
   Future<void> loginUser() async {
     EasyLoading.show(status: "Signing In");
 
     LoginMenteeRequestModel signinModel = LoginMenteeRequestModel(
         password: passwordController.value.text,
         usernameOrEmail: nameController.value.text);
-  print(signinModel.toJson());
+
+    print('::: signinModel.toJson()${signinModel.toJson()}');
+
     await authRepository
         .signInUser(jsonEncode(signinModel), selectUserType)
         .then((value) async {
+      print('::: 1');
       await StorageServices.to
           .setString(key: usertoken, value: value['accessToken']);
+      print('::: 2');
+
       StorageServices.to
           .setString(key: selectedUserType, value: selectUserType.value);
+      print('::: 3');
+
       if (selectUserType.value == "Mentee") {
+        print('::: 4');
+
         var menteedata = await authRepository.getMenteeData(
             email: nameController.value.text.toString());
         firebaseLoginuser("mentee${nameController.value.text.toString()}",
@@ -66,13 +76,19 @@ class SigninController extends GetxController {
             key: getmenteeinfo, value: getMenteeInfoToJson(menteedata));
         questionsRepository.fetchQuestionCount();
       } else {
+        print('::: 5');
+
         var mentordata = await mentorRepository.getmentorinformation(
             mentorEmail: nameController.value.text.toString());
+
         firebaseLoginuser(nameController.value.text.toString(),
             passwordController.value.text.toString());
+        print('::: 6');
+
         StorageServices.to.setString(
             key: getMentorInformationsss,
             value: getMentorInfoToJson(mentordata));
+        print('::: 7');
       }
       ZegoUIKitPrebuiltCallInvitationService().init(
         appID: 555496812 /*input your AppID*/,
@@ -89,11 +105,15 @@ class SigninController extends GetxController {
             : StorageServices.to.getString(userName),
         plugins: [ZegoUIKitSignalingPlugin()],
       );
+      print('::: 8');
 
       EasyLoading.dismiss();
       Get.offAllNamed(Routes.NAVIGATION_BAR);
     }).onError((error, stackTrace) {
+      print('::: 10');
+
       EasyLoading.dismiss();
+      print('::: exception ${error.toString()}');
       Utils.snakbar(title: "", body: error.toString());
     });
   }
@@ -119,5 +139,4 @@ class SigninController extends GetxController {
   //     print('Error occurred during sign-in: $error');
   //   }
   // }
-    
 }

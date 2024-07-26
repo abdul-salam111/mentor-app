@@ -42,8 +42,8 @@ class ProfileController extends GetxController {
   var selectedDuration = 'Select'.obs;
   var isDurationOpen = false.obs;
   List<String> communitcationChannels = [
-    'App messaging',
-    'Video Call',
+    'In App Messaging',
+    'In App Video Calling',
     'Phone Call'
   ];
   RxList<String?> selectedChannles = RxList<String?>();

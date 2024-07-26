@@ -28,6 +28,7 @@ class CreateMentorRequestModel {
   final String? skills;
   final String? timeZone;
   final int? yearOfExperience;
+  final int? ratePerHour;
 
   CreateMentorRequestModel({
     this.about,
@@ -47,6 +48,7 @@ class CreateMentorRequestModel {
     this.skills,
     this.timeZone,
     this.yearOfExperience,
+    this.ratePerHour,
   });
 
   factory CreateMentorRequestModel.fromJson(Map<String, dynamic> json) =>
@@ -68,6 +70,7 @@ class CreateMentorRequestModel {
         skills: json['skills'],
         timeZone: json["timeZone"],
         yearOfExperience: json["yearOfExperience"],
+        ratePerHour: json["ratePerHour"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,5 +91,6 @@ class CreateMentorRequestModel {
         "skills": skills,
         "timeZone": timeZone,
         "yearOfExperience": yearOfExperience,
+        "ratePerHour": ratePerHour,
       };
 }

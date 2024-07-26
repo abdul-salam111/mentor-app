@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,49 +37,51 @@ class MentorEducationBackgroundView
         ),
         body: ListView(children: [
           10.heightBox,
-       
           Padding(
             padding: pad18,
             child: Column(
               children: [
-                    StorageServices.to.getbool('updateProfile')==true?   20.heightBox:const SizedBox.shrink(),
-            StorageServices.to.getbool('updateProfile')==true?    Row(
-            children: [
-              Image.asset(
-                profile,
-                height: 15,
-                width: 15,
-              ),
-              10.widthBox,
-              Text(
-                "Full Name",
-                style: manoropeFontFamily(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: blackcolor),
-              ),
-            ],
-          ):const SizedBox.shrink(),
-          10.heightBox,
-         StorageServices.to.getbool('updateProfile')==true? TextField(
-            keyboardType: TextInputType.text,
-            controller: controller.nameController.value,
-            decoration: InputDecoration(
-                hintText: 'eg. 1 year', // Your hint text
-                hintStyle: manoropeFontFamily(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: textfieldgrey),
-                contentPadding: const EdgeInsets.only(
-                    left: 12.0), // Padding from top and left
-                border: InputBorder.none),
-          )
-              .box
-              .color(const Color(0xffF4F4F4))
-             
-              .roundedSM
-              .make():const SizedBox.shrink(),
-                StorageServices.to.getbool('updateProfile')==true?    20.heightBox:const SizedBox.shrink(),
+                StorageServices.to.getbool('updateProfile') == true
+                    ? 20.heightBox
+                    : const SizedBox.shrink(),
+                StorageServices.to.getbool('updateProfile') == true
+                    ? Row(
+                        children: [
+                          Image.asset(
+                            profile,
+                            height: 15,
+                            width: 15,
+                          ),
+                          10.widthBox,
+                          Text(
+                            "Full Name",
+                            style: manoropeFontFamily(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: blackcolor),
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink(),
+                10.heightBox,
+                StorageServices.to.getbool('updateProfile') == true
+                    ? TextField(
+                        keyboardType: TextInputType.text,
+                        controller: controller.nameController.value,
+                        decoration: InputDecoration(
+                            hintText: 'eg. 1 year', // Your hint text
+                            hintStyle: manoropeFontFamily(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: textfieldgrey),
+                            contentPadding: const EdgeInsets.only(
+                                left: 12.0), // Padding from top and left
+                            border: InputBorder.none),
+                      ).box.color(const Color(0xffF4F4F4)).roundedSM.make()
+                    : const SizedBox.shrink(),
+                StorageServices.to.getbool('updateProfile') == true
+                    ? 20.heightBox
+                    : const SizedBox.shrink(),
                 Row(
                   children: [
                     Image.asset(
@@ -104,11 +105,14 @@ class MentorEducationBackgroundView
                   minLines: 3,
                   controller: controller.aboutMe.value,
                   decoration: InputDecoration(
-                      hintText: 'Write...', // Your hint text
-                      hintStyle: manoropeFontFamily(
+                      hintText:
+                          'They’ll be time to tell us about your job experience but tell us about you, here! Mentees want to work with mentors they can relate to!', // Your hint text
+                      hintStyle: TextStyle(
+                          overflow: TextOverflow.clip,
+                          fontStyle: FontStyle.italic,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          color: blackcolor),
+                          color: darkgreyColor),
                       contentPadding: const EdgeInsets.only(
                           top: 12.0, left: 12.0), // Padding from top and left
                       border: InputBorder.none),
@@ -145,11 +149,14 @@ class MentorEducationBackgroundView
 
                   controller: controller.professionalBg.value,
                   decoration: InputDecoration(
-                      hintText: 'Write...', // Your hint text
-                      hintStyle: manoropeFontFamily(
+                      hintText:
+                          'Tell us about yourself! Remember, mentees will want to work with someone who has a professional background that matches their goals and career trajectory!”', // Your hint text
+                      hintStyle: TextStyle(
+                          overflow: TextOverflow.clip,
+                          fontStyle: FontStyle.italic,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          color: blackcolor),
+                          color: darkgreyColor),
                       contentPadding: const EdgeInsets.only(
                           top: 12.0, left: 12.0), // Padding from top and left
                       border: InputBorder.none),
@@ -337,7 +344,11 @@ class MentorEducationBackgroundView
                             return Column(
                               children: [
                                 ListTile(
-                                  leading: Image.asset(controller.mentorshipImages[index],height: 30,width: 30,),
+                                  leading: Image.asset(
+                                    controller.mentorshipImages[index],
+                                    height: 30,
+                                    width: 30,
+                                  ),
                                   title: Text(
                                     skill,
                                     style: manoropeFontFamily(
@@ -400,6 +411,44 @@ class MentorEducationBackgroundView
             controller: controller.yearsOfExperience.value,
             decoration: InputDecoration(
                 hintText: 'eg. 1 year', // Your hint text
+                hintStyle: manoropeFontFamily(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: textfieldgrey),
+                contentPadding: const EdgeInsets.only(
+                    left: 12.0), // Padding from top and left
+                border: InputBorder.none),
+          )
+              .box
+              .color(const Color(0xffF4F4F4))
+              .margin(const EdgeInsets.only(left: 20, right: 20))
+              .roundedSM
+              .make(),
+          20.heightBox,
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.monetization_on_outlined,
+                ),
+                10.widthBox,
+                Text(
+                  "Session Hourly rate",
+                  style: manoropeFontFamily(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: blackcolor),
+                ),
+              ],
+            ),
+          ),
+          10.heightBox,
+          TextField(
+            keyboardType: TextInputType.phone,
+            controller: controller.sessionHourlyRate.value,
+            decoration: InputDecoration(
+                hintText: 'eg. 30\$', // Your hint text
                 hintStyle: manoropeFontFamily(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,

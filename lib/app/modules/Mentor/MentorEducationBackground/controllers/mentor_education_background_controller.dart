@@ -7,31 +7,32 @@ import 'package:mentor_app/app/storage/storage.dart';
 import '../../../../models/mentor/getMentorInfor.dart';
 
 class MentorEducationBackgroundController extends GetxController {
-
-final nameController=TextEditingController().obs;
+  final nameController = TextEditingController().obs;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    if(StorageServices.to.getbool('updateProfile')){
-      aboutMe.value.text=getMentorInfoFromJson(
+    if (StorageServices.to.getbool('updateProfile')) {
+      aboutMe.value.text = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .about;
-      professionalBg.value.text=getMentorInfoFromJson(
+      professionalBg.value.text = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .professionalBackgroundDescription;
-     selectedIndustries.value=getMentorInfoFromJson(
+      selectedIndustries.value = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .industry;
-    selectedMentorshipstyle.value=getMentorInfoFromJson(
+      selectedMentorshipstyle.value = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
           .mentorshipStyle;
-      yearsOfExperience.value.text=getMentorInfoFromJson(
+      yearsOfExperience.value.text = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
-          .yearsOfExperience.toString();
-      nameController.value.text=getMentorInfoFromJson(
+          .yearsOfExperience
+          .toString();
+      nameController.value.text = getMentorInfoFromJson(
               StorageServices.to.getString(getMentorInformationsss))
-          .fullName.toString();
+          .fullName
+          .toString();
     }
   }
 
@@ -46,23 +47,22 @@ final nameController=TextEditingController().obs;
     "Life-Stage Mentorship"
   ];
   List<String> mentorshipImages = [
-    "assets/icons/Situational Mentorship icons.png",
+    "assets/icons/traditional.jpg",
     "assets/icons/Situational Mentorship icons.png",
     "assets/icons/Peer Mentorship .png",
     "assets/icons/Peer Mentorship .png",
     "assets/icons/Life-Stage Mentorship.png"
-
   ];
 
-   RxList<String> availabilityList = <String>[].obs;
-   final aboutMe=TextEditingController().obs;
-   final professionalBg=TextEditingController().obs;
+  RxList<String> availabilityList = <String>[].obs;
+  final aboutMe = TextEditingController().obs;
+  final professionalBg = TextEditingController().obs;
   var isOpen = false.obs;
   var isDurationOpen = false.obs;
 
   List<String> communitcationChannels = [
-    'App messaging',
-    'Video Call',
+    'In App Messaging',
+    'In App Video Calling',
     'Phone Call'
   ];
   List<String> selectedChannles = <String>[].obs;
@@ -131,7 +131,9 @@ final nameController=TextEditingController().obs;
       print('Error picking image: $e');
     }
   }
-  final yearsOfExperience=TextEditingController().obs;
+
+  final yearsOfExperience = TextEditingController().obs;
+  final sessionHourlyRate = TextEditingController().obs;
   var isIndusryOpen = false.obs;
   var selectedIndustries = "Select".obs;
   List<String> industries = [
@@ -156,6 +158,4 @@ final nameController=TextEditingController().obs;
     "Human Resources",
     "Insurance"
   ];
-
-  
 }

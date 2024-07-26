@@ -61,9 +61,9 @@ class CongratulationsView extends GetView<CongratulationsController> {
                     children: [
                       20.heightBox,
                       Text(
-                        "Congratulations!",
+                        "Account created successfully",
                         style: manoropeFontFamily(
-                            fontSize: 22.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
                             color: blackcolor),
                         textAlign: TextAlign.center,
@@ -72,14 +72,14 @@ class CongratulationsView extends GetView<CongratulationsController> {
                       Text(
                         "Welcome to the Guided By Culture Community!",
                         style: manoropeFontFamily(
-                            fontSize: 18.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
                             color: blackcolor),
                         textAlign: TextAlign.center,
                       ),
                       100.heightBox,
                       CustomButton(
-                          buttonName: "Continue",
+                          buttonName: "Sign in using your new account ",
                           onPressed: () {
                             Get.offAllNamed(Routes.SIGNIN);
                           },

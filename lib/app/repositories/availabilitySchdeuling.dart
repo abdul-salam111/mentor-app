@@ -19,7 +19,7 @@ class AvailabilityScheduling {
     try {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-      print(data);
+        print(data);
         return data;
       } else {
         // Handle error
@@ -37,6 +37,8 @@ class AvailabilityScheduling {
     final response = await http.get(Uri.parse(
         "https://guided-by-culture-production.up.railway.app/api/mentor-schedule/$mentorId/all"));
 
+    print(
+        ':::AvailabilityScheduling  => fetchMentorAvailbleSchedulesforMentees ${response.body} ');
     try {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
@@ -52,7 +54,6 @@ class AvailabilityScheduling {
       throw Exception();
     }
   }
-
 
 //create schedule for mentors to have meeting with mentee
   Future<void> createSchedule(String jsonAvailablity) async {

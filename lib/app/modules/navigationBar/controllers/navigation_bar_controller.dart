@@ -12,10 +12,7 @@ import 'package:mentor_app/app/storage/storage.dart';
 class NavigationBarController extends GetxController {
   List<Widget> pages = [
     const HomeView(),
-    // StorageServices.to.getString(selectedUserType) == "Mentee"
-    //     ? const ScheduleSessionView()
-    //     :  
-        const ScheduleMeetingsView(),
+    const ScheduleMeetingsView(),
     const ChatsView(),
     const NotificationsView(),
     StorageServices.to.getString(selectedUserType) == "Mentee"

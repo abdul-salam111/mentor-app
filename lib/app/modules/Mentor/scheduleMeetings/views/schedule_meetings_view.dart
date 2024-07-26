@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
+import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
+import 'package:mentor_app/app/repositories/meetingsController.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -24,11 +26,9 @@ class ScheduleMeetingsView extends StatefulWidget {
 }
 
 class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
-
-  final controller=  Get.put(ScheduleMeetingsController());
+  final controller = Get.put(ScheduleMeetingsController());
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: whitecolor,
       appBar: AppBar(
@@ -174,7 +174,11 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                         // If meetingResponseList is empty
                         return Expanded(
                           child: Center(
-                              child: Image.asset("assets/images/not found.jpg",height: 100,width: 100,)),
+                              child: Image.asset(
+                            "assets/images/not found.jpg",
+                            height: 100,
+                            width: 100,
+                          )),
                         );
                       }
                       return Expanded(
@@ -183,140 +187,187 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                                 itemCount: snapshot
                                     .data!['meetingResponseList'].length,
                                 itemBuilder: (context, index) {
-                                  return Row(
-                                    crossAxisAlignment: crosstart,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 24.r,
-                                        backgroundImage: CachedNetworkImageProvider(
-                                            StorageServices.to.getString(
-                                                        selectedUserType) ==
-                                                    "Mentee"
-                                                ? snapshot.data!['meetingResponseList']
-                                                        [index]['mentor']
-                                                    ['profilePicUrl']
-                                                : snapshot.data![
-                                                            'meetingResponseList']
-                                                        [index]['mentee']
-                                                    ['profilePicUrl']),
-                                      ),
-                                      5.widthBox,
-                                      Column(
-                                        mainAxisAlignment: mainbetween,
-                                        crossAxisAlignment: crosstart,
-                                        children: [
-                                          Text(
-                                            StorageServices.to.getString(
-                                                        selectedUserType) ==
-                                                    "Mentee"
-                                                ? snapshot.data![
-                                                        'meetingResponseList'][
-                                                    index]['mentor']['fullName']
-                                                : snapshot.data![
-                                                        'meetingResponseList'][
-                                                    index]['mentee']['fullName'],
-                                            style: manoropeFontFamily(
-                                                fontSize: 13.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: blackcolor),
-                                          ),
-                                          2.heightBox,
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.alarm,
-                                                color: textfieldgrey,
-                                                size: 18.sp,
-                                              ),
-                                              5.widthBox,
-                                              Text(
-                                                "Time : ${snapshot.data!['meetingResponseList'][index]['startTime']}",
-                                                style: manoropeFontFamily(
-                                                    fontSize: 11.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: textfieldgrey),
-                                              ),
-                                            ],
-                                          ),
-                                          2.heightBox,
-                                          Text(
-                                            "Industry: ${StorageServices.to.getString(selectedUserType) == "Mentee" ? snapshot.data!['meetingResponseList'][index]['mentor']['industry'] : snapshot.data!['meetingResponseList'][index]['mentee']['industry']}",
-                                            style: manoropeFontFamily(
-                                                fontSize: 11.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: textfieldgrey),
-                                          ),
-                                          5.heightBox,
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 17.h,
-                                                width: 70.w,
-                                                child: Center(
-                                                  child: Text(
-                                                    "View",
-                                                    style: manoropeFontFamily(
-                                                        fontSize: 10.sp,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: whitecolor),
-                                                  ),
-                                                ),
-                                              )
-                                                  .box
-                                                  .color(
-                                                      const Color(0xff109804))
-                                                  .rounded
-                                                  .make(),
-                                              10.widthBox,
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.cancelMeetingByMentee(
-                                                      snapshot.data[
+                                  return FittedBox(
+                                    child: Row(
+                                      crossAxisAlignment: crosstart,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 24.r,
+                                          backgroundImage: CachedNetworkImageProvider(
+                                              StorageServices.to.getString(
+                                                          selectedUserType) ==
+                                                      "Mentee"
+                                                  ? snapshot.data!['meetingResponseList']
+                                                          [index]['mentor']
+                                                      ['profilePicUrl']
+                                                  : snapshot.data![
                                                               'meetingResponseList']
-                                                          [index]['id'],
-                                                      snapshot.data[
-                                                                  'meetingResponseList']
-                                                              [index]['mentor']
-                                                          ['fullName']);
-                                                  setState(() {
-                                                    
-                                                  });
-                                                },
-                                                child: SizedBox(
-                                                  height: 17.h,
-                                                  width: 70.w,
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Cancel",
-                                                      style: manoropeFontFamily(
-                                                          fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: whitecolor),
+                                                          [index]['mentee']
+                                                      ['profilePicUrl']),
+                                        ),
+                                        5.widthBox,
+                                        Column(
+                                          mainAxisAlignment: mainbetween,
+                                          crossAxisAlignment: crosstart,
+                                          children: [
+                                            Text(
+                                              StorageServices.to.getString(
+                                                          selectedUserType) ==
+                                                      "Mentee"
+                                                  ? snapshot.data![
+                                                              'meetingResponseList']
+                                                          [index]['mentor']
+                                                      ['fullName']
+                                                  : snapshot.data![
+                                                          'meetingResponseList']
+                                                      [
+                                                      index]['mentee']['fullName'],
+                                              style: manoropeFontFamily(
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: blackcolor),
+                                            ),
+                                            2.heightBox,
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.alarm,
+                                                  color: textfieldgrey,
+                                                  size: 18.sp,
+                                                ),
+                                                5.widthBox,
+                                                Text(
+                                                  "Time : ${snapshot.data!['meetingResponseList'][index]['startTime']}",
+                                                  style: manoropeFontFamily(
+                                                      fontSize: 11.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: textfieldgrey),
+                                                ),
+                                              ],
+                                            ),
+                                            2.heightBox,
+                                            Text(
+                                              "Industry: ${StorageServices.to.getString(selectedUserType) == "Mentee" ? snapshot.data!['meetingResponseList'][index]['mentor']['industry'] : snapshot.data!['meetingResponseList'][index]['mentee']['industry']}",
+                                              style: manoropeFontFamily(
+                                                  fontSize: 11.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: textfieldgrey),
+                                            ),
+                                            5.heightBox,
+                                            Row(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    print('::: press view');
+                                                    var mentorId = snapshot
+                                                                .data![
+                                                            'meetingResponseList']
+                                                        [index]['mentor']['id'];
+                                                    var name = snapshot.data![
+                                                                'meetingResponseList']
+                                                            [index]['mentor']
+                                                        ['fullName'];
+                                                    var bookingId = snapshot
+                                                                .data![
+                                                            'meetingResponseList']
+                                                        [index]['id'];
+                                                    if (StorageServices.to
+                                                            .getString(
+                                                                selectedUserType) ==
+                                                        "Mentee") {
+                                                      controller.markAsCompletedlMeetingByMentee(
+                                                          mentorId.toString(),
+                                                          getMenteeInfoFromJson(
+                                                                  StorageServices
+                                                                      .to
+                                                                      .getString(
+                                                                          getmenteeinfo))
+                                                              .id,
+                                                          bookingId.toString(),
+                                                          name);
+
+                                                      setState(() {});
+                                                    } else {
+                                                      print(
+                                                          'Meentor case not handeld');
+                                                    }
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 17.h,
+                                                    width: 70.w,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Complete",
+                                                        style:
+                                                            manoropeFontFamily(
+                                                                fontSize: 10.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color:
+                                                                    whitecolor),
+                                                      ),
                                                     ),
-                                                  ),
-                                                )
-                                                    .box
-                                                    .color(redColor)
-                                                    .rounded
-                                                    .make(),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )
-                                      .box
-                                      .white
-                                      .outerShadow
-                                      .rounded
-                                      .padding(const EdgeInsets.fromLTRB(
-                                          14, 7, 14, 7))
-                                      .margin(const EdgeInsets.only(
-                                          top: 10, left: 10, right: 10))
-                                      .make();
+                                                  )
+                                                      .box
+                                                      .color(const Color(
+                                                          0xff109804))
+                                                      .rounded
+                                                      .make(),
+                                                ),
+                                                10.widthBox,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller.cancelMeetingByMentee(
+                                                        snapshot.data[
+                                                                'meetingResponseList']
+                                                            [index]['id'],
+                                                        snapshot.data[
+                                                                    'meetingResponseList']
+                                                                [
+                                                                index]['mentor']
+                                                            ['fullName']);
+                                                    setState(() {});
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 17.h,
+                                                    width: 70.w,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style:
+                                                            manoropeFontFamily(
+                                                                fontSize: 10.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color:
+                                                                    whitecolor),
+                                                      ),
+                                                    ),
+                                                  )
+                                                      .box
+                                                      .color(redColor)
+                                                      .rounded
+                                                      .make(),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                        .box
+                                        .white
+                                        .outerShadow
+                                        .rounded
+                                        .padding(const EdgeInsets.fromLTRB(
+                                            14, 7, 14, 7))
+                                        .margin(const EdgeInsets.only(
+                                            top: 10, left: 10, right: 10))
+                                        .make(),
+                                  );
                                 })
                             .box
                             .outerShadow
