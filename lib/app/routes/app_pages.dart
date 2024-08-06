@@ -88,6 +88,7 @@ import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 
 part 'app_routes.dart';
+
 //app pages
 class AppPages {
   AppPages._();
@@ -102,7 +103,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ON_BOARDING,
-      page: () =>  OnBoardingView(),
+      page: () => OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     GetPage(
@@ -217,12 +218,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIGNUP,
-      page: () => const SignupView(),
+      page: () => SignupView(),
       binding: SignupBinding(),
     ),
     GetPage(
       name: _Paths.SIGNIN,
-      page: () => const SigninView(),
+      page: () =>  SigninView(),
       binding: SigninBinding(),
     ),
     GetPage(

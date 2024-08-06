@@ -3,6 +3,8 @@ import 'package:mentor_app/app/repositories/connectionsRepo.dart';
 
 class ConnectionsController extends GetxController {
   ConnectionsRepository connectionsRepository = ConnectionsRepository();
+
+  
   Future acceptConnections(recId) async {
     return connectionsRepository.acceptConnectionRequest(recId);
   }

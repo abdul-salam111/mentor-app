@@ -16,12 +16,12 @@ class NotificationsRepository {
       'Accept': 'application/json',
       "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}",
     };
-
     try {
       var response = await http.get(
         url,
         headers: headers,
       );
+print('::: NotificationsRepository ${response.body}');
 
       if (response.statusCode == 200) {
         var data = await jsonDecode(response.body);

@@ -55,7 +55,7 @@ class EducationView extends GetView<EducationController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Subjects",
+                    "Highest Level of Education Completed",
                     style: manoropeFontFamily(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,

@@ -87,7 +87,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                 ).box.white.margin(const EdgeInsets.only(left: 8,right: 8)).roundedSM.outerShadow.make(),
                 20.heightBox,
                 Text(
-                  "Job Mode",
+                  "Employment Type",
                   style: manoropeFontFamily(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -97,7 +97,7 @@ class JobApplicationFormView extends GetView<JobApplicationFormController> {
                 TextField(
                   controller: controller.jobModeController.value,
                   decoration: InputDecoration(
-                      hintText: 'Full Time/Part Time', // Your hint text
+                      hintText: 'Full Time/Part Time/Ad Hoc', // Your hint text
                       hintStyle: manoropeFontFamily(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,

@@ -9,9 +9,9 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
-import 'package:mentor_app/app/repositories/meetingsController.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
+import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -32,13 +32,10 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
     return Scaffold(
       backgroundColor: whitecolor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         surfaceTintColor: whitecolor,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
+       
+       
         title: Text(
           'Meetings',
           style:
@@ -100,57 +97,6 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
               ],
             ),
             10.heightBox,
-            // Obx(() => controller.index.value == 0
-            //     ? Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: Obx(
-            //           () => Text(
-            //             DateFormat('MMMM')
-            //                 .format(controller.selectedDate.value),
-            //             style: manoropeFontFamily(
-            //                 fontSize: 15.sp,
-            //                 fontWeight: FontWeight.bold,
-            //                 color: darkBrownColor),
-            //           ),
-            //         ))
-            //     : const SizedBox.shrink()),
-            // Obx(() => controller.index.value == 0
-            //     ? Padding(
-            //         padding: const EdgeInsets.symmetric(vertical: 8.0),
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //           children: [
-            //             for (var day in _getDaysOfWeek())
-            //               Text(
-            //                 day,
-            //                 style: manoropeFontFamily(
-            //                     fontSize: 12.sp,
-            //                     fontWeight: FontWeight.w500,
-            //                     color: darkBrownColor),
-            //               ),
-            //           ],
-            //         ),
-            //       )
-            //     : const SizedBox.shrink()),
-            // Obx(() => controller.index.value == 0
-            //     ? Expanded(
-            //         child: PageView.builder(
-            //           key: _pageViewKey,
-            //           controller: controller.pageController,
-            //           itemCount: 12, // For 12 months
-            //           onPageChanged: (index) {
-            //             DateTime newDate = DateTime(
-            //                 controller.selectedDate.value.year, index + 1, 1);
-            //             controller.selectedDate.value = newDate;
-            //           },
-            //           itemBuilder: (context, index) {
-            //             DateTime month = DateTime(
-            //                 controller.selectedDate.value.year, index + 1, 1);
-            //             return buildMonthPicker(month);
-            //           },
-            //         ),
-            //       )
-            //     : const SizedBox.shrink()),
             Obx(() => controller.index.value == 0
                 ? FutureBuilder(
                     future: StorageServices.to.getString(selectedUserType) ==
@@ -172,14 +118,84 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                         );
                       } else if (snapshot.data['meetingResponseList'].isEmpty) {
                         // If meetingResponseList is empty
-                        return Expanded(
-                          child: Center(
-                              child: Image.asset(
-                            "assets/images/not found.jpg",
-                            height: 100,
-                            width: 100,
-                          )),
-                        );
+                        return StorageServices.to.getString(selectedUserType) !=
+                                "Mentor"
+                            ? Expanded(
+                                child: Center(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "No meetings scheduled.",
+                                        style: TextStyle(color: blackcolor),
+                                      ),
+                                      20.heightBox,
+                                      Container(
+                                        
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15,vertical: 12),
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color.lerp(
+                                                        darkBrownColor,
+                                                        const Color(0xffFF3300),
+                                                        0.4)!,
+                                                    Color.lerp(
+                                                        const Color(0xffffffff),
+                                                        const Color(0xffFF3300),
+                                                        0.4)!,
+                                                  ],
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: maincenter,
+                                                children: [
+                                                  Text(
+                                                    StorageServices.to.getString(
+                                                                selectedUserType) !=
+                                                            "Mentor"
+                                                        ? 'Schedule Meeting'
+                                                        : 'Mentee\nRequests',
+                                                    style: manoropeFontFamily(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: whitecolor),
+                                                  ),
+                                                ],
+                                              ))
+                                          .box
+                                          // .height(90.w)
+                                          .outerShadow
+                                          .clip(Clip.antiAlias)
+                                          .rounded
+                                          .make()
+                                          .onTap(() {
+                                        StorageServices.to.getString(
+                                                    selectedUserType) ==
+                                                "Mentor"
+                                            ? Get.toNamed(Routes.CONNECTIONS)
+                                            : Get.toNamed(
+                                                Routes.FINDING_BEST_MATCH);
+                                      }),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Expanded(
+                                child: Center(
+                                    child: Image.asset(
+                                  "assets/images/not found.jpg",
+                                  height: 100,
+                                  width: 100,
+                                )),
+                              );
                       }
                       return Expanded(
                         child: ListView.builder(
@@ -458,45 +474,62 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                                         child:
                                             Text(controller.daysOfWeek[index])),
                                     SizedBox(
-                                        width: 50,
-                                        child: TextField(
+                                      width: 50,
+                                      child: InkWell(
+                                        onTap: () => _selectTime(
+                                            context, startingTimeController),
+                                        child: IgnorePointer(
+                                          child: TextField(
                                             controller: startingTimeController,
                                             keyboardType:
                                                 TextInputType.datetime,
                                             decoration: const InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.all(0),
-                                                border: InputBorder.none,
-                                                hintText: '1:00'))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              border: InputBorder.none,
+                                              hintText: 'Start',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(width: 20),
                                     SizedBox(
-                                        width: 50,
-                                        child: TextField(
+                                      width: 50,
+                                      child: InkWell(
+                                        onTap: () => _selectTime(
+                                            context, endingTimeController),
+                                        child: IgnorePointer(
+                                          child: TextField(
                                             controller: endingTimeController,
                                             keyboardType:
                                                 TextInputType.datetime,
                                             decoration: const InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.all(0),
-                                                border: InputBorder.none,
-                                                hintText: '12:00'))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              border: InputBorder.none,
+                                              hintText: 'End',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 );
                               },
                             ),
                             10.heightBox,
                             CustomButton(
-                                buttonName: "Save",
-                                onPressed: () {
-                                  controller.createMentorSchedular();
-                                },
-                                textcolor: whitecolor,
-                                loading: false,
-                                backgroundColor: darkBrownColor,
-                                rounded: true,
-                                height: 40.h,
-                                textSize: 16.sp,
-                                width: double.infinity)
+                              buttonName: "Save",
+                              onPressed: () {
+                                controller.createMentorSchedular();
+                              },
+                              textcolor: whitecolor,
+                              loading: false,
+                              backgroundColor: darkBrownColor,
+                              rounded: true,
+                              height: 40.h,
+                              textSize: 16.sp,
+                              width: double.infinity,
+                            ),
                           ],
                         );
                       }
@@ -516,12 +549,13 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                                               : snapshot.data[i]['day'] == "sat"
                                                   ? "Saturday"
                                                   : snapshot.data[i]['day'] ==
-                                                      "Sunday",
+                                                          "sun"
+                                                      ? "Sunday"
+                                                      : "",
                           'endTime': snapshot.data[i]['endTime'],
-                          'mentorId': StorageServices.to.getString(
-                              userId), // Assuming mentorId is fixed for all items
+                          'mentorId': StorageServices.to.getString(userId),
                           'startTime': snapshot.data[i]['startTime'],
-                          'id': snapshot.data[i]['id']
+                          'id': snapshot.data[i]['id'],
                         });
                       }
 
@@ -529,21 +563,21 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
                         children: [
                           _buildDataListView(
                               controller.selectedAvailablityList),
-                          // Render UI for adding new data
                           _buildAddDataListView(snapshot.data),
                           10.heightBox,
                           CustomButton(
-                              buttonName: "Update",
-                              onPressed: () {
-                                controller.createMentorSchedular();
-                              },
-                              textcolor: whitecolor,
-                              loading: false,
-                              backgroundColor: darkBrownColor,
-                              rounded: true,
-                              height: 35.h,
-                              textSize: 15.sp,
-                              width: double.infinity)
+                            buttonName: "Update",
+                            onPressed: () {
+                              controller.createMentorSchedular();
+                            },
+                            textcolor: whitecolor,
+                            loading: false,
+                            backgroundColor: darkBrownColor,
+                            rounded: true,
+                            height: 35.h,
+                            textSize: 15.sp,
+                            width: double.infinity,
+                          ),
                         ],
                       );
                     })
@@ -558,6 +592,21 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
             .make(),
       ),
     );
+  }
+
+  Future<void> _selectTime(
+      BuildContext context, TextEditingController controller) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      final formattedTime = picked.format(context);
+      final localizations = MaterialLocalizations.of(context);
+      final formatted24HourTime =
+          localizations.formatTimeOfDay(picked, alwaysUse24HourFormat: true);
+      controller.text = formatted24HourTime;
+    }
   }
 
   Widget _buildDataListView(List dataList) {

@@ -162,44 +162,6 @@ class WalletRepo {
     }
   }
 
-  // Future<void> completeTransaction({required BuildContext context}) async {
-  //   var mentorId = StorageServices.to.getString(userId);
-  //   print('::: mentor id in completeTransaction $mentorId');
-  //   dynamic data = {'mentorId': mentorId};
-  //   print('::: completeTransaction $data');
-  //   // Endpoint URL
-  //   String url =
-  //       "https://guided-by-culture-production.up.railway.app/api/payment/complete-transaction";
-  //   try {
-  //     EasyLoading.show(status: "Loading...");
-  //     final response = await http.post(
-  //       headers: {'Content-Type': 'application/json'},
-  //       Uri.parse(url),
-  //       body: jsonEncode(data),
-  //     );
-  //     print('::: ${response.body}');
-  //     print('::: ${response.statusCode}');
-  //     if (response.statusCode == 200) {
-  //       final jsonData = json.decode(response.body);
-  //       Utils.snakbar(title: 'Success', body: jsonData['responseDesc']);
-  //       EasyLoading.dismiss();
-  //     } else {
-  //       EasyLoading.dismiss();
-  //       final jsonData = json.decode(response.body);
-  //       Utils.snakbar(title: 'Opps', body: jsonData['responseDesc']);
-  //       throw Exception();
-  //     }
-  //   } catch (e) {
-  //     Utils.snakbar(title: 'Opps', body: e.toString());
-  //     EasyLoading.dismiss();
-  //     print(':::Exception $e');
-  //   } finally {
-  //     Navigator.pop(context);
-  //     Navigator.pop(context);
-  //     Navigator.pop(context);
-  //   }
-  // }
-
   // mentee => select slot then pay to book the slot
   Future<void> purchase(
       {required BuildContext context, required dynamic data}) async {

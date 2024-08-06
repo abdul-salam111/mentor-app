@@ -382,12 +382,15 @@ class _HomeViewState extends State<HomeView> {
                     );
                   } else if (snapshot.data['meetingResponseList'].isEmpty) {
                     // If meetingResponseList is empty
-                    return Center(
-                        child: Image.asset(
-                      "assets/images/not found.jpg",
-                      width: 100.w,
-                      height: 100.h,
-                    ));
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "No meetings scheduled",
+                          style: TextStyle(color: blackcolor),
+                        ),
+                      ),
+                    );
                   } else {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -552,7 +555,6 @@ class _HomeViewState extends State<HomeView> {
                                     mainAxisExtent: 115.h,
                                     crossAxisCount: 2),
                             itemBuilder: (context, index) {
-                          
                               return Column(
                                 crossAxisAlignment: crosstart,
                                 children: [

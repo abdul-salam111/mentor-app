@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,9 @@ import 'package:velocity_x/velocity_x.dart';
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
-  const SignupView({Key? key}) : super(key: key);
+  ValueNotifier<bool> obscureText = ValueNotifier<bool>(true);
+
+  SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -63,7 +66,7 @@ class SignupView extends GetView<SignupController> {
                       return null;
                     },
                   ),
-                      20.heightBox,
+                  20.heightBox,
                   commonTextField(
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -80,26 +83,71 @@ class SignupView extends GetView<SignupController> {
                     textEditingController: controller.emailController.value,
                   ),
                   20.heightBox,
-                  commonTextField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (value.length < 8) {
-                          return 'Password must be at least 8 characters long';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      icon: passwordicon,
-                      hinttext: "Password",
-                      textEditingController:
-                          controller.passwordController.value),
+                  ValueListenableBuilder(
+                    valueListenable: obscureText,
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      return TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 8) {
+                            return 'Password must be at least 8 characters long';
+                          }
+                          return null;
+                        },
+                        obscureText: obscureText.value,
+                        controller: controller.passwordController.value,
+                        cursorHeight: 15.h,
+                        style: poppins(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: textfieldgrey,
+                        ),
+                        decoration: InputDecoration(
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 10),
+                            child: SizedBox(
+                              height: 20,
+                              width: 30,
+                              child: Image.asset(
+                                passwordicon,
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              obscureText.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: textfieldgrey,
+                            ),
+                            onPressed: () {
+                              obscureText.value = !obscureText.value;
+                            },
+                          ),
+                          contentPadding: const EdgeInsets.only(
+                              left: 20, top: 15, bottom: 15),
+                          hintText: 'Password',
+                          filled: true,
+                          fillColor: const Color(0xffF0F0F0),
+                          hintStyle: poppins(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w400,
+                            color: textfieldgrey,
+                          ),
+                        ),
+                      ).box.rounded.clip(Clip.antiAlias).make();
+                    },
+                  ),
                   10.heightBox,
                 ],
               ),
             ),
-        
 
             Text(
               "Select",
@@ -232,13 +280,11 @@ class SignupView extends GetView<SignupController> {
                       controller.selectUserType.value != '' &&
                       controller.accepttermsandConditions.value != false &&
                       controller.selectUserType.value.isNotEmpty) {
-
                     StorageServices.to.setString(
                         key: selectedUserType,
                         value: controller.selectUserType.value);
-                        
-                    Get.toNamed(Routes.ON_BOARDING);
 
+                    Get.toNamed(Routes.ON_BOARDING);
                   } else if (controller.accepttermsandConditions.value ==
                       false) {
                     Utils.snakbar(

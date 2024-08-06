@@ -66,6 +66,7 @@ class AvailabilityScheduling {
         jsonDecode(jsonAvailablity).cast<Map<String, dynamic>>();
 
     try {
+      print('::: $dataList');
       EasyLoading.show(status: "Creating Schedule...");
       // Make POST request
       http.Response response = await http.post(Uri.parse(url),

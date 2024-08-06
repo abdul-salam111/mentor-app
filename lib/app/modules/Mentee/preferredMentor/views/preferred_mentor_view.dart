@@ -50,11 +50,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 padding: pad12,
                 child: Row(
                   children: [
-                    Image.asset(
-                      gender,
-                      height: 13,
-                      width: 13,
-                    ),
+                    Icon(Icons.person_outline_outlined),
                     10.widthBox,
                     Text(
                       "Gender",
@@ -66,8 +62,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w),
+              FittedBox(
                 child: Row(
                   children: [
                     Obx(
@@ -160,7 +155,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                             },
                           ),
                           Text(
-                            "Other",
+                            "No Preference",
                             style: GoogleFonts.poppins(
                               fontSize: 12.sp,
                             ),
@@ -190,6 +185,97 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                 ],
               ),
               20.heightBox,
+
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 4, right: 4),
+              //   child: Column(
+              //     crossAxisAlignment: crosstart,
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.only(left: 16),
+              //         child: Row(
+              //           mainAxisAlignment: mainbetween,
+              //           children: [
+              //             Obx(
+              //               () => Text(
+              //                 controller.selectedMentorshipstyle.value,
+              //                 style: manoropeFontFamily(
+              //                     fontSize: 10.sp,
+              //                     fontWeight: FontWeight.w400,
+              //                     color: blackcolor),
+              //               ),
+              //             ),
+              //             const Icon(Icons.expand_more),
+              //           ],
+              //         ).box.make().onTap(() {
+              //           controller.ismentorshipOpen.value =
+              //               !controller.ismentorshipOpen.value;
+              //         }),
+              //       ),
+              //       Obx(
+              //         () => controller.ismentorshipOpen.value
+              //             ? Column(
+              //                 children: [
+              //                   10.heightBox,
+              //                   Container(
+              //                     color: greyColor,
+              //                     height: 1,
+              //                   ),
+              //                 ],
+              //               )
+              //             : const SizedBox.shrink(),
+              //       ),
+              //       Obx(() => controller.ismentorshipOpen.value
+              //           ? GetBuilder<PreferredMentorController>(
+              //               builder: (contextsss) {
+              //               return SizedBox(
+              //                 height: 200.h,
+              //                 child: ListView.builder(
+              //                   itemCount: controller.mentorshipstyles.length,
+              //                   shrinkWrap: true,
+              //                   itemBuilder: (context, index) {
+              //                     final skill =
+              //                         controller.mentorshipstyles[index];
+              //                     // final isSelected =
+              //                     //     controller.selectedSkills.contains(skill);
+              //                     return Column(
+              //                       children: [
+              //                         ListTile(
+              //                           leading: Image.asset(controller.mentorshipImages[index],height: 30,width: 30,),
+              //                           title: Text(
+              //                             skill,
+              //                             style: manoropeFontFamily(
+              //                                 fontSize: 10.sp,
+              //                                 fontWeight: FontWeight.w400,
+              //                                 color: blackcolor),
+              //                           ),
+              //                         ),
+              //                         Container(
+              //                           color: greyColor,
+              //                           height: 1,
+              //                         ),
+              //                       ],
+              //                     ).onTap(() {
+              //                       controller.selectedMentorshipstyle.value =
+              //                           controller.mentorshipstyles[index];
+              //                       controller.ismentorshipOpen.value = false;
+              //                     });
+              //                   },
+              //                 ),
+              //               );
+              //             })
+              //           : const SizedBox.shrink())
+              //     ],
+              //   )
+              //       .box
+              //       .white
+              //       .padding(defaultpad)
+              //       .width(double.infinity)
+              //       .outerShadow
+              //       .roundedSM
+              //       .make(),
+              // ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 4, right: 4),
                 child: Column(
@@ -240,18 +326,44 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                                 itemBuilder: (context, index) {
                                   final skill =
                                       controller.mentorshipstyles[index];
-                                  // final isSelected =
-                                  //     controller.selectedSkills.contains(skill);
                                   return Column(
                                     children: [
                                       ListTile(
-                                        leading: Image.asset(controller.mentorshipImages[index],height: 30,width: 30,),
+                                        leading: Image.asset(
+                                          controller.mentorshipImages[index],
+                                          height: 30,
+                                          width: 30,
+                                        ),
                                         title: Text(
                                           skill,
                                           style: manoropeFontFamily(
                                               fontSize: 10.sp,
                                               fontWeight: FontWeight.w400,
                                               color: blackcolor),
+                                        ),
+                                        trailing: IconButton(
+                                          icon: Icon(Icons.info_outline,
+                                              color: textfieldgrey),
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: Text(skill),
+                                                content: Text(
+                                                    getMentorshipDescription(
+                                                        index)),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('Close'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                       Container(
@@ -279,6 +391,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                     .roundedSM
                     .make(),
               ),
+
               30.heightBox,
               Row(
                 children: [
@@ -430,7 +543,7 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
                           controller.selectedGender.value == '') {
                         Utils.snakbar(
                             title: "Select Gender",
-                            body: "Please select any gendre.");
+                            body: "Please select any gender.");
                       } else if (controller.selectedMentorshipstyle.value ==
                           "Select") {
                         Utils.snakbar(
@@ -457,5 +570,22 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
               ),
               20.heightBox,
             ])));
+  }
+
+  String getMentorshipDescription(int index) {
+    switch (index) {
+      case 0:
+        return "Traditional Mentorship:\nA classic one-on-one mentorship where the mentor provides guidance and advice based on their experience.";
+      case 1:
+        return "Situational Mentorship:\nTailors the mentorship approach based on specific situations or challenges faced by the mentee.";
+      case 2:
+        return "Peer Mentorship:\nInvolves mentoring between individuals at a similar career level, promoting mutual learning and support.";
+      case 3:
+        return "Entrepreneurial Mentorship:\nFocuses on guiding mentees interested in entrepreneurship and starting their own ventures.";
+      case 4:
+        return "Life-Stage Mentorship:\nAddresses challenges specific to various life stages, such as early career, mid-career, pre-retirement, and career transition mentorship.";
+      default:
+        return "No description available.";
+    }
   }
 }

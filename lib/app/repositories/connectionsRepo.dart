@@ -16,7 +16,6 @@ class ConnectionsRepository {
 
       // Check if the request was successful (status code 200)
       if (response.statusCode == 201) {
-        
         // Request successful, handle response data if needed
         var data = jsonDecode(response.body);
         // Request successful, handle response data if needed
@@ -42,10 +41,12 @@ class ConnectionsRepository {
 
   Future<bool> acceptConnectionRequest(recId) async {
     try {
+      EasyLoading.show();
       final response = await http.post(Uri.parse(
           "https://guided-by-culture-production.up.railway.app/api/connections/create?menteeId=$recId&mentorId=${StorageServices.to.getString(userId)}"));
 
       // Check if the request was successful (status code 200)
+      print('::: acceptConnectionRequest => ${response.body}');
       if (response.statusCode == 200) {
         getMentorRecievedConnectionRequest();
         Utils.snakbar(title: "Accepted", body: "Connection Accepted");
@@ -124,13 +125,13 @@ class ConnectionsRepository {
       }
     } catch (error) {
       // Request failed due to network issues or other errors
-      throw Exception();
+
+      print('::: ${error}');
     }
   }
 
   //get mentee send requests to mentors
   Future getMenteeSendRequests() async {
-
     String url =
         'https://guided-by-culture-production.up.railway.app/api/connection-request/get-mentee-connections/${StorageServices.to.getString(userId)}';
 
@@ -179,7 +180,6 @@ class ConnectionsRepository {
         getMentorsAcceptedConnections();
         Utils.snakbar(title: "Removed", body: "Connection Removed");
 
-
         return true;
       } else {
         throw Exception(response.body);
@@ -189,7 +189,7 @@ class ConnectionsRepository {
     }
   }
 
-   //delete mentee requests send to mentors and accepted for the mentee side
+  //delete mentee requests send to mentors and accepted for the mentee side
   Future<bool> deletedAcceptedRequestByMentorsSendByMentee(connectionId) async {
     try {
       // Make the POST request
@@ -197,8 +197,7 @@ class ConnectionsRepository {
           "https://guided-by-culture-production.up.railway.app/api/connections/remove?connectionId=$connectionId"));
 
       if (response.statusCode == 200) {
-     
-  getMentorsAcceptedConnections();
+        getMentorsAcceptedConnections();
         Utils.snakbar(title: "Removed", body: "Connection Removed");
         return true;
       } else {

@@ -13,11 +13,11 @@ class CareerGoalsController extends GetxController {
     'Personal Branding',
     'Confidence Building',
     'Job Search Support',
-    'Workplace Communication',
+    // 'Workplace Communication',
     'Diversity and Inclusion Awareness',
     'Financial Planning and Management',
     'Professional Certification Guidance',
-    'Workforce Adaptability Skills',
+    // 'Workforce Adaptability Skills',
   ];
   RxList<String> selectedGoalsList = <String>[].obs;
  

@@ -13,7 +13,8 @@ import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SigninView extends GetView<SigninController> {
-  const SigninView({Key? key}) : super(key: key);
+   SigninView({Key? key}) : super(key: key);
+ValueNotifier<bool> obscureText = ValueNotifier<bool>(true);
 
   @override
   Widget build(BuildContext context) {
@@ -93,50 +94,67 @@ class SigninView extends GetView<SigninController> {
                     ),
                   ).box.rounded.clip(Clip.antiAlias).make(),
                   20.heightBox,
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      if (value.length < 8) {
-                        return 'Password must be at least 8 characters long';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    controller: controller.passwordController.value,
-                    cursorHeight: 15.h,
-                    style: poppins(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: textfieldgrey),
-                    decoration: InputDecoration(
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      border: InputBorder.none,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 10),
-                        child: SizedBox(
-                          height: 20,
-                          width: 30,
-                          child: Image.asset(
-                            passwordicon,
-                            fit: BoxFit.scaleDown,
+                   ValueListenableBuilder(
+                    valueListenable: obscureText,
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      return TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 8) {
+                            return 'Password must be at least 8 characters long';
+                          }
+                          return null;
+                        },
+                        obscureText: obscureText.value,
+                        controller: controller.passwordController.value,
+                        cursorHeight: 15.h,
+                        style: poppins(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: textfieldgrey,
+                        ),
+                        decoration: InputDecoration(
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 10),
+                            child: SizedBox(
+                              height: 20,
+                              width: 30,
+                              child: Image.asset(
+                                passwordicon,
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              obscureText.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: textfieldgrey,
+                            ),
+                            onPressed: () {
+                              obscureText.value = !obscureText.value;
+                            },
+                          ),
+                          contentPadding: const EdgeInsets.only(
+                              left: 20, top: 15, bottom: 15),
+                          hintText: 'Password',
+                          filled: true,
+                          fillColor: const Color(0xffF0F0F0),
+                          hintStyle: poppins(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w400,
+                            color: textfieldgrey,
                           ),
                         ),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 20, top: 15, bottom: 15),
-                      hintText: "Password",
-                      filled: true,
-                      fillColor: const Color(0xffF0F0F0),
-                      hintStyle: poppins(
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.w400,
-                          color: textfieldgrey),
-                    ),
-                  ).box.rounded.clip(Clip.antiAlias).make(),
+                      ).box.rounded.clip(Clip.antiAlias).make();
+                    },
+                  ),
                 ],
               ),
             ),

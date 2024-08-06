@@ -32,8 +32,8 @@ class AvailbilityController extends GetxController {
 
   List<String> communitcationChannels = [
     'In App Messaging',
+    'Phone Call',
     'In App Video Calling',
-    'Phone Call'
   ];
   List<String> selectedChannles = <String>[].obs;
 
@@ -48,25 +48,19 @@ class AvailbilityController extends GetxController {
   ];
   final List<String> timezones = [
     " Eastern Time Zone (EST)",
-    "Central Time Zone (CST)"
-        "Mountain Time Zone (MST)",
+    "Central Time Zone (CST)",
+    "Mountain Time Zone (MST)",
     "Pacific Time Zone (PST)"
   ];
 
   var selectedTimeZone = "Select".obs;
+
   List<String> durations = [
     '30 minutes',
+    '45 minutes',
     '1 hour',
-    '1 hour 30 minutes',
+    '1.5 hour',
     '2 hours',
-    '2 hours 30 minutes',
-    '3 hours',
-    '3 hours 30 minutes',
-    '4 hours',
-    '4 hours 30 minutes',
-    '5 hours',
-    '5 hours 30 minutes',
-    '6 hours',
   ];
 
   var isLoading = false.obs;

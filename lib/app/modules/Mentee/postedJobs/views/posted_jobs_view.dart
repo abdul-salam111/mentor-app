@@ -28,11 +28,26 @@ class PostedJobsView extends StatefulWidget {
 
 class _PostedJobsViewState extends State<PostedJobsView> {
   final controller = Get.put(PostedJobsController());
+  bool sortAscending = true; // Variable to track the sorting order
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: whitecolor,
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  sortAscending = !sortAscending;
+                });
+              },
+              icon: Icon(
+                sortAscending ? Icons.arrow_upward : Icons.arrow_downward,
+                color: Colors.black,
+              ),
+            ),
+          ],
           surfaceTintColor: whitecolor,
           backgroundColor: whitecolor,
           leading: IconButton(
@@ -178,6 +193,16 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                       child: Text(snapshot.error.toString()),
                     );
                   }
+
+                    List<MentorJob>? questions =
+                    snapshot.data?.mentorJobs;
+                questions?.sort((a, b) {
+                  if (sortAscending) {
+                    return a.postDate!.compareTo(b.postDate!);
+                  } else {
+                    return b.postDate!.compareTo(a.postDate!);
+                  }
+                });
                   return Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,

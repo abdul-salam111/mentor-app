@@ -52,6 +52,9 @@ class MentorProfileView extends GetView<MentorProfileController> {
                   child: Text(snapshot.error.toString()),
                 );
               }
+              print(
+                  '::: mentor profile ${snapshot.data!.mentorshipStyle.toString()}');
+
               return Stack(
                 children: [
                   Padding(
@@ -72,6 +75,7 @@ class MentorProfileView extends GetView<MentorProfileController> {
                                 ),
                               ),
                               10.heightBox,
+
                               // Row(
                               //   mainAxisAlignment: maincenter,
                               //   children: [
@@ -125,6 +129,50 @@ class MentorProfileView extends GetView<MentorProfileController> {
                                   ],
                                 ),
                               ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        mentorshipStyle,
+                                        height: 15,
+                                        width: 15,
+                                        color: darkBrownColor,
+                                      ),
+                                      20.widthBox,
+                                      Text(
+                                        'Mentorship Style'
+                                            .toString(),
+                                        style: manoropeFontFamily(
+                                            fontSize: 11.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: darkBrownColor),
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
+                                  10.heightBox,
+                              SizedBox(
+                                child: Text(
+                                  snapshot.data!.mentorshipStyle.toString(),
+                                  style: manoropeFontFamily(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: textfieldgrey),
+                                ),
+                              )
+                                  .box
+                                  .white
+                                  .margin(
+                                      const EdgeInsets.symmetric(horizontal: 8))
+                                  .padding(defaultpad)
+                                  .border(color: greyColor.withOpacity(0.5))
+                                  .roundedSM
+                                  .make(),
+                                ],
+                              ),
+                              10.heightBox,
                               20.heightBox,
                               Row(
                                 children: [
@@ -260,7 +308,8 @@ class MentorProfileView extends GetView<MentorProfileController> {
                                         // });
                                       } else {
                                         controller
-                                            .sendConnectionRequest(snapshot.data!.id,
+                                            .sendConnectionRequest(
+                                                snapshot.data!.id,
                                                 snapshot.data!.fullName)
                                             .then((value) {
                                           controller.requestSent.value = value;

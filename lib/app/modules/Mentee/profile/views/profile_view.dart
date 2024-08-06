@@ -113,9 +113,9 @@ class ProfileView extends GetView<ProfileController> {
 
                   controller: controller.aboutMe.value,
                   style: manoropeFontFamily(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400,
-                          color: textfieldgrey),
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                      color: textfieldgrey),
                   decoration: InputDecoration(
                       hintText: 'Write...', // Your hint text
                       hintStyle: manoropeFontFamily(
@@ -125,7 +125,12 @@ class ProfileView extends GetView<ProfileController> {
                       contentPadding: const EdgeInsets.only(
                           top: 12.0, left: 12.0), // Padding from top and left
                       border: InputBorder.none),
-                ).box.color(const Color(0xffEFEFEF)).roundedSM.outerShadow.make(),
+                )
+                    .box
+                    .color(const Color(0xffEFEFEF))
+                    .roundedSM
+                    .outerShadow
+                    .make(),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
@@ -504,11 +509,11 @@ class ProfileView extends GetView<ProfileController> {
                 child: CustomButton(
                     buttonName: "Save Profile",
                     onPressed: () {
-                      if (controller.imageFile.value != null) {
+                      // if (controller.imageFile.value != null) {
                         controller.updateMentee();
-                      } else {
-                        Utils.snakbar(title: "", body: "Please select image");
-                      }
+                      // } else {
+                      //   Utils.snakbar(title: "", body: "Please select image");
+                      // }
                     },
                     textcolor: whitecolor,
                     loading: false,

@@ -125,11 +125,10 @@ class ProfileController extends GetxController {
   Future<void> updateMentee() async {
     try {
       EasyLoading.show(status: "Updating profile...");
-
       // Create the model
       UpdateMenteeProfile updatementee = UpdateMenteeProfile(
         fullName: nameController.value.text.isNotEmpty
-            ? nameController
+            ? nameController.value.text
             : getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .fullName,
         skills: selectedSkills.join(','),

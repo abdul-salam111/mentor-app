@@ -49,10 +49,7 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
             ? SafeArea(
                 child: Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: customSearchTextField(hinttext: "Search"),
-                    // ),
+              
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                       child: Row(
@@ -64,7 +61,7 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                               style: manoropeFontFamily(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: blackcolor),
+                                  color: darkBrownColor),
                             )
                                 .box
                                 .padding(const EdgeInsets.fromLTRB(8, 4, 8, 4))
@@ -72,7 +69,8 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                                 .border(color: greyColor)
                                 .rounded
                                 .color(controller.index.value == 0
-                                    ? greyColor
+                                    ? whitecolor
+                                    // ? greyColor
                                     : whitecolor)
                                 .make()
                                 .onTap(() {
@@ -94,8 +92,9 @@ class _MenteeConnectionsViewState extends State<MenteeConnectionsView> {
                                 .width(110)
                                 .border(color: greyColor)
                                 .rounded
-                                .color(controller.index.value == 1
-                                    ? greyColor
+                               .color(controller.index.value == 0
+                                    ? whitecolor
+                                    // ? greyColor
                                     : whitecolor)
                                 .make()
                                 .onTap(() {

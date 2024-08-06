@@ -28,20 +28,20 @@ class CongratulationsView extends GetView<CongratulationsController> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                      onPressed: () {
-                        Get.offAllNamed(Routes.SIGNIN);
-                      },
-                      child: Text(
-                        "Skip",
-                        style: manoropeFontFamily(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: blackcolor),
-                      )),
-                ),
+                // Align(
+                //   alignment: Alignment.topRight,
+                //   child: TextButton(
+                //       onPressed: () {
+                //         Get.offAllNamed(Routes.SIGNIN);
+                //       },
+                //       child: Text(
+                //         "Skip",
+                //         style: manoropeFontFamily(
+                //             fontSize: 14,
+                //             fontWeight: FontWeight.w500,
+                //             color: blackcolor),
+                //       )),
+                // ),
                 20.heightBox,
                 height > 772
                     ? Image.asset(

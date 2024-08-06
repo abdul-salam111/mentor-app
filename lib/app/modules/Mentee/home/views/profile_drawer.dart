@@ -9,7 +9,6 @@ import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/modules/Mentee/home/controllers/home_controller.dart';
 import 'package:mentor_app/app/modules/walletIntegeration/views/add_bank_accountNo.dart';
-import 'package:mentor_app/app/modules/walletIntegeration/views/add_bank_details.dart';
 import 'package:mentor_app/app/modules/walletIntegeration/views/get_earning_screen.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
@@ -83,21 +82,21 @@ class ProfileDrawer extends StatelessWidget {
                   )
                 ],
               ),
-              20.heightBox,
-              CustomButton(
-                  buttonName: "Edit Profile",
-                  onPressed: () {
-                    StorageServices.to.getString(selectedUserType) == "Mentee"
-                        ? Get.toNamed(Routes.PROFILE)
-                        : Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
-                  },
-                  textcolor: whitecolor,
-                  loading: false,
-                  backgroundColor: darkBrownColor,
-                  rounded: false,
-                  height: 30.h,
-                  textSize: 11.sp,
-                  width: 80),
+              // 20.heightBox,
+              // CustomButton(
+              //     buttonName: "Edit Profile",
+              //     onPressed: () {
+              //       StorageServices.to.getString(selectedUserType) == "Mentee"
+              //           ? Get.toNamed(Routes.PROFILE)
+              //           : Get.toNamed(Routes.MENTOR_PROFILE_INFORMATION);
+              //     },
+              //     textcolor: whitecolor,
+              //     loading: false,
+              //     backgroundColor: darkBrownColor,
+              //     rounded: false,
+              //     height: 30.h,
+              //     textSize: 11.sp,
+              //     width: 80),
               20.heightBox,
               GestureDetector(
                 onTap: () {
@@ -114,7 +113,7 @@ class ProfileDrawer extends StatelessWidget {
                     ),
                     10.widthBox,
                     Text(
-                      "Account",
+                      "Edit Profile",
                       style: manoropeFontFamily(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w500,
@@ -218,63 +217,46 @@ class ProfileDrawer extends StatelessWidget {
                   height: 0,
                 ),
               ),
-              StorageServices.to.getString(selectedUserType) == 'Mentee'
-                  ? Column(
+
+              Column(
+                children: [
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      if (StorageServices.to.getString(selectedUserType) ==
+                          'Mentee') {
+                        Get.toNamed(Routes.MENTEE_CONNECTIONS);
+                      } else {
+                        Get.toNamed(Routes.CONNECTIONS);
+                      }
+                    },
+                    child: Row(
                       children: [
-                        10.heightBox,
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.MENTEE_CONNECTIONS);
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                profileicon,
-                                height: 45.h,
-                                width: 45.w,
-                              ),
-                              10.widthBox,
-                              Text(
-                                "Connections",
-                                style: manoropeFontFamily(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: blackcolor),
-                              ),
-                            ],
-                          ),
+                        Image.asset(
+                          profileicon,
+                          height: 45.h,
+                          width: 45.w,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 15, right: 8),
-                          child: Divider(
-                            height: 0,
-                          ),
+                        10.widthBox,
+                        Text(
+                          "Connections",
+                          style: manoropeFontFamily(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w500,
+                              color: blackcolor),
                         ),
                       ],
-                    )
-                  : const SizedBox.shrink(),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Image.asset(
-                      privacypolicy,
-                      height: 25.h,
-                      width: 25.w,
                     ),
                   ),
-                  10.widthBox,
-                  Text(
-                    "Privacy Policy",
-                    style: manoropeFontFamily(
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w500,
-                        color: blackcolor),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15, right: 8),
+                    child: Divider(
+                      height: 0,
+                    ),
                   ),
                 ],
-              ).onTap(() {
-                Get.toNamed(Routes.PRIVACY_POLICY);
-              }),
+              ),
+
               const Padding(
                 padding: EdgeInsets.only(left: 15, right: 8),
                 child: Divider(
@@ -410,7 +392,7 @@ class ProfileDrawer extends StatelessWidget {
                     Text(
                       "Deactivate Account",
                       style: manoropeFontFamily(
-                          fontSize: 11.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: blackcolor),
                     ),
@@ -445,6 +427,36 @@ class ProfileDrawer extends StatelessWidget {
                 ],
               ).onTap(() {
                 Get.toNamed(Routes.APP_GUIDE);
+              }),
+              const Padding(
+                padding: EdgeInsets.only(left: 15, right: 8),
+                child: Divider(
+                  height: 0,
+                ),
+              ),
+              10.heightBox,
+
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Image.asset(
+                      privacypolicy,
+                      height: 25.h,
+                      width: 25.w,
+                    ),
+                  ),
+                  10.widthBox,
+                  Text(
+                    "Privacy Policy",
+                    style: manoropeFontFamily(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w500,
+                        color: blackcolor),
+                  ),
+                ],
+              ).onTap(() {
+                Get.toNamed(Routes.PRIVACY_POLICY);
               }),
               const Padding(
                 padding: EdgeInsets.only(left: 15, right: 8),

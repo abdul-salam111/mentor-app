@@ -262,7 +262,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Duration of mentor session",
+                    "Duration of Mentor Session",
                     style: manoropeFontFamily(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
@@ -406,7 +406,7 @@ class AvailbilityView extends GetView<AvailbilityController> {
                   ),
                   10.widthBox,
                   Text(
-                    "Put preferred communication channel first",
+                    "Preferred Communication Channel",
                     style: manoropeFontFamily(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,

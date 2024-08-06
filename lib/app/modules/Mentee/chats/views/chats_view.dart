@@ -35,11 +35,12 @@ class _ChatsViewState extends State<ChatsView> {
     Get.put(ChatsController());
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back)),
+          automaticallyImplyLeading: false,
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Get.back();
+          //     },
+          //     icon: const Icon(Icons.arrow_back)),
           title: Text(
             'All Messages',
             style: GoogleFonts.manrope(

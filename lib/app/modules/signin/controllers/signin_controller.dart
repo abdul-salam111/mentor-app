@@ -35,8 +35,12 @@ class SigninController extends GetxController {
   final firebaseauth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
   Future firebaseLoginuser(email, password) async {
-    await firebaseauth.signInWithEmailAndPassword(
-        email: email, password: passwordController.value.text);
+    try {
+      await firebaseauth.signInWithEmailAndPassword(
+          email: email, password: passwordController.value.text);
+    } catch (e) {
+      print('::: Failed to firebaseLoginuser');
+    }
   }
 
   MentorRepository mentorRepository = MentorRepository();
@@ -80,7 +84,7 @@ class SigninController extends GetxController {
 
         var mentordata = await mentorRepository.getmentorinformation(
             mentorEmail: nameController.value.text.toString());
-
+print(':::: login ka time pa ${mentordata}');
         firebaseLoginuser(nameController.value.text.toString(),
             passwordController.value.text.toString());
         print('::: 6');

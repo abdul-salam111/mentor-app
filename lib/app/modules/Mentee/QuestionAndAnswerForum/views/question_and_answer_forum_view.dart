@@ -31,6 +31,7 @@ class QuestionAndAnswerForumView extends StatefulWidget {
 class _QuestionAndAnswerForumViewState
     extends State<QuestionAndAnswerForumView> {
   final controller = Get.put(QuestionAndAnswerForumController());
+  bool sortAscending = true; // Variable to track the sorting order
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,17 @@ class _QuestionAndAnswerForumViewState
           ),
           centerTitle: false,
           actions: [
+            IconButton(
+            onPressed: () {
+              setState(() {
+                sortAscending = !sortAscending;
+              });
+            },
+            icon: Icon(
+              sortAscending ? Icons.arrow_upward : Icons.arrow_downward,
+              color: Colors.black,
+            ),
+          ),
             StorageServices.to.getString(selectedUserType) == "Mentee"
                 ? TextButton(
                     onPressed: () {
@@ -69,38 +81,7 @@ class _QuestionAndAnswerForumViewState
         ),
         body: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: StorageServices.to.getString(selectedUserType) == "Mentee"?
-            // Align(
-            //   alignment: Alignment.centerRight,
-            //   child: CustomButton(
-            //                 buttonName: "Create",
-            //                 onPressed: () {
-
-            //                 },
-            //                 textcolor: whitecolor,
-            //                 loading: false,
-            //                 backgroundColor: darkBrownColor,
-            //                 rounded: false,
-            //                 height: 45,
-            //                 textSize: 12.sp,
-            //                 width: width / 3.5),
-            // ):const SizedBox.shrink()
-            // ? Row(
-            //     mainAxisSize: MainAxisSize.min,
-            //     mainAxisAlignment: mainend,
-            //     children: [
-            //       // SizedBox(
-            //       //     width: width / 1.7, child: customSearchTextField()),
-            //       // 5.widthBox,
-
-            //     ],
-            //   )
-            // : customSearchTextField(),
-            // ),
-            // 15.heightBox,
-            Padding(
+           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
@@ -168,24 +149,7 @@ class _QuestionAndAnswerForumViewState
                                 .rounded
                                 .make(),
                       )),
-                  // SizedBox(
-                  //   height: 20.h,
-                  //   width: 210.w,
-                  //   child: ListView.builder(
-                  //       shrinkWrap: true,
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemCount: 1,
-                  //       itemBuilder: (context, index) {
-                  //         return SizedBox(
-                  //           child:
-                  //         ).box.border(color: greyColor).rounded.make();
-                  //       }),
-                  // // ),
-                  // Image.asset(
-                  //   filters,
-                  //   height: 20,
-                  //   width: 20,
-                  // )
+                
                 ],
               ),
             ),
@@ -213,6 +177,16 @@ class _QuestionAndAnswerForumViewState
                       ),
                     );
                   } else {
+                      // Sort the questions by date in descending order
+                List<MenteeQuestion> questions =
+                    snapshot.data!.menteeQuestion!;
+                questions.sort((a, b) {
+                  if (sortAscending) {
+                    return a.date!.compareTo(b.date!);
+                  } else {
+                    return b.date!.compareTo(a.date!);
+                  }
+                });
                     return Expanded(
                       child: ListView.builder(
                           physics: bouncingscroll,
@@ -243,13 +217,6 @@ class _QuestionAndAnswerForumViewState
                                                 color: const Color(0xff656466)),
                                           ),
                                           5.heightBox,
-                                          //  Text(
-                                          //   snapshot.data!.menteeQuestion![1].time!.toString(),
-                                          //   style: manoropeFontFamily(
-                                          //       fontSize: 10.sp,
-                                          //       fontWeight: FontWeight.w600,
-                                          //       color: const Color(0xff656466)),
-                                          // ),
                                         ],
                                       ),
                                     ),

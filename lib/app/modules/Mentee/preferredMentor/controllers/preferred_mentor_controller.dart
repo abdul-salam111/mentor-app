@@ -7,24 +7,24 @@ class PreferredMentorController extends GetxController {
   List<String> industries = [
     "Information Technology (IT)",
     "Healthcare",
-    "Finance and Banking",
+    "Finance Banking",
     "Marketing and Advertising",
-    "Education Development",
+    // "Education Development",
     "Entrepreneurship",
     "Engineering",
-    "Real Estate",
+    // "Real Estate",
     "Nonprofit and Social Services",
-    "Entertainment and Media",
-    "Legal Services",
-    "Consulting",
-    "Biotechnology and Pharmaceuticals",
-    "Environmental Services",
-    "Transportation and Logistics",
-    "Fashion and Apparel",
-    "Architecture and Design",
-    "Government and Public Administration",
-    "Human Resources",
-    "Insurance"
+    // "Entertainment and Media",
+    // "Legal Services",
+    // "Consulting",
+    // "Biotechnology and Pharmaceuticals",
+    // "Environmental Services",
+    // "Transportation and Logistics",
+    // "Fashion and Apparel",
+    // "Architecture and Design",
+    // "Government and Public Administration",
+    // "Human Resources",
+    // "Insurance"
   ];
 
   RxString selectedGender = ''.obs;

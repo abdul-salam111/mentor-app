@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,9 +8,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
+import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -46,8 +49,14 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                 width: 70,
                 color: greyColor,
                 child: Center(
-                  child: controller.imageFile.value == null
-                      ? Column(mainAxisAlignment: maincenter, children: [
+                  child:
+                  
+                   controller.imageFile.value == null
+                      ? 
+                      getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).profilePicUrl.isNotEmpty?
+                      CachedNetworkImage(imageUrl: getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).profilePicUrl)
+                      :
+                      Column(mainAxisAlignment: maincenter, children: [
                           const Icon(Icons.upload_file),
                           5.heightBox,
                           Text(
@@ -530,7 +539,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                   Container(
                     constraints: BoxConstraints(maxWidth: context.width/1.2),
                     child: Text(
-                      "Put preferred communication channel first",
+                      "Preferred Communication Channel",
                       style: manoropeFontFamily(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
