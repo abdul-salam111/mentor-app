@@ -27,11 +27,14 @@ class PostedJobsController extends GetxController {
     'Environmental',
     // Add more industries as needed
   ];
-  var isIndusryOpen=false.obs;
+  var isIndusryOpen = false.obs;
 
-
-  JobsRepository jobsRepository =JobsRepository();
-  Future<GetJobByIndustry> getJobByIndustry()async{
+  JobsRepository jobsRepository = JobsRepository();
+  Future<GetJobByIndustry> getJobByIndustry() async {
     return jobsRepository.getJobsByIndustry(industry: selectedIndustries.value);
+  }
+
+  Future<void> deleteJob(String id) async {
+    return jobsRepository.deleteJob(jobId: id);
   }
 }

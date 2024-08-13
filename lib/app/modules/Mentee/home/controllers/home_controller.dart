@@ -9,9 +9,9 @@ import 'package:mentor_app/app/storage/keys.dart';
 import 'package:mentor_app/app/storage/storage.dart';
 
 class HomeController extends GetxController {
-   var isIndusryOpen = false.obs;
+  var isIndusryOpen = false.obs;
   var selectedIndustries = "Information Technology (IT)".obs;
-   var isSkillsOpen = false.obs;
+  var isSkillsOpen = false.obs;
 
   List<String> computerScienceSkills = [
     'Leadership',
@@ -60,7 +60,6 @@ class HomeController extends GetxController {
     // Add more industries as needed
   ];
 
-
   MentorRepository mentorRepository = MentorRepository();
   Future<dynamic> searchMentors(
       {required String availablility,
@@ -68,6 +67,18 @@ class HomeController extends GetxController {
       required String search,
       required List skills}) async {
     return mentorRepository.searchMentors(
+        availablility: availablility,
+        industry: industry,
+        search: search,
+        skills: skills);
+  }
+
+  Future<dynamic> searchMentees(
+      {required String availablility,
+      required String industry,
+      required String search,
+      required List skills}) async {
+    return mentorRepository.searchMentees(
         availablility: availablility,
         industry: industry,
         search: search,
@@ -94,7 +105,7 @@ class HomeController extends GetxController {
     });
   }
 
-    MeetingRepository meetingRepository = MeetingRepository();
+  MeetingRepository meetingRepository = MeetingRepository();
   Future fetchMenteeScheduledMeetings() async {
     return await meetingRepository.fetchMenteesMeetings();
   }
@@ -106,6 +117,7 @@ class HomeController extends GetxController {
       meetingRepository.fetchMenteesMeetings();
     });
   }
+
   Future fetchMentorScheduledMeetings() async {
     return await meetingRepository.fetchMentorsMeetings();
   }

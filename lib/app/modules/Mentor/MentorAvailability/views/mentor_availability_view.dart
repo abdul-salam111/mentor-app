@@ -23,7 +23,6 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
   const MentorAvailabilityView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: AppBar(
           surfaceTintColor: whitecolor,
@@ -43,38 +42,70 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
             child: ListView(
           children: [
             10.heightBox,
-            Obx(
-              () => Container(
-                height: 70.h,
-                width: 70,
-                color: greyColor,
-                child: Center(
-                  child:
-                  
-                   controller.imageFile.value == null
-                      ? 
-                      getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).profilePicUrl.isNotEmpty?
-                      CachedNetworkImage(imageUrl: getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).profilePicUrl)
-                      :
-                      Column(mainAxisAlignment: maincenter, children: [
-                          const Icon(Icons.upload_file),
-                          5.heightBox,
-                          Text(
-                            "Upload",
-                            style: manoropeFontFamily(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400,
-                                color: blackcolor),
-                          )
-                        ])
-                      : Image(
-                          image: FileImage(
-                              File(controller.imageFile.value!.path))),
-                ),
-              ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {
-                controller.pickImage();
-              }),
-            ),
+            StorageServices.to.getbool('updateProfile') == true
+                ? Obx(
+                    () => Container(
+                      height: 70.h,
+                      width: 70,
+                      color: greyColor,
+                      child: Center(
+                        child: controller.imageFile.value == null
+                            ? getMentorInfoFromJson(StorageServices.to
+                                        .getString(getMentorInformationsss))
+                                    .profilePicUrl
+                                    .isNotEmpty
+                                ? CachedNetworkImage(
+                                    imageUrl: getMentorInfoFromJson(
+                                            StorageServices.to.getString(
+                                                getMentorInformationsss))
+                                        .profilePicUrl)
+                                : Column(
+                                    mainAxisAlignment: maincenter,
+                                    children: [
+                                        const Icon(Icons.upload_file),
+                                        5.heightBox,
+                                        Text(
+                                          "Upload",
+                                          style: manoropeFontFamily(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400,
+                                              color: blackcolor),
+                                        )
+                                      ])
+                            : Image(
+                                image: FileImage(
+                                    File(controller.imageFile.value!.path))),
+                      ),
+                    ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {
+                      controller.pickImage();
+                    }),
+                  )
+                : Obx(
+                    () => Container(
+                      height: 70.h,
+                      width: 70,
+                      color: greyColor,
+                      child: Center(
+                        child: controller.imageFile.value == null
+                            ? Column(mainAxisAlignment: maincenter, children: [
+                                const Icon(Icons.upload_file),
+                                5.heightBox,
+                                Text(
+                                  "Upload",
+                                  style: manoropeFontFamily(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      color: blackcolor),
+                                )
+                              ])
+                            : Image(
+                                image: FileImage(
+                                    File(controller.imageFile.value!.path))),
+                      ),
+                    ).box.roundedFull.clip(Clip.antiAlias).make().onTap(() {
+                      controller.pickImage();
+                    }),
+                  ),
             Padding(
               padding: pad12,
               child: Row(
@@ -233,8 +264,8 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                       ],
                     ),
                   ),
-                    20.widthBox,
-                   Obx(
+                  20.widthBox,
+                  Obx(
                     () => Row(
                       children: [
                         Checkbox(
@@ -537,7 +568,7 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                   ),
                   10.widthBox,
                   Container(
-                    constraints: BoxConstraints(maxWidth: context.width/1.2),
+                    constraints: BoxConstraints(maxWidth: context.width / 1.2),
                     child: Text(
                       "Preferred Communication Channel",
                       style: manoropeFontFamily(
@@ -760,12 +791,11 @@ class MentorAvailabilityView extends GetView<MentorAvailabilityController> {
                           ? "Update Profile"
                           : "Save Profile",
                   onPressed: () {
-                    if(StorageServices.to.getbool('updateProfile')==true){
+                    if (StorageServices.to.getbool('updateProfile') == true) {
                       controller.updateMentor();
+                    } else {
+                      controller.signupMentor();
                     }
-                 else{
-                     controller.signupMentor();
-                 }
                   },
                   textcolor: whitecolor,
                   loading: false,

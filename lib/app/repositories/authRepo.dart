@@ -19,6 +19,7 @@ class AuthRepository {
   //login and edit profile. logout user. change password.
 
   BaseApiServices networkApiService = NetworkApiService();
+  
   Future<dynamic> signInUser(dynamic data, userType) async {
     try {
       dynamic response = await networkApiService.getPostResponse(

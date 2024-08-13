@@ -644,88 +644,156 @@ class _ScheduleMeetingsViewState extends State<ScheduleMeetingsView> {
       },
     );
   }
+Widget _buildRow(TextEditingController startingTimeController,
+    TextEditingController endingTimeController, int index) {
+  if (index >= controller.daysOfWeek.length) {
+    return SizedBox(); // Return an empty widget or handle the case appropriately
+  }
 
-  Widget _buildRow(TextEditingController startingTimeController,
-      TextEditingController endingTimeController, int index) {
-    return Row(
-      children: [
-        Obx(
-          () => Checkbox(
-            value: controller.selectedAvailablityList
-                .any((item) => item['day'] == controller.daysOfWeek[index]),
-            onChanged: (val) {
-              final selectedDay = controller.daysOfWeek[index];
-              final existingItemIndex = controller.selectedAvailablityList
-                  .indexWhere((item) => item['day'] == selectedDay);
+  final selectedDay = controller.daysOfWeek[index];
 
-              if (startingTimeController.text.isEmpty ||
-                  endingTimeController.text.isEmpty) {
-                // Handle empty text fields if needed
+  return Row(
+    children: [
+      Obx(
+        () => Checkbox(
+          value: controller.selectedAvailablityList
+              .any((item) => item['day'] == selectedDay),
+          onChanged: (val) {
+            final existingItemIndex = controller.selectedAvailablityList
+                .indexWhere((item) => item['day'] == selectedDay);
+
+            if (startingTimeController.text.isEmpty ||
+                endingTimeController.text.isEmpty) {
+              // Handle empty text fields if needed
+            } else {
+              if (val!) {
+                // Checkbox is checked
+                if (existingItemIndex == -1) {
+                  // Add new item to the list
+                  controller.selectedAvailablityList.add({
+                    'day': selectedDay,
+                    'endTime': endingTimeController.text,
+                    'mentorId': StorageServices.to.getString(userId),
+                    'startTime': startingTimeController.text,
+                  });
+                }
               } else {
-                if (val!) {
-                  // Checkbox is checked
-                  if (existingItemIndex == -1) {
-                    // Add new item to the list
-                    controller.selectedAvailablityList.add({
-                      'day': selectedDay,
-                      'endTime': endingTimeController.text,
-                      'mentorId': StorageServices.to.getString(userId),
-                      'startTime': startingTimeController.text,
-                    });
-                  }
-                } else {
-                  // Checkbox is unchecked
-                  if (existingItemIndex != -1) {
-                    // Remove item from the list
-                    controller.selectedAvailablityList
-                        .removeAt(existingItemIndex);
-                  }
+                // Checkbox is unchecked
+                if (existingItemIndex != -1) {
+                  // Remove item from the list
+                  controller.selectedAvailablityList
+                      .removeAt(existingItemIndex);
                 }
               }
-            },
+            }
+          },
+        ),
+      ),
+      SizedBox(
+        width: 90.w,
+        child: Text(selectedDay),
+      ),
+      SizedBox(
+        width: 50,
+        child: TextField(
+          controller: startingTimeController,
+          keyboardType: TextInputType.datetime,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+            hintText: '1:00',
           ),
         ),
-        SizedBox(
-          width: 90.w,
-          child: Text(controller.daysOfWeek[index]),
-        ),
-        SizedBox(
-          width: 50,
-          child: TextField(
-            controller: startingTimeController,
-            keyboardType: TextInputType.datetime,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(0),
-              border: InputBorder.none,
-              hintText: '1:00',
-            ),
+      ),
+      const SizedBox(width: 20),
+      SizedBox(
+        width: 50,
+        child: TextField(
+          controller: endingTimeController,
+          keyboardType: TextInputType.datetime,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+            hintText: '12:00',
           ),
         ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: 50,
-          child: TextField(
-            controller: endingTimeController,
-            keyboardType: TextInputType.datetime,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(0),
-              border: InputBorder.none,
-              hintText: '12:00',
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
-  List<String> _getDaysOfWeek() {
-    var daysOfWeek = <String>[];
-    for (int i = DateTime.monday; i <= DateTime.sunday; i++) {
-      daysOfWeek
-          .add(DateFormat.E().format(DateTime(DateTime.now().year, 1, i)));
-    }
-    return daysOfWeek;
-  }
+  // Widget _buildRow(TextEditingController startingTimeController,
+  //     TextEditingController endingTimeController, int index) {
+  //   return Row(
+  //     children: [
+  //       Obx(
+  //         () => Checkbox(
+  //           value: controller.selectedAvailablityList
+  //               .any((item) => item['day'] == controller.daysOfWeek[index]),
+  //           onChanged: (val) {
+  //             final selectedDay = controller.daysOfWeek[index];
+  //             final existingItemIndex = controller.selectedAvailablityList
+  //                 .indexWhere((item) => item['day'] == selectedDay);
+
+  //             if (startingTimeController.text.isEmpty ||
+  //                 endingTimeController.text.isEmpty) {
+  //               // Handle empty text fields if needed
+  //             } else {
+  //               if (val!) {
+  //                 // Checkbox is checked
+  //                 if (existingItemIndex == -1) {
+  //                   // Add new item to the list
+  //                   controller.selectedAvailablityList.add({
+  //                     'day': selectedDay,
+  //                     'endTime': endingTimeController.text,
+  //                     'mentorId': StorageServices.to.getString(userId),
+  //                     'startTime': startingTimeController.text,
+  //                   });
+  //                 }
+  //               } else {
+  //                 // Checkbox is unchecked
+  //                 if (existingItemIndex != -1) {
+  //                   // Remove item from the list
+  //                   controller.selectedAvailablityList
+  //                       .removeAt(existingItemIndex);
+  //                 }
+  //               }
+  //             }
+  //           },
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         width: 90.w,
+  //         child: Text(controller.daysOfWeek[index]),
+  //       ),
+  //       SizedBox(
+  //         width: 50,
+  //         child: TextField(
+  //           controller: startingTimeController,
+  //           keyboardType: TextInputType.datetime,
+  //           decoration: const InputDecoration(
+  //             contentPadding: EdgeInsets.all(0),
+  //             border: InputBorder.none,
+  //             hintText: '1:00',
+  //           ),
+  //         ),
+  //       ),
+  //       const SizedBox(width: 20),
+  //       SizedBox(
+  //         width: 50,
+  //         child: TextField(
+  //           controller: endingTimeController,
+  //           keyboardType: TextInputType.datetime,
+  //           decoration: const InputDecoration(
+  //             contentPadding: EdgeInsets.all(0),
+  //             border: InputBorder.none,
+  //             hintText: '12:00',
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget buildMonthPicker(DateTime month) {
     int daysInMonth = DateTime(month.year, month.month + 1, 0).day;

@@ -8,6 +8,7 @@ import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
+import 'package:mentor_app/app/modules/connections/controllers/connections_controller.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
 import 'package:mentor_app/app/resources/icons.dart';
@@ -30,6 +31,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = Get.put(HomeController());
+  final connectionController = Get.put(ConnectionsController());
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -198,24 +201,6 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ).box.border(color: greyColor).rounded.make(),
                         ),
-                        // SizedBox(
-                        //   height: 20.h,
-                        //   width: 210.w,
-                        //   child: ListView.builder(
-                        //       shrinkWrap: true,
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: 1,
-                        //       itemBuilder: (context, index) {
-                        //         return SizedBox(
-                        //           child:
-                        //         ).box.border(color: greyColor).rounded.make();
-                        //       }),
-                        // // ),
-                        // Image.asset(
-                        //   filters,
-                        //   height: 20,
-                        //   width: 20,
-                        // )
                       ],
                     ),
                   )
@@ -227,7 +212,18 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   mainAxisAlignment: mainbetween,
                   children: [
-                    Container(
+                    FutureBuilder(
+                      future: connectionController.getMentorRecievedRequest(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.connectionState ==
+                                ConnectionState.waiting ||
+                            !snapshot.hasData ||
+                            snapshot.hasError ||
+                            snapshot.data!['connectionRequests'].length ==
+                                null ||
+                            snapshot.data!['connectionRequests'].length == 0) {
+                          return Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -242,14 +238,17 @@ class _HomeViewState extends State<HomeView> {
                               ),
                             ),
                             child: Column(
-                              mainAxisAlignment: maincenter,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  findMentors,
-                                  height: 25,
-                                  width: 25,
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      findMentors,
+                                      height: 25,
+                                      width: 25,
+                                    ),
+                                  ],
                                 ),
-                                10.heightBox,
                                 Text(
                                   StorageServices.to
                                               .getString(selectedUserType) !=
@@ -257,23 +256,109 @@ class _HomeViewState extends State<HomeView> {
                                       ? 'Find Mentors'
                                       : 'Mentee\nRequests',
                                   style: manoropeFontFamily(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: whitecolor),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: whitecolor,
+                                  ),
                                 ),
                               ],
-                            ))
-                        .box
-                        .height(90.w)
-                        .outerShadow
-                        .clip(Clip.antiAlias)
-                        .rounded
-                        .make()
-                        .onTap(() {
-                      StorageServices.to.getString(selectedUserType) == "Mentor"
-                          ? Get.toNamed(Routes.CONNECTIONS)
-                          : Get.toNamed(Routes.FINDING_BEST_MATCH);
-                    }),
+                            ),
+                          )
+                              .box
+                              .height(90.w)
+                              .outerShadow
+                              .clip(Clip.antiAlias)
+                              .rounded
+                              .make()
+                              .onTap(() {
+                            StorageServices.to.getString(selectedUserType) ==
+                                    "Mentor"
+                                ? Get.toNamed(Routes.CONNECTIONS)
+                                : Get.toNamed(Routes.FINDING_BEST_MATCH);
+                          });
+                        }
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.lerp(darkBrownColor,
+                                    const Color(0xffFF3300), 0.4)!,
+                                Color.lerp(const Color(0xffffffff),
+                                    const Color(0xffFF3300), 0.4)!,
+                              ],
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    findMentors,
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 28.0),
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          MediaQuery.of(context).size.width /
+                                              15,
+                                      minHeight:
+                                          MediaQuery.of(context).size.height /
+                                              45,
+                                    ),
+                                    child: Text(
+                                      snapshot
+                                          .data!['connectionRequests'].length
+                                          .toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                StorageServices.to
+                                            .getString(selectedUserType) !=
+                                        "Mentor"
+                                    ? 'Find Mentors'
+                                    : 'Mentee\nRequests',
+                                style: manoropeFontFamily(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: whitecolor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                            .box
+                            .height(90.w)
+                            .outerShadow
+                            .clip(Clip.antiAlias)
+                            .rounded
+                            .make()
+                            .onTap(() {
+                          StorageServices.to.getString(selectedUserType) ==
+                                  "Mentor"
+                              ? Get.toNamed(Routes.CONNECTIONS)
+                              : Get.toNamed(Routes.FINDING_BEST_MATCH);
+                        });
+                      },
+                    ),
                     Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
@@ -494,7 +579,33 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   )
-                : const SizedBox.shrink(),
+                : Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Row(
+                      mainAxisAlignment: mainbetween,
+                      children: [
+                        Text(
+                          'New Mentees',
+                          style: manoropeFontFamily(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: darkBrownColor),
+                        ),
+                        TextButton(
+                          child: Text(
+                            'See All',
+                            style: manoropeFontFamily(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: darkBrownColor),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.FIND_MENTORS);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
             StorageServices.to.getString(selectedUserType) == "Mentee"
                 ? FutureBuilder(
                     future: controller.searchMentors(
@@ -628,13 +739,161 @@ class _HomeViewState extends State<HomeView> {
                                   .roundedSM
                                   .make()
                                   .onTap(() {
-                                Get.toNamed(Routes.MENTOR_PROFILE,
-                                    arguments: snapshot.data![index]['email']);
+                                if (StorageServices.to
+                                        .getString(selectedUserType) ==
+                                    "Mentee") {
+                                  Get.toNamed(Routes.MENTOR_PROFILE,
+                                      arguments: snapshot.data![index]
+                                          ['email']);
+                                }
                               });
                             }),
                       );
                     })
-                : const SizedBox.shrink()
+                : FutureBuilder(
+                    future: controller.searchMentees(
+                        availablility: "Monday",
+                        skills: [],
+                        search: '',
+                        industry: controller.selectedIndustries.value),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const HomeScreenShimmerList();
+                      } else if (!snapshot.hasData) {
+                        return const Center(
+                          child: Text("Not found"),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      } else if (snapshot.data!.isEmpty) {
+                        return Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.FIND_MENTORS);
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/not found.jpg",
+                                  width: 300.w,
+                                  height: 200.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                Text(
+                                  "Couldn't found, search to find.",
+                                  style: manoropeFontFamily(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: blackcolor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 15, top: 12),
+                        child: GridView.builder(
+                            physics: neverscroll,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length > 10
+                                ? 10
+                                : snapshot.data!.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    mainAxisExtent: 115.h,
+                                    crossAxisCount: 2),
+                            itemBuilder: (context, index) {
+                              return Column(
+                                crossAxisAlignment: crosstart,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: mainbetween,
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(snapshot
+                                            .data![index]['profilePicUrl']),
+                                      )
+
+                                      // const Icon(
+                                      //   Icons.favorite,
+                                      //   color: greencolor,
+                                      // )
+                                    ],
+                                  ),
+                                  10.heightBox,
+                                  Text(
+                                    snapshot.data![index]['fullName'],
+                                    style: manoropeFontFamily(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                  5.heightBox,
+                                  Text(
+                                    snapshot.data![index]['mentorshipStyle'],
+                                    style: manoropeFontFamily(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: blackcolor),
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment: mainbetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       "Health",
+                                  //       style: manoropeFontFamily(
+                                  //           fontSize: 10,
+                                  //           fontWeight: FontWeight.w400,
+                                  //           color: textfieldgrey),
+                                  //     ),
+                                  //     Row(
+                                  //       children: [
+                                  //         Text(
+                                  //           "4.9",
+                                  //           style: manoropeFontFamily(
+                                  //               fontSize: 12.sp,
+                                  //               fontWeight: FontWeight.w500,
+                                  //               color: blackcolor),
+                                  //         ),
+                                  //         10.widthBox,
+                                  //         Icon(
+                                  //           Icons.star,
+                                  //           color: ratingcolor,
+                                  //           size: 17.sp,
+                                  //         )
+                                  //       ],
+                                  //     )
+                                  //   ],
+                                  // )
+                                ],
+                              )
+                                  .box
+                                  .height(110.h)
+                                  .padding(const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10))
+                                  .white
+                                  .outerShadow
+                                  .roundedSM
+                                  .make()
+                                  .onTap(() {
+                                if (StorageServices.to
+                                        .getString(selectedUserType) ==
+                                    "Mentee") {
+                                  Get.toNamed(Routes.MENTOR_PROFILE,
+                                      arguments: snapshot.data![index]
+                                          ['email']);
+                                }
+                              });
+                            }),
+                      );
+                    })
           ],
         ),
       ),

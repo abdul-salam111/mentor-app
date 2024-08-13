@@ -167,51 +167,53 @@ class ProfileView extends GetView<ProfileController> {
                   ],
                 ),
               ),
-              GridView.builder(
-                      physics: neverscroll,
-                      itemCount: controller.selectedSkills.length,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: 50.h,
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 6,
-                          crossAxisSpacing: 6),
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Image.asset(
-                              skills,
-                              width: 25,
-                              height: 25,
-                              fit: BoxFit.cover,
-                            ),
-                            5.widthBox,
-                            SizedBox(
-                              width: 100.w,
-                              child: Text(
-                                controller.selectedSkills[index]!,
-                                style: GoogleFonts.lato(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: const Color(0xff656466),
-                                ),
+              Obx(
+                () => GridView.builder(
+                        physics: neverscroll,
+                        itemCount: controller.selectedSkills.length,
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisExtent: 50.h,
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 6,
+                            crossAxisSpacing: 6),
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Image.asset(
+                                skills,
+                                width: 25,
+                                height: 25,
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          ],
-                        )
-                            .box
-                            .rounded
-                            .padding(const EdgeInsets.only(left: 5))
-                            .white
-                            .make();
-                      })
-                  .box
-                  .color(const Color(0xffEFEFEF))
-                  .rounded
-                  .clip(Clip.antiAlias)
-                  .margin(const EdgeInsets.only(left: 20, right: 20))
-                  .padding(pad16)
-                  .make(),
+                              5.widthBox,
+                              SizedBox(
+                                width: 100.w,
+                                child: Text(
+                                  controller.selectedSkills[index]!,
+                                  style: GoogleFonts.lato(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: const Color(0xff656466),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                              .box
+                              .rounded
+                              .padding(const EdgeInsets.only(left: 5))
+                              .white
+                              .make();
+                        })
+                    .box
+                    .color(const Color(0xffEFEFEF))
+                    .rounded
+                    .clip(Clip.antiAlias)
+                    .margin(const EdgeInsets.only(left: 20, right: 20))
+                    .padding(pad16)
+                    .make(),
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
                 child: Row(
@@ -510,7 +512,7 @@ class ProfileView extends GetView<ProfileController> {
                     buttonName: "Save Profile",
                     onPressed: () {
                       // if (controller.imageFile.value != null) {
-                        controller.updateMentee();
+                      controller.updateMentee();
                       // } else {
                       //   Utils.snakbar(title: "", body: "Please select image");
                       // }

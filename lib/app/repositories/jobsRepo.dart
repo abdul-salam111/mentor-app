@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 import 'package:mentor_app/app/storage/storage.dart';
 
 class JobsRepository {
-  
   Future<void> createJob({dynamic data}) async {
     // Endpoint URL
     String url =
@@ -31,7 +30,6 @@ class JobsRepository {
       if (response.statusCode == 200) {
         Utils.snakbar(title: "Uploaded", body: "Job uploaded successfully!");
         EasyLoading.dismiss();
-      
       } else {
         EasyLoading.dismiss();
         throw Exception();
@@ -51,7 +49,6 @@ class JobsRepository {
           headers: {
             "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
           });
-
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -74,6 +71,9 @@ class JobsRepository {
           headers: {
             "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
           });
+
+      print('::: res ${response.body}');
+      print('::: res ${response.statusCode}');
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return GetJobByIndustry.fromJson(data);
@@ -122,12 +122,10 @@ class JobsRepository {
   //delete job
   Future<void> deleteJob({required String jobId}) async {
     try {
-      final response = await http.get(
-          Uri.parse(
-              'https://guided-by-culture-production.up.railway.app//api/job/$jobId/delete'),
-          headers: {
-            "Authorization": "Bearer ${StorageServices.to.getString(usertoken)}"
-          });
+      final response = await http.delete(
+        Uri.parse(
+            'https://guided-by-culture-production.up.railway.app/api/job/$jobId/delete'),
+      );
 
       if (response.statusCode == 200) {
         Utils.snakbar(title: "Deleted!", body: "Job Deleted Successfully");
@@ -140,3 +138,4 @@ class JobsRepository {
     }
   }
 }
+

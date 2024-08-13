@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -407,6 +408,9 @@ class MentorEducationBackgroundView
           ),
           10.heightBox,
           TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly, // Allow only digits
+            ],
             keyboardType: TextInputType.phone,
             controller: controller.yearsOfExperience.value,
             decoration: InputDecoration(
@@ -445,6 +449,9 @@ class MentorEducationBackgroundView
           ),
           10.heightBox,
           TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly, // Allow only digits
+            ],
             keyboardType: TextInputType.phone,
             controller: controller.sessionHourlyRate.value,
             decoration: InputDecoration(

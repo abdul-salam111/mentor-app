@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:mentor_app/app/repositories/mentorRepo.dart';
 
-
 class FindMentorsController extends GetxController {
-    MentorRepository mentorRepository = MentorRepository();
+  MentorRepository mentorRepository = MentorRepository();
   Future<dynamic> searchMentors(
       {required String availablility,
       required String industry,
@@ -15,10 +14,23 @@ class FindMentorsController extends GetxController {
         search: search,
         skills: skills);
   }
-   var isIndusryOpen = false.obs;
+
+  Future<dynamic> searchMenetees(
+      {required String availablility,
+      required String industry,
+      required String search,
+      required List skills}) async {
+    return mentorRepository.searchMentees(
+        availablility: availablility,
+        industry: industry,
+        search: search,
+        skills: skills);
+  }
+
+  var isIndusryOpen = false.obs;
   var selectedIndustries = "Information Technology (IT)".obs;
-   var isSkillsOpen = false.obs;
-   var searchQuery=''.obs;
+  var isSkillsOpen = false.obs;
+  var searchQuery = ''.obs;
 
   List<String> computerScienceSkills = [
     'Leadership',
@@ -66,6 +78,4 @@ class FindMentorsController extends GetxController {
     'Environmental',
     // Add more industries as needed
   ];
-
-
 }

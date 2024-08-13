@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mentor_app/app/Utils/Utils.dart';
 import 'package:mentor_app/app/models/authModels/getMenteeInfo.dart';
 import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
@@ -13,10 +14,12 @@ class SplashscreenController extends GetxController {
     super.onInit();
     Future.delayed(const Duration(seconds: 2), () async {
       if (StorageServices.to.getString(usertoken).isNotEmpty) {
+        print(
+            '::: ZegoUIKitPrebuiltCallInvitationService().init ${StorageServices.to.getString(selectedUserType) == "Mentee" ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo)).email : getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).email}');
         ZegoUIKitPrebuiltCallInvitationService().init(
-          appID: 555496812 /*input your AppID*/,
-          appSign:
-              "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
+          appID: ZegoCloudConfig.appId,
+          appSign: ZegoCloudConfig.appSign,
+          // "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
           userID: StorageServices.to.getString(selectedUserType) == "Mentee"
               ? getMenteeInfoFromJson(
                       StorageServices.to.getString(getmenteeinfo))
@@ -30,9 +33,8 @@ class SplashscreenController extends GetxController {
           plugins: [ZegoUIKitSignalingPlugin()],
         );
         Get.offAllNamed(Routes.NAVIGATION_BAR);
-      } 
-      else{
-         Get.offAllNamed(Routes.SIGNIN);
+      } else {
+        Get.offAllNamed(Routes.SIGNIN);
       }
       // else if (StorageServices.to.getbool('getStartedSeen') == true) {
       //   Get.offAllNamed(Routes.SIGNIN);

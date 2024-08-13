@@ -244,17 +244,35 @@ class JobDetailsView extends GetView<JobDetailsController> {
                                         : CustomButton(
                                             buttonName: "Link to Apply",
                                             onPressed: () async {
-                                              final uri = Uri.parse(snapshot
-                                                  .data!.jobUrl
-                                                  .toString());
+                                              final url = snapshot.data!.jobUrl
+                                                  .toString();
+                                              print(
+                                                  'URL to launch: $url'); // Debugging line
+
+                                              final fixedUrl = url.startsWith(
+                                                          'http://') ||
+                                                      url.startsWith('https://')
+                                                  ? url
+                                                  : 'https://$url';
+
+                                              final uri =
+                                                  Uri.tryParse(fixedUrl);
+                                              if (uri == null) {
+                                                Utils.snakbar(
+                                                  title: "Error",
+                                                  body: "Invalid URL format",
+                                                );
+                                                return;
+                                              }
 
                                               if (await canLaunchUrl(uri)) {
                                                 await launchUrl(uri);
                                               } else {
                                                 Utils.snakbar(
-                                                    title: "Error",
-                                                    body:
-                                                        "Cannot launch the browswer");
+                                                  title: "Error",
+                                                  body:
+                                                      "Cannot launch the browser",
+                                                );
                                               }
                                             },
                                             textcolor: whitecolor,

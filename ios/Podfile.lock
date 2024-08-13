@@ -958,7 +958,7 @@ PODS:
     - Firebase/Firestore (= 10.25.0)
     - firebase_core
     - Flutter
-  - CryptoSwift (1.8.2)
+  - CryptoSwift (1.8.3)
   - device_info_plus (0.0.1):
     - Flutter
   - DKImagePickerController/Core (4.3.9):
@@ -1182,9 +1182,9 @@ PODS:
     - Flutter
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
-  - SDWebImage (5.19.4):
-    - SDWebImage/Core (= 5.19.4)
-  - SDWebImage/Core (5.19.4)
+  - SDWebImage (5.19.6):
+    - SDWebImage/Core (= 5.19.6)
+  - SDWebImage/Core (5.19.6)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -1239,7 +1239,7 @@ PODS:
     - Flutter
   - zego_callkit (1.0.0):
     - Flutter
-  - "zego_express_engine (3.15.1+2)":
+  - zego_express_engine (3.16.0):
     - Flutter
   - zego_uikit (0.0.1):
     - Flutter
@@ -1247,9 +1247,9 @@ PODS:
     - Flutter
   - zego_uikit_signaling_plugin (0.0.1):
     - Flutter
-  - zego_zim (2.16.0):
+  - zego_zim (2.17.0):
     - Flutter
-    - ZIM (= 2.16.0)
+    - ZIM (= 2.17.0)
   - zego_zim_audio (1.0.0):
     - Flutter
     - ZIMAudio (= 1.0.0)
@@ -1258,7 +1258,7 @@ PODS:
   - zego_zpns (2.6.0):
     - Flutter
     - ZPNs (= 2.6.0)
-  - ZIM (2.16.0)
+  - ZIM (2.17.0)
   - ZIMAudio (1.0.0)
   - ZIPFoundation (0.9.19)
   - ZPNs (2.6.0)
@@ -1405,7 +1405,7 @@ SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
   cloud_firestore: bf5f14c0a7d1e9f5f831015d9ae9f738e92065b4
-  CryptoSwift: c63a805d8bb5e5538e88af4e44bb537776af11ea
+  CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
@@ -1439,7 +1439,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SDWebImage: 066c47b573f408f18caa467d71deace7c0f8280d
+  SDWebImage: a79252b60f4678812d94316c91da69ec83089c9f
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   Stripe: 9fec845645e39f371e6898926d096fd9c2feb5a5
@@ -1457,15 +1457,15 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
   zego_callkit: 72593f46ed01779c4cee6bc65d2e0e1cde86b42c
-  zego_express_engine: 7ad6d778bbecece59c0dbf1abf6e150117f37da8
+  zego_express_engine: 670f55f30a6817812f37990ed5bc3227c03adc48
   zego_uikit: 596cd6edd0e5162a9a1d1f7fec5a79fa8899fb7b
   zego_uikit_prebuilt_call: 13173d7a3c6dcc1695cbdff15d19463acd1ca39c
   zego_uikit_signaling_plugin: 7fdfcd9f796b591c9cb8770609f4fa85178aa40e
-  zego_zim: b3fc958423218074c920c5e87252ed756afd7f4b
+  zego_zim: 666aabc25410fa7e3b0bd9d4e83ef1dc9d6043ea
   zego_zim_audio: 20d1d37b8f81e477ce9baa50c8d81276912bbce4
   zego_zimkit: 47949b311127859b9b8d0fd6919b37037ce22e80
   zego_zpns: 282d9f9926ea5dff87efbafae8cf33fdada41f4f
-  ZIM: 689608cfd428d0ad6d6784c0c42f8d0bf7c29bc0
+  ZIM: d9262b11fe75a39a00240b8820833f6a1e8e61c1
   ZIMAudio: ea64952184a6eb9c27d1daf21c3994a818834189
   ZIPFoundation: b8c29ea7ae353b309bc810586181fd073cb3312c
   ZPNs: 73bad0046a74e37315201053f9a0e7ac625d9436

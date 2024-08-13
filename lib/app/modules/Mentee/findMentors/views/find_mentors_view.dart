@@ -9,6 +9,8 @@ import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/resources/physics.dart';
+import 'package:mentor_app/app/storage/keys.dart';
+import 'package:mentor_app/app/storage/storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../resources/colors.dart';
 import '../../../../resources/icons.dart';
@@ -48,11 +50,22 @@ class _FindMentorsViewState extends State<FindMentorsView> {
               TextField(
                 onChanged: (val) {
                   controller.searchQuery.value = val;
-                  controller.searchMentors(
-                      availablility: 'Accept new mentees',
-                      industry: controller.selectedIndustries.value.toString(),
-                      search: val,
-                      skills: controller.selectedSkills);
+                  if (StorageServices.to.getString(selectedUserType) ==
+                      "Mentee") {
+                    controller.searchMentors(
+                        availablility: 'Accept new mentees',
+                        industry:
+                            controller.selectedIndustries.value.toString(),
+                        search: val,
+                        skills: controller.selectedSkills);
+                  } else {
+                    controller.searchMenetees(
+                        availablility: "Monday",
+                        skills: [],
+                        search: '',
+                        industry: controller.selectedIndustries.value);
+                  }
+
                   setState(() {});
                 },
                 style: manoropeFontFamily(
@@ -187,11 +200,18 @@ class _FindMentorsViewState extends State<FindMentorsView> {
               ),
               Obx(() => controller.searchQuery.value.isEmpty
                   ? FutureBuilder(
-                      future: controller.searchMentors(
-                          availablility: "Accept new mentees",
-                          skills: controller.selectedSkills,
-                          search: '',
-                          industry: controller.selectedIndustries.value),
+                      future: StorageServices.to.getString(selectedUserType) ==
+                              "Mentee"
+                          ? controller.searchMentors(
+                              availablility: "Accept new mentees",
+                              skills: controller.selectedSkills,
+                              search: '',
+                              industry: controller.selectedIndustries.value)
+                          : controller.searchMenetees(
+                              availablility: "Monday",
+                              skills: [],
+                              search: '',
+                              industry: controller.selectedIndustries.value),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -208,7 +228,11 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                           return Center(
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.FIND_MENTORS);
+                                if (StorageServices.to
+                                        .getString(selectedUserType) ==
+                                    "Mentee") {
+                                  Get.toNamed(Routes.FIND_MENTORS);
+                                }
                               },
                               child: Stack(
                                 alignment: Alignment.center,
@@ -286,35 +310,6 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                                           fontWeight: FontWeight.w500,
                                           color: blackcolor),
                                     ),
-                                    // Row(
-                                    //   mainAxisAlignment: mainbetween,
-                                    //   children: [
-                                    //     Text(
-                                    //       "Health",
-                                    //       style: manoropeFontFamily(
-                                    //           fontSize: 10,
-                                    //           fontWeight: FontWeight.w400,
-                                    //           color: textfieldgrey),
-                                    //     ),
-                                    //     Row(
-                                    //       children: [
-                                    //         Text(
-                                    //           "4.9",
-                                    //           style: manoropeFontFamily(
-                                    //               fontSize: 12.sp,
-                                    //               fontWeight: FontWeight.w500,
-                                    //               color: blackcolor),
-                                    //         ),
-                                    //         10.widthBox,
-                                    //         Icon(
-                                    //           Icons.star,
-                                    //           color: ratingcolor,
-                                    //           size: 17.sp,
-                                    //         )
-                                    //       ],
-                                    //     )
-                                    //   ],
-                                    // )
                                   ],
                                 )
                                     .box
@@ -327,19 +322,30 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                                     .roundedSM
                                     .make()
                                     .onTap(() {
-                                  Get.toNamed(Routes.MENTOR_PROFILE,
-                                      arguments: snapshot.data![index]
-                                          ['email']);
+                                  if (StorageServices.to
+                                          .getString(selectedUserType) ==
+                                      "Mentee") {
+                                    Get.toNamed(Routes.MENTOR_PROFILE,
+                                        arguments: snapshot.data![index]
+                                            ['email']);
+                                  }
                                 });
                               }),
                         );
                       })
                   : FutureBuilder(
-                      future: controller.searchMentors(
-                          availablility: "Accept new mentees",
-                          skills: controller.selectedSkills,
-                          search: controller.searchQuery.value,
-                          industry: controller.selectedIndustries.value),
+                      future: StorageServices.to.getString(selectedUserType) ==
+                              "Mentee"
+                          ? controller.searchMentors(
+                              availablility: "Accept new mentees",
+                              skills: controller.selectedSkills,
+                              search: controller.searchQuery.value,
+                              industry: controller.selectedIndustries.value)
+                          : controller.searchMenetees(
+                              availablility: "Monday",
+                              skills: controller.selectedSkills,
+                              search: controller.searchQuery.value,
+                              industry: controller.selectedIndustries.value),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -356,7 +362,11 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                           return Center(
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.FIND_MENTORS);
+                                if (StorageServices.to
+                                        .getString(selectedUserType) ==
+                                    "Mentee") {
+                                  Get.toNamed(Routes.FIND_MENTORS);
+                                }
                               },
                               child: Stack(
                                 alignment: Alignment.center,
@@ -458,9 +468,13 @@ class _FindMentorsViewState extends State<FindMentorsView> {
                                       .roundedSM
                                       .make()
                                       .onTap(() {
-                                    Get.toNamed(Routes.MENTOR_PROFILE,
-                                        arguments: snapshot.data![index]
-                                            ['email']);
+                                    if (StorageServices.to
+                                            .getString(selectedUserType) ==
+                                        "Mentee") {
+                                      Get.toNamed(Routes.MENTOR_PROFILE,
+                                          arguments: snapshot.data![index]
+                                              ['email']);
+                                    }
                                   });
                                 }),
                           ),

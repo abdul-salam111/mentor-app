@@ -173,6 +173,37 @@ class MentorRepository {
     }
   }
 
+  //search mentees
+  Future<dynamic> searchMentees(
+      {required String availablility,
+      required String industry,
+      required String search,
+      required List skills}) async {
+    var listOfMentors = [];
+    try {
+      final response = await http.get(
+        Uri.parse(
+            "https://guided-by-culture-production.up.railway.app/api/mentee/get-mentee?skills=$skills&availability=$availablility&industry=$industry&search=experienced"),
+        // 'https://guided-by-culture-production.up.railway.app/api/mentors/get-mentors?availability=$availablility&industry=$industry&search=$search&skills=$skills'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        for (var i in data) {
+          listOfMentors.add(i);
+        }
+        return listOfMentors;
+      } else {
+        throw Exception('Failed to load mentors');
+      }
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 //get other mentors profiles
   Future<GetMentorInfo> getOtherMentors({required String mentorEmail}) async {
     try {

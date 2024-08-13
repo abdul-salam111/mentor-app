@@ -8,9 +8,9 @@ import 'package:mentor_app/app/commonWidgets/elevatedButton.dart';
 import 'package:mentor_app/app/commonWidgets/manoropeFontFamily.dart';
 import 'package:mentor_app/app/commonWidgets/shimmerEffect.dart';
 import 'package:mentor_app/app/models/jobs/getJobByIndustry.dart';
+import 'package:mentor_app/app/models/mentor/getMentorInfor.dart';
 import 'package:mentor_app/app/resources/alignments.dart';
 import 'package:mentor_app/app/resources/colors.dart';
-import 'package:mentor_app/app/resources/icons.dart';
 import 'package:mentor_app/app/resources/paddings.dart';
 import 'package:mentor_app/app/routes/app_pages.dart';
 import 'package:mentor_app/app/storage/keys.dart';
@@ -56,7 +56,7 @@ class _PostedJobsViewState extends State<PostedJobsView> {
               },
               icon: const Icon(Icons.arrow_back)),
           title: Text(
-            'Jobs posted by mentors',
+            'Jobs posted by Mentors',
             style: GoogleFonts.manrope(
                 fontSize: 14.sp, fontWeight: FontWeight.w500),
           ),
@@ -157,24 +157,6 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                 .rounded
                                 .make(),
                       )),
-                  // SizedBox(
-                  //   height: 20.h,
-                  //   width: 210.w,
-                  //   child: ListView.builder(
-                  //       shrinkWrap: true,
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemCount: 1,
-                  //       itemBuilder: (context, index) {
-                  //         return SizedBox(
-                  //           child:
-                  //         ).box.border(color: greyColor).rounded.make();
-                  //       }),
-                  // // ),
-                  // Image.asset(
-                  //   filters,
-                  //   height: 20,
-                  //   width: 20,
-                  // )
                 ],
               ),
             ),
@@ -194,15 +176,14 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                     );
                   }
 
-                    List<MentorJob>? questions =
-                    snapshot.data?.mentorJobs;
-                questions?.sort((a, b) {
-                  if (sortAscending) {
-                    return a.postDate!.compareTo(b.postDate!);
-                  } else {
-                    return b.postDate!.compareTo(a.postDate!);
-                  }
-                });
+                  List<MentorJob>? questions = snapshot.data?.mentorJobs;
+                  questions?.sort((a, b) {
+                    if (sortAscending) {
+                      return a.postDate!.compareTo(b.postDate!);
+                    } else {
+                      return b.postDate!.compareTo(a.postDate!);
+                    }
+                  });
                   return Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -230,9 +211,11 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                       crossAxisAlignment: crosstart,
                                       children: [
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
-                                              width: 80.w,
+                                              width: 100.w,
                                               child: Text(
                                                 snapshot
                                                     .data!
@@ -247,11 +230,27 @@ class _PostedJobsViewState extends State<PostedJobsView> {
                                               ),
                                             ),
                                             130.widthBox,
-                                            Image.asset(
-                                              horizontalIcon,
-                                              width: 20,
-                                              height: 10,
-                                            )
+                                            snapshot.data!.mentorJobs![index]
+                                                        .mentor!.id ==
+                                                    getMentorInfoFromJson(
+                                                            StorageServices.to
+                                                                .getString(
+                                                                    getMentorInformationsss))
+                                                        .id
+                                                ? IconButton(
+                                                    onPressed: () {
+                                                      controller.deleteJob(
+                                                          snapshot
+                                                              .data!
+                                                              .mentorJobs![
+                                                                  index]
+                                                              .id
+                                                              .toString());
+                                                      setState(() {});
+                                                    },
+                                                    icon: const Icon(
+                                                        Icons.delete))
+                                                : const SizedBox.shrink()
                                           ],
                                         ),
                                         5.heightBox,

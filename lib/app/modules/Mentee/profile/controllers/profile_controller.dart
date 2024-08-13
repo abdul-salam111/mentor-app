@@ -124,7 +124,9 @@ class ProfileController extends GetxController {
   AuthRepository authRepository = AuthRepository();
   Future<void> updateMentee() async {
     try {
+      print('::: 1');
       EasyLoading.show(status: "Updating profile...");
+
       // Create the model
       UpdateMenteeProfile updatementee = UpdateMenteeProfile(
         fullName: nameController.value.text.isNotEmpty
@@ -145,7 +147,7 @@ class ProfileController extends GetxController {
         mentorshipStyle:
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .mentorshipStyle,
-        profilePicUrl: 'proifle pic',
+        profilePicUrl: imageFile.value != null ? 'profile pic' : '',
         gender:
             getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .gender,
@@ -159,50 +161,83 @@ class ProfileController extends GetxController {
                 .timeZone,
       );
 
+      print('::: 2');
+
       // Create a multipart request
       var request = http.MultipartRequest(
-          'PUT',
-          Uri.parse(
-              "https://guided-by-culture-production.up.railway.app/api/mentee/update/${StorageServices.to.getString(userId)}"));
+        'PUT',
 
-      var profilePicStream = http.ByteStream(imageFile.value!.openRead());
-      var profilePicLength = await imageFile.value!.length();
-      var profilePicMultipartFile = http.MultipartFile(
-        'profilePicUrl',
-        profilePicStream,
-        profilePicLength,
-        filename: imageFile.value!.path.split('/').last,
+        // Uri.parse("https://guided-by-culture-production.up.railway.app/api/mentee/update/1"),
+        Uri.parse(
+            "https://guided-by-culture-production.up.railway.app/api/mentee/update/${StorageServices.to.getString(userId)}"),
       );
-      request.files.add(profilePicMultipartFile);
+
+      print('::: 3');
+
+      // Add profile picture file to the request if selected
+      if (imageFile.value != null) {
+        print('::: 4');
+
+        var profilePicStream = http.ByteStream(imageFile.value!.openRead());
+        var profilePicLength = await imageFile.value!.length();
+        var profilePicMultipartFile = http.MultipartFile(
+          'profilePicUrl',
+          profilePicStream,
+          profilePicLength,
+          filename: imageFile.value!.path.split('/').last,
+        );
+        request.files.add(profilePicMultipartFile);
+        print('::: 5');
+      }
 
       // Add form fields from the model
       updatementee.toJson().forEach((key, value) {
-        request.fields[key] = value.toString();
+        print('::: 6');
+        if (value != null) {
+          request.fields[key] = value.toString();
+        }else{
+          print(';::: $key is $value');
+        }
       });
+
+      print('::: 7');
+      print('::: request fields: ${request.fields}');
+      print('::: request files: ${request.files}');
 
       // Send the request and await response
       var response = await request.send();
+      print('::: 8');
 
-      // Check response status code
+      // Handle the response
+      String responseBody = await response.stream.bytesToString();
+      print('::: response status code ${response.statusCode}');
+      print('::: response body $responseBody');
+      print('::: response request ${response.request}');
+
       if (response.statusCode == 200) {
-        String responseBody = await response.stream.bytesToString();
-
-        // Decode the JSON response body
         var responseData = jsonDecode(responseBody);
+
+        // Update Firebase user data
         updateUserInFirebase(updatementee.toJson());
 
+        // Fetch updated mentee data
         var data = await authRepository.getMenteeData(
-            email: getMenteeInfoFromJson(
-                    StorageServices.to.getString(getmenteeinfo))
-                .email);
-        imageFile.value = null;
-        Utils.snakbar(title: "Updated", body: "Profile Updated");
-        Get.offAllNamed(Routes.NAVIGATION_BAR);
-        EasyLoading.dismiss();
-        await StorageServices.to
-            .setString(key: getmenteeinfo, value: getMenteeInfoToJson(data));
+          email:
+              getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
+                  .email,
+        );
 
+        // Reset imageFile value and update storage
+        imageFile.value = null;
+        await StorageServices.to.setString(
+          key: getmenteeinfo,
+          value: getMenteeInfoToJson(data),
+        );
+
+        EasyLoading.dismiss();
+        Get.offAllNamed(Routes.NAVIGATION_BAR);
         StorageServices.to.remove('updateProfile');
+
         Utils.snakbar(
           title: "Account updated!",
           body: "Your account is updated successfully!",
@@ -211,16 +246,15 @@ class ProfileController extends GetxController {
         EasyLoading.dismiss();
         Utils.snakbar(
           title: "Failed!",
-          body: "Failed to create Account!",
+          body: "Failed to update Account!",
         );
       }
     } catch (e) {
+      EasyLoading.dismiss();
       Utils.snakbar(
         title: "Failed",
-        body: "Failed to create Account because! $e",
+        body: "Failed to update Account because: $e",
       );
-
-      EasyLoading.dismiss();
     }
   }
 

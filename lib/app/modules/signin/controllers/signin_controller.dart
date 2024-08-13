@@ -95,9 +95,10 @@ print(':::: login ka time pa ${mentordata}');
         print('::: 7');
       }
       ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: 555496812 /*input your AppID*/,
-        appSign:
-            "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
+        appID:ZegoCloudConfig.appId,
+        //  555496812 /*input your AppID*/,
+        appSign:ZegoCloudConfig.appSign,
+            // "fd93f89ac4205aa5b7ebbdb386693b6de38e8f153bb41cfcc283cad5565e86b0" /*input your AppSign*/,
         userID: StorageServices.to.getString(selectedUserType) == "Mentee"
             ? getMenteeInfoFromJson(StorageServices.to.getString(getmenteeinfo))
                 .email

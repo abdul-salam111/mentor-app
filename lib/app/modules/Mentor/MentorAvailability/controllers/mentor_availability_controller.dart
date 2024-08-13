@@ -192,7 +192,7 @@ class MentorAvailabilityController extends GetxController {
 
         StorageServices.to
             .setString(key: userId, value: responseData['id'].toString());
-            
+
         EasyLoading.dismiss();
       } else {
         EasyLoading.dismiss();
@@ -233,7 +233,107 @@ class MentorAvailabilityController extends GetxController {
   }
 
   MentorRepository mentorRepo = MentorRepository();
+
   Future<void> updateMentor() async {
+    try {
+      EasyLoading.show(status: "Updating profile...");
+
+      // Create the model
+      UpdateMentorRequestModel updatementor = UpdateMentorRequestModel(
+        fullName: eductioncontroller.nameController.value.text.toString(),
+        skills: skillController.selectedSkills.join(','),
+        goals: goalController.selectedGoalsList.join(','),
+        communicationChannels: communitcationChannels.join(','),
+        availableDays: availabilityList.join(','),
+        industry: eductioncontroller.selectedIndustries.value,
+        mentorshipStyle: eductioncontroller.selectedMentorshipstyle.value,
+        gender: selectedGender.value,
+        sessionDuration: selectedDuration.value,
+        about: eductioncontroller.aboutMe.value.text.toString(),
+        profilePicUrl:
+            imageFile.value != null ? 'proifle pic' : null, // Conditionally handle this
+        profBackDescription:
+            eductioncontroller.professionalBg.value.text.toString(),
+        availabilityStatus: selectedStatus.value,
+        yearOfExperience:
+            int.parse(eductioncontroller.yearsOfExperience.value.text),
+        timeZone: selectedTimeZone.value,
+      );
+
+      // Create a multipart request
+      var request = http.MultipartRequest(
+          'PUT',
+          Uri.parse(
+              "https://guided-by-culture-production.up.railway.app/api/mentors/${getMentorInfoFromJson(StorageServices.to.getString(getMentorInformationsss)).id}"));
+
+      // Add profile picture file to the request if selected
+      if (imageFile.value != null) {
+        var profilePicStream = http.ByteStream(imageFile.value!.openRead());
+        var profilePicLength = await imageFile.value!.length();
+        var profilePicMultipartFile = http.MultipartFile(
+          'profilePicUrl',
+          profilePicStream,
+          profilePicLength,
+          filename: imageFile.value!.path.split('/').last,
+        );
+        request.files.add(profilePicMultipartFile);
+      }
+
+      // Add form fields from the model
+      updatementor.toJson().forEach((key, value) {
+        if (value != null) {
+          // Check for null values to avoid sending them
+          request.fields[key] = value.toString();
+        }
+      });
+
+      // Send the request and await response
+      var response = await request.send();
+      String responseBody = await response.stream.bytesToString();
+
+      // Debug prints
+      print('::: response statuscode ${response.request}');
+      print('::: response $responseBody');
+      print('::: response request ${response.request}');
+
+      // Check response status code
+      if (response.statusCode == 200) {
+        // Decode the JSON response body
+        var responseData = jsonDecode(responseBody);
+        updateUserInFirebase(updatementor.toJson());
+        var mentordata = await mentorRepository.getmentorinformation(
+            mentorEmail: getMentorInfoFromJson(
+                    StorageServices.to.getString(getMentorInformationsss))
+                .email);
+
+        await StorageServices.to.setString(
+            key: getMentorInformationsss,
+            value: getMentorInfoToJson(mentordata));
+        EasyLoading.dismiss();
+
+        Get.offAllNamed(Routes.NAVIGATION_BAR);
+        StorageServices.to.remove('updateProfile');
+        Utils.snakbar(
+          title: "Account updated!",
+          body: "Your account is updated successfully!",
+        );
+      } else {
+        EasyLoading.dismiss();
+        Utils.snakbar(
+          title: "Failed!",
+          body: "Failed to update Account!",
+        );
+      }
+    } catch (e) {
+      Utils.snakbar(
+        title: "Failed",
+        body: "Failed to update Account because! $e",
+      );
+      EasyLoading.dismiss();
+    }
+  }
+
+  Future<void> updateMentorOld() async {
     try {
       EasyLoading.show(status: "Updating profile...");
 
@@ -286,8 +386,8 @@ class MentorAvailabilityController extends GetxController {
       // Send the request and await response
       var response = await request.send();
       String responseBody = await response.stream.bytesToString();
-print('::: response ${response.stream.bytesToString()}');
-print('::: response request ${response.request}');
+      print('::: response ${response.stream.bytesToString()}');
+      print('::: response request ${response.request}');
       // Check response status code
       if (response.statusCode == 200) {
         // Decode the JSON response body

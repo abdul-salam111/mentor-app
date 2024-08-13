@@ -575,15 +575,15 @@ class PreferredMentorView extends GetView<PreferredMentorController> {
   String getMentorshipDescription(int index) {
     switch (index) {
       case 0:
-        return "Traditional Mentorship:\nA classic one-on-one mentorship where the mentor provides guidance and advice based on their experience.";
+        return "A classic one-on-one mentorship where the mentor provides guidance and advice based on their experience.";
       case 1:
-        return "Situational Mentorship:\nTailors the mentorship approach based on specific situations or challenges faced by the mentee.";
+        return "Tailors the mentorship approach based on specific situations or challenges faced by the mentee.";
       case 2:
-        return "Peer Mentorship:\nInvolves mentoring between individuals at a similar career level, promoting mutual learning and support.";
+        return "Involves mentoring between individuals at a similar career level, promoting mutual learning and support.";
       case 3:
-        return "Entrepreneurial Mentorship:\nFocuses on guiding mentees interested in entrepreneurship and starting their own ventures.";
+        return "Focuses on guiding mentees interested in entrepreneurship and starting their own ventures.";
       case 4:
-        return "Life-Stage Mentorship:\nAddresses challenges specific to various life stages, such as early career, mid-career, pre-retirement, and career transition mentorship.";
+        return "Addresses challenges specific to various life stages, such as early career, mid-career, pre-retirement, and career transition mentorship.";
       default:
         return "No description available.";
     }
